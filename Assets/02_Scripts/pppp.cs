@@ -5,6 +5,7 @@ using UnityEngine;
 public class pppp : MonoBehaviour
 {
     public float maxSpeed;
+    public float jumpPower;
 
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
@@ -32,7 +33,11 @@ public class pppp : MonoBehaviour
             rigid.velocity = new Vector2(0, rigid.velocity.y);
         }
 
-        
+        //Jump
+        if (Input.GetButtonDown("Jump"))
+        {
+            rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+        }
     }
 
     void FixedUpdate()
