@@ -9,12 +9,15 @@ public class pppp : MonoBehaviour
 
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
+    Animator anim;
 
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
+
 
     }
     // Update is called once per frame
@@ -37,6 +40,17 @@ public class pppp : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+        }
+        
+        //Dash
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            anim.SetBool("Dash", true);
+        }
+        else
+        {
+            anim.SetBool("Dash", false);
+
         }
     }
 
