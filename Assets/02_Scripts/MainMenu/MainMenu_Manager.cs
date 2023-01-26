@@ -14,14 +14,23 @@ public class MainMenu_Manager : MonoBehaviour
     public Dropdown resolutionDropdown;
     public int resolutionNum;
 
-    void Start()
+    private void Start()
     {
         Resolution();
     }
 
     void Resolution() //해상도 설정
     {
-        for(int i = 0; i < Screen.resolutions.Length; i++)
+        if (screenMode == FullScreenMode.FullScreenWindow)  //전체화면일 경우  토글 체크용
+        {
+            fullscreenBtn.isOn = true;
+        }
+        else
+        {
+            fullscreenBtn.isOn = false;
+        }
+
+        for (int i = 0; i < Screen.resolutions.Length; i++)
         {
              resolutions.Add(Screen.resolutions[i]);
         }
@@ -42,6 +51,7 @@ public class MainMenu_Manager : MonoBehaviour
             optionNum++;
         }
     }
+
     public void FullScreenBtn(bool isFull) //전체화면 토글 
     {
         screenMode = isFull ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
@@ -54,21 +64,28 @@ public class MainMenu_Manager : MonoBehaviour
 
     public void GameBtnClick() //Game버튼 클릭시
     {
-        SceneManager.LoadScene("Loading_Scene"); 
+        SceneManager.LoadScene("Loading_Scene"); //로딩씬으로 넘김
     }
 
-    public void OptionBtnClick() //Option버튼 클릭시와 Apply버튼 클릭시 
+    public void OptionBtnClick() //Option버튼 클릭시와 Back버튼 클릭시 
     {
         if (optionpanel.activeSelf == true) //옵션패널이 켜져있다면 끄고 꺼져있다면 킨다.
         {
-            Screen.SetResolution(resolutions[resolutionNum].width, resolutions[resolutionNum].height, screenMode); //변경된 옵션을 설정한다.
             optionpanel.SetActive(false); //옵션창 종료
         }
         else
         {
+            Resolution(); //해상도 새로고침
             optionpanel.SetActive(true);
         }
     }
+
+    public void OptionApplyBtnClick() //옵션창의 Apply버튼 클릭시
+    {
+        Screen.SetResolution(resolutions[resolutionNum].width, resolutions[resolutionNum].height, screenMode); //변경된 옵션을 설정한다.
+        optionpanel.SetActive(false);
+    }
+
 
     public void exitBtnClick() // exit버튼 클릭시 게임 종료 처리
     {
