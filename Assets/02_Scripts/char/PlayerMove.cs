@@ -13,7 +13,7 @@ public class PlayerMove : MonoBehaviour
     private float jumpSpeed = 5.0f;
 
     Rigidbody2D rigid;
-    /*Animator animator;
+    Animator animator;
     string animationState = "animationState";
 
     enum States
@@ -25,18 +25,18 @@ public class PlayerMove : MonoBehaviour
         attack = 5,
         croush = 6,
         heavyattack = 7
-    }*/
+    }
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
-        /*animator = GetComponent<Animator>();*/
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         Move();
-        /*anim();*/
+        anim();
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
@@ -67,8 +67,9 @@ public class PlayerMove : MonoBehaviour
         transform.position += movePosition * moveSpeed * Time.deltaTime;
     }
 
-    /*void anim()
+    void anim()
     {
+        /*
         if (rigid.velocity.y > 0)
         {
             animator.SetInteger(animationState, (int)States.jump);
@@ -77,10 +78,12 @@ public class PlayerMove : MonoBehaviour
         {
             animator.SetInteger(animationState, (int)States.fall);
         }
-        else if (Input.GetAxisRaw("Horizontal") != 0)
+        */
+        if (Input.GetAxisRaw("Horizontal") != 0)
         {
             animator.SetInteger(animationState, (int)States.move);
         }
+        /*
         else if (Input.GetMouseButton(0) && Input.GetKey(KeyCode.LeftShift))
         {
             animator.SetInteger(animationState, (int)States.heavyattack);
@@ -93,10 +96,12 @@ public class PlayerMove : MonoBehaviour
         {
             animator.SetInteger(animationState, (int)States.croush);
         }
+        */
         else if (rigid.velocity.x == 0 && rigid.velocity.y == 0)
         {
             animator.SetInteger(animationState, (int)States.idle);
         }
+        
     }
-    */
+    
 }

@@ -253,6 +253,7 @@ GameObject:
   - component: {fileID: 890840376}
   - component: {fileID: 890840375}
   - component: {fileID: 890840377}
+  - component: {fileID: 890840378}
   m_Layer: 0
   m_Name: TestPlayer
   m_TagString: Enemy
@@ -270,7 +271,7 @@ Animator:
   m_GameObject: {fileID: 890840371}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0ad3777edee4cb94f85680eb8b4b78e8, type: 2}
+  m_Controller: {fileID: 9100000, guid: 601baeb3835288f4e84f5e368cdc1d97, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -397,6 +398,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hp: 5
+--- !u!114 &890840378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890840371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab4b837ce6cec274792b2364b3f572ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextMove: 1
 --- !u!1 &1170878082
 GameObject:
   m_ObjectHideFlags: 0
@@ -798,7 +812,7 @@ GameObject:
   - component: {fileID: 1492852032}
   - component: {fileID: 1492852031}
   - component: {fileID: 1492852030}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
