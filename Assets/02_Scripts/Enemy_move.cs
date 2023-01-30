@@ -29,28 +29,12 @@ public class Enemy_move : MonoBehaviour
     void Update()
     {
         anim();
+        move();
     }
-    void FixedUpdate()
-    {
-        rigid.velocity = new Vector2(nextMove, rigid.velocity.y);
 
-
-        Vector2 frontVec = new Vector2(rigid.position.x + nextMove * 0.8f, rigid.position.y-0.5f);
-        Debug.DrawRay(frontVec, Vector3.down, new Color(0, 1, 0));
-        RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Platform"));
-
-
-        if (rayHit.collider == null)
-        {
-
-            Turn();
-
-        }
-    }
 
     void Think()
     {
-
         nextMove = Random.Range(-1, 2);
         if (nextMove != 0)
         {
@@ -58,10 +42,6 @@ public class Enemy_move : MonoBehaviour
         }
         float nextThinkTime = Random.Range(2f, 5f);
         Invoke("Think", nextThinkTime);
-
-
-
-
     }
 
     void Turn()
@@ -74,6 +54,18 @@ public class Enemy_move : MonoBehaviour
         Invoke("Think", 2);
     }
 
+    void move()
+    {
+        rigid.velocity = new Vector2(nextMove, rigid.velocity.y);
+        Vector2 frontVec = new Vector2(rigid.position.x + nextMove * 0.8f, rigid.position.y - 0.5f);
+        Debug.DrawRay(frontVec, Vector3.down, new Color(0, 1, 0));
+        RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Platform"));
+        if (rayHit.collider == null)
+        {
+            Turn();
+        }
+    }
+
     void anim()
     {
         if (rigid.velocity.x < 0 && rigid.velocity.y == 0)
@@ -83,6 +75,7 @@ public class Enemy_move : MonoBehaviour
         }
         else if (rigid.velocity.x > 0 && rigid.velocity.y == 0)
         {
+            animator.SetInteger(animationState, (int)States.move);
             GetComponent<SpriteRenderer>().flipX = false;
         }
         else if (rigid.velocity.x == 0 && rigid.velocity.y == 0)

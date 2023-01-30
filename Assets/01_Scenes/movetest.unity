@@ -164,7 +164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 733070752}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,7 +203,7 @@ GameObject:
   - component: {fileID: 1282822053}
   - component: {fileID: 1282822055}
   - component: {fileID: 1282822054}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 1376907535}
   - component: {fileID: 1376907537}
   - component: {fileID: 1376907536}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -464,6 +464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   jumpSpeed: 5
+  jump: 1
 --- !u!50 &1593543982
 Rigidbody2D:
   serializedVersion: 4
@@ -594,7 +595,7 @@ GameObject:
   - component: {fileID: 1637371140}
   - component: {fileID: 1637371142}
   - component: {fileID: 1637371141}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -789,7 +790,7 @@ GameObject:
   - component: {fileID: 1900170779}
   - component: {fileID: 1900170781}
   - component: {fileID: 1900170780}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -900,7 +901,7 @@ GameObject:
   - component: {fileID: 1975059985}
   - component: {fileID: 1975059987}
   - component: {fileID: 1975059986}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1011,7 +1012,7 @@ GameObject:
   - component: {fileID: 2007584602}
   - component: {fileID: 2007584604}
   - component: {fileID: 2007584603}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

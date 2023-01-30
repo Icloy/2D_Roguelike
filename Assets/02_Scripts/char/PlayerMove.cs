@@ -11,7 +11,11 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     [Range(1f, 10f)]
     private float jumpSpeed = 5.0f;
+    [SerializeField]
+    [Range(0, 5)]
+    public int jump = 1;
 
+    private int jumpcount;
     Rigidbody2D rigid;
     Animator animator;
     string animationState = "animationState";
@@ -30,6 +34,7 @@ public class PlayerMove : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        jumpcount = jump;
     }
 
     // Update is called once per frame
@@ -39,13 +44,25 @@ public class PlayerMove : MonoBehaviour
         anim();
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+            if (jumpcount > 0)
+            {
+                jumpcount--;
+                rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+            }
         }
+        Debug.DrawRay(rigid.position, Vector3.down, new Color(0, 0, 0));
     }
 
     void FixedUpdate()
     {
-        
+        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));
+        if (rayHit.collider!=null)
+        {
+            if(rayHit.distance < 0.5f)
+            {
+                jumpcount=jump;
+            }
+        }
     }
 
     void Move()

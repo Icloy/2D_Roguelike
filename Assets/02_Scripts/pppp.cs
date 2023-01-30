@@ -7,6 +7,9 @@ public class pppp : MonoBehaviour
     public float maxSpeed;
     public float jumpPower;
 
+    public int jumpcount = 1;
+    private int jump;
+
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     Animator anim;
@@ -36,7 +39,7 @@ public class pppp : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
-
+        jump = jumpcount;
     }
     // Update is called once per frame
     void Update()
@@ -55,9 +58,13 @@ public class pppp : MonoBehaviour
         }
 
         //Jump
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            if (jump > 0)
+            {
+                jump--;
+                rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            }
         }
 
         //Dash
@@ -71,9 +78,9 @@ public class pppp : MonoBehaviour
 
         }
         */
-        
+
         //Attack
-        if(curTime <= 0)
+        if (curTime <= 0)
         {
             if (Input.GetKey(KeyCode.Mouse0))
             {
@@ -132,6 +139,15 @@ public class pppp : MonoBehaviour
             rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y);
         else if (rigid.velocity.x < maxSpeed * (-1)) //Left Max Speed
             rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y);
+
+        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));
+        if (rayHit.collider != null)
+        {
+            if (rayHit.distance < 0.5f)
+            {
+                jump = jumpcount;
+            }
+        }
 
     }
 
