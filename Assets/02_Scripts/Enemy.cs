@@ -13,7 +13,10 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Hp == 0 && Hp <0)
+        {
+            Destroy(this);
+        }
     }
 
     public int Hp = 5;
@@ -22,4 +25,6 @@ public class Enemy : MonoBehaviour
     {
         Hp = Hp - damage;
     }
+
+    
 }

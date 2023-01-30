@@ -7,7 +7,7 @@ public class pppp : MonoBehaviour
     public float maxSpeed;
     public float jumpPower;
 
-    public int jumpcount = 1;
+    public float jumpCount;
     private int jump;
 
     Rigidbody2D rigid;
@@ -39,7 +39,7 @@ public class pppp : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
-        jump = jumpcount;
+        
     }
     // Update is called once per frame
     void Update()
@@ -58,14 +58,21 @@ public class pppp : MonoBehaviour
         }
 
         //Jump
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Jump") && jumpCount < 2)
         {
-            if (jump > 0)
-            {
-                jump--;
-                rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-            }
+            rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            jumpCount++;
         }
+
+
+        //Stop Speed
+        if (Input.GetButtonUp("Horizontal"))
+        {
+            rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.5f, rigid.velocity.y);
+        }
+
+        if (Input.GetButton("Horizontal"))
+            spriteRenderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
 
         //Dash
         /*if (Input.GetKeyDown(KeyCode.Space))
@@ -107,6 +114,7 @@ public class pppp : MonoBehaviour
                 {
                     if(collider.tag == "Enemy")
                     {
+                        Debug.Log("Hit");
                         collider.GetComponent<Enemy>().TakeDamage(1);
                     }
                 }
@@ -133,29 +141,36 @@ public class pppp : MonoBehaviour
     void FixedUpdate()
     {
         float h = Input.GetAxisRaw("Horizontal");
+
         rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
 
-        if (rigid.velocity.x > maxSpeed) //Right Max Speed
-            rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y);
-        else if (rigid.velocity.x < maxSpeed * (-1)) //Left Max Speed
-            rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y);
+        if (rigid.velocity.x > maxSpeed)
+            rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y); // Right Max Speed
+        else if (rigid.velocity.x < maxSpeed * (-1))
+            rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y); // Left Max Speed
 
-        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));
-        if (rayHit.collider != null)
+        //Landing Platform
+        if (rigid.velocity.y < 0)
         {
-            if (rayHit.distance < 0.5f)
+            Debug.DrawRay(rigid.position, Vector3.down, new Color(0, 1, 0));
+            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));
+            if (rayHit.collider != null)
             {
-                jump = jumpcount;
-            }
-        }
+                if (rayHit.distance < 0.5f)
+                {
+                    jumpCount = 0;
 
+                }
+            }
+
+        }
     }
 
-    private void OnDrawGizmos() //공격박스표시
+    /*private void OnDrawGizmos() //공격박스표시
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(pos.position, boxSize);
-    }
+    }*/
 
     private void HideEffect()
     {
