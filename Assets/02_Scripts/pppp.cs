@@ -10,6 +10,14 @@ public class pppp : MonoBehaviour
     public float jumpCount;
     private int jump;
 
+    private bool canDash = true;
+    private bool isDashing;
+    private float dashingPower = 2400f;
+    private float dashingTime = 0.2f;
+    private float dashingCooldown = 1f;
+
+    [SerializeField] private TrailRenderer tr;
+
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     Animator anim;
@@ -78,18 +86,13 @@ public class pppp : MonoBehaviour
         {
             rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.5f, rigid.velocity.y);
         }
-
+        
         //Dash
-        /*if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Mouse1) && canDash)
         {
-            anim.SetBool("Dash", true);
+            StartCoroutine(Dash());
         }
-        else
-        {
-            anim.SetBool("Dash", false);
-
-        }
-        */
+        
 
         //Attack
         if (curTime <= 0)
@@ -171,6 +174,7 @@ public class pppp : MonoBehaviour
             }
 
         }
+        
     }
 
     private void OnDrawGizmos() //공격박스표시
@@ -182,5 +186,21 @@ public class pppp : MonoBehaviour
     private void HideEffect()
     {
         AEffect.gameObject.SetActive(false);
+    }
+
+    private IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+        float originalGravity = rigid.gravityScale;
+        rigid.gravityScale = 0f;
+        rigid.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
+        tr.emitting = true;
+        yield return new WaitForSeconds(dashingTime);
+        tr.emitting = false;
+        rigid.gravityScale = originalGravity;
+        isDashing = false;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
     }
 }
