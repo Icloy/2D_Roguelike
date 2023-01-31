@@ -48,13 +48,13 @@ public class pppp : MonoBehaviour
         {
             rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.5f, rigid.velocity.y);
         }
-        if (Input.GetButton("Horizontal"))
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            spriteRenderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
+            transform.localScale = new Vector3(-1f, 1f);
         }
-        else
+        else if(Input.GetKeyDown(KeyCode.D))
         {
-            rigid.velocity = new Vector2(0, rigid.velocity.y);
+            transform.localScale = new Vector3(1f, 1f);
         }
 
         //Jump
@@ -64,15 +64,20 @@ public class pppp : MonoBehaviour
             jumpCount++;
         }
 
+        if (jumpCount == 1)
+        {
+            jumpPower = 8;
+        }
+        else
+            jumpPower = 15;
+
+       
 
         //Stop Speed
         if (Input.GetButtonUp("Horizontal"))
         {
             rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.5f, rigid.velocity.y);
         }
-
-        if (Input.GetButton("Horizontal"))
-            spriteRenderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
 
         //Dash
         /*if (Input.GetKeyDown(KeyCode.Space))
@@ -132,6 +137,8 @@ public class pppp : MonoBehaviour
             curTime -= Time.deltaTime;
         }
 
+        
+
         /*//mouselook
         mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         angle = Mathf.Atan2(mouse.y - target.y, mouse.x - target.x) * Mathf.Rad2Deg;
@@ -166,11 +173,11 @@ public class pppp : MonoBehaviour
         }
     }
 
-    /*private void OnDrawGizmos() //공격박스표시
+    private void OnDrawGizmos() //공격박스표시
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(pos.position, boxSize);
-    }*/
+    }
 
     private void HideEffect()
     {
