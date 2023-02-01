@@ -12,7 +12,7 @@ public class pppp : MonoBehaviour
 
     private bool canDash = true;
     private bool isDashing;
-    private float dashingPower = 2400f;
+    private float dashingPower = 24f;
     private float dashingTime = 0.2f;
     private float dashingCooldown = 1f;
 
@@ -74,7 +74,7 @@ public class pppp : MonoBehaviour
 
         if (jumpCount == 1)
         {
-            jumpPower = 8;
+            jumpPower = 12;
         }
         else
             jumpPower = 15;
@@ -192,6 +192,7 @@ public class pppp : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
+        maxSpeed = 15;
         float originalGravity = rigid.gravityScale;
         rigid.gravityScale = 0f;
         rigid.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
@@ -200,6 +201,7 @@ public class pppp : MonoBehaviour
         tr.emitting = false;
         rigid.gravityScale = originalGravity;
         isDashing = false;
+        maxSpeed = 4;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
