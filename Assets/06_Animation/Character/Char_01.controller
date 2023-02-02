@@ -67,7 +67,7 @@ AnimatorStateMachine:
     m_Position: {x: 80, y: 150, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8171178914028631114}
-    m_Position: {x: 640, y: 150, z: 0}
+    m_Position: {x: 560, y: 260, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: -5086266385361117102}
@@ -139,7 +139,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: TestR0
-  m_Speed: 1
+  m_Speed: 0.31
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
