@@ -26,20 +26,12 @@ public class Player : MonoBehaviour
     public float coolTime = 0.5f;
     public Transform pos;
     public Vector2 boxSize;
-    public GameObject hand1;
-    public GameObject hand2;
+    /*public GameObject hand1;
+    public GameObject hand2;*/
     public int i = 0;
     public GameObject AEffect;
 
-    /*//mouselook
-     float angle;
-     Vector2 target, mouse;
-
-
-     private void Start()
-     {
-         target = transform.position;
-     }*/
+    
 
     void Awake()
     {
@@ -69,7 +61,6 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Jump") && jumpCount < 2)
         {
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-            Debug.Log("점프");
             anim.SetBool("Jump", true);
             jumpCount++;
         }
@@ -101,7 +92,7 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Mouse0))
             {
-                if (i % 2 == 0 && i == 0)
+                /*if (i % 2 == 0 && i == 0)
                 {
                     AEffect.gameObject.SetActive(true);
 
@@ -118,7 +109,7 @@ public class Player : MonoBehaviour
                     hand2.gameObject.SetActive(false);
                     Invoke("HideEffect", 0.15f);
 
-                }
+                }*/
                 Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
                 foreach (Collider2D collider in collider2Ds)
                 {
@@ -130,11 +121,11 @@ public class Player : MonoBehaviour
                 }
 
                 curTime = coolTime;
-                i++;
+                /*i++;
                 if (i == 2)
                 {
                     i = 0;
-                }
+                }*/
             }
         }
         else
@@ -144,10 +135,7 @@ public class Player : MonoBehaviour
 
 
 
-        /*//mouselook
-        mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        angle = Mathf.Atan2(mouse.y - target.y, mouse.x - target.x) * Mathf.Rad2Deg;
-        this.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);*/
+  
     }
 
     void FixedUpdate()
@@ -168,7 +156,6 @@ public class Player : MonoBehaviour
             RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));
             if (rayHit.collider != null)
             {
-                Debug.Log("취소");
                 anim.SetBool("Jump", false);
 
                 if (rayHit.distance < 0.5f)
