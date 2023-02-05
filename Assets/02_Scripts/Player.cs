@@ -44,10 +44,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonUp("Horizontal"))
-        {
-            rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.5f, rigid.velocity.y);
-        }
+    
         if (Input.GetKeyDown(KeyCode.A))
         {
             transform.localScale = new Vector3(-1f, 1f);
@@ -56,6 +53,11 @@ public class Player : MonoBehaviour
         {
             transform.localScale = new Vector3(1f, 1f);
         }
+
+        if (rigid.velocity.normalized.x == 0)
+            anim.SetBool("Run", false);
+        else
+            anim.SetBool("Run", true);
 
         //Jump
         if (Input.GetButtonDown("Jump") && jumpCount < 2)
