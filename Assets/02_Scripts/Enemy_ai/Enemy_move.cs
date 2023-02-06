@@ -9,6 +9,7 @@ public class Enemy_move : MonoBehaviour
     Animator animator;
     SpriteRenderer spriteRenderer;
     string animationState = "animationState";
+    Coroutine movecoroutine;
     public int nextMove;
 
     enum States
@@ -21,15 +22,12 @@ public class Enemy_move : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-
+        StartCoroutine(move());
         Invoke("Think", 5);
     }
 
     void Update()
     {
-        anim();
-        move();
     }
 
 
@@ -54,15 +52,21 @@ public class Enemy_move : MonoBehaviour
         Invoke("Think", 2);
     }
 
-    void move()
+    public IEnumerator move()
     {
-        rigid.velocity = new Vector2(nextMove, rigid.velocity.y);
-        Vector2 frontVec = new Vector2(rigid.position.x + nextMove * 0.8f, rigid.position.y - 0.5f);
-        Debug.DrawRay(frontVec, Vector3.down, new Color(0, 1, 0));
-        RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Platform"));
-        if (rayHit.collider == null)
+        while (true)
         {
-            Turn();
+            
+            Vector2 frontVec = new Vector2(rigid.position.x + nextMove * 0.8f, rigid.position.y - 0.5f);
+            Debug.DrawRay(frontVec, Vector3.down, new Color(0, 1, 0));
+            RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Platform"));
+            if (rayHit.collider == null)
+            {
+                Turn();
+            }
+            rigid.velocity = new Vector2(nextMove, rigid.velocity.y);
+            anim();
+            yield return new WaitForSeconds(0f);
         }
     }
 
