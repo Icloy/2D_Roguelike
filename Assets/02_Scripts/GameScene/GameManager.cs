@@ -8,7 +8,15 @@ public class GameManager : MonoBehaviour
 {
     public GameObject pausePanel; //게임정지패널
     public GameObject optionPanel; //게임정지패널
+    public GameObject graphicOptionPanel;
+    public GameObject soundOptionPanel;
 
+    public Dropdown resolutionDropdown;
+
+
+    List<Resolution> resolutions = new List<Resolution>(); //모니터가 지원하는 해상도를 저장할 배열
+    public int resolutionNum;
+    FullScreenMode screenMode;
 
     void Update()
     {
@@ -60,6 +68,70 @@ public class GameManager : MonoBehaviour
     public void ExitBtn() //메인 화면으로
     {
         SceneManager.LoadScene("Menu_Scene");
+    }
+
+    public void backBtn()
+    {
+        searchpanel();
+        optionBtn();
+    }
+
+    public void graphicBtn()
+    {
+        searchpanel();
+        graphicOptionPanel.SetActive(true);
+
+        for (int i = 0; i < Screen.resolutions.Length; i++)
+        {
+            resolutions.Add(Screen.resolutions[i]);
+        }
+
+        resolutionDropdown.options.Clear();
+        int optionNum = 0;
+
+        foreach (Resolution item in resolutions)
+        {
+            Dropdown.OptionData option = new Dropdown.OptionData();
+            option.text = item.width + " X " + item.height + " " + item.refreshRate + "hz";
+            resolutionDropdown.options.Add(option);
+
+            if (item.width == Screen.width && item.height == Screen.height)
+            {
+                resolutionDropdown.value = optionNum;
+            }
+            optionNum++;
+        }
+    }
+    public void FullScreenBtn(bool isFull) //전체화면 토글 
+    {
+        screenMode = isFull ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
+    }
+
+
+    public void DropboxOptionChange(int x) //해상도 드랍박스에서 설정한값 저장용
+    {
+        resolutionNum = x;
+    }
+
+    public void soundBtn()
+    {
+        searchpanel();
+        soundOptionPanel.SetActive(true);
+    }
+
+    public void applyBtn()
+    {
+        Screen.SetResolution(resolutions[resolutionNum].width, resolutions[resolutionNum].height, screenMode);
+        searchpanel();
+    }
+
+    void searchpanel() //켜져 있는 패널 검색용
+    {
+        if (graphicOptionPanel.activeSelf || soundOptionPanel.activeSelf)
+        {
+            graphicOptionPanel.SetActive(false);
+            soundOptionPanel.SetActive(false);
+        }
     }
 
 }
