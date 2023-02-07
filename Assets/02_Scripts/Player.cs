@@ -94,24 +94,19 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Mouse0))
             {
-                /*if (i % 2 == 0 && i == 0)
+                anim.SetTrigger("Attack");
+                if (i % 2 == 0 && i == 0)
                 {
                     AEffect.gameObject.SetActive(true);
-
-                    hand1.gameObject.SetActive(false);
-                    hand2.gameObject.SetActive(true);
                     Invoke("HideEffect", 0.15f);
 
                 }
                 else if (i % 2 == 1)
                 {
                     AEffect.gameObject.SetActive(true);
-
-                    hand1.gameObject.SetActive(true);
-                    hand2.gameObject.SetActive(false);
                     Invoke("HideEffect", 0.15f);
 
-                }*/
+                }
                 Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
                 foreach (Collider2D collider in collider2Ds)
                 {
