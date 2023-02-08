@@ -31,15 +31,17 @@ public class Player : MonoBehaviour
     public int i = 0;
     public GameObject AEffect;
 
-    
+    //오디오
+    private AudioSource AudioPlayer; //오디오 소스 컴포넌트
+    public AudioClip AttackSound;
+
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-
-
+        AudioPlayer = GetComponent<AudioSource>();
     }
     // Update is called once per frame
     void Update()
@@ -95,6 +97,7 @@ public class Player : MonoBehaviour
             if (Input.GetKey(KeyCode.Mouse0))
             {
                 anim.SetTrigger("Attack");
+                AudioPlayer.PlayOneShot(AttackSound);
                 if (i % 2 == 0 && i == 0)
                 {
                     AEffect.gameObject.SetActive(true);
