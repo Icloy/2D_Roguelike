@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     private AudioSource AudioPlayer; //오디오 소스 컴포넌트
     public AudioClip AttackSound;
 
+    public bool IsDashing { get => isDashing; set => isDashing = value; }
 
     void Awake()
     {
@@ -183,7 +184,7 @@ public class Player : MonoBehaviour
     private IEnumerator Dash()
     {
         canDash = false;
-        isDashing = true;
+        IsDashing = true;
         maxSpeed = 15;
         float originalGravity = rigid.gravityScale;
         rigid.gravityScale = 0f;
@@ -192,7 +193,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(dashingTime);
         tr.emitting = false;
         rigid.gravityScale = originalGravity;
-        isDashing = false;
+        IsDashing = false;
         maxSpeed = 4;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;

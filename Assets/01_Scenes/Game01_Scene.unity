@@ -2735,7 +2735,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpbarcanvas: {fileID: 0}
   prfhpbar: {fileID: 2963843329728097170, guid: e38fe2568803f2e43811b279a9d32b90, type: 3}
-  Hp: 5
+  Hp: 2
 --- !u!58 &890840379
 CircleCollider2D:
   m_ObjectHideFlags: 0

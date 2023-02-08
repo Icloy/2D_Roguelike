@@ -7,10 +7,17 @@ public class Enemy : MonoBehaviour
 {
     public GameObject hpbarcanvas;
     public GameObject prfhpbar;
+    Animator anim;
 
     RectTransform hpbar;
 
     public int Hp = 5;
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+
+    }
 
     void Start()
     {
@@ -20,18 +27,31 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Hp == 0 && Hp <0)
-        {
-            Destroy(this);
-        }
-
         Vector3 _hpBarPos = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + 1.5f, 0));
         hpbar.position = _hpBarPos;
+
+       
     }
 
     public void TakeDamage(int damage)
     {
         Hp = Hp - damage;
+        if (Hp == 0)
+        {
+            Die();
+        }
     }
 
+    void Die()
+    {
+        StopAllCoroutines();
+        anim.SetTrigger("Death");
+        StartCoroutine(DieProcess());
+    }
+
+    IEnumerator DieProcess()
+    {
+        yield return new WaitForSeconds(0.5f); // n초 대기후 자기자신 제거
+        Destroy(this.gameObject);
+    }
 }
