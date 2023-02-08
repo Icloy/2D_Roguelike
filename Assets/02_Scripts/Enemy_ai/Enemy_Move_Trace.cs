@@ -57,6 +57,7 @@ public class Enemy_Move_Trace : MonoBehaviour
         angle += Random.Range(0, 360);
         angle = Mathf.Repeat(angle, 360);
         position += Vector3FromAngle(angle);
+
     }
 
     public IEnumerator Move(Rigidbody2D rigidBodyToMove, float speed)
