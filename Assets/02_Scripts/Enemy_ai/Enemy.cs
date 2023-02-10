@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
 
     public int Hp = 5;
     public GameObject Item;
+    public GameObject parent;
 
     private void Awake()
     {
@@ -60,6 +61,6 @@ public class Enemy : MonoBehaviour
 
     void DropItem()
     {
-        Instantiate(Item, this.transform.position, Quaternion.identity);
+        Instantiate(Item, this.transform.position, Quaternion.identity).transform.SetParent(parent.transform);
     }
 }

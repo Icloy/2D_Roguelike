@@ -3291,6 +3291,7 @@ MonoBehaviour:
   prfhpbar: {fileID: 2963843329728097170, guid: e38fe2568803f2e43811b279a9d32b90, type: 3}
   Hp: 2
   Item: {fileID: 2719589337402968649, guid: d070a92108fa381488c354ac14bca927, type: 3}
+  parent: {fileID: 1963436835}
 --- !u!58 &890840379
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -8291,6 +8292,7 @@ MonoBehaviour:
   prfhpbar: {fileID: 2963843329728097170, guid: e38fe2568803f2e43811b279a9d32b90, type: 3}
   Hp: 2
   Item: {fileID: 2719589337402968649, guid: d070a92108fa381488c354ac14bca927, type: 3}
+  parent: {fileID: 1889109640}
 --- !u!1 &1972801954
 GameObject:
   m_ObjectHideFlags: 0
