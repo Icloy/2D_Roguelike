@@ -2,34 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NextStage : MonoBehaviour
+public class Potal : MonoBehaviour
 {
-    public enum NextPositionType
+    public enum NextPositionTypee
     {
-        InitPosition,
-        SomePosition,
+        InitPositionn,
+        SomePositionn,
     };
 
-    public NextPositionType nextPositionType;
+    public NextPositionTypee nextPositionType;
 
     public Transform DestinationPoint;
     public bool fadeInOut;
     public bool SmoothMoving;
-    public bool IfStage;
-
+    public bool NextStage;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (IfStage == true)
+        if (NextStage == true)
         {
             if (collision.transform.CompareTag("Player"))
             {
-                if (nextPositionType == NextPositionType.InitPosition)
+                if (nextPositionType == NextPositionTypee.InitPositionn)
                 {
                     StartCoroutine(StageMgr.Instance.MoveNext(collision, Vector3.zero, fadeInOut, SmoothMoving));
                 }
 
-                else if (nextPositionType == NextPositionType.SomePosition)
+                else if (nextPositionType == NextPositionTypee.SomePositionn)
                 {
                     StartCoroutine(StageMgr.Instance.MoveNext(collision, DestinationPoint.position, fadeInOut, SmoothMoving));
                 }
@@ -40,17 +39,18 @@ public class NextStage : MonoBehaviour
         {
             if (collision.transform.CompareTag("Player"))
             {
-                if (nextPositionType == NextPositionType.InitPosition)
+                if (nextPositionType == NextPositionTypee.InitPositionn)
                 {
                     StartCoroutine(StageMgr.Instance.MoveNext2(collision, Vector3.zero, fadeInOut, SmoothMoving));
                 }
 
-                else if (nextPositionType == NextPositionType.SomePosition)
+                else if (nextPositionType == NextPositionTypee.SomePositionn)
                 {
                     StartCoroutine(StageMgr.Instance.MoveNext2(collision, DestinationPoint.position, fadeInOut, SmoothMoving));
                 }
                 else { }
             }
         }
+
     }
 }

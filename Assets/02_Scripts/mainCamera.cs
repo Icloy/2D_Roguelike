@@ -4,22 +4,50 @@ using UnityEngine;
 
 public class mainCamera : MonoBehaviour
 {
-    public Transform target;
-
-    // Start is called before the first frame update
-    void Start()
+    public static mainCamera Instance
     {
-        
+        get
+        {
+            if(instance == null)
+            {
+                instance = FindObjectOfType<mainCamera>();
+                if(instance == null)
+                {
+                    var instanceContainer = new GameObject("mainCamera");
+                    instance = instanceContainer.AddComponent<mainCamera>();
+                }
+            }
+            return instance;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private static mainCamera instance;
+
+    public GameObject Player;
+
+    public float offsetY = 1f;
+    public float offsetZ = -10f;
+    public float smooth = 5f;
+
+    Vector3 target;
+
+    public bool cameraSmoothMoving;
+
+
+   
 
     private void LateUpdate()
     {
-        transform.position = new Vector3(target.position.x, target.position.y, -10f);
+        target = new Vector3(Player.transform.position.x, Player.transform.position.y + offsetY, Player.transform.position.z + offsetZ);
+
+        if (cameraSmoothMoving)
+        {
+            transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * smooth);
+        }
+        else
+        {
+            transform.position = target;
+            cameraSmoothMoving = true;
+        }
     }
 }
