@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using System;
 
 public class Enemy : MonoBehaviour
@@ -12,6 +13,7 @@ public class Enemy : MonoBehaviour
     RectTransform hpbar;
 
     public int Hp = 5;
+    public GameObject Item;
 
     private void Awake()
     {
@@ -46,6 +48,7 @@ public class Enemy : MonoBehaviour
     {
         StopAllCoroutines();
         anim.SetTrigger("Death");
+        DropItem();
         StartCoroutine(DieProcess());
     }
 
@@ -53,5 +56,10 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f); // n초 대기후 자기자신 제거
         Destroy(this.gameObject);
+    }
+
+    void DropItem()
+    {
+        Instantiate(Item, this.transform.position, Quaternion.identity);
     }
 }
