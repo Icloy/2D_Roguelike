@@ -10,6 +10,10 @@ public class Enemy_Boss : MonoBehaviour
     Coroutine actcoroutine;
 
     public int actmove;
+    public GameObject Player;
+    public GameObject Boss;
+
+    private float dis;
 
     void Start()
     {
@@ -19,32 +23,56 @@ public class Enemy_Boss : MonoBehaviour
 
     void Update()
     {
-
     }
 
-    void Think()
-    {
-
-    }
-
-    public IEnumerator act()
+    public IEnumerator Think()
     {
         while (true)
         {
-            switch (actmove)
+            dis = Vector2.Distance(Player.transform.position, Boss.transform.position);
+            actmove = Random.Range(1, 2);
+            if (dis <= 5)
             {
-                case 1:
-                    break;
+                act1(actmove);
+            }
+            else if (dis <= 10)
+            {
+                act2(actmove);
+            }
+            else
+            {
+
             }
             yield return new WaitForSeconds(3f);
         }
+    }
+
+    public IEnumerator act1(int actmove)
+    {
+        switch (actmove)
+        {
+            case 1:
+                break;
+        }
+        yield return new WaitForSeconds(3f);
+    }
+
+    public IEnumerator act2(int actmove)
+    {
+        switch (actmove)
+        {
+            case 1:
+                break;
+        }
+        yield return new WaitForSeconds(3f);
+
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            StartCoroutine(act());
+            actcoroutine = StartCoroutine(Think());
         }
     }
 }

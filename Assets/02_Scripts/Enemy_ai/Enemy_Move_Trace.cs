@@ -110,7 +110,7 @@ public class Enemy_Move_Trace : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
     }
 
