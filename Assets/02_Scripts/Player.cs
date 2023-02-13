@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     public int AtDmg; //공격 데미지
     public int maxHp; //최대 체력 
     public int curHp; //현재 체력
-    
+
     /*public GameObject hand1;
     public GameObject hand2;*/
     public int i = 0;
@@ -98,11 +98,6 @@ public class Player : MonoBehaviour
             StartCoroutine(Dash());
         }
 
-        //피격
-        
-
-
-
         //Attack
         if (curTime <= 0)
         {
@@ -144,6 +139,7 @@ public class Player : MonoBehaviour
         {
             curTime -= Time.deltaTime;
         }
+
     }
 
     void FixedUpdate()
@@ -172,9 +168,7 @@ public class Player : MonoBehaviour
                     jumpCount = 0;
                 }
             }
-
         }
-
     }
 
     private void OnDrawGizmos() //공격박스표시
@@ -206,11 +200,4 @@ public class Player : MonoBehaviour
         canDash = true;
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.tag=="Enemy") //태그가 적일경우 체력 감소 처리 
-        {
-
-        }
-    }
 }
