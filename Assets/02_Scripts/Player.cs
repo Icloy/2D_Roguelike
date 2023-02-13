@@ -122,7 +122,7 @@ public class Player : MonoBehaviour
                 {
                     if (collider.tag == "Enemy")
                     {
-                        Debug.Log("Hit");
+                        Debug.Log(AtDmg + " ·Î °ø°Ý");
                         collider.GetComponent<Enemy>().TakeDamage(AtDmg);
                     }
                 }

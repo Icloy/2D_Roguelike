@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     public Dropdown resolutionDropdown;
     public Image hpGage;
 
+    public Text coinCnt;
+    public int coin; //인게임 재화
+
     List<Resolution> resolutions = new List<Resolution>(); //모니터가 지원하는 해상도를 저장할 배열
     public int resolutionNum;
     FullScreenMode screenMode;
@@ -156,6 +159,19 @@ public class GameManager : MonoBehaviour
         {
             hpGage.fillAmount = (float)player.curHp / (float)player.maxHp;
             yield return null;
+        }
+    }
+
+    public void UpdateCoinCnt() //코인 수 업데이트
+    {
+        //코인의 계수가 음수가 아니라면
+        if(coin >= 0)
+        {
+            coinCnt.text = coin.ToString();
+        }
+        else
+        {
+            coinCnt.text = "0";
         }
     }
 }
