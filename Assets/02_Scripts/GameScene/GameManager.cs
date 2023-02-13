@@ -12,12 +12,15 @@ public class GameManager : MonoBehaviour
     public GameObject soundOptionPanel;
 
     public Dropdown resolutionDropdown;
-
+    public GameObject player;
+    public Image hpGage;
 
     List<Resolution> resolutions = new List<Resolution>(); //모니터가 지원하는 해상도를 저장할 배열
     public int resolutionNum;
     FullScreenMode screenMode;
-
+    private void Start()
+    {
+    }
     void Update()
     {
         //esc가 입력되면 게임을 정지시키고 옵션창을 띄운다.
@@ -131,6 +134,14 @@ public class GameManager : MonoBehaviour
         {
             graphicOptionPanel.SetActive(false);
             soundOptionPanel.SetActive(false);
+        }
+    }
+    IEnumerator hpBar()
+    {
+        while (hpGage.fillAmount >= 0 ) //플레이어가 살아있는 동안 무한루프
+        {
+
+            yield return null;
         }
     }
 
