@@ -26,6 +26,12 @@ public class Player : MonoBehaviour
     public float coolTime = 0.5f;
     public Transform pos;
     public Vector2 boxSize;
+    
+    // 플레이어 스테이터스
+    public int AtDmg; //공격 데미지
+    public int maxHp; //최대 체력 
+    public int curHp; //현재 체력
+
     /*public GameObject hand1;
     public GameObject hand2;*/
     public int i = 0;
@@ -75,8 +81,9 @@ public class Player : MonoBehaviour
             jumpPower = 12;
         }
         else
+        {
             jumpPower = 15;
-
+        }
 
 
         //Stop Speed
@@ -90,7 +97,6 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(Dash());
         }
-
 
         //Attack
         if (curTime <= 0)
@@ -116,8 +122,8 @@ public class Player : MonoBehaviour
                 {
                     if (collider.tag == "Enemy")
                     {
-                        Debug.Log("Hit");
-                        collider.GetComponent<Enemy>().TakeDamage(1);
+                        Debug.Log(AtDmg + " 로 공격");
+                        collider.GetComponent<Enemy>().TakeDamage(AtDmg);
                     }
                 }
 
@@ -134,9 +140,6 @@ public class Player : MonoBehaviour
             curTime -= Time.deltaTime;
         }
 
-
-
-  
     }
 
     void FixedUpdate()
@@ -165,9 +168,7 @@ public class Player : MonoBehaviour
                     jumpCount = 0;
                 }
             }
-
         }
-
     }
 
     private void OnDrawGizmos() //공격박스표시
@@ -198,4 +199,5 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
+
 }

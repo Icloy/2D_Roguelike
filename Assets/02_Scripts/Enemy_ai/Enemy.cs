@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
 
     RectTransform hpbar;
 
+    public int damage = 5; //플레이어한테 줄 데미지
     public int Hp = 5;
     public GameObject Item;
     public GameObject parent;
@@ -32,7 +33,6 @@ public class Enemy : MonoBehaviour
     {
         Vector3 _hpBarPos = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + 1.5f, 0));
         hpbar.position = _hpBarPos;
-
        
     }
 
@@ -62,5 +62,15 @@ public class Enemy : MonoBehaviour
     void DropItem()
     {
         Instantiate(Item, this.transform.position, Quaternion.identity).transform.SetParent(parent.transform);
+    }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Player") //태그가 플레이어일경우 체력 감소 처리
+        {
+            Player player = GameObject.Find("Player").GetComponent<Player>();
+            player.curHp -= damage;
+            
+        }
     }
 }

@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 319796779166361378}
   - component: {fileID: 2599126403697684280}
   - component: {fileID: 568449690627035474}
+  - component: {fileID: -516151516266054512}
+  - component: {fileID: 2250243373648969617}
   m_Layer: 0
   m_Name: GoldCoin
   m_TagString: Untagged
@@ -105,3 +107,31 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!58 &-516151516266054512
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2719589337402968649}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.25
+--- !u!114 &2250243373648969617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2719589337402968649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b6dc99a3a6859f4598fae11774ee378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
