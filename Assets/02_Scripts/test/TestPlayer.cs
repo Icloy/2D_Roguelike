@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class TestPlayer : MonoBehaviour
 {
     #region component
     public float maxSpeed;
@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     public float coolTime = 0.5f;
     public Transform pos;
     public Vector2 boxSize;
-    public ParticleSystem Dust;
+
 
     // 플레이어 스테이터스
     public int AtDmg; //공격 데미지
@@ -61,33 +61,24 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-    
+
         if (Input.GetKeyDown(KeyCode.A))
         {
-
             transform.localScale = new Vector3(-1f, 1f);
-            CreateDust();
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             transform.localScale = new Vector3(1f, 1f);
-            CreateDust();
         }
 
         if (rigid.velocity.normalized.x == 0)
-        {
             anim.SetBool("Run", false);
-        }
         else
-        {
             anim.SetBool("Run", true);
-        }
-
 
         //Jump
         if (Input.GetButtonDown("Jump") && jumpCount < 2)
         {
-            CreateDust();
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
             anim.SetBool("Jump", true);
             jumpCount++;
@@ -216,10 +207,4 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
-
-    void CreateDust()
-    {
-        Dust.Play();
-    }
-
 }
