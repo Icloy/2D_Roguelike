@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private TrailRenderer tr;
 
+
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     Animator anim;
