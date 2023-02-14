@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
 
     public int damage = 5; //플레이어한테 줄 데미지
     public int Hp = 5;
+    public int dropcoincnt;
     public GameObject Item;
     public GameObject parent;
 
@@ -49,7 +50,10 @@ public class Enemy : MonoBehaviour
     {
         StopAllCoroutines();
         anim.SetTrigger("Death");
-        DropItem();
+        for (int i = 0; i < dropcoincnt; i++)
+        {
+            DropItem();
+        }
         StartCoroutine(DieProcess());
     }
 

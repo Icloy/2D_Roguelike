@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4371835, g: 0.7544492, b: 1.02903, a: 1}
+  m_IndirectSpecularColor: {r: 0.43718317, g: 0.75444984, b: 1.0290304, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3738,6 +3738,7 @@ MonoBehaviour:
   prfhpbar: {fileID: 2963843329728097170, guid: e38fe2568803f2e43811b279a9d32b90, type: 3}
   damage: 5
   Hp: 2
+  dropcoincnt: 3
   Item: {fileID: 2719589337402968649, guid: d070a92108fa381488c354ac14bca927, type: 3}
   parent: {fileID: 1963436835}
 --- !u!58 &890840379
@@ -14530,6 +14531,7 @@ MonoBehaviour:
   prfhpbar: {fileID: 2963843329728097170, guid: e38fe2568803f2e43811b279a9d32b90, type: 3}
   damage: 5
   Hp: 2
+  dropcoincnt: 0
   Item: {fileID: 2719589337402968649, guid: d070a92108fa381488c354ac14bca927, type: 3}
   parent: {fileID: 1889109640}
 --- !u!1 &1972801954
