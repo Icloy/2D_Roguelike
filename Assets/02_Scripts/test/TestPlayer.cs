@@ -5,6 +5,7 @@ using UnityEngine;
 public class TestPlayer : MonoBehaviour
 {
     #region component
+    private float horizontal;
     public float maxSpeed;
     public float jumpingPower = 25f;
     private bool doubleJump;
@@ -16,6 +17,16 @@ public class TestPlayer : MonoBehaviour
     private float jumpBufferTime = 0.2f;
     private float jumpBufferCounter;
 
+    private bool isWallSliding;
+    private float wallSlidingSpeed = 3f;
+
+    private bool isWallJumping;
+    private float wallJumpingDirection;
+    private float wallJumpingTime = 0.2f;
+    private float wallJumpingCounter;
+    private float wallJumpingDuration = 0.4f;
+    private Vector2 wallJumpingPower = new Vector2(8f, 16f);
+
     private bool canDash = true;
     private bool isDashing;
     private float dashingPower = 30f;
@@ -25,7 +36,10 @@ public class TestPlayer : MonoBehaviour
     [SerializeField] private Rigidbody2D rigid;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Transform wallCheck;
+    [SerializeField] private LayerMask wallLayer;
     [SerializeField] private TrailRenderer tr;
+
 
     SpriteRenderer spriteRenderer;
     Animator anim;
@@ -68,6 +82,7 @@ public class TestPlayer : MonoBehaviour
 
     void Update()
     {
+        horizontal = Input.GetAxisRaw("Horizontal");
 
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -130,6 +145,9 @@ public class TestPlayer : MonoBehaviour
             anim.SetBool("Jump", false);
         }
 
+        WallSlide();
+        WallJump();
+
 
 
         //Stop Speed
@@ -190,9 +208,8 @@ public class TestPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        float h = Input.GetAxisRaw("Horizontal");
 
-        rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
+        rigid.AddForce(Vector2.right * horizontal, ForceMode2D.Impulse);
 
         if (rigid.velocity.x > maxSpeed)
             rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y); // Right Max Speed
@@ -234,4 +251,54 @@ public class TestPlayer : MonoBehaviour
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
+
+    private bool IsWalled()
+    {
+        return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
+    }
+
+    private void WallSlide()
+    {
+        if (IsWalled() && !IsGrounded() && horizontal != 0f)
+        {
+            isWallSliding = true;
+            rigid.velocity = new Vector2(rigid.velocity.x, Mathf.Clamp(rigid.velocity.y, -wallSlidingSpeed, float.MaxValue));
+        }
+        else
+        {
+            isWallSliding = false;
+        }
+    }
+
+    private void WallJump()
+    {
+        if (isWallSliding)
+        {
+            isWallJumping = false;
+            wallJumpingDirection = -transform.localScale.x;
+            wallJumpingCounter = wallJumpingTime;
+
+            CancelInvoke(nameof(StopWallJumping));
+        }
+        else
+        {
+            wallJumpingCounter -= Time.deltaTime;
+        }
+
+        if(Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
+        {
+            isWallJumping = true;
+            rigid.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+            wallJumpingCounter = 0f;
+
+
+        }
+    }
+
+
+    private void StopWallJumping()
+    {
+        isWallJumping = false;
+    }
+
 }
