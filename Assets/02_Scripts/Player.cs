@@ -5,11 +5,27 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     #region component
+    private float horizontal;
     public float maxSpeed;
-    public float jumpPower;
+    public float jumpingPower = 25f;
+    private bool doubleJump;
+    private float doubleJumpingPower = 20f;
 
-    public float jumpCount;
-    private int jump;
+    private float coyoteTime = 0.2f;
+    private float coyoteTimeCounter;
+
+    private float jumpBufferTime = 0.2f;
+    private float jumpBufferCounter;
+
+    private bool isWallSliding;
+    private float wallSlidingSpeed = 3f;
+
+    private bool isWallJumping;
+    private float wallJumpingDirection;
+    private float wallJumpingTime = 0.2f;
+    private float wallJumpingCounter;
+    private float wallJumpingDuration = 0.4f;
+    private Vector2 wallJumpingPower = new Vector2(8f, 16f);
 
     private bool canDash = true;
     private bool isDashing;
@@ -17,11 +33,14 @@ public class Player : MonoBehaviour
     private float dashingTime = 0.1f;
     private float dashingCooldown = 1f;
 
-
+    [SerializeField] private Rigidbody2D rigid;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Transform wallCheck;
+    [SerializeField] private LayerMask wallLayer;
     [SerializeField] private TrailRenderer tr;
 
 
-    Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     Animator anim;
 
@@ -29,7 +48,7 @@ public class Player : MonoBehaviour
     public float coolTime = 0.5f;
     public Transform pos;
     public Vector2 boxSize;
-    public ParticleSystem Dust;
+
 
     // 플레이어 스테이터스
     public int AtDmg; //공격 데미지
@@ -48,6 +67,7 @@ public class Player : MonoBehaviour
     public bool IsDashing { get => isDashing; set => isDashing = value; }
 
 
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -62,46 +82,72 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-    
+        horizontal = Input.GetAxisRaw("Horizontal");
+
         if (Input.GetKeyDown(KeyCode.A))
         {
-
             transform.localScale = new Vector3(-1f, 1f);
-            CreateDust();
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             transform.localScale = new Vector3(1f, 1f);
-            CreateDust();
         }
 
         if (rigid.velocity.normalized.x == 0)
-        {
             anim.SetBool("Run", false);
-        }
         else
-        {
             anim.SetBool("Run", true);
-        }
-
 
         //Jump
-        if (Input.GetButtonDown("Jump") && jumpCount < 2)
+
+        if (IsGrounded() && !Input.GetButton("Jump"))
         {
-            CreateDust();
-            rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-            anim.SetBool("Jump", true);
-            jumpCount++;
+            doubleJump = false;
+        }
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (coyoteTimeCounter > 0f || doubleJump)
+            {
+                rigid.velocity = new Vector2(rigid.velocity.x, doubleJump ? doubleJumpingPower : jumpingPower);
+                doubleJump = !doubleJump;
+                if (jumpBufferCounter > 0f)
+                {
+                    jumpBufferCounter = 0f;
+                }
+            }
         }
 
-        if (jumpCount == 1)
+        if (Input.GetButtonDown("Jump"))
         {
-            jumpPower = 15;
+            jumpBufferCounter = jumpBufferTime;
         }
         else
         {
-            jumpPower = 20;
+            jumpBufferCounter -= Time.deltaTime;
         }
+
+
+        if (Input.GetButtonUp("Jump") && rigid.velocity.y > 0f)
+        {
+            rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * 0.5f);
+
+            coyoteTimeCounter = 0f;
+        }
+
+        if (!IsGrounded())
+        {
+            coyoteTimeCounter -= Time.deltaTime;
+            anim.SetBool("Jump", true);
+        }
+        else
+        {
+            coyoteTimeCounter = coyoteTime;
+            anim.SetBool("Jump", false);
+        }
+
+        WallSlide();
+        WallJump();
+
 
 
         //Stop Speed
@@ -162,31 +208,14 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        float h = Input.GetAxisRaw("Horizontal");
 
-        rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
+        rigid.AddForce(Vector2.right * horizontal, ForceMode2D.Impulse);
 
         if (rigid.velocity.x > maxSpeed)
             rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y); // Right Max Speed
         else if (rigid.velocity.x < maxSpeed * (-1))
             rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y); // Left Max Speed
 
-        //Landing Platform
-        if (rigid.velocity.y < 0)
-        {
-            Debug.DrawRay(rigid.position, Vector3.down, new Color(0, 1, 0));
-            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));
-            if (rayHit.collider != null)
-            {
-                anim.SetBool("Jump", false);
-
-                if (rayHit.distance < 0.5f)
-                {
-
-                    jumpCount = 0;
-                }
-            }
-        }
     }
 
     private void OnDrawGizmos() //공격박스표시
@@ -218,9 +247,58 @@ public class Player : MonoBehaviour
         canDash = true;
     }
 
-    void CreateDust()
+    private bool IsGrounded()
     {
-        Dust.Play();
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+    }
+
+    private bool IsWalled()
+    {
+        return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
+    }
+
+    private void WallSlide()
+    {
+        if (IsWalled() && !IsGrounded() && horizontal != 0f)
+        {
+            isWallSliding = true;
+            rigid.velocity = new Vector2(rigid.velocity.x, Mathf.Clamp(rigid.velocity.y, -wallSlidingSpeed, float.MaxValue));
+        }
+        else
+        {
+            isWallSliding = false;
+        }
+    }
+
+    private void WallJump()
+    {
+        if (isWallSliding)
+        {
+            isWallJumping = false;
+            wallJumpingDirection = -transform.localScale.x;
+            wallJumpingCounter = wallJumpingTime;
+
+            CancelInvoke(nameof(StopWallJumping));
+        }
+        else
+        {
+            wallJumpingCounter -= Time.deltaTime;
+        }
+
+        if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
+        {
+            isWallJumping = true;
+            rigid.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+            wallJumpingCounter = 0f;
+
+
+        }
+    }
+
+
+    private void StopWallJumping()
+    {
+        isWallJumping = false;
     }
 
 }
