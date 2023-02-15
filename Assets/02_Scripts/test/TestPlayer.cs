@@ -10,6 +10,12 @@ public class TestPlayer : MonoBehaviour
     private bool doubleJump;
     private float doubleJumpingPower = 20f;
 
+    private float coyoteTime = 0.2f;
+    private float coyoteTimeCounter;
+
+    private float jumpBufferTime = 0.2f;
+    private float jumpBufferCounter;
+
     private bool canDash = true;
     private bool isDashing;
     private float dashingPower = 30f;
@@ -85,24 +91,42 @@ public class TestPlayer : MonoBehaviour
         }
         if (Input.GetButtonDown("Jump"))
         {
-            if (IsGrounded() || doubleJump)
+            if (coyoteTimeCounter > 0f || doubleJump)
             {
                 rigid.velocity = new Vector2(rigid.velocity.x, doubleJump ? doubleJumpingPower : jumpingPower);
                 doubleJump = !doubleJump;
+                if(jumpBufferCounter > 0f)
+                {
+                    jumpBufferCounter = 0f;
+                }
             }
         }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            jumpBufferCounter = jumpBufferTime;
+        }
+        else
+        {
+            jumpBufferCounter -= Time.deltaTime;
+        }
+
 
         if (Input.GetButtonUp("Jump") && rigid.velocity.y > 0f)
         {
             rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * 0.5f);
+
+            coyoteTimeCounter = 0f;
         }
 
         if (!IsGrounded())
         {
+            coyoteTimeCounter -= Time.deltaTime;
             anim.SetBool("Jump", true);
         }
         else
         {
+            coyoteTimeCounter = coyoteTime;
             anim.SetBool("Jump", false);
         }
 
