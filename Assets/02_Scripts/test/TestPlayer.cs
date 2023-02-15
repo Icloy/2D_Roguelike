@@ -6,10 +6,9 @@ public class TestPlayer : MonoBehaviour
 {
     #region component
     public float maxSpeed;
-    public float jumpPower;
-
-    public float jumpCount;
-    private int jump;
+    public float jumpingPower = 25f;
+    private bool doubleJump;
+    private float doubleJumpingPower = 20f;
 
     private bool canDash = true;
     private bool isDashing;
@@ -17,10 +16,11 @@ public class TestPlayer : MonoBehaviour
     private float dashingTime = 0.1f;
     private float dashingCooldown = 1f;
 
-
+    [SerializeField] private Rigidbody2D rigid;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
     [SerializeField] private TrailRenderer tr;
 
-    Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     Animator anim;
 
@@ -45,6 +45,7 @@ public class TestPlayer : MonoBehaviour
     public AudioClip AttackSound;
 
     public bool IsDashing { get => isDashing; set => isDashing = value; }
+
 
 
     void Awake()
@@ -77,21 +78,34 @@ public class TestPlayer : MonoBehaviour
             anim.SetBool("Run", true);
 
         //Jump
-        if (Input.GetButtonDown("Jump") && jumpCount < 2)
+
+        if (IsGrounded() && !Input.GetButton("Jump"))
         {
-            rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-            anim.SetBool("Jump", true);
-            jumpCount++;
+            doubleJump = false;
+        }
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (IsGrounded() || doubleJump)
+            {
+                rigid.velocity = new Vector2(rigid.velocity.x, doubleJump ? doubleJumpingPower : jumpingPower);
+                doubleJump = !doubleJump;
+            }
         }
 
-        if (jumpCount == 1)
+        if (Input.GetButtonUp("Jump") && rigid.velocity.y > 0f)
         {
-            jumpPower = 15;
+            rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * 0.5f);
+        }
+
+        if (!IsGrounded())
+        {
+            anim.SetBool("Jump", true);
         }
         else
         {
-            jumpPower = 20;
+            anim.SetBool("Jump", false);
         }
+
 
 
         //Stop Speed
@@ -161,22 +175,6 @@ public class TestPlayer : MonoBehaviour
         else if (rigid.velocity.x < maxSpeed * (-1))
             rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y); // Left Max Speed
 
-        //Landing Platform
-        if (rigid.velocity.y < 0)
-        {
-            Debug.DrawRay(rigid.position, Vector3.down, new Color(0, 1, 0));
-            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));
-            if (rayHit.collider != null)
-            {
-                anim.SetBool("Jump", false);
-
-                if (rayHit.distance < 0.5f)
-                {
-
-                    jumpCount = 0;
-                }
-            }
-        }
     }
 
     private void OnDrawGizmos() //공격박스표시
@@ -206,5 +204,10 @@ public class TestPlayer : MonoBehaviour
         maxSpeed = 8;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+    }
+
+    private bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
 }
