@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 568449690627035474}
   - component: {fileID: -516151516266054512}
   - component: {fileID: 2250243373648969617}
-  - component: {fileID: -4752983259121628782}
   - component: {fileID: -7698716645543469823}
   - component: {fileID: 6345988742898296392}
   m_Layer: 0
@@ -139,19 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updistance: 0.08
---- !u!114 &-4752983259121628782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2719589337402968649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df461f3fe08031942a8f980588159d48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
+  speed: 10
   position_change_second: 0
 --- !u!50 &-7698716645543469823
 Rigidbody2D:
