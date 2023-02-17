@@ -8,7 +8,7 @@ public class Shop : MonoBehaviour
 {
     public GameObject shopPanel;
 
-    private bool endStore = false;
+    //private bool endStore = false;
     private int dmgPrice = 1;
     public Text dmgPriceText;
 
@@ -23,49 +23,56 @@ public class Shop : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log("충돌중");
         if (Input.GetKeyDown(KeyCode.G))
         {
             if(collision.gameObject.tag == "Player")
             {
                 shopPanel.SetActive(true);
-                Time.timeScale = 0f;
             }
-        }
-    }
-/*
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            StartCoroutine("OpenStore");
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log("상점 끝");
-        endStore = true;
-        StopCoroutine("OpenStore");
+        if (collision.gameObject.tag == "Player")
+        {
+            shopPanel.SetActive(false);
+        }
     }
 
-    private IEnumerator OpenStore() 
-    {
-        while (endStore)
+
+    /*
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (Input.GetKeyDown(KeyCode.G))
+            if(collision.gameObject.tag == "Player")
             {
-                Time.timeScale = 0f;
-                shopPanel.SetActive(true);
+                StartCoroutine("OpenStore");
             }
-            yield return null;
         }
-    }*/
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            Debug.Log("상점 끝");
+            endStore = true;
+            StopCoroutine("OpenStore");
+        }
+
+        private IEnumerator OpenStore() 
+        {
+            while (endStore)
+            {
+                if (Input.GetKeyDown(KeyCode.G))
+                {
+                    Time.timeScale = 0f;
+                    shopPanel.SetActive(true);
+                }
+                yield return null;
+            }
+        }*/
 
     public void CloseStore()
     {
         shopPanel.SetActive(false);
-        Time.timeScale = 1f;
     }
 
     public void UpgradeDmg()
@@ -81,6 +88,7 @@ public class Shop : MonoBehaviour
         }
         else
         {
+            ToastMsg.Instance.showMessage("돈이 부족합니다!", 0.5f);
             Debug.Log("돈이 부족합니다!");
         }
     }
