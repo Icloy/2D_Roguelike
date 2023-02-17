@@ -186,7 +186,9 @@ public class Player : MonoBehaviour
                 {
                     if (collider.tag == "Enemy")
                     {
+                        ToastMsg.Instance.showMessage("공격!", 0.5f);
                         Debug.Log(AtDmg + " 로 공격");
+
                         collider.GetComponent<Enemy>().TakeDamage(AtDmg);
                     }
                 }
