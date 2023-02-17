@@ -33,6 +33,11 @@ public class Trap : MonoBehaviour
             if (targetTransform != null)
             {
                 position = targetTransform.position;
+                Vector2 direction = new Vector2(transform.position.x - targetTransform.position.x, transform.position.y - targetTransform.position.y);
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                Quaternion angleAxis = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
+                Quaternion rotation = Quaternion.Slerp(targetTransform.rotation, angleAxis, speed);
+                transform.rotation = rotation;
             }
             if (rigidBodyToMove != null)
             {

@@ -52,6 +52,9 @@ public class Enemy_Boss : MonoBehaviour
         switch (actmove)
         {
             case 1:
+                
+                break;
+            case 2:
                 break;
         }
         yield return new WaitForSeconds(3f);
