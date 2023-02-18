@@ -21,12 +21,13 @@ public class GameManager : MonoBehaviour
     List<Resolution> resolutions = new List<Resolution>(); //모니터가 지원하는 해상도를 저장할 배열
     public int resolutionNum;
     FullScreenMode screenMode;
-    private bool isOver; //게임오버여부 판단
+    private bool isGameOver; //게임오버여부 판단
+    public bool isPanelOpen;
     Player player;
 
     private void Start()
     {
-        isOver = false;
+        isGameOver = false;
         player = GameObject.Find("Player").GetComponent<Player>();
         StartCoroutine("hpBar");
     }
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //esc가 입력되면 게임을 정지시키고 옵션창을 띄운다.
-        if (Input.GetKeyDown(KeyCode.Escape) && !isOver)
+        if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver)
         {
             if (optionPanel.activeSelf)
             {
@@ -46,7 +47,7 @@ public class GameManager : MonoBehaviour
 
         if(player.curHp <= 0) //게임오버처리
         {
-            isOver = true;
+            isGameOver = true;
             Time.timeScale = 0;
             GameOverPanel.SetActive(true);
         }
@@ -57,11 +58,13 @@ public class GameManager : MonoBehaviour
         if (!pausePanel.activeSelf)
         {
             Time.timeScale = 0; //게임 시간 정지
+            isPanelOpen = true;
             pausePanel.SetActive(true);
         }
         else //게임이 이미 정지 되어있다면
         {
             Time.timeScale = 1.0f; //시간 원상 복귀
+            isPanelOpen = false;
             pausePanel.SetActive(false);
         }
     }
@@ -122,6 +125,7 @@ public class GameManager : MonoBehaviour
             optionNum++;
         }
     }
+
     public void FullScreenBtn(bool isFull) //전체화면 토글 
     {
         screenMode = isFull ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;

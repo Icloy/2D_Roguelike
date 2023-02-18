@@ -32,7 +32,7 @@ public class ToastMsg : MonoBehaviour
     }
 
     Queue<TOAST> toastQueue = new Queue<TOAST>();
-    bool isPopUp;
+    bool isPopUp; //토스트 메시지가 실행중인지 여부
 
     public void showMessage(string msg, float durationTime)
     {
@@ -42,6 +42,12 @@ public class ToastMsg : MonoBehaviour
         t.durationTime = durationTime;
 
         toastQueue.Enqueue(t);
+        if(isPopUp == true) //실행중이라면 이전까지의 토스트메시지 삭제
+        {
+            StopAllCoroutines();
+            isPopUp = false;
+        }
+
         if (isPopUp == false)
         {
             StartCoroutine(showToastQueue());

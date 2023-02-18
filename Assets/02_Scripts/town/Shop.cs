@@ -27,6 +27,7 @@ public class Shop : MonoBehaviour
         {
             if(collision.gameObject.tag == "Player")
             {
+                gameManager.isPanelOpen= true;
                 shopPanel.SetActive(true);
             }
         }
@@ -36,6 +37,7 @@ public class Shop : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            gameManager.isPanelOpen = false;
             shopPanel.SetActive(false);
         }
     }

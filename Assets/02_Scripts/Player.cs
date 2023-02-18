@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
 
     public bool IsDashing { get => isDashing; set => isDashing = value; }
 
-
+    GameManager gameManager;
 
     void Awake()
     {
@@ -74,6 +74,7 @@ public class Player : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         AudioPlayer = GetComponent<AudioSource>();
+        gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
     }
     // Update is called once per frame
     #endregion
@@ -165,7 +166,7 @@ public class Player : MonoBehaviour
         //Attack
         if (curTime <= 0)
         {
-            if (Input.GetKey(KeyCode.Mouse0))
+            if (Input.GetKey(KeyCode.Mouse0) && !gameManager.isPanelOpen)
             {
                 anim.SetTrigger("Attack");
                 AudioPlayer.PlayOneShot(AttackSound);
@@ -186,9 +187,7 @@ public class Player : MonoBehaviour
                 {
                     if (collider.tag == "Enemy")
                     {
-                        ToastMsg.Instance.showMessage("공격!", 0.5f);
                         Debug.Log(AtDmg + " 로 공격");
-
                         collider.GetComponent<Enemy>().TakeDamage(AtDmg);
                     }
                 }
