@@ -12,6 +12,7 @@ public class Enemy_Boss : MonoBehaviour
     public int actmove;
     public GameObject Player;
     public GameObject Boss;
+    public GameObject trap;
 
     private float dis;
 
@@ -19,6 +20,10 @@ public class Enemy_Boss : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         circle = GetComponent<CircleCollider2D>();
+        for (int i = -2; i < 3; i++)
+        {
+            Instantiate(trap, new Vector3(Player.transform.position.x + 1f * i, Player.transform.position.y + 4f, Player.transform.position.z), Quaternion.identity);
+        }
     }
 
     void Update()
@@ -41,7 +46,7 @@ public class Enemy_Boss : MonoBehaviour
             }
             else
             {
-
+                
             }
             yield return new WaitForSeconds(3f);
         }
@@ -52,7 +57,6 @@ public class Enemy_Boss : MonoBehaviour
         switch (actmove)
         {
             case 1:
-                
                 break;
             case 2:
                 break;
@@ -66,16 +70,17 @@ public class Enemy_Boss : MonoBehaviour
         {
             case 1:
                 break;
+            case 2:
+                break;
         }
         yield return new WaitForSeconds(3f);
-
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            actcoroutine = StartCoroutine(Think());
+            StartCoroutine(Think());
         }
     }
 }

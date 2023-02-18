@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Trap : MonoBehaviour
+public class Summon : MonoBehaviour
 {
     public float speed;
     public float position_change_second;
     public float delete_time;
 
-    Coroutine movecoroutine;
     CircleCollider2D circle;
     Rigidbody2D rigid;
     Transform targetTransform = null;
@@ -50,7 +49,7 @@ public class Trap : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
