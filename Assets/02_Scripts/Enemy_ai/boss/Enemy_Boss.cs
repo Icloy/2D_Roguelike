@@ -20,10 +20,6 @@ public class Enemy_Boss : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         circle = GetComponent<CircleCollider2D>();
-        for (int i = -2; i < 3; i++)
-        {
-            Instantiate(trap, new Vector3(Player.transform.position.x + 1f * i, Player.transform.position.y + 4f, Player.transform.position.z), Quaternion.identity);
-        }
     }
 
     void Update()
@@ -35,25 +31,30 @@ public class Enemy_Boss : MonoBehaviour
         while (true)
         {
             dis = Vector2.Distance(Player.transform.position, Boss.transform.position);
-            actmove = Random.Range(1, 2);
-            if (dis <= 5)
+            actmove = Random.Range(1, 3);
+            if (dis <= 2.5)
             {
-                act1(actmove);
+                StartCoroutine(act1(actmove));
             }
-            else if (dis <= 10)
+            else if (dis <= 5)
             {
-                act2(actmove);
+                StartCoroutine(act2(actmove));
             }
             else
             {
-                
+                for (int i = -2; i < 3; i++)
+                {
+                    Instantiate(trap, new Vector3(Player.transform.position.x + 1f * i, Player.transform.position.y + 4f, Player.transform.position.z), Quaternion.identity);
+                }
             }
             yield return new WaitForSeconds(3f);
         }
+       
     }
 
     public IEnumerator act1(int actmove)
     {
+        Debug.Log("act1");
         switch (actmove)
         {
             case 1:
