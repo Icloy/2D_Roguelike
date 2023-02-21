@@ -8,7 +8,7 @@ public class Shop : MonoBehaviour
 {
     public GameObject shopPanel;
 
-    //private bool endStore = false;
+    private bool endStore = false;
     private int dmgPrice = 1;
     public Text dmgPriceText;
 
@@ -37,26 +37,22 @@ public class Shop : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            Debug.Log("상점 끝");
+            StopCoroutine("OpenStore");
+            endStore = false;
             gameManager.isPanelOpen = false;
             shopPanel.SetActive(false);
         }
     }
 
 
-    /*
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if(collision.gameObject.tag == "Player")
             {
+                endStore = true;
                 StartCoroutine("OpenStore");
             }
-        }
-
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            Debug.Log("상점 끝");
-            endStore = true;
-            StopCoroutine("OpenStore");
         }
 
         private IEnumerator OpenStore() 
@@ -70,11 +66,12 @@ public class Shop : MonoBehaviour
                 }
                 yield return null;
             }
-        }*/
+        }
 
     public void CloseStore()
     {
         shopPanel.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     public void UpgradeDmg()
