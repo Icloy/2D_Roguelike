@@ -21,17 +21,17 @@ public class Shop : MonoBehaviour
         gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+  /*  private void OnTriggerStay2D(Collider2D collision)
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
             if(collision.gameObject.tag == "Player")
             {
-                gameManager.isPanelOpen= true;
+                gameManager.isPanelOpen = true;
                 shopPanel.SetActive(true);
             }
         }
-    }
+    }*/
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -59,9 +59,10 @@ public class Shop : MonoBehaviour
         {
             while (endStore)
             {
+                
                 if (Input.GetKeyDown(KeyCode.G))
                 {
-                    Time.timeScale = 0f;
+                    gameManager.isPanelOpen = true;
                     shopPanel.SetActive(true);
                 }
                 yield return null;

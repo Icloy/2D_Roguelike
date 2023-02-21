@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public int resolutionNum;
     FullScreenMode screenMode;
     private bool isGameOver; //게임오버여부 판단
-    public bool isPanelOpen;
+    public bool isPanelOpen = false;
     Player player;
 
     private void Start()
@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
         {
             isGameOver = true;
             Time.timeScale = 0;
+            isPanelOpen = true;
             GameOverPanel.SetActive(true);
         }
     }
