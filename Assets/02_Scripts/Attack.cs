@@ -27,11 +27,11 @@ public class Attack : MonoBehaviour
     void Update()
     {
         // À§Ä¡
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             transform.eulerAngles = new Vector3(0, 0, 0);
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             transform.eulerAngles = new Vector3(0, 180, 0);
         }

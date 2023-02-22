@@ -61,7 +61,7 @@ public class Shop : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.G))
                 {
-                    Time.timeScale = 0f;
+                    //Time.timeScale = 0f;
                     shopPanel.SetActive(true);
                 }
                 yield return null;

@@ -85,11 +85,11 @@ public class Player : MonoBehaviour
     {
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             transform.localScale = new Vector3(-1f, 1f);
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             transform.localScale = new Vector3(1f, 1f);
         }
@@ -158,7 +158,7 @@ public class Player : MonoBehaviour
         }
 
         //Dash
-        if (Input.GetKeyDown(KeyCode.Mouse1) && canDash)
+        if (Input.GetKeyDown(KeyCode.W) && canDash)
         {
             StartCoroutine(Dash());
         }
@@ -166,7 +166,7 @@ public class Player : MonoBehaviour
         //Attack
         if (curTime <= 0)
         {
-            if (Input.GetKey(KeyCode.Mouse0) && !gameManager.isPanelOpen)
+            if (Input.GetKey(KeyCode.Q) && !gameManager.isPanelOpen)
             {
                 anim.SetTrigger("Attack");
                 AudioPlayer.PlayOneShot(AttackSound);
