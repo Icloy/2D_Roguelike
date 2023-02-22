@@ -13,9 +13,12 @@ public class Enemy_Boss : MonoBehaviour
     public GameObject Player;
     public GameObject Boss;
     public GameObject trap;
+    public GameObject drop;
 
     private float dis;
     private int direction;
+    private int dropcnt;
+    private int dropran;
 
     void Start()
     {
@@ -55,12 +58,31 @@ public class Enemy_Boss : MonoBehaviour
             }
             else
             {
-                for (int i = -2; i < 3; i++)
+                switch (actmove)
                 {
-                    Instantiate(trap, new Vector3(Player.transform.position.x + 1f * i, Player.transform.position.y + 4f, Player.transform.position.z), Quaternion.identity);
+                    case 1:
+                        Debug.Log("else case1");
+                        for (int i = -2; i < 3; i++)
+                        {
+                            Instantiate(trap, new Vector3(Player.transform.position.x + 1f * i, Player.transform.position.y + 4f, Player.transform.position.z), Quaternion.identity);
+                        }
+                        break;
+                    case 2:
+                        Debug.Log("else case2");
+                        dropcnt = Random.Range(-3, 5);
+                        Debug.Log(dropcnt);
+                        for (int i = -3; i <= dropcnt; i++)
+                        {
+                            dropran = Random.Range(1, 6);
+                            if(dropran <= 4)
+                            {
+                                Instantiate(drop, new Vector3(Player.transform.position.x +1f * i, Player.transform.position.y + 4f, Player.transform.position.z), Quaternion.identity);
+                            }
+                        }
+                        break;
                 }
             }
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(4f);
         }
        
     }
@@ -95,6 +117,16 @@ public class Enemy_Boss : MonoBehaviour
                 }
                 break;
             case 2:
+                int i = Random.Range(1, 3);
+                switch (i)
+                {
+                    case 1:
+                        gameObject.transform.position = new Vector3(Player.transform.position.x + 1f, Player.transform.position.y, Player.transform.position.z);
+                        break;
+                    case 2:
+                        gameObject.transform.position = new Vector3(Player.transform.position.x + -1f, Player.transform.position.y, Player.transform.position.z);
+                        break;
+                }
                 break;
         }
         yield return new WaitForSeconds(3f);
@@ -107,4 +139,5 @@ public class Enemy_Boss : MonoBehaviour
             StartCoroutine(Think());
         }
     }
+
 }
