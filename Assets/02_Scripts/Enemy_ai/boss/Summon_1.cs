@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Summon : MonoBehaviour
+public class Summon_1 : MonoBehaviour
 {
     public float speed;
     public float position_change_second;
