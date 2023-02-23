@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Shop : MonoBehaviour
 {
     public GameObject shopPanel;
+    public Button selBtn;
 
     private bool endStore = false;
     private int dmgPrice = 1;
@@ -64,6 +65,7 @@ public class Shop : MonoBehaviour
                 {
                     gameManager.isPanelOpen = true;
                     shopPanel.SetActive(true);
+                    selBtn.Select();
                 }
                 yield return null;
             }
