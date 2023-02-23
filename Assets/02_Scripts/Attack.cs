@@ -12,16 +12,14 @@ public class Attack : MonoBehaviour
     private AudioSource AudioPlayer; //오디오 소스 컴포넌트
     public AudioClip BoltAttackSound;
 
+    public GameObject Player;
 
     void Awake()
     {
         AudioPlayer = GetComponent<AudioSource>();
     }
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
 
     // Update is called once per frame
     void Update()
@@ -45,6 +43,7 @@ public class Attack : MonoBehaviour
                 Instantiate(bolt, pos.position, transform.rotation);
                 AudioPlayer.PlayOneShot(BoltAttackSound);
                 curtime = Boltcooltime;
+                Player.GetComponent<Stat>().MP -= 50;
             }
         }
         curtime -= Time.deltaTime;

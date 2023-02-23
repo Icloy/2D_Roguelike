@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
     public int AtDmg; //공격 데미지
     public int maxHp; //최대 체력 
     public int curHp; //현재 체력
+    public GameObject Stat;
 
     /*public GameObject hand1;
     public GameObject hand2;*/
@@ -78,6 +79,7 @@ public class Player : MonoBehaviour
     }
     // Update is called once per frame
     #endregion
+
 
 
 
@@ -160,6 +162,7 @@ public class Player : MonoBehaviour
         //Dash
         if (Input.GetKeyDown(KeyCode.W) && canDash)
         {
+            Stat.GetComponent<Stat>().MP -= 25;
             StartCoroutine(Dash());
         }
 
@@ -301,5 +304,7 @@ public class Player : MonoBehaviour
     {
         isWallJumping = false;
     }
+
+
 
 }
