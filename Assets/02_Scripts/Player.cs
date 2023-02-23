@@ -33,6 +33,10 @@ public class Player : MonoBehaviour
     private float dashingTime = 0.1f;
     private float dashingCooldown = 1f;
 
+    private bool canHeal = true;
+    private bool isHeal;
+    private float HealI = 0f;
+
     [SerializeField] private Rigidbody2D rigid;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
@@ -58,7 +62,7 @@ public class Player : MonoBehaviour
 
     /*public GameObject hand1;
     public GameObject hand2;*/
-    public int i = 0;
+    private int i = 0;
     public GameObject AEffect;
 
     //오디오
@@ -161,16 +165,8 @@ public class Player : MonoBehaviour
 
         //Dash
         if (Input.GetKeyDown(KeyCode.W) && canDash)
-        {
-            if (Stat.GetComponent<Stat>().MP < 50)
-            {
-                Debug.Log("마나가 부족합니다");
-            }
-            else
-            {
-                Stat.GetComponent<Stat>().MP -= 50;
+        {   
                 StartCoroutine(Dash());
-            }
         }
 
         //Attack
@@ -197,6 +193,7 @@ public class Player : MonoBehaviour
                 {
                     if (collider.tag == "Enemy")
                     {
+                        Stat.GetComponent<Stat>().MP += 10;
                         Debug.Log(AtDmg + " 로 공격");
                         collider.GetComponent<Enemy>().TakeDamage(AtDmg);
                     }
@@ -215,9 +212,9 @@ public class Player : MonoBehaviour
             curTime -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A) && canHeal == true)
         {
-            Stat.GetComponent<Stat>().HP += 50;
+            StartCoroutine(Heal());         
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -328,9 +325,30 @@ public class Player : MonoBehaviour
     {
         if (col.gameObject.tag == "Enemy") //태그가 플레이어일경우 체력 감소 처리
         {
-            Stat.GetComponent<Stat>().HP -= 50;
+            Stat.GetComponent<Stat>().HP -= 100;
 
 
         }
+    }
+
+    private IEnumerator Heal()
+    {
+        if(Stat.GetComponent<Stat>().MP < 100)
+        {
+            Debug.Log("마나부족");
+        }
+        else
+        {
+            canHeal = false;
+            isHeal = true;
+            maxSpeed = 0;
+            yield return new WaitForSeconds(3f);
+            canHeal = true;
+            isHeal = false;
+            Stat.GetComponent<Stat>().HP += 100;
+            Stat.GetComponent<Stat>().MP -= 100;
+            maxSpeed = 8;
+        }
+
     }
 }

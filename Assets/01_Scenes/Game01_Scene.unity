@@ -7926,7 +7926,6 @@ MonoBehaviour:
   maxHp: 500
   curHp: 500
   Stat: {fileID: 598188429}
-  i: 0
   AEffect: {fileID: 551284327}
   AttackSound: {fileID: 8300000, guid: 13182107f288fdc47a11f9216c8f062b, type: 3}
 --- !u!82 &598188433
@@ -23313,7 +23312,7 @@ MonoBehaviour:
   hpbarcanvas: {fileID: 0}
   prfhpbar: {fileID: 2963843329728097170, guid: e38fe2568803f2e43811b279a9d32b90, type: 3}
   damage: 5
-  Hp: 2
+  Hp: 100
   dropcoincnt: 3
   Item: {fileID: 2719589337402968649, guid: d070a92108fa381488c354ac14bca927, type: 3}
   parent: {fileID: 241605109}

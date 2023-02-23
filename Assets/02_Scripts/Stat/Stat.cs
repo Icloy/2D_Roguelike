@@ -27,10 +27,10 @@ public abstract class Stat : MonoBehaviour
 
     protected void Setup()
     {
-        HP = 130;
+        HP = 300;
         MP = 25;
 
-        StartCoroutine("Recovery");
+        //StartCoroutine("Recovery");
     }
 
     protected IEnumerator Recovery()

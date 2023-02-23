@@ -22,29 +22,29 @@ public class StatTest : MonoBehaviour
     void Update()
     {
 
-        if(Player.GetComponent<Stat>().HP > 50)
+        if(Player.GetComponent<Stat>().HP >= 100)
         {
             HPbar1.gameObject.SetActive(true);
         }
-        else if (Player.GetComponent<Stat>().HP < 50)
+        else if (Player.GetComponent<Stat>().HP < 100)
         {
             HPbar1.gameObject.SetActive(false);
         }
 
-        if (Player.GetComponent<Stat>().HP > 100)
+        if (Player.GetComponent<Stat>().HP >= 200)
         {
             HPbar2.gameObject.SetActive(true);
         }
-        else if (Player.GetComponent<Stat>().HP < 100)
+        else if (Player.GetComponent<Stat>().HP < 200)
         {
             HPbar2.gameObject.SetActive(false);
         }
 
-        if (Player.GetComponent<Stat>().HP > 150)
+        if (Player.GetComponent<Stat>().HP >= 300)
         {
             HPbar3.gameObject.SetActive(true);
         }
-        else if (Player.GetComponent<Stat>().HP < 150)
+        else if (Player.GetComponent<Stat>().HP < 300)
         {
             HPbar3.gameObject.SetActive(false);
         }

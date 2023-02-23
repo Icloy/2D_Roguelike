@@ -14,7 +14,7 @@ public class PlayerStat : Stat
     }
 
 
-    public override float MaxHP => 500;
+    public override float MaxHP => 300;
     public override float HPRecovery => 25;
 
 
