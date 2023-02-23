@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43718317, g: 0.75444984, b: 1.0290304, a: 1}
+  m_IndirectSpecularColor: {r: 0.4371835, g: 0.7544492, b: 1.02903, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8003,8 +8003,8 @@ MonoBehaviour:
   pos: {fileID: 1213663646}
   boxSize: {x: 1.55, y: 1.77}
   AtDmg: 1
-  maxHp: 500
-  curHp: 500
+  maxHp: 300
+  curHp: 300
   Stat: {fileID: 598188429}
   AEffect: {fileID: 551284327}
   AttackSound: {fileID: 8300000, guid: 13182107f288fdc47a11f9216c8f062b, type: 3}
@@ -23529,8 +23529,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpbarcanvas: {fileID: 0}
   prfhpbar: {fileID: 2963843329728097170, guid: e38fe2568803f2e43811b279a9d32b90, type: 3}
-  damage: 5
-  Hp: 100
+  damage: 100
+  Hp: 1
   dropcoincnt: 3
   Item: {fileID: 2719589337402968649, guid: d070a92108fa381488c354ac14bca927, type: 3}
   parent: {fileID: 241605109}
@@ -29490,6 +29490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shopPanel: {fileID: 1636181753}
   selBtn: {fileID: 1887550561}
+  Stat: {fileID: 0}
   dmgPriceText: {fileID: 125192557}
 --- !u!212 &1883036283
 SpriteRenderer:

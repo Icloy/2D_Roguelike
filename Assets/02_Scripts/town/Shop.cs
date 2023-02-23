@@ -8,6 +8,7 @@ public class Shop : MonoBehaviour
 {
     public GameObject shopPanel;
     public Button selBtn;
+    public GameObject Stat;
 
     private bool endStore = false;
     private int dmgPrice = 1;
@@ -84,6 +85,23 @@ public class Shop : MonoBehaviour
             gameManager.coin -= dmgPrice;
             gameManager.UpdateCoinCnt();
             player.AtDmg++;
+            Debug.Log("무기 업그레이드!");
+            dmgPrice += 2;
+            dmgPriceText.text = dmgPrice.ToString() + " 코인";
+        }
+        else
+        {
+            ToastMsg.Instance.showMessage("돈이 부족합니다!", 0.5f);
+            Debug.Log("돈이 부족합니다!");
+        }
+    }
+
+    public void UpgradeHP()
+    {
+        if (gameManager.coin >= dmgPrice)
+        {
+            gameManager.coin -= dmgPrice;
+            gameManager.UpdateCoinCnt();  
             Debug.Log("무기 업그레이드!");
             dmgPrice += 2;
             dmgPriceText.text = dmgPrice.ToString() + " 코인";

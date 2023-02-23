@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
     private bool canHeal = true;
     private bool isHeal;
     private float HealI = 0f;
+
 
     [SerializeField] private Rigidbody2D rigid;
     [SerializeField] private Transform groundCheck;
@@ -223,6 +225,7 @@ public class Player : MonoBehaviour
 
 
 
+
     }
 
     void FixedUpdate()
@@ -321,15 +324,6 @@ public class Player : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.tag == "Enemy") //태그가 플레이어일경우 체력 감소 처리
-        {
-            Stat.GetComponent<Stat>().HP -= 100;
-
-
-        }
-    }
 
     private IEnumerator Heal()
     {
@@ -345,10 +339,14 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(3f);
             canHeal = true;
             isHeal = false;
-            Stat.GetComponent<Stat>().HP += 100;
+            curHp += 100;
             Stat.GetComponent<Stat>().MP -= 100;
             maxSpeed = 8;
         }
 
     }
+
+ 
+
+  
 }

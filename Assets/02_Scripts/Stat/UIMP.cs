@@ -16,7 +16,6 @@ public class UIMP : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (sliderHP != null) sliderHP.value = Utils.Percent(stat.HP, stat.MaxHP);
 
 
         if (sliderMP != null) sliderMP.value = Utils.Percent(stat.MP, stat.MaxMP);

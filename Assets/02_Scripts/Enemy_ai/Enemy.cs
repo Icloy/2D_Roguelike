@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
 
     RectTransform hpbar;
 
-    public int damage = 5; //플레이어한테 줄 데미지
+    public int damage = 100; //플레이어한테 줄 데미지
     public int Hp = 5;
     public int dropcoincnt;
     public GameObject Item;
