@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     {
         isGameOver = false;
         player = GameObject.Find("Player").GetComponent<Player>();
-        StartCoroutine("hpBar");
+        //StartCoroutine("hpBar");
     }
 
     void Update()
