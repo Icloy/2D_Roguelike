@@ -215,7 +215,14 @@ public class Player : MonoBehaviour
             curTime -= Time.deltaTime;
         }
 
-
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Stat.GetComponent<Stat>().HP += 50;
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Stat.GetComponent<Stat>().MP += 50;
+        }
 
 
 

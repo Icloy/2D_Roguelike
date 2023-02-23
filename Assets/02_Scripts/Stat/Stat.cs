@@ -27,7 +27,7 @@ public abstract class Stat : MonoBehaviour
 
     protected void Setup()
     {
-        HP = 99;
+        HP = 130;
         MP = 25;
 
         StartCoroutine("Recovery");
@@ -37,7 +37,6 @@ public abstract class Stat : MonoBehaviour
     {
         while (true)
         {
-            if (HP < MaxHP) HP += HPRecovery;
             if (MP < MaxMP) MP += MPRecovery;
 
             yield return new WaitForSeconds(1);
