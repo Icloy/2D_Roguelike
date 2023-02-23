@@ -162,8 +162,15 @@ public class Player : MonoBehaviour
         //Dash
         if (Input.GetKeyDown(KeyCode.W) && canDash)
         {
-            Stat.GetComponent<Stat>().MP -= 25;
-            StartCoroutine(Dash());
+            if (Stat.GetComponent<Stat>().MP < 50)
+            {
+                Debug.Log("마나가 부족합니다");
+            }
+            else
+            {
+                Stat.GetComponent<Stat>().MP -= 50;
+                StartCoroutine(Dash());
+            }
         }
 
         //Attack
@@ -207,6 +214,10 @@ public class Player : MonoBehaviour
         {
             curTime -= Time.deltaTime;
         }
+
+
+
+
 
     }
 
@@ -306,5 +317,13 @@ public class Player : MonoBehaviour
     }
 
 
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Enemy") //태그가 플레이어일경우 체력 감소 처리
+        {
+            Stat.GetComponent<Stat>().HP -= 50;
 
+
+        }
+    }
 }

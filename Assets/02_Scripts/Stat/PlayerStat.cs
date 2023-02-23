@@ -13,6 +13,11 @@ public class PlayerStat : Stat
         base.Setup();
     }
 
+
+    public override float MaxHP => 500;
+    public override float HPRecovery => 25;
+
+
     public override float MaxMP => 300;
     public override float MPRecovery => 25;
 

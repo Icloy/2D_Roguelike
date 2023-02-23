@@ -40,10 +40,17 @@ public class Attack : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Instantiate(bolt, pos.position, transform.rotation);
-                AudioPlayer.PlayOneShot(BoltAttackSound);
-                curtime = Boltcooltime;
-                Player.GetComponent<Stat>().MP -= 50;
+                if(Player.GetComponent<Stat>().MP < 50)
+                {
+                    Debug.Log("마나가 부족합니다");
+                }
+                else
+                {
+                    Instantiate(bolt, pos.position, transform.rotation);
+                    AudioPlayer.PlayOneShot(BoltAttackSound);
+                    curtime = Boltcooltime;
+                    Player.GetComponent<Stat>().MP -= 50;
+                }
             }
         }
         curtime -= Time.deltaTime;

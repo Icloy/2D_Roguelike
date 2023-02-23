@@ -10,10 +10,15 @@ public class UIMP : MonoBehaviour
     private Stat stat;
     [SerializeField]
     private Slider sliderMP;
+    [SerializeField]
+    private Slider sliderHP;
 
     // Update is called once per frame
     private void Update()
     {
+        if (sliderHP != null) sliderHP.value = Utils.Percent(stat.HP, stat.MaxHP);
+
+
         if (sliderMP != null) sliderMP.value = Utils.Percent(stat.MP, stat.MaxMP);
     }
 }
