@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class Shop : MonoBehaviour
 {
+    public Camera mainCamera;
+    public Camera subCamera;
+    public Transform target; //줌인 할 대상
+
     public GameObject shopPanel;
     public Button selBtn;
-    public Button selHPBtn;
 
+    //public GameObject Stat;
 
     private bool endStore = false;
     private int dmgPrice = 1;
-    private int HPPrice = 2;
     public Text dmgPriceText;
-    public Text HpPriceText;
 
+    private int hpPrice = 1;
+    public Text hpPriceText;
 
     GameManager gameManager;
     Player player;
@@ -27,61 +30,61 @@ public class Shop : MonoBehaviour
         gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
     }
 
-  /*  private void OnTriggerStay2D(Collider2D collision)
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.Escape)&& gameManager.isShopOpen)
         {
-            if(collision.gameObject.tag == "Player")
-            {
-                gameManager.isPanelOpen = true;
-                shopPanel.SetActive(true);
-            }
+            CloseStore();
         }
-    }*/
+    }
+
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("상점 끝");
             StopCoroutine("OpenStore");
-            endStore = false;
-            gameManager.isPanelOpen = false;
-            shopPanel.SetActive(false);
+            CloseStore();
         }
     }
 
 
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if(collision.gameObject.tag == "Player")
-            {
-                endStore = true;
-                StartCoroutine("OpenStore");
-            }
-        }
-
-        private IEnumerator OpenStore() 
-        {
-            while (endStore)
-            {
-                
-                if (Input.GetKeyDown(KeyCode.G))
-                {
-                    gameManager.isPanelOpen = true;
-                    shopPanel.SetActive(true);
-                    selBtn.Select();
-                    selHPBtn.Select();
-
-                }
-                yield return null;
-            }
-        }
-
-    public void CloseStore()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.gameObject.tag == "Player")
+        {
+            endStore = true;
+            StartCoroutine("OpenStore");
+        }
+    }
+
+    private IEnumerator OpenStore() 
+    {
+        while (endStore)
+        {
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                gameManager.isShopOpen = true;
+                shopPanel.SetActive(true);
+                selBtn.Select();
+                mainCamera.enabled = false;
+                subCamera.enabled= true;
+                subCamera.transform.position = new Vector3(target.transform.position.x,target.transform.position.y ,-10);
+                subCamera.orthographicSize = 3.6f;
+            }
+            yield return null;
+        }
+    }
+
+    private void CloseStore()
+    {
+        endStore = true;
+        gameManager.isShopOpen = false;
         shopPanel.SetActive(false);
-        Time.timeScale = 1f;
+        subCamera.enabled = false;
+        mainCamera.enabled = true;
+        subCamera.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10);
+        subCamera.orthographicSize = 9f;
     }
 
     public void UpgradeDmg()
@@ -104,18 +107,13 @@ public class Shop : MonoBehaviour
 
     public void UpgradeHP()
     {
-        if (gameManager.coin >= HPPrice && player.maxHp < 600)
+        if (gameManager.coin >= hpPrice)
         {
-            gameManager.coin -= HPPrice;
-            gameManager.UpdateCoinCnt();
-            player.maxHp += 100;
-            Debug.Log("체력 한칸 업그레이드!");
-            HPPrice += 2;
-            HpPriceText.text = HPPrice.ToString() + " 코인";
-        }
-        else if(player.maxHp >= 600)
-        {
-            Debug.Log("최대체력입니다");
+            gameManager.coin -= hpPrice;
+            gameManager.UpdateCoinCnt();  
+            Debug.Log("최대체력 업그레이드!");
+            hpPrice += 2;
+            hpPriceText.text = hpPrice.ToString() + " 코인";
         }
         else
         {
@@ -123,7 +121,4 @@ public class Shop : MonoBehaviour
             Debug.Log("돈이 부족합니다!");
         }
     }
-
-
-
 }

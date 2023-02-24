@@ -6,8 +6,9 @@ public class Enemy_Boss : MonoBehaviour
 {
     CircleCollider2D circle;
     Rigidbody2D rigid;
+    public SpriteRenderer sprite;
+    Animator animator;
 
-    Coroutine actcoroutine;
     public int actmove;
     public float movespeed;
     public GameObject Player;
@@ -19,11 +20,19 @@ public class Enemy_Boss : MonoBehaviour
     private int direction;
     private int dropcnt;
     private int dropran;
+    string animationState = "animationState";
+
+    enum States
+    {
+        idle = 1
+    }
 
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
         circle = GetComponent<CircleCollider2D>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -34,15 +43,18 @@ public class Enemy_Boss : MonoBehaviour
     {
         while (true)
         {
+            animator.SetInteger(animationState, (int)States.idle);
             dis = Vector2.Distance(Player.transform.position, Boss.transform.position);
             Vector2 player = Player.transform.position;
             if (player.x < Boss.transform.position.x)
             {
                 direction = 1;
+                transform.localScale = new Vector3(4, 5, 1);
             }
             else
             {
                 direction = 2;
+                transform.localScale = new Vector3(-4, 5, 1);
             }
             actmove = Random.Range(1, 3);
             Debug.Log(dis);

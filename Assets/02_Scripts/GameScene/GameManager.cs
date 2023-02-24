@@ -6,14 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public Camera mainCamera;
+    public Camera subCamera;
+
     public GameObject pausePanel; //게임정지패널
+    public Button pausePanelSelBtn; //초기 선택되어있는 버튼(키보드용)
     public GameObject optionPanel; //게임정지패널
+    public Button optionPanelSelBtn; //초기 선택되어있는 버튼(키보드용)
     public GameObject GameOverPanel; //게임오버패널
     public GameObject graphicOptionPanel;
     public GameObject soundOptionPanel;
 
     public Dropdown resolutionDropdown;
-    public Image hpGage;
 
     public Text coinCnt;
     public int coin; //인게임 재화
@@ -21,21 +25,27 @@ public class GameManager : MonoBehaviour
     List<Resolution> resolutions = new List<Resolution>(); //모니터가 지원하는 해상도를 저장할 배열
     public int resolutionNum;
     FullScreenMode screenMode;
+
     private bool isGameOver; //게임오버여부 판단
+    
     public bool isPanelOpen = false;
+    public bool isShopOpen = false;
+
+
     Player player;
 
     private void Start()
     {
         isGameOver = false;
         player = GameObject.Find("Player").GetComponent<Player>();
-        //StartCoroutine("hpBar");
+        subCamera.enabled = false;
+        mainCamera.enabled = true;
     }
 
     void Update()
     {
         //esc가 입력되면 게임을 정지시키고 옵션창을 띄운다.
-        if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver)
+        if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver && !isShopOpen)
         {
             if (optionPanel.activeSelf)
             {
@@ -61,6 +71,7 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0; //게임 시간 정지
             isPanelOpen = true;
             pausePanel.SetActive(true);
+            pausePanelSelBtn.Select();
         }
         else //게임이 이미 정지 되어있다면
         {
@@ -80,12 +91,14 @@ public class GameManager : MonoBehaviour
         if (!optionPanel.activeSelf)
         {
             pausePanel.SetActive(false);
-            optionPanel.SetActive(true); 
+            optionPanel.SetActive(true);
+            optionPanelSelBtn.Select();
         }
         else 
         {
             optionPanel.SetActive(false);
             pausePanel.SetActive(true);
+            pausePanelSelBtn.Select();
         }
     }
 
@@ -156,14 +169,6 @@ public class GameManager : MonoBehaviour
         {
             graphicOptionPanel.SetActive(false);
             soundOptionPanel.SetActive(false);
-        }
-    }
-    IEnumerator hpBar()
-    {
-        while (hpGage.fillAmount >= 0 ) //플레이어가 살아있는 동안 무한루프
-        {
-            hpGage.fillAmount = (float)player.curHp / (float)player.maxHp;
-            yield return null;
         }
     }
 
