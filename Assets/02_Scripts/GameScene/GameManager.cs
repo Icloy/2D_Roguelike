@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public Camera mainCamera;
+    public Camera subCamera;
+
     public GameObject pausePanel; //게임정지패널
     public Button pausePanelSelBtn; //초기 선택되어있는 버튼(키보드용)
     public GameObject optionPanel; //게임정지패널
@@ -35,6 +38,8 @@ public class GameManager : MonoBehaviour
     {
         isGameOver = false;
         player = GameObject.Find("Player").GetComponent<Player>();
+        subCamera.enabled = false;
+        mainCamera.enabled = true;
     }
 
     void Update()
