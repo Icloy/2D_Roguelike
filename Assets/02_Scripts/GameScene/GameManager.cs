@@ -38,8 +38,8 @@ public class GameManager : MonoBehaviour
     {
         isGameOver = false;
         player = GameObject.Find("Player").GetComponent<Player>();
-        //subCamera.enabled = false;
-        //mainCamera.enabled = true;
+        subCamera.enabled = false;
+        mainCamera.enabled = true;
     }
 
     void Update()
