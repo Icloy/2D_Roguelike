@@ -8,11 +8,15 @@ public class Shop : MonoBehaviour
 {
     public GameObject shopPanel;
     public Button selBtn;
-    public GameObject Stat;
+    public Button selHPBtn;
+
 
     private bool endStore = false;
     private int dmgPrice = 1;
+    private int HPPrice = 2;
     public Text dmgPriceText;
+    public Text HpPriceText;
+
 
     GameManager gameManager;
     Player player;
@@ -67,6 +71,8 @@ public class Shop : MonoBehaviour
                     gameManager.isPanelOpen = true;
                     shopPanel.SetActive(true);
                     selBtn.Select();
+                    selHPBtn.Select();
+
                 }
                 yield return null;
             }
@@ -98,13 +104,18 @@ public class Shop : MonoBehaviour
 
     public void UpgradeHP()
     {
-        if (gameManager.coin >= dmgPrice)
+        if (gameManager.coin >= HPPrice && player.maxHp < 600)
         {
-            gameManager.coin -= dmgPrice;
-            gameManager.UpdateCoinCnt();  
-            Debug.Log("무기 업그레이드!");
-            dmgPrice += 2;
-            dmgPriceText.text = dmgPrice.ToString() + " 코인";
+            gameManager.coin -= HPPrice;
+            gameManager.UpdateCoinCnt();
+            player.maxHp += 100;
+            Debug.Log("체력 한칸 업그레이드!");
+            HPPrice += 2;
+            HpPriceText.text = HPPrice.ToString() + " 코인";
+        }
+        else if(player.maxHp >= 600)
+        {
+            Debug.Log("최대체력입니다");
         }
         else
         {

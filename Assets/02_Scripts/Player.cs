@@ -25,7 +25,6 @@ public class Player : MonoBehaviour
     private float wallJumpingDirection;
     private float wallJumpingTime = 0.2f;
     private float wallJumpingCounter;
-    private float wallJumpingDuration = 0.4f;
     private Vector2 wallJumpingPower = new Vector2(8f, 16f);
 
     private bool canDash = true;
@@ -35,8 +34,6 @@ public class Player : MonoBehaviour
     private float dashingCooldown = 1f;
 
     private bool canHeal = true;
-    private bool isHeal;
-    private float HealI = 0f;
 
 
     [SerializeField] private Rigidbody2D rigid;
@@ -72,6 +69,7 @@ public class Player : MonoBehaviour
     public AudioClip AttackSound;
 
     public bool IsDashing { get => isDashing; set => isDashing = value; }
+    public bool IsWallJumping { get => isWallJumping; set => isWallJumping = value; }
 
     GameManager gameManager;
 
@@ -296,7 +294,7 @@ public class Player : MonoBehaviour
     {
         if (isWallSliding)
         {
-            isWallJumping = false;
+            IsWallJumping = false;
             wallJumpingDirection = -transform.localScale.x;
             wallJumpingCounter = wallJumpingTime;
 
@@ -309,7 +307,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
         {
-            isWallJumping = true;
+            IsWallJumping = true;
             rigid.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
             wallJumpingCounter = 0f;
 
@@ -320,7 +318,7 @@ public class Player : MonoBehaviour
 
     private void StopWallJumping()
     {
-        isWallJumping = false;
+        IsWallJumping = false;
     }
 
 
@@ -334,11 +332,9 @@ public class Player : MonoBehaviour
         else
         {
             canHeal = false;
-            isHeal = true;
             maxSpeed = 0;
             yield return new WaitForSeconds(3f);
             canHeal = true;
-            isHeal = false;
             curHp += 100;
             Stat.GetComponent<Stat>().MP -= 100;
             maxSpeed = 8;
