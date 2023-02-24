@@ -7,7 +7,9 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public GameObject pausePanel; //게임정지패널
+    public Button pausePanelSelBtn; //초기 선택되어있는 버튼(키보드용)
     public GameObject optionPanel; //게임정지패널
+    public Button optionPanelSelBtn; //초기 선택되어있는 버튼(키보드용)
     public GameObject GameOverPanel; //게임오버패널
     public GameObject graphicOptionPanel;
     public GameObject soundOptionPanel;
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0; //게임 시간 정지
             isPanelOpen = true;
             pausePanel.SetActive(true);
+            pausePanelSelBtn.Select();
         }
         else //게임이 이미 정지 되어있다면
         {
@@ -80,12 +83,14 @@ public class GameManager : MonoBehaviour
         if (!optionPanel.activeSelf)
         {
             pausePanel.SetActive(false);
-            optionPanel.SetActive(true); 
+            optionPanel.SetActive(true);
+            optionPanelSelBtn.Select();
         }
         else 
         {
             optionPanel.SetActive(false);
             pausePanel.SetActive(true);
+            pausePanelSelBtn.Select();
         }
     }
 

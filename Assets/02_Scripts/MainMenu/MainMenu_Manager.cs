@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu_Manager : MonoBehaviour
 {
-    public GameObject optionpanel;
+    public GameObject optionPanel;
+    public Button SelBtn; 
+
 
     List<Resolution> resolutions = new List<Resolution>(); //모니터가 지원하는 해상도를 저장할 배열
     FullScreenMode screenMode;
@@ -17,6 +19,7 @@ public class MainMenu_Manager : MonoBehaviour
     private void Start()
     {
         Resolution();
+        SelBtn.Select();
     }
 
     void Resolution() //해상도 설정
@@ -69,21 +72,21 @@ public class MainMenu_Manager : MonoBehaviour
 
     public void OptionBtnClick() //Option버튼 클릭시와 Back버튼 클릭시 
     {
-        if (optionpanel.activeSelf == true) //옵션패널이 켜져있다면 끄고 꺼져있다면 킨다.
+        if (optionPanel.activeSelf == true) //옵션패널이 켜져있다면 끄고 꺼져있다면 킨다.
         {
-            optionpanel.SetActive(false); //옵션창 종료
+            optionPanel.SetActive(false); //옵션창 종료
         }
         else
         {
             Resolution(); //해상도 새로고침
-            optionpanel.SetActive(true);
+            optionPanel.SetActive(true);
         }
     }
 
     public void OptionApplyBtnClick() //옵션창의 Apply버튼 클릭시
     {
         Screen.SetResolution(resolutions[resolutionNum].width, resolutions[resolutionNum].height, screenMode); //변경된 옵션을 설정한다.
-        optionpanel.SetActive(false);
+        optionPanel.SetActive(false);
     }
 
 

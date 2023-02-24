@@ -93,11 +93,11 @@ public class Player : MonoBehaviour
     {
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow)&&!gameManager.isPanelOpen)
         {
             transform.localScale = new Vector3(-1f, 1f);
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        else if (Input.GetKeyDown(KeyCode.RightArrow)&& !gameManager.isPanelOpen)
         {
             transform.localScale = new Vector3(1f, 1f);
         }
