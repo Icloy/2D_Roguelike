@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     public GameObject soundOptionPanel;
 
     public Dropdown resolutionDropdown;
-    public Image hpGage;
 
     public Text coinCnt;
     public int coin; //인게임 재화
@@ -23,21 +22,25 @@ public class GameManager : MonoBehaviour
     List<Resolution> resolutions = new List<Resolution>(); //모니터가 지원하는 해상도를 저장할 배열
     public int resolutionNum;
     FullScreenMode screenMode;
+
     private bool isGameOver; //게임오버여부 판단
+    
     public bool isPanelOpen = false;
+    public bool isShopOpen = false;
+
+
     Player player;
 
     private void Start()
     {
         isGameOver = false;
         player = GameObject.Find("Player").GetComponent<Player>();
-        //StartCoroutine("hpBar");
     }
 
     void Update()
     {
         //esc가 입력되면 게임을 정지시키고 옵션창을 띄운다.
-        if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver)
+        if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver && !isShopOpen)
         {
             if (optionPanel.activeSelf)
             {
@@ -161,14 +164,6 @@ public class GameManager : MonoBehaviour
         {
             graphicOptionPanel.SetActive(false);
             soundOptionPanel.SetActive(false);
-        }
-    }
-    IEnumerator hpBar()
-    {
-        while (hpGage.fillAmount >= 0 ) //플레이어가 살아있는 동안 무한루프
-        {
-            hpGage.fillAmount = (float)player.curHp / (float)player.maxHp;
-            yield return null;
         }
     }
 

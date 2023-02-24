@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
         {
             doubleJump = false;
         }
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && !gameManager.isShopOpen)
         {
             if (coyoteTimeCounter > 0f || doubleJump)
             {
