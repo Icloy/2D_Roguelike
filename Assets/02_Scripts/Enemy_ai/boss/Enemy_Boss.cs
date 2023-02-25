@@ -20,11 +20,13 @@ public class Enemy_Boss : MonoBehaviour
     private int direction;
     private int dropcnt;
     private int dropran;
+    private bool flag;
     string animationState = "animationState";
 
     enum States
     {
-        idle = 1
+        idle = 1,
+        cast = 6
     }
 
     void Start()
@@ -33,6 +35,7 @@ public class Enemy_Boss : MonoBehaviour
         circle = GetComponent<CircleCollider2D>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         animator = GetComponentInChildren<Animator>();
+        flag = true;
     }
 
     void Update()
@@ -62,44 +65,22 @@ public class Enemy_Boss : MonoBehaviour
             Debug.Log(actmove);
             if (dis <= 2.5)
             {
-                StartCoroutine(act1(actmove));
+                act1(actmove);
             }
             else if (dis <= 5)
             {
-                StartCoroutine(act2(actmove));
+                act2(actmove);
             }
             else
             {
-                switch (actmove)
-                {
-                    case 1:
-                        Debug.Log("else case1");
-                        for (int i = -2; i < 3; i++)
-                        {
-                            Instantiate(trap, new Vector3(Player.transform.position.x + 1f * i, Player.transform.position.y + 4f, Player.transform.position.z), Quaternion.identity);
-                        }
-                        break;
-                    case 2:
-                        Debug.Log("else case2");
-                        dropcnt = Random.Range(-3, 5);
-                        Debug.Log(dropcnt);
-                        for (int i = -3; i <= dropcnt; i++)
-                        {
-                            dropran = Random.Range(1, 6);
-                            if(dropran <= 4)
-                            {
-                                Instantiate(drop, new Vector3(Player.transform.position.x +1f * i, Player.transform.position.y + 4f, Player.transform.position.z), Quaternion.identity);
-                            }
-                        }
-                        break;
-                }
+                StartCoroutine(act3(actmove));
             }
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(5f);
         }
-       
+        
     }
 
-    public IEnumerator act1(int actmove)
+    void act1(int actmove)
     {
         Debug.Log("act1");
         switch (actmove)
@@ -109,10 +90,9 @@ public class Enemy_Boss : MonoBehaviour
             case 2:
                 break;
         }
-        yield return new WaitForSeconds(3f);
     }
 
-    public IEnumerator act2(int actmove)
+    void act2(int actmove)
     {
         Debug.Log("act2");
         switch (actmove)
@@ -141,15 +121,51 @@ public class Enemy_Boss : MonoBehaviour
                 }
                 break;
         }
-        yield return new WaitForSeconds(3f);
+    }
+
+    public IEnumerator act3(int actmove)
+    {
+        Debug.Log("act3");
+        animator.SetInteger(animationState, (int)States.cast);
+        yield return new WaitForSeconds(2.5f);
+        switch (actmove)
+        {
+            case 1:
+                Debug.Log("else case1");
+                for (int i = -2; i < 3; i++)
+                {
+                    Instantiate(trap, new Vector3(Player.transform.position.x + 1f * i, Player.transform.position.y + 4f, Player.transform.position.z), Quaternion.identity);
+                }
+                break;
+            case 2:
+                Debug.Log("else case2");
+
+                dropcnt = Random.Range(-3, 5);
+                Debug.Log(dropcnt);
+                for (int i = -3; i <= dropcnt; i++)
+                {
+                    dropran = Random.Range(1, 6);
+                    if (dropran <= 4)
+                    {
+                        Instantiate(drop, new Vector3(Player.transform.position.x + 1f * i, Player.transform.position.y + 2.5f, Player.transform.position.z), Quaternion.identity);
+                    }
+                }
+                break;
+        }
+        animator.SetInteger(animationState, (int)States.idle);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (flag == true)
         {
-            StartCoroutine(Think());
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                StartCoroutine(Think());
+                flag = false;
+            }
         }
+
     }
 
 }
