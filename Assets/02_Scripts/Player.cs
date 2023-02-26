@@ -60,9 +60,9 @@ public class Player : MonoBehaviour
     public GameObject Stat;
 
     /*public GameObject hand1;
-    public GameObject hand2;*/
+    public GameObject hand2;
     private int i = 0;
-    public GameObject AEffect;
+    public GameObject AEffect;*/
 
     //오디오
     private AudioSource AudioPlayer; //오디오 소스 컴포넌트
@@ -89,7 +89,14 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        #region Move
+
         horizontal = Input.GetAxisRaw("Horizontal");
+
+        if (!Input.anyKeyDown)
+        {
+            anim.SetBool("Idle", true);
+        }
 
         if (Input.GetKeyDown(KeyCode.LeftArrow)&&!gameManager.isPanelOpen)
         {
@@ -101,11 +108,15 @@ public class Player : MonoBehaviour
         }
 
         if (rigid.velocity.normalized.x == 0)
+        {
             anim.SetBool("Run", false);
+        }
         else
             anim.SetBool("Run", true);
 
-        //Jump
+        #endregion
+
+        #region Jump
 
         if (IsGrounded() && !Input.GetButton("Jump"))
         {
@@ -165,18 +176,22 @@ public class Player : MonoBehaviour
 
         //Dash
         if (Input.GetKeyDown(KeyCode.W) && canDash)
-        {   
-                StartCoroutine(Dash());
+        {
+            StartCoroutine(Dash());
         }
 
-        //Attack
+        #endregion
+
+
+        #region Attack
+
         if (curTime <= 0)
         {
             if (Input.GetKey(KeyCode.Q) && !gameManager.isPanelOpen)
             {
                 anim.SetTrigger("Attack");
                 AudioPlayer.PlayOneShot(AttackSound);
-                if (i % 2 == 0 && i == 0)
+               /* if (i % 2 == 0 && i == 0)
                 {
                     AEffect.gameObject.SetActive(true);
                     Invoke("HideEffect", 0.15f);
@@ -187,7 +202,7 @@ public class Player : MonoBehaviour
                     AEffect.gameObject.SetActive(true);
                     Invoke("HideEffect", 0.15f);
 
-                }
+                }*/
                 Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
                 foreach (Collider2D collider in collider2Ds)
                 {
@@ -220,7 +235,7 @@ public class Player : MonoBehaviour
         {
             Stat.GetComponent<Stat>().MP += 50;
         }
-
+        #endregion
 
 
 
@@ -244,16 +259,17 @@ public class Player : MonoBehaviour
         Gizmos.DrawWireCube(pos.position, boxSize);
     }
 
-    private void HideEffect()
+    /*private void HideEffect()
     {
         AEffect.gameObject.SetActive(false);
-    }
+    }*/
 
     private IEnumerator Dash()
     {
         canDash = false;
         IsDashing = true;
         maxSpeed = 40;
+        DashAnim();
         float originalGravity = rigid.gravityScale;
         rigid.gravityScale = 0f;
         rigid.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
@@ -342,7 +358,10 @@ public class Player : MonoBehaviour
 
     }
 
- 
+    public void DashAnim()
+    {
+        anim.SetTrigger("Dash");
+    }
 
   
 }

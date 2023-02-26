@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         Hp = Hp - damage;
-        if (Hp == 0)
+        if (Hp <= 0)
         {
             Die();
         }
