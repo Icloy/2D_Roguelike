@@ -26,7 +26,10 @@ public class Enemy_Boss : MonoBehaviour
     enum States
     {
         idle = 1,
-        cast = 6
+        attack = 4,
+        cast = 6,
+        disappear = 7,
+        appears = 8
     }
 
     void Start()
@@ -65,39 +68,45 @@ public class Enemy_Boss : MonoBehaviour
             Debug.Log(actmove);
             if (dis <= 2.5)
             {
-                act1(actmove);
+                StartCoroutine(act1(actmove));
             }
             else if (dis <= 5)
             {
-                act2(actmove);
+                StartCoroutine(act2(actmove));
             }
             else
             {
                 StartCoroutine(act3(actmove));
             }
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(3f);
         }
         
     }
 
-    void act1(int actmove)
+    public IEnumerator act1(int actmove)
     {
         Debug.Log("act1");
         switch (actmove)
         {
             case 1:
+                Debug.Log("act1_1");
+                animator.SetInteger(animationState, (int)States.attack);
+                yield return new WaitForSeconds(1f);
+                animator.SetInteger(animationState, (int)States.idle);
                 break;
             case 2:
+                Debug.Log("act1_2");
                 break;
         }
     }
 
-    void act2(int actmove)
+    public IEnumerator act2(int actmove)
     {
         Debug.Log("act2");
         switch (actmove)
         {
             case 1:
+                Debug.Log("act2_1");
                 rigid.AddForce(Vector2.up * 8, ForceMode2D.Impulse);
                 if(direction == 1)
                 {
@@ -109,14 +118,29 @@ public class Enemy_Boss : MonoBehaviour
                 }
                 break;
             case 2:
+                Debug.Log("act2_1");
+                animator.SetInteger(animationState, (int)States.disappear);
+                yield return new WaitForSeconds(1.04f);
                 int i = Random.Range(1, 3);
                 switch (i)
                 {
                     case 1:
-                        gameObject.transform.position = new Vector3(Player.transform.position.x + 1f, Player.transform.position.y, Player.transform.position.z);
+                        gameObject.transform.position = new Vector3(Player.transform.position.x + 1.5f, Player.transform.position.y-0.5f, Player.transform.position.z);
+                        transform.localScale = new Vector3(4, 5, 1);
+                        animator.SetInteger(animationState, (int)States.appears);
+                        yield return new WaitForSeconds(1.03f);
+                        animator.SetInteger(animationState, (int)States.attack);
+                        yield return new WaitForSeconds(1f);
+                        animator.SetInteger(animationState, (int)States.idle);
                         break;
                     case 2:
-                        gameObject.transform.position = new Vector3(Player.transform.position.x + -1f, Player.transform.position.y, Player.transform.position.z);
+                        gameObject.transform.position = new Vector3(Player.transform.position.x + -1.5f, Player.transform.position.y-0.5f, Player.transform.position.z);
+                        transform.localScale = new Vector3(-4, 5, 1);
+                        animator.SetInteger(animationState, (int)States.appears);
+                        yield return new WaitForSeconds(1.03f);
+                        animator.SetInteger(animationState, (int)States.attack);
+                        yield return new WaitForSeconds(1f);
+                        animator.SetInteger(animationState, (int)States.idle);
                         break;
                 }
                 break;
@@ -131,17 +155,15 @@ public class Enemy_Boss : MonoBehaviour
         switch (actmove)
         {
             case 1:
-                Debug.Log("else case1");
+                Debug.Log("act3_1");
                 for (int i = -2; i < 3; i++)
                 {
                     Instantiate(trap, new Vector3(Player.transform.position.x + 1f * i, Player.transform.position.y + 4f, Player.transform.position.z), Quaternion.identity);
                 }
                 break;
             case 2:
-                Debug.Log("else case2");
-
+                Debug.Log("act3_2");
                 dropcnt = Random.Range(-3, 5);
-                Debug.Log(dropcnt);
                 for (int i = -3; i <= dropcnt; i++)
                 {
                     dropran = Random.Range(1, 6);
