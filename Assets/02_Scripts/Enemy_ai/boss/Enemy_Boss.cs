@@ -107,14 +107,32 @@ public class Enemy_Boss : MonoBehaviour
         {
             case 1:
                 Debug.Log("act2_1");
-                rigid.AddForce(Vector2.up * 8, ForceMode2D.Impulse);
-                if(direction == 1)
+                animator.SetInteger(animationState, (int)States.disappear);
+                yield return new WaitForSeconds(1.04f);
+                int j = Random.Range(1, 3);
+                rigid.isKinematic = true;
+                switch (j)
                 {
-                    rigid.AddForce(Vector2.left * dis, ForceMode2D.Impulse);
-                }
-                else if (direction == 2)
-                {
-                    rigid.AddForce(Vector2.right * dis, ForceMode2D.Impulse);
+                    case 1:
+                        gameObject.transform.position = new Vector3(Player.transform.position.x + 1.5f, Player.transform.position.y + 5f, Player.transform.position.z);
+                        transform.localScale = new Vector3(4, 5, 1);
+                        animator.SetInteger(animationState, (int)States.appears);
+                        yield return new WaitForSeconds(1.03f);
+                        rigid.isKinematic = false;
+                        animator.SetInteger(animationState, (int)States.attack);
+                        yield return new WaitForSeconds(1f);
+                        animator.SetInteger(animationState, (int)States.idle);
+                        break;
+                    case 2:
+                        gameObject.transform.position = new Vector3(Player.transform.position.x + -1.5f, Player.transform.position.y + 5f, Player.transform.position.z);
+                        transform.localScale = new Vector3(-4, 5, 1);
+                        animator.SetInteger(animationState, (int)States.appears);
+                        yield return new WaitForSeconds(1.03f);
+                        rigid.isKinematic = false;
+                        animator.SetInteger(animationState, (int)States.attack);
+                        yield return new WaitForSeconds(1f);
+                        animator.SetInteger(animationState, (int)States.idle);
+                        break;
                 }
                 break;
             case 2:
