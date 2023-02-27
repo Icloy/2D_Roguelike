@@ -6,7 +6,7 @@ public class Enemy_Boss : MonoBehaviour
 {
     CircleCollider2D circle;
     Rigidbody2D rigid;
-    public SpriteRenderer sprite;
+    SpriteRenderer sprite;
     Animator animator;
 
     public int actmove;

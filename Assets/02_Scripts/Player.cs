@@ -33,6 +33,9 @@ public class Player : MonoBehaviour
     private float dashingTime = 0.1f;
     private float dashingCooldown = 1f;
 
+    SpriteRenderer spriteRenderer;
+    Animator anim;
+
     private bool canHeal = true;
 
 
@@ -42,10 +45,6 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private TrailRenderer tr;
-
-
-    SpriteRenderer spriteRenderer;
-    Animator anim;
 
     private float curTime;
     public float coolTime = 0.5f;
@@ -76,8 +75,8 @@ public class Player : MonoBehaviour
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        anim = GetComponentInChildren<Animator>();
         AudioPlayer = GetComponent<AudioSource>();
         gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
     }
