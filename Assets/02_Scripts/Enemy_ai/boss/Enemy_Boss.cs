@@ -78,7 +78,7 @@ public class Enemy_Boss : MonoBehaviour
             {
                 StartCoroutine(act3(actmove));
             }
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(4f);
         }
         
     }
@@ -108,7 +108,7 @@ public class Enemy_Boss : MonoBehaviour
             case 1:
                 Debug.Log("act2_1");
                 animator.SetInteger(animationState, (int)States.disappear);
-                yield return new WaitForSeconds(1.04f);
+                yield return new WaitForSeconds(1f);
                 int j = Random.Range(1, 3);
                 rigid.isKinematic = true;
                 switch (j)
@@ -117,28 +117,28 @@ public class Enemy_Boss : MonoBehaviour
                         gameObject.transform.position = new Vector3(Player.transform.position.x + 1.5f, Player.transform.position.y + 5f, Player.transform.position.z);
                         transform.localScale = new Vector3(4, 5, 1);
                         animator.SetInteger(animationState, (int)States.appears);
-                        yield return new WaitForSeconds(1.03f);
-                        rigid.isKinematic = false;
-                        animator.SetInteger(animationState, (int)States.attack);
                         yield return new WaitForSeconds(1f);
+                        rigid.isKinematic = false;
                         animator.SetInteger(animationState, (int)States.idle);
+                        rigid.AddForce(Vector2.down * 30f, ForceMode2D.Impulse);
+                        yield return new WaitForSeconds(1f);
                         break;
                     case 2:
                         gameObject.transform.position = new Vector3(Player.transform.position.x + -1.5f, Player.transform.position.y + 5f, Player.transform.position.z);
                         transform.localScale = new Vector3(-4, 5, 1);
                         animator.SetInteger(animationState, (int)States.appears);
-                        yield return new WaitForSeconds(1.03f);
-                        rigid.isKinematic = false;
-                        animator.SetInteger(animationState, (int)States.attack);
                         yield return new WaitForSeconds(1f);
+                        rigid.isKinematic = false;
                         animator.SetInteger(animationState, (int)States.idle);
+                        rigid.AddForce(Vector2.down * 30f, ForceMode2D.Impulse);
+                        yield return new WaitForSeconds(1f);
                         break;
                 }
                 break;
             case 2:
                 Debug.Log("act2_1");
                 animator.SetInteger(animationState, (int)States.disappear);
-                yield return new WaitForSeconds(1.04f);
+                yield return new WaitForSeconds(1f);
                 int i = Random.Range(1, 3);
                 switch (i)
                 {
@@ -146,7 +146,7 @@ public class Enemy_Boss : MonoBehaviour
                         gameObject.transform.position = new Vector3(Player.transform.position.x + 1.5f, Player.transform.position.y-0.5f, Player.transform.position.z);
                         transform.localScale = new Vector3(4, 5, 1);
                         animator.SetInteger(animationState, (int)States.appears);
-                        yield return new WaitForSeconds(1.03f);
+                        yield return new WaitForSeconds(1f);
                         animator.SetInteger(animationState, (int)States.attack);
                         yield return new WaitForSeconds(1f);
                         animator.SetInteger(animationState, (int)States.idle);
@@ -155,7 +155,7 @@ public class Enemy_Boss : MonoBehaviour
                         gameObject.transform.position = new Vector3(Player.transform.position.x + -1.5f, Player.transform.position.y-0.5f, Player.transform.position.z);
                         transform.localScale = new Vector3(-4, 5, 1);
                         animator.SetInteger(animationState, (int)States.appears);
-                        yield return new WaitForSeconds(1.03f);
+                        yield return new WaitForSeconds(1f);
                         animator.SetInteger(animationState, (int)States.attack);
                         yield return new WaitForSeconds(1f);
                         animator.SetInteger(animationState, (int)States.idle);
