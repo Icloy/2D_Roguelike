@@ -392,16 +392,21 @@ public class Player : MonoBehaviour
         {
             Debug.Log("마나부족");
         }
-        else
+        else if (!isDashing)
         {
             canHeal = false;
+            canDash = false;
             maxSpeed = 0;
+            Ladderspeed = 0;
             yield return new WaitForSeconds(3f);
+            canDash = true;
             canHeal = true;
             curHp += 100;
             Stat.GetComponent<Stat>().MP -= 100;
             maxSpeed = 8;
+            Ladderspeed = 8f;
         }
+
 
     }
 
