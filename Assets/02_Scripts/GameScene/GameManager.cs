@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    #region
     public Camera mainCamera;
     public Camera subCamera;
 
@@ -18,6 +19,9 @@ public class GameManager : MonoBehaviour
     public GameObject soundOptionPanel;
 
     public Dropdown resolutionDropdown;
+
+    public Transform alivePos;
+    public GameObject soul;
 
     public Text coinCnt;
     public int coin; //인게임 재화
@@ -32,6 +36,7 @@ public class GameManager : MonoBehaviour
 
 
     Player player;
+    #endregion
 
     private void Start()
     {
@@ -181,11 +186,12 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-
+        
 
         //흔적 남기기
+        Instantiate(soul, player.transform.position, Quaternion.identity);
 
-        Time.timeScale = 0; //게임 시간 정지 - 삭제 예정
+        //Time.timeScale = 0; //게임 시간 정지 - 삭제 예정
 
         isPanelOpen = true;
         GameOverPanel.SetActive(true);

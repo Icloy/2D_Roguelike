@@ -39,6 +39,14 @@ public class Shop : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            endStore = true;
+            StartCoroutine("OpenStore");
+        }
+    }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -46,16 +54,6 @@ public class Shop : MonoBehaviour
         {
             StopCoroutine("OpenStore");
             CloseStore();
-        }
-    }
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            endStore = true;
-            StartCoroutine("OpenStore");
         }
     }
 
