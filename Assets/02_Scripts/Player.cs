@@ -395,7 +395,6 @@ public class Player : MonoBehaviour
         else
         {
             canHeal = false;
-            canDash = false;
             maxSpeed = 0;
             yield return new WaitForSeconds(3f);
             canHeal = true;
