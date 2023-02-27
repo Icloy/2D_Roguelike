@@ -429,4 +429,13 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void Damaged(int dmg)
+    {
+        curHp -= dmg;
+        if (curHp <= 0)
+        {
+            gameManager.isGameOver = true;
+            gameManager.PlayerDead();
+        }
+    }
 }

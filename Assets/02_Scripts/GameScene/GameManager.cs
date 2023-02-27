@@ -26,10 +26,9 @@ public class GameManager : MonoBehaviour
     public int resolutionNum;
     FullScreenMode screenMode;
 
-    private bool isGameOver; //게임오버여부 판단
-    
-    public bool isPanelOpen = false;
-    public bool isShopOpen = false;
+    public bool isGameOver; //게임오버여부 판단
+    public bool isPanelOpen = false; //패널 오픈 여부 판단
+    public bool isShopOpen = false; //상점 오픈 여부 판단
 
 
     Player player;
@@ -53,14 +52,6 @@ public class GameManager : MonoBehaviour
                 return;
             }
             pasueGame();
-        }
-
-        if(player.curHp <= 0) //게임오버처리
-        {
-            isGameOver = true;
-            Time.timeScale = 0;
-            isPanelOpen = true;
-            GameOverPanel.SetActive(true);
         }
     }
 
@@ -183,5 +174,20 @@ public class GameManager : MonoBehaviour
         {
             coinCnt.text = "0";
         }
+    }
+    public void PlayerDead()
+    {
+        if (!isGameOver)
+        {
+            return;
+        }
+
+
+        //흔적 남기기
+
+        Time.timeScale = 0; //게임 시간 정지 - 삭제 예정
+
+        isPanelOpen = true;
+        GameOverPanel.SetActive(true);
     }
 }
