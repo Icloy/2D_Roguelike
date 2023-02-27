@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Progress;
 
 public class GameManager : MonoBehaviour
 {
+    #region
     public Camera mainCamera;
     public Camera subCamera;
 
@@ -17,6 +19,9 @@ public class GameManager : MonoBehaviour
     public GameObject graphicOptionPanel;
     public GameObject soundOptionPanel;
 
+    public Transform alivePos; //사망시 살아날 위치
+    public GameObject deadSoul;
+
     public Dropdown resolutionDropdown;
 
     public Text coinCnt;
@@ -26,13 +31,12 @@ public class GameManager : MonoBehaviour
     public int resolutionNum;
     FullScreenMode screenMode;
 
-    private bool isGameOver; //게임오버여부 판단
-    
+    public bool isGameOver; //게임오버여부 판단
     public bool isPanelOpen = false;
     public bool isShopOpen = false;
 
-
     Player player;
+    #endregion
 
     private void Start()
     {
@@ -55,13 +59,6 @@ public class GameManager : MonoBehaviour
             pasueGame();
         }
 
-        if(player.curHp <= 0) //게임오버처리
-        {
-            isGameOver = true;
-            Time.timeScale = 0;
-            isPanelOpen = true;
-            GameOverPanel.SetActive(true);
-        }
     }
 
     void pasueGame() //esc가 눌렸을때 실행되는 함수
@@ -113,7 +110,7 @@ public class GameManager : MonoBehaviour
         optionBtn();
     }
 
-    public void graphicBtn()
+    public void graphicBtn() // 옵션- 그래픽탭
     {
         searchpanel();
         graphicOptionPanel.SetActive(true);
@@ -151,19 +148,19 @@ public class GameManager : MonoBehaviour
         resolutionNum = x;
     }
 
-    public void soundBtn()
+    public void soundBtn() // 옵션 - 사운드탭
     {
         searchpanel();
         soundOptionPanel.SetActive(true);
     }
 
-    public void applyBtn()
+    public void applyBtn() // 옵션 - 확인버튼
     {
         Screen.SetResolution(resolutions[resolutionNum].width, resolutions[resolutionNum].height, screenMode);
         searchpanel();
     }
 
-    void searchpanel() //켜져 있는 패널 검색용
+    private void searchpanel() //켜져 있는 패널 검색용
     {
         if (graphicOptionPanel.activeSelf || soundOptionPanel.activeSelf)
         {
@@ -184,4 +181,21 @@ public class GameManager : MonoBehaviour
             coinCnt.text = "0";
         }
     }
-}
+
+    public void PlayerDead()
+    {
+        if (!isGameOver)
+        {
+            return;
+        }
+
+        Transform pos = player.transform;
+        Instantiate(deadSoul, pos);
+
+        Time.timeScale = 0;
+
+        isPanelOpen = true;
+        GameOverPanel.SetActive(true);
+    }
+ }
+
