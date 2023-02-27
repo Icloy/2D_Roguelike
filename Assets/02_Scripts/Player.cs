@@ -25,15 +25,20 @@ public class Player : MonoBehaviour
     private float wallJumpingDirection;
     private float wallJumpingTime = 0.2f;
     private float wallJumpingCounter;
-    private Vector2 wallJumpingPower = new Vector2(8f, 16f);
+    private Vector2 wallJumpingPower = new Vector2(16f, 32f);
 
     private bool canDash = true;
     private bool isDashing;
-    private float dashingPower = 30f;
+    private float dashingPower = 100f;
     private float dashingTime = 0.1f;
     private float dashingCooldown = 1f;
 
     private bool canHeal = true;
+
+    private float Laddervertical;
+    private float Ladderspeed = 8f;
+    private bool isLadder;
+    private bool isClimbing;
 
 
     [SerializeField] private Rigidbody2D rigid;
@@ -152,7 +157,7 @@ public class Player : MonoBehaviour
             coyoteTimeCounter = 0f;
         }
 
-        if (!IsGrounded())
+        if (!IsGrounded() && !IsWalled() && isLadder == false)
         {
             coyoteTimeCounter -= Time.deltaTime;
             anim.SetBool("Jump", true);
@@ -227,18 +232,44 @@ public class Player : MonoBehaviour
             curTime -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.A) && canHeal == true)
+        if (Input.GetKeyDown(KeyCode.A) && canHeal == true && maxHp != curHp)
         {
             StartCoroutine(Heal());         
         }
+        else if(Input.GetKeyDown(KeyCode.A) && maxHp == curHp)
+        {
+                Debug.Log("회복할 체력이 없습니다");   
+        }
+        
+     
+
+
+
+
+
         if (Input.GetKeyDown(KeyCode.S))
         {
             Stat.GetComponent<Stat>().MP += 50;
         }
         #endregion
 
+        #region Ladder
 
+        Laddervertical = Input.GetAxis("Vertical");
 
+        if (isLadder && Mathf.Abs(Laddervertical) > 0f)
+        {
+            isClimbing = true;
+        }
+
+        if (isLadder && isClimbing)
+        {
+            anim.SetBool("Ladder", true);
+            anim.SetBool("Idle", false);
+            anim.SetBool("Run", false);
+        }
+
+        #endregion
     }
 
     void FixedUpdate()
@@ -250,6 +281,17 @@ public class Player : MonoBehaviour
             rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y); // Right Max Speed
         else if (rigid.velocity.x < maxSpeed * (-1))
             rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y); // Left Max Speed
+
+        if (isClimbing)
+        {
+            rigid.gravityScale = 0f;
+            rigid.velocity = new Vector2(rigid.velocity.x, Laddervertical * Ladderspeed);
+
+        }
+        else
+        {
+            rigid.gravityScale = 4f;
+        }
 
     }
 
@@ -268,7 +310,7 @@ public class Player : MonoBehaviour
     {
         canDash = false;
         IsDashing = true;
-        maxSpeed = 40;
+        maxSpeed = 80;
         DashAnim();
         float originalGravity = rigid.gravityScale;
         rigid.gravityScale = 0f;
@@ -297,13 +339,19 @@ public class Player : MonoBehaviour
     {
         if (IsWalled() && !IsGrounded() && horizontal != 0f)
         {
+            anim.SetBool("Idle", false);
+            anim.SetBool("Run", false);
+            anim.SetBool("WallS", true);
             isWallSliding = true;
             rigid.velocity = new Vector2(rigid.velocity.x, Mathf.Clamp(rigid.velocity.y, -wallSlidingSpeed, float.MaxValue));
         }
         else
         {
+            anim.SetBool("WallS", false);
             isWallSliding = false;
         }
+
+    
     }
 
     private void WallJump()
@@ -363,5 +411,23 @@ public class Player : MonoBehaviour
         anim.SetTrigger("Dash");
     }
 
-  
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ladder"))
+        {
+            isLadder = true;
+        }
+    }
+
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ladder"))
+        {
+            anim.SetBool("Ladder", false);
+            isLadder = false;
+            isClimbing = false;
+        }
+    }
+
 }

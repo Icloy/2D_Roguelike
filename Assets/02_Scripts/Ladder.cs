@@ -9,6 +9,9 @@ public class Ladder : MonoBehaviour
     private bool isLadder;
     private bool isClimbing;
 
+    Animator anim;
+
+
     [SerializeField] private Rigidbody2D rb;
 
     void Update()
@@ -21,6 +24,10 @@ public class Ladder : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
     private void FixedUpdate()
     {
         if (isClimbing)
@@ -40,6 +47,8 @@ public class Ladder : MonoBehaviour
         if (collision.CompareTag("Ladder"))
         {
             isLadder = true;
+            anim.SetBool("Jump", false);
+            anim.SetBool("Ladder", true);
         }
     }
 
@@ -47,6 +56,7 @@ public class Ladder : MonoBehaviour
     {
         if (collision.CompareTag("Ladder"))
         {
+            anim.SetBool("Ladder", false);
             isLadder = false;
             isClimbing = false;
         }
