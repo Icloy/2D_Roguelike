@@ -37,6 +37,8 @@ public class Player : MonoBehaviour
     Animator anim;
 
     private bool canHeal = true;
+    private float HealTime = 2f;
+    private float HealcurTime;
 
     private float Laddervertical;
     private float Ladderspeed = 8f;
@@ -233,13 +235,17 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A) && canHeal == true && maxHp != curHp)
         {
-            StartCoroutine(Heal());         
+            StartCoroutine(HealCool());         
         }
         else if(Input.GetKeyDown(KeyCode.A) && maxHp == curHp)
         {
                 Debug.Log("회복할 체력이 없습니다");   
         }
-        
+
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            StopCoroutine(HealCool());
+        }
      
 
 
@@ -408,6 +414,27 @@ public class Player : MonoBehaviour
         }
 
 
+    }
+
+    private IEnumerator HealCool()
+    {
+        while (true)
+        {
+            if (Input.GetKey(KeyCode.A))
+            {
+                HealcurTime += Time.deltaTime;
+                if (HealTime <= HealcurTime)
+                {
+                    StartCoroutine(Heal());
+                    break;
+                }
+            }
+            else
+            {
+                HealcurTime = 0;
+            }
+            yield return null;
+        }
     }
 
     public void DashAnim()
