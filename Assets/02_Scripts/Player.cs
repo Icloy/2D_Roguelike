@@ -37,8 +37,7 @@ public class Player : MonoBehaviour
     Animator anim;
 
     private bool canHeal = true;
-    private float HealTime = 2f;
-    private float HealcurTime;
+
 
     private float Laddervertical;
     private float Ladderspeed = 8f;
@@ -64,6 +63,7 @@ public class Player : MonoBehaviour
     public int maxHp; //최대 체력 
     public int curHp; //현재 체력
     public GameObject Stat;
+    private PlayerEffect playerEffect;
 
     /*public GameObject hand1;
     public GameObject hand2;
@@ -72,12 +72,12 @@ public class Player : MonoBehaviour
 
     //오디오
     private AudioSource AudioPlayer; //오디오 소스 컴포넌트
-    public AudioClip AttackSound;
 
     public bool IsDashing { get => isDashing; set => isDashing = value; }
     public bool IsWallJumping { get => isWallJumping; set => isWallJumping = value; }
 
     GameManager gameManager;
+    CameraShake CameraS;
 
     void Awake()
     {
@@ -86,6 +86,7 @@ public class Player : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         AudioPlayer = GetComponent<AudioSource>();
         gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        CameraS = GameObject.FindWithTag("MainCamera").GetComponent<CameraShake>();
     }
     // Update is called once per frame
     #endregion
@@ -95,6 +96,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        playerEffect = GameObject.Find("Player").GetComponent<PlayerEffect>();
+
         #region Move
 
         horizontal = Input.GetAxisRaw("Horizontal");
@@ -193,10 +196,10 @@ public class Player : MonoBehaviour
 
         if (curTime <= 0)
         {
-            if (Input.GetKey(KeyCode.Q) && !gameManager.isPanelOpen)
+            if (Input.GetKey(KeyCode.Q) && !gameManager.isPanelOpen && !isWallSliding)
             {
                 anim.SetTrigger("Attack");
-                AudioPlayer.PlayOneShot(AttackSound);
+                playerEffect.AudioPlayer.PlayOneShot(playerEffect.AttackSound);
                /* if (i % 2 == 0 && i == 0)
                 {
                     AEffect.gameObject.SetActive(true);
@@ -233,21 +236,25 @@ public class Player : MonoBehaviour
             curTime -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.A) && canHeal == true && maxHp != curHp)
+        if (Input.GetKeyDown(KeyCode.A) && canHeal == true && maxHp != curHp && IsGrounded())
         {
-            StartCoroutine(HealCool());         
+            StartCoroutine(Heal());         
         }
         else if(Input.GetKeyDown(KeyCode.A) && maxHp == curHp)
         {
                 Debug.Log("회복할 체력이 없습니다");   
         }
-
-        if (Input.GetKeyUp(KeyCode.A))
+        else
         {
-            StopCoroutine(HealCool());
+            StopCoroutine(Heal());
         }
-     
 
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Debug.Log("Z");
+            CameraS.VibrateForTime(0.1f);
+        }
 
 
 
@@ -275,6 +282,7 @@ public class Player : MonoBehaviour
         }
 
         #endregion
+
     }
 
     void FixedUpdate()
@@ -402,11 +410,15 @@ public class Player : MonoBehaviour
         {
             canHeal = false;
             canDash = false;
-            maxSpeed = 0;
-            Ladderspeed = 0;
+            anim.SetBool("Idle", true);
+            rigid.constraints = RigidbodyConstraints2D.FreezeAll;
             yield return new WaitForSeconds(3f);
+            playerEffect.HealEffect.gameObject.SetActive(true);
+            Invoke("HideHealEffect" ,1f);
             canDash = true;
             canHeal = true;
+            rigid.constraints = RigidbodyConstraints2D.None;
+            rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
             curHp += 100;
             Stat.GetComponent<Stat>().MP -= 100;
             maxSpeed = 8;
@@ -416,26 +428,12 @@ public class Player : MonoBehaviour
 
     }
 
-    private IEnumerator HealCool()
+  void HideHealEffect()
     {
-        while (true)
-        {
-            if (Input.GetKey(KeyCode.A))
-            {
-                HealcurTime += Time.deltaTime;
-                if (HealTime <= HealcurTime)
-                {
-                    StartCoroutine(Heal());
-                    break;
-                }
-            }
-            else
-            {
-                HealcurTime = 0;
-            }
-            yield return null;
-        }
+        playerEffect.HealEffect.gameObject.SetActive(false);
+
     }
+
 
     public void DashAnim()
     {
