@@ -325,6 +325,7 @@ public class Player : MonoBehaviour
         IsDashing = true;
         maxSpeed = 80;
         DashAnim();
+        playerEffect.AudioPlayer.PlayOneShot(playerEffect.DashSound);
         float originalGravity = rigid.gravityScale;
         rigid.gravityScale = 0f;
         rigid.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
@@ -414,6 +415,7 @@ public class Player : MonoBehaviour
             rigid.constraints = RigidbodyConstraints2D.FreezeAll;
             yield return new WaitForSeconds(3f);
             playerEffect.HealEffect.gameObject.SetActive(true);
+            playerEffect.AudioPlayer.PlayOneShot(playerEffect.HealSound);
             Invoke("HideHealEffect" ,1f);
             canDash = true;
             canHeal = true;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43718317, g: 0.75444984, b: 1.0290304, a: 1}
+  m_IndirectSpecularColor: {r: 0.4371835, g: 0.7544492, b: 1.02903, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9031,6 +9031,8 @@ MonoBehaviour:
   HealEffect: {fileID: 421052427}
   AudioPlayer: {fileID: 0}
   AttackSound: {fileID: 8300000, guid: 13182107f288fdc47a11f9216c8f062b, type: 3}
+  HealSound: {fileID: 8300000, guid: f4eb287819129c648b611a569b4400cf, type: 3}
+  DashSound: {fileID: 8300000, guid: 737188d4252d4c243a4c34bf23b5ca64, type: 3}
 --- !u!1 &616984560
 GameObject:
   m_ObjectHideFlags: 0
@@ -9172,7 +9174,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616984560}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6c65439c333a384995f7d1421457b0d, type: 3}
   m_Name: 
