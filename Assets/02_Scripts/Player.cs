@@ -468,6 +468,7 @@ public class Player : MonoBehaviour
         {
             gameManager.isGameOver = true;
             gameManager.PlayerDead();
+            gameObject.SetActive(false); //나중에 프리팹화해서 파괴로 바꿀예정
         }
     }
 }

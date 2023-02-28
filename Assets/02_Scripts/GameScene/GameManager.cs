@@ -20,11 +20,12 @@ public class GameManager : MonoBehaviour
 
     public Dropdown resolutionDropdown;
 
-    public Transform alivePos;
-    public GameObject soul;
+    public Transform alivePos;  //살아날 위치
+    public GameObject soul;     //플레이어가 죽었을때 드랍할 오브젝트
+    public bool remainSoul = false; //해골이 아직 맵에있는지
 
-    public Text coinCnt;
-    public int coin; //인게임 재화
+    public Text coinCnt;    //코인 카운트 텍스트
+    public int coin;    //인게임 재화
 
     List<Resolution> resolutions = new List<Resolution>(); //모니터가 지원하는 해상도를 저장할 배열
     public int resolutionNum;
@@ -42,8 +43,12 @@ public class GameManager : MonoBehaviour
     {
         isGameOver = false;
         player = GameObject.Find("Player").GetComponent<Player>();
+       
+        //초기 카메라 값
         subCamera.enabled = false;
         mainCamera.enabled = true;
+
+        UpdateCoinCnt(0); // 게임 로드시 필요
     }
 
     void Update()
@@ -159,7 +164,16 @@ public class GameManager : MonoBehaviour
         searchpanel();
     }
 
-    void searchpanel() //켜져 있는 패널 검색용
+    public void continueBtn()   //GameOver패널 마을로 버튼
+    {
+        isGameOver = false;
+        player.gameObject.SetActive(true);
+        player.transform.position = alivePos.position;
+        isPanelOpen = false;
+        GameOverPanel.SetActive(false);
+    }
+
+    private void searchpanel() //켜져 있는 패널 검색용
     {
         if (graphicOptionPanel.activeSelf || soundOptionPanel.activeSelf)
         {
@@ -168,8 +182,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void UpdateCoinCnt() //코인 수 업데이트
+    public void UpdateCoinCnt(int inc) //코인 수 업데이트
     {
+        coin += inc;
+
         //코인의 계수가 음수가 아니라면
         if(coin >= 0)
         {
@@ -177,7 +193,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            coinCnt.text = "0";
+            coin = 0;
+            coinCnt.text = coin.ToString();
         }
     }
     public void PlayerDead()
@@ -190,7 +207,7 @@ public class GameManager : MonoBehaviour
 
         //흔적 남기기
         Instantiate(soul, player.transform.position, Quaternion.identity);
-
+        remainSoul = true;
         //Time.timeScale = 0; //게임 시간 정지 - 삭제 예정
 
         isPanelOpen = true;
