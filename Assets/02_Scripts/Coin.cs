@@ -57,8 +57,7 @@ public class Coin : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             //코인계수 업데이트
-            gameManager.coin++;
-            gameManager.UpdateCoinCnt();
+            gameManager.UpdateCoinCnt(1);
             Destroy(this.gameObject);
         }
     }

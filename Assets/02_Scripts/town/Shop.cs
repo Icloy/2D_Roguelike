@@ -16,11 +16,15 @@ public class Shop : MonoBehaviour
     //public GameObject Stat;
 
     private bool endStore = false;
-    private int dmgPrice = 1;
-    public Text dmgPriceText;
 
-    private int hpPrice = 2;
+    public Text dmgPriceText;
+    public int dmgLvl = 1;
+    private int dmgPrice = 1;
+
     public Text hpPriceText;
+    public int hpLvl = 1;
+    private int hpPrice = 2;
+
 
     GameManager gameManager;
     Player player;
@@ -89,31 +93,40 @@ public class Shop : MonoBehaviour
 
     public void UpgradeDmg()
     {
-        if(gameManager.coin >= dmgPrice)
+        if (gameManager.remainSoul)
         {
-            gameManager.coin -= dmgPrice;
-            gameManager.UpdateCoinCnt();
+            ToastMsg.Instance.showMessage("영혼을 흡수하셔야 강화를 할 수 있습니다!", 0.5f);
+            return;
+        }
+        if (gameManager.coin >= dmgPrice)
+        {
+            gameManager.UpdateCoinCnt(-dmgPrice);
             player.AtDmg++;
-            Debug.Log("무기 업그레이드!");
+            dmgLvl++;
             dmgPrice += 2;
+            ToastMsg.Instance.showMessage("무기 업그레이드!", 0.5f);
             dmgPriceText.text = dmgPrice.ToString() + " 코인";
         }
         else
         {
             ToastMsg.Instance.showMessage("돈이 부족합니다!", 0.5f);
-            Debug.Log("돈이 부족합니다!");
         }
     }
 
     public void UpgradeHP()
     {
+        if (gameManager.remainSoul)
+        {
+            ToastMsg.Instance.showMessage("영혼을 흡수하셔야 강화를 할 수 있습니다!", 0.5f);
+            return;
+        }
         if (gameManager.coin >= hpPrice && player.maxHp < 600)
         {
-            gameManager.coin -= hpPrice;
-            gameManager.UpdateCoinCnt();
+            gameManager.UpdateCoinCnt(-hpPrice);
             player.maxHp += 100;
-            Debug.Log("체력 한칸 증가!");
+            hpLvl++;
             hpPrice += 2;
+            ToastMsg.Instance.showMessage("체력 한칸 증가!", 0.5f);
             hpPriceText.text = hpPrice.ToString() + " 코인";
         }
         else if (player.maxHp >= 600)
@@ -123,7 +136,6 @@ public class Shop : MonoBehaviour
         else
         {
             ToastMsg.Instance.showMessage("돈이 부족합니다!", 0.5f);
-            Debug.Log("돈이 부족합니다!");
         }
     }
 }
