@@ -2469,7 +2469,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8d0e15130d3c54d9bcba9e47b25a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 644318110}
   actmove: 0
   movespeed: 0
   Player: {fileID: 1593543979}
