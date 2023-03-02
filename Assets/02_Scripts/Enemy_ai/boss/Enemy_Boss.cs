@@ -29,7 +29,8 @@ public class Enemy_Boss : MonoBehaviour
         attack = 4,
         cast = 6,
         disappear = 7,
-        appears = 8
+        appears = 8,
+        throwback = 9
     }
 
     void Start()
@@ -168,18 +169,32 @@ public class Enemy_Boss : MonoBehaviour
     public IEnumerator act3(int actmove)
     {
         Debug.Log("act3");
-        animator.SetInteger(animationState, (int)States.cast);
-        yield return new WaitForSeconds(2.5f);
         switch (actmove)
         {
             case 1:
+                animator.SetInteger(animationState, (int)States.throwback);
+                yield return new WaitForSeconds(0.85f);
                 Debug.Log("act3_1");
-                for (int i = -2; i < 3; i++)
+                if(direction == 1)
                 {
-                    Instantiate(trap, new Vector3(Player.transform.position.x + 1f * i, Player.transform.position.y + 4f, Player.transform.position.z), Quaternion.identity);
+                    for (int i = 0; i < 2; i++)
+                    {
+                        Instantiate(trap, new Vector3(Boss.transform.position.x + -2f, Boss.transform.position.y + 1f * i, Boss.transform.position.z), Quaternion.identity);
+                    }
                 }
+                else
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        Instantiate(trap, new Vector3(Boss.transform.position.x + 2f, Boss.transform.position.y + 1f * i, Boss.transform.position.z), Quaternion.identity);
+                    }
+                }
+                yield return new WaitForSeconds(1.65f);
+
                 break;
             case 2:
+                animator.SetInteger(animationState, (int)States.cast);
+                yield return new WaitForSeconds(2.5f);
                 Debug.Log("act3_2");
                 dropcnt = Random.Range(-3, 5);
                 for (int i = -3; i <= dropcnt; i++)
