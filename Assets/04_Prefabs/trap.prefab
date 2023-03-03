@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1628190851367015188}
   - component: {fileID: 1628190851367015187}
   - component: {fileID: 1628190851367015186}
-  - component: {fileID: -710530055322733485}
+  - component: {fileID: -3313753869631164318}
   m_Layer: 0
   m_Name: trap
   m_TagString: Untagged
@@ -141,7 +141,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &-710530055322733485
+--- !u!114 &-3313753869631164318
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,5 +154,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  position_change_second: 1
+  position_change_second: 0
   delete_time: 5

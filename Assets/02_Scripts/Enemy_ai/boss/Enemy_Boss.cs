@@ -177,17 +177,11 @@ public class Enemy_Boss : MonoBehaviour
                 Debug.Log("act3_1");
                 if(direction == 1)
                 {
-                    for (int i = 0; i < 2; i++)
-                    {
-                        Instantiate(trap, new Vector3(Boss.transform.position.x + -2f, Boss.transform.position.y + 1f * i, Boss.transform.position.z), Quaternion.identity);
-                    }
+                        Instantiate(trap, new Vector3(Boss.transform.position.x + -2f, Boss.transform.position.y + 1f, Boss.transform.position.z), Quaternion.identity);
                 }
                 else
                 {
-                    for (int i = 0; i < 2; i++)
-                    {
-                        Instantiate(trap, new Vector3(Boss.transform.position.x + 2f, Boss.transform.position.y + 1f * i, Boss.transform.position.z), Quaternion.identity);
-                    }
+                        Instantiate(trap, new Vector3(Boss.transform.position.x + 2f, Boss.transform.position.y + 1f, Boss.transform.position.z), Quaternion.identity);
                 }
                 yield return new WaitForSeconds(1.65f);
 
