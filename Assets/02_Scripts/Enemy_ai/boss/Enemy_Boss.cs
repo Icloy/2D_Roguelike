@@ -11,6 +11,7 @@ public class Enemy_Boss : MonoBehaviour
 
     public int actmove;
     public float movespeed;
+    public float jumpPower;
     public GameObject Player;
     public GameObject Boss;
     public GameObject trap;
@@ -97,8 +98,19 @@ public class Enemy_Boss : MonoBehaviour
                 break;
             case 2:
                 Debug.Log("act1_2");
+                rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+                switch (direction)
+                {
+                    case 1:
+                        rigid.velocity = new Vector2(1 * movespeed, rigid.velocity.y);
+                        break;
+                    case 2:
+                        rigid.velocity = new Vector2(-1 * movespeed, rigid.velocity.y);
+                        break;
+                }
                 break;
         }
+
     }
 
     public IEnumerator act2(int actmove)

@@ -2470,7 +2470,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actmove: 0
-  movespeed: 0
+  movespeed: 5
+  jumpPower: 8
   Player: {fileID: 1593543979}
   Boss: {fileID: 2107803309}
   trap: {fileID: 1628190851367015185, guid: da66707de7288414ea560a0cc5164684, type: 3}

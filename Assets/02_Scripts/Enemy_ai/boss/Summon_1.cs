@@ -8,7 +8,7 @@ public class Summon_1 : MonoBehaviour
     public float position_change_second;
     public float delete_time;
 
-    private float angle;
+    private float angle = 0;
 
     CircleCollider2D circle;
     Rigidbody2D rigid;
@@ -34,7 +34,7 @@ public class Summon_1 : MonoBehaviour
         {
             if (targetTransform != null)
             {
-                angle+=45;
+                angle += 30;
                 position = targetTransform.position;
                 Vector2 direction = new Vector2(transform.position.x - targetTransform.position.x, transform.position.y - targetTransform.position.y);
                 Quaternion angleAxis = Quaternion.AngleAxis(angle, Vector3.forward);
