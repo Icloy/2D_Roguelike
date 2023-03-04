@@ -21,20 +21,18 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300000, guid: 07fa6c77d32fa3642a001163ef49614c, type: 3}
-    - time: 0.13333334
+    - time: 0.18333334
       value: {fileID: 21300000, guid: b3a047e988a34f74a8c80899b93344f5, type: 3}
-    - time: 0.23333333
+    - time: 0.35
       value: {fileID: 21300000, guid: 8725928eeda13284783a7fb76b11fc78, type: 3}
-    - time: 0.43333334
-      value: {fileID: 21300000, guid: 0ba0ddbc1e0639e469d975ed881979f5, type: 3}
-    - time: 0.53333336
+    - time: 0.48333332
       value: {fileID: 21300000, guid: 47cd1414521c16c4d883f4594429c246, type: 3}
     - time: 0.6666667
       value: {fileID: 21300000, guid: ef6f4e7ab8f3d08428c08ee52d6a5a47, type: 3}
     attribute: m_Sprite
     path: 
-    classID: 212
-    script: {fileID: 0}
+    classID: 114
+    script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -44,16 +42,15 @@ AnimationClip:
     genericBindings:
     - serializedVersion: 2
       path: 0
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
+      attribute: 2015549526
+      script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+      typeID: 114
+      customType: 0
       isPPtrCurve: 1
     pptrCurveMapping:
     - {fileID: 21300000, guid: 07fa6c77d32fa3642a001163ef49614c, type: 3}
     - {fileID: 21300000, guid: b3a047e988a34f74a8c80899b93344f5, type: 3}
     - {fileID: 21300000, guid: 8725928eeda13284783a7fb76b11fc78, type: 3}
-    - {fileID: 21300000, guid: 0ba0ddbc1e0639e469d975ed881979f5, type: 3}
     - {fileID: 21300000, guid: 47cd1414521c16c4d883f4594429c246, type: 3}
     - {fileID: 21300000, guid: ef6f4e7ab8f3d08428c08ee52d6a5a47, type: 3}
   m_AnimationClipSettings:
@@ -66,7 +63,7 @@ AnimationClip:
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
-    m_LoopTime: 1
+    m_LoopTime: 0
     m_LoopBlend: 0
     m_LoopBlendOrientation: 0
     m_LoopBlendPositionY: 0

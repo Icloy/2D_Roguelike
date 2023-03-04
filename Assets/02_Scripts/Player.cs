@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
 
     GameManager gameManager;
     CameraShake CameraS;
-
+    Hp hp;
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -86,13 +86,17 @@ public class Player : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         AudioPlayer = GetComponent<AudioSource>();
         gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        hp = GameObject.Find("Hp").GetComponent<Hp>();
         CameraS = GameObject.FindWithTag("MainCamera").GetComponent<CameraShake>();
     }
     // Update is called once per frame
     #endregion
 
 
-
+    private void Start()
+    {
+        hp.udtHp(curHp, maxHp);
+    }
 
     void Update()
     {
@@ -464,6 +468,8 @@ public class Player : MonoBehaviour
     public void Damaged(int dmg)
     {
         curHp -= dmg;
+        hp.udtHp(curHp, maxHp);
+        //하트 애니메이션 재생
         if (curHp <= 0)
         {
             gameManager.isGameOver = true;
