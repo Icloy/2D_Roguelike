@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
         if (col.gameObject.tag == "Player") //태그가 플레이어일경우 체력 감소 처리
         {
             Player player = GameObject.Find("Player").GetComponent<Player>();
-            player.Damaged(damage);
+            player.Damaged(-damage);
         }
     }
 }

@@ -1969,7 +1969,6 @@ GameObject:
   - component: {fileID: 251875268}
   - component: {fileID: 251875269}
   - component: {fileID: 251875270}
-  - component: {fileID: 251875271}
   m_Layer: 5
   m_Name: Hp
   m_TagString: Untagged
@@ -2049,27 +2048,7 @@ MonoBehaviour:
   - {fileID: 2110909442}
   - {fileID: 387049018}
   fullHeart: {fileID: 21300000, guid: ddeb1ce312f573a49913b9b8c8095c7b, type: 3}
-  emptyHeart: {fileID: 21300000, guid: ae624ca8777a0a0428fa964316127d0a, type: 3}
---- !u!95 &251875271
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 251875267}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 54b3f01c991cb39418d09c4572e93185, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
+  emptyHeart: {fileID: 21300000, guid: ef6f4e7ab8f3d08428c08ee52d6a5a47, type: 3}
 --- !u!1 &287382586
 GameObject:
   m_ObjectHideFlags: 0

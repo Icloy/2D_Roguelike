@@ -169,6 +169,7 @@ public class GameManager : MonoBehaviour
         isGameOver = false;
         player.gameObject.SetActive(true);
         player.transform.position = alivePos.position;
+        player.curHp = 3;
         isPanelOpen = false;
         GameOverPanel.SetActive(false);
     }

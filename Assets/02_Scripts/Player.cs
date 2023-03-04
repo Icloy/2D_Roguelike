@@ -425,7 +425,7 @@ public class Player : MonoBehaviour
             canHeal = true;
             rigid.constraints = RigidbodyConstraints2D.None;
             rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
-            curHp += 100;
+            Damaged(1);
             Stat.GetComponent<Stat>().MP -= 100;
             maxSpeed = 8;
             Ladderspeed = 8f;
@@ -467,7 +467,7 @@ public class Player : MonoBehaviour
 
     public void Damaged(int dmg)
     {
-        curHp -= dmg;
+        curHp += dmg;
         hp.udtHp(curHp, maxHp);
         //하트 애니메이션 재생
         if (curHp <= 0)

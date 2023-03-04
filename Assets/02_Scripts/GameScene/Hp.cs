@@ -5,14 +5,12 @@ using UnityEngine.UI;
 
 public class Hp : MonoBehaviour
 {
-    //public int health;
-    //public int numOfHearts;
-
     public Image[] hearts;
     public Sprite fullHeart;
     public Sprite emptyHeart;
 
     Animator[] anim;
+
     private void Awake()
     {
         anim = GetComponentsInChildren<Animator>();
@@ -35,10 +33,12 @@ public class Hp : MonoBehaviour
             if (i < health)
             {
                 hearts[i].sprite = fullHeart;
+                anim[i].enabled = true;
             }
             else
             {
                 hearts[i].sprite = emptyHeart;
+                anim[i].enabled = false;
             }
 
             if (i < numOfHearts)
@@ -56,11 +56,15 @@ public class Hp : MonoBehaviour
     {
         while (true)
         {
-            foreach(Animator animator in anim)
+           foreach (Animator animator in anim)
             {
                 animator.Play("Breath");
             }
             yield return new WaitForSeconds(5.0f);
         }
+    }
+    public void Damaged()
+    {
+
     }
 }
