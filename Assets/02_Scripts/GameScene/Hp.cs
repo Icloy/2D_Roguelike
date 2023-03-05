@@ -11,6 +11,7 @@ public class Hp : MonoBehaviour
 
     Animator[] anim;
 
+
     private void Awake()
     {
         anim = GetComponentsInChildren<Animator>();
@@ -18,6 +19,7 @@ public class Hp : MonoBehaviour
 
     private void Start()
     {
+        StopAllCoroutines();
         StartCoroutine("Breath");
     }
 
@@ -33,12 +35,11 @@ public class Hp : MonoBehaviour
             if (i < health)
             {
                 hearts[i].sprite = fullHeart;
-                anim[i].enabled = true;
+                anim[i].enabled = true; 
             }
             else
             {
-                hearts[i].sprite = emptyHeart;
-                anim[i].enabled = false;
+                StartCoroutine(Damaged(i));
             }
 
             if (i < numOfHearts)
@@ -52,7 +53,7 @@ public class Hp : MonoBehaviour
         }
     }
 
-    public IEnumerator Breath()
+    IEnumerator Breath()
     {
         while (true)
         {
@@ -63,8 +64,26 @@ public class Hp : MonoBehaviour
             yield return new WaitForSeconds(5.0f);
         }
     }
-    public void Damaged()
-    {
 
+    IEnumerator Damaged(int a)
+    {
+        anim[a].SetTrigger("Damaged");
+
+        yield return new WaitForSeconds(0.45f);
+
+        hearts[a].sprite = emptyHeart;
+        anim[a].enabled = false;
+    }
+
+    public void Recover(int a)
+    {
+        hearts[a].sprite = fullHeart;
+        anim[a].enabled = true;
+        anim[a].Play("Recovery");
+    }
+
+    public void buyHp(int m)
+    {
+        hearts[m-1].enabled = true;
     }
 }

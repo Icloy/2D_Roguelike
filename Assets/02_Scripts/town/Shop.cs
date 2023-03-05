@@ -28,11 +28,12 @@ public class Shop : MonoBehaviour
 
     GameManager gameManager;
     Player player;
-
+    Hp hp;
     private void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
         gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        hp = GameObject.Find("Hp").GetComponent<Hp>();
     }
 
     private void Update()
@@ -120,16 +121,18 @@ public class Shop : MonoBehaviour
             ToastMsg.Instance.showMessage("영혼을 흡수하셔야 강화를 할 수 있습니다!", 0.5f);
             return;
         }
-        if (gameManager.coin >= hpPrice && player.maxHp < 600)
+        if (gameManager.coin >= hpPrice && player.maxHp < 7)
         {
             gameManager.UpdateCoinCnt(-hpPrice);
-            player.maxHp += 100;
+            player.maxHp++;
+            hp.buyHp(player.maxHp);
+            player.Damaged(1);
             hpLvl++;
             hpPrice += 2;
             ToastMsg.Instance.showMessage("체력 한칸 증가!", 0.5f);
             hpPriceText.text = hpPrice.ToString() + " 코인";
         }
-        else if (player.maxHp >= 600)
+        else if (player.maxHp >= 7)
         {
             Debug.Log("최대체력입니다");
         }

@@ -1996,7 +1996,7 @@ RectTransform:
   - {fileID: 2110909439}
   - {fileID: 387049015}
   m_Father: {fileID: 1108466485}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8931,7 +8931,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 598188429}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea083ef827c653844b0f9638bba501e4, type: 3}
   m_Name: 
@@ -13304,8 +13304,8 @@ RectTransform:
   m_Children:
   - {fileID: 785499064}
   - {fileID: 2069636442}
-  - {fileID: 1703287440}
   - {fileID: 251875268}
+  - {fileID: 1703287440}
   m_Father: {fileID: 1586261813}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -30470,7 +30470,7 @@ RectTransform:
   - {fileID: 1729656260}
   - {fileID: 1982696770}
   m_Father: {fileID: 1108466485}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
