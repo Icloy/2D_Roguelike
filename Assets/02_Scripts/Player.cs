@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
     public Vector2 boxSize;
 
     //힐 쿨타임
-    float hcurT;
+    public float hcurT;
     float hgoalT = 1.5f;
 
     // 플레이어 스테이터스
@@ -278,6 +278,9 @@ public class Player : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.A))
         {
             StopCoroutine("aa");
+            hcurT = 0f;
+            rigid.constraints = RigidbodyConstraints2D.None;
+            rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
         #endregion
 
@@ -444,12 +447,6 @@ public class Player : MonoBehaviour
                     hcurT = 0f;
                     yield break;
                 }
-            }
-            else
-            {
-                //키를 중간에 땠을 경우 원상 복구 해줘야 하는 것들 ex)움직일 수 있게, 모션 취소
-                Debug.Log("1");
-                hcurT = 0f;
             }
             yield return null;
         }
