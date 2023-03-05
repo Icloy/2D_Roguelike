@@ -259,26 +259,21 @@ public class Player : MonoBehaviour
         #endregion
 
         #region Heal
-        /*
-                if (Input.GetKeyDown(KeyCode.A) && canHeal == true && maxHp != curHp && IsGrounded())
-                {
-                    StartCoroutine(Heal());         
-                }
-                else if(Input.GetKeyDown(KeyCode.A) && maxHp == curHp)
-                {
-                        Debug.Log("회복할 체력이 없습니다");   
-                }
-                else
-                {
-                    StopCoroutine(Heal());
-                }
-        */
 
 
         //Down부분에 이럴 경우 코루틴이 시작되면 안된다 하는 경우의 수 추가 
-        if (Input.GetKeyDown(KeyCode.A) && curHp < maxHp && IsGrounded())
+        if (Input.GetKeyDown(KeyCode.A) && curHp < maxHp && IsGrounded() && Stat.GetComponent<Stat>().MP >= 100)
         {
             StartCoroutine("aa");
+        }
+        else if (Input.GetKeyDown(KeyCode.A) && maxHp == curHp)
+        {
+            Debug.Log("회복할 체력이 없습니다");
+        }
+        else if (Input.GetKeyDown(KeyCode.A) && Stat.GetComponent<Stat>().MP < 100)
+        {
+            Debug.Log("마나부족");
+
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
@@ -421,34 +416,6 @@ public class Player : MonoBehaviour
         IsWallJumping = false;
     }
 
-
-
-    private IEnumerator Heal()
-    {
-        if(Stat.GetComponent<Stat>().MP < 100)
-        {
-            Debug.Log("마나부족");
-        }
-        else if (!isDashing)
-        {
-            canHeal = false;
-            canDash = false;
-            anim.SetBool("Idle", true);
-            rigid.constraints = RigidbodyConstraints2D.FreezeAll;
-            yield return new WaitForSeconds(3f);
-            playerEffect.HealEffect.gameObject.SetActive(true);
-            playerEffect.AudioPlayer.PlayOneShot(playerEffect.HealSound);
-            Invoke("HideHealEffect" ,1f);
-            canDash = true;
-            canHeal = true;
-            rigid.constraints = RigidbodyConstraints2D.None;
-            rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
-            Damaged(1);
-            Stat.GetComponent<Stat>().MP -= 100;
-            maxSpeed = 8;
-            Ladderspeed = 8f;
-        }
-    }
     IEnumerator aa()
     {
         while (true)
@@ -457,11 +424,22 @@ public class Player : MonoBehaviour
             {
                 //누루는 동안 제한해야하는것들 ex) 움직임 막기, 기모으는 모션 이라든가
                 hcurT += Time.deltaTime;
-                
+                canHeal = false;
+                canDash = false;
+                anim.SetBool("Idle", true);
+                rigid.constraints = RigidbodyConstraints2D.FreezeAll;
+
                 if (hgoalT <= hcurT)
                 {
                     //힐 구현부  끝나고 움직임 해제해주기
-                    
+                    playerEffect.HealEffect.gameObject.SetActive(true);
+                    playerEffect.AudioPlayer.PlayOneShot(playerEffect.HealSound);
+                    Invoke("HideHealEffect", 1f);
+                    Stat.GetComponent<Stat>().MP -= 100;
+                    canDash = true;
+                    canHeal = true;
+                    rigid.constraints = RigidbodyConstraints2D.None;
+                    rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
                     Damaged(1);
                     hcurT = 0f;
                     yield break;
@@ -470,6 +448,7 @@ public class Player : MonoBehaviour
             else
             {
                 //키를 중간에 땠을 경우 원상 복구 해줘야 하는 것들 ex)움직일 수 있게, 모션 취소
+                Debug.Log("1");
                 hcurT = 0f;
             }
             yield return null;
