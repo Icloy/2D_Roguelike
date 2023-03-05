@@ -37,7 +37,6 @@ public class Player : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Animator anim;
 
-    private bool canHeal = true;
 
 
     private float Laddervertical;
@@ -281,6 +280,7 @@ public class Player : MonoBehaviour
             hcurT = 0f;
             rigid.constraints = RigidbodyConstraints2D.None;
             rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
+            canDash = true;
         }
         #endregion
 
@@ -427,7 +427,6 @@ public class Player : MonoBehaviour
             {
                 //누루는 동안 제한해야하는것들 ex) 움직임 막기, 기모으는 모션 이라든가
                 hcurT += Time.deltaTime;
-                canHeal = false;
                 canDash = false;
                 anim.SetBool("Idle", true);
                 rigid.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -440,7 +439,6 @@ public class Player : MonoBehaviour
                     Invoke("HideHealEffect", 1f);
                     Stat.GetComponent<Stat>().MP -= 100;
                     canDash = true;
-                    canHeal = true;
                     rigid.constraints = RigidbodyConstraints2D.None;
                     rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
                     Damaged(1);
