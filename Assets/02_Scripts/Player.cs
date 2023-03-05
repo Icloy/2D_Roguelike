@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,6 +58,9 @@ public class Player : MonoBehaviour
     public Transform pos;
     public Vector2 boxSize;
 
+    //힐 쿨타임
+    float hcurT;
+    float hgoalT = 1.5f;
 
     // 플레이어 스테이터스
     public int AtDmg; //공격 데미지
@@ -240,19 +244,6 @@ public class Player : MonoBehaviour
             curTime -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.A) && canHeal == true && maxHp != curHp && IsGrounded())
-        {
-            StartCoroutine(Heal());         
-        }
-        else if(Input.GetKeyDown(KeyCode.A) && maxHp == curHp)
-        {
-                Debug.Log("회복할 체력이 없습니다");   
-        }
-        else
-        {
-            StopCoroutine(Heal());
-        }
-
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
@@ -261,13 +252,40 @@ public class Player : MonoBehaviour
         }
 
 
-
-
         if (Input.GetKeyDown(KeyCode.S))
         {
             Stat.GetComponent<Stat>().MP += 50;
         }
         #endregion
+
+        #region Heal
+        /*
+                if (Input.GetKeyDown(KeyCode.A) && canHeal == true && maxHp != curHp && IsGrounded())
+                {
+                    StartCoroutine(Heal());         
+                }
+                else if(Input.GetKeyDown(KeyCode.A) && maxHp == curHp)
+                {
+                        Debug.Log("회복할 체력이 없습니다");   
+                }
+                else
+                {
+                    StopCoroutine(Heal());
+                }
+        */
+
+
+        //Down부분에 이럴 경우 코루틴이 시작되면 안된다 하는 경우의 수 추가 
+        if (Input.GetKeyDown(KeyCode.A) && curHp < maxHp && IsGrounded())
+        {
+            StartCoroutine("aa");
+        }
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            StopCoroutine("aa");
+        }
+        #endregion
+
 
         #region Ladder
 
@@ -425,13 +443,37 @@ public class Player : MonoBehaviour
             canHeal = true;
             rigid.constraints = RigidbodyConstraints2D.None;
             rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
-            Damaged(2);
+            Damaged(1);
             Stat.GetComponent<Stat>().MP -= 100;
             maxSpeed = 8;
             Ladderspeed = 8f;
         }
-
-
+    }
+    IEnumerator aa()
+    {
+        while (true)
+        {
+            if (Input.GetKey(KeyCode.A))
+            {
+                //누루는 동안 제한해야하는것들 ex) 움직임 막기, 기모으는 모션 이라든가
+                hcurT += Time.deltaTime;
+                
+                if (hgoalT <= hcurT)
+                {
+                    //힐 구현부  끝나고 움직임 해제해주기
+                    
+                    Damaged(1);
+                    hcurT = 0f;
+                    yield break;
+                }
+            }
+            else
+            {
+                //키를 중간에 땠을 경우 원상 복구 해줘야 하는 것들 ex)움직일 수 있게, 모션 취소
+                hcurT = 0f;
+            }
+            yield return null;
+        }
     }
 
   void HideHealEffect()
