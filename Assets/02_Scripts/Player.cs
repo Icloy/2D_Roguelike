@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
     public Vector2 boxSize;
 
     //힐 쿨타임
-    public float hcurT;
+    float hcurT;
     float hgoalT = 1.5f;
 
     // 플레이어 스테이터스
@@ -263,7 +263,7 @@ public class Player : MonoBehaviour
         //Down부분에 이럴 경우 코루틴이 시작되면 안된다 하는 경우의 수 추가 
         if (Input.GetKeyDown(KeyCode.A) && curHp < maxHp && IsGrounded() && Stat.GetComponent<Stat>().MP >= 100)
         {
-            StartCoroutine("aa");
+            StartCoroutine("Heal");
         }
         else if (Input.GetKeyDown(KeyCode.A) && maxHp == curHp)
         {
@@ -276,7 +276,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
-            StopCoroutine("aa");
+            StopCoroutine("Heal");
             hcurT = 0f;
             rigid.constraints = RigidbodyConstraints2D.None;
             rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -419,13 +419,13 @@ public class Player : MonoBehaviour
         IsWallJumping = false;
     }
 
-    IEnumerator aa()
+    IEnumerator Heal()
     {
         while (true)
         {
             if (Input.GetKey(KeyCode.A))
             {
-                //누루는 동안 제한해야하는것들 ex) 움직임 막기, 기모으는 모션 이라든가
+                //누루는 동안 제한해야하는것들
                 hcurT += Time.deltaTime;
                 canDash = false;
                 anim.SetBool("Idle", true);
@@ -433,7 +433,7 @@ public class Player : MonoBehaviour
 
                 if (hgoalT <= hcurT)
                 {
-                    //힐 구현부  끝나고 움직임 해제해주기
+                    //힐 구현부
                     playerEffect.HealEffect.gameObject.SetActive(true);
                     playerEffect.AudioPlayer.PlayOneShot(playerEffect.HealSound);
                     Invoke("HideHealEffect", 1f);
