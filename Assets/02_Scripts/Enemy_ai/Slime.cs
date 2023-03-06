@@ -23,9 +23,9 @@ public class Slime : MonoBehaviour
 
     enum States
     {
-        idle = 0,
         walk = 1,
-        jump = 2
+        jump = 2,
+        spin = 3
     }
     void Awake()
     {
@@ -96,26 +96,48 @@ public class Slime : MonoBehaviour
                     Debug.Log("case1");
                     if (direction == 1)
                     {
+                        rigid.AddForce(Vector2.up * jumpPower / 2, ForceMode2D.Impulse);
+                        yield return new WaitForSeconds(0.5f);
                         animator.SetInteger(animationState, (int)States.jump);
                         rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-                        rigid.AddForce(Vector2.left * dis, ForceMode2D.Impulse);
-                        yield return new WaitForSeconds(0.95f);
+                        rigid.AddForce(Vector2.left * dis * 1.2f, ForceMode2D.Impulse);
+                        yield return new WaitForSeconds(0.9f);
                         animator.SetInteger(animationState, (int)States.walk);
                     }
                     else
                     {
+                        rigid.AddForce(Vector2.up * jumpPower / 2, ForceMode2D.Impulse);
+                        yield return new WaitForSeconds(0.5f);
                         animator.SetInteger(animationState, (int)States.jump);
                         rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-                        rigid.AddForce(Vector2.right * dis, ForceMode2D.Impulse);
-                        yield return new WaitForSeconds(0.95f);
+                        rigid.AddForce(Vector2.right * dis * 1.2f, ForceMode2D.Impulse);
+                        yield return new WaitForSeconds(0.9f);
                         animator.SetInteger(animationState, (int)States.walk);
                     }
                     break;
                 case 2:
                     Debug.Log("case2");
+                    if (direction == 1)
+                    {
+                        rigid.AddForce(Vector2.up * jumpPower / 2, ForceMode2D.Impulse);
+                        yield return new WaitForSeconds(0.5f);
+                        animator.SetInteger(animationState, (int)States.spin);
+                        rigid.AddForce(Vector2.left * dis * 3, ForceMode2D.Impulse);
+                        yield return new WaitForSeconds(1f);
+                        animator.SetInteger(animationState, (int)States.walk);
+                    }
+                    else
+                    {
+                        rigid.AddForce(Vector2.up * jumpPower / 2, ForceMode2D.Impulse);
+                        yield return new WaitForSeconds(0.5f);
+                        animator.SetInteger(animationState, (int)States.spin);
+                        rigid.AddForce(Vector2.right * dis * 3, ForceMode2D.Impulse);
+                        yield return new WaitForSeconds(1f);
+                        animator.SetInteger(animationState, (int)States.walk);
+                    }
                     break;
             }
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(3f);
         }
     }
 
