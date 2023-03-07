@@ -203,22 +203,11 @@ public class Player : MonoBehaviour
 
         if (curTime <= 0)
         {
-            if (Input.GetKey(KeyCode.Q) && !gameManager.isPanelOpen && !isWallSliding)
+           
+            if(Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Q) && !gameManager.isPanelOpen && !isWallSliding)
             {
-                anim.SetTrigger("Attack");
+                anim.SetTrigger("UpA");
                 playerEffect.AudioPlayer.PlayOneShot(playerEffect.AttackSound);
-               /* if (i % 2 == 0 && i == 0)
-                {
-                    AEffect.gameObject.SetActive(true);
-                    Invoke("HideEffect", 0.15f);
-
-                }
-                else if (i % 2 == 1)
-                {
-                    AEffect.gameObject.SetActive(true);
-                    Invoke("HideEffect", 0.15f);
-
-                }*/
                 Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
                 foreach (Collider2D collider in collider2Ds)
                 {
@@ -231,12 +220,42 @@ public class Player : MonoBehaviour
                 }
 
                 curTime = coolTime;
-                /*i++;
-                if (i == 2)
-                {
-                    i = 0;
-                }*/
             }
+            else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.Q) && !gameManager.isPanelOpen && !isWallSliding)
+            {
+                anim.SetTrigger("DownA");
+                playerEffect.AudioPlayer.PlayOneShot(playerEffect.AttackSound);
+                Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
+                foreach (Collider2D collider in collider2Ds)
+                {
+                    if (collider.tag == "Enemy")
+                    {
+                        Stat.GetComponent<Stat>().MP += 10;
+                        Debug.Log(AtDmg + " 로 공격");
+                        collider.GetComponent<Enemy>().TakeDamage(AtDmg);
+                    }
+                }
+
+                curTime = coolTime;
+            }
+            else if (Input.GetKeyDown(KeyCode.Q) && !gameManager.isPanelOpen && !isWallSliding)
+            {
+                anim.SetTrigger("Attack");
+                playerEffect.AudioPlayer.PlayOneShot(playerEffect.AttackSound);
+                Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
+                foreach (Collider2D collider in collider2Ds)
+                {
+                    if (collider.tag == "Enemy")
+                    {
+                        Stat.GetComponent<Stat>().MP += 10;
+                        Debug.Log(AtDmg + " 로 공격");
+                        collider.GetComponent<Enemy>().TakeDamage(AtDmg);
+                    }
+                }
+
+                curTime = coolTime;
+            }
+
         }
         else
         {
