@@ -14,11 +14,22 @@ public class bat : MonoBehaviour
     Rigidbody2D rigid;
     Transform targetTransform = null;
     Vector3 position;
+    Animator animator;
+
+    string animationState = "animationState";
+
+    enum States
+    {
+        idle = 0,
+        fly = 1
+    }
 
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
         circle = GetComponent<CircleCollider2D>();
+        animator = GetComponent<Animator>();
+        animator.SetInteger(animationState, (int)States.idle);
     }
 
     void Update()
@@ -28,6 +39,7 @@ public class bat : MonoBehaviour
 
     public IEnumerator Move(Rigidbody2D rigidBodyToMove, float speed)
     {
+        animator.SetInteger(animationState, (int)States.fly);
         float remaindistance = (transform.position - position).sqrMagnitude;
         while (remaindistance > float.Epsilon)
         {
