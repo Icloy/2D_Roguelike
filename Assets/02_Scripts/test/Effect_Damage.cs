@@ -6,6 +6,7 @@ public class Effect_Damage : MonoBehaviour
 {
 
     public int AtDmg; //공격 데미지
+    [HideInInspector] public GameObject Stat;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class Effect_Damage : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("1");
+            Stat.GetComponent<Stat>().MP += 30;
             // 데미지 계산 및 적용
             other.gameObject.GetComponent<Enemy>().TakeDamage(AtDmg);
         }

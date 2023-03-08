@@ -28,15 +28,21 @@ public class CamZoom : MonoBehaviour
 
     void ZoomOut()
     {
-        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, 10, zoomSpeed);
+        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, 12, 1);
     }
 
     private void LateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.N))
+        if (Input.GetKey(KeyCode.A))
         {
             Debug.Log('1');
             ZoomIn();
+        }
+
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            Debug.Log("1");
+            ZoomOut();
         }
     }
 
