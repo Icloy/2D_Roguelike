@@ -45,17 +45,16 @@ public class Player : MonoBehaviour
     private bool isClimbing;
 
 
-    [SerializeField] private Rigidbody2D rigid;
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private Transform wallCheck;
-    [SerializeField] private LayerMask wallLayer;
-    [SerializeField] private TrailRenderer tr;
+    [HideInInspector]  [SerializeField] private Rigidbody2D rigid;
+    [HideInInspector]  [SerializeField] private Transform groundCheck;
+    [HideInInspector]  [SerializeField] private LayerMask groundLayer;
+    [HideInInspector]  [SerializeField] private Transform wallCheck;
+    [HideInInspector]  [SerializeField] private LayerMask wallLayer;
+    [HideInInspector]  [SerializeField] private TrailRenderer tr;
 
     private float curTime;
     public float coolTime = 0.5f;
-    public Transform pos;
-    public Vector2 boxSize;
+    [HideInInspector]  public Transform pos;
 
     //힐 쿨타임
     float hcurT;
@@ -65,13 +64,12 @@ public class Player : MonoBehaviour
     public int AtDmg; //공격 데미지
     public int maxHp; //최대 체력 
     public int curHp; //현재 체력
-    public GameObject Stat;
+    [HideInInspector]  public GameObject Stat;
     private PlayerEffect playerEffect;
-
-    /*public GameObject hand1;
-    public GameObject hand2;
     private int i = 0;
-    public GameObject AEffect;*/
+    [HideInInspector]  public GameObject AEffect;
+    [HideInInspector]  public GameObject AEffect_Up;
+    [HideInInspector]  public GameObject AEffect_Down;
 
     //오디오
     private AudioSource AudioPlayer; //오디오 소스 컴포넌트
@@ -208,52 +206,73 @@ public class Player : MonoBehaviour
             {
                 anim.SetTrigger("UpA");
                 playerEffect.AudioPlayer.PlayOneShot(playerEffect.AttackSound);
-                Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
-                foreach (Collider2D collider in collider2Ds)
+                if (i % 2 == 0 && i == 0)
                 {
-                    if (collider.tag == "Enemy")
-                    {
-                        Stat.GetComponent<Stat>().MP += 10;
-                        Debug.Log(AtDmg + " 로 공격");
-                        collider.GetComponent<Enemy>().TakeDamage(AtDmg);
-                    }
+                    AEffect_Up.gameObject.SetActive(true);
+                    Invoke("HideEffect", 0.2f);
+
+                }
+                else if (i % 2 == 1)
+                {
+                    AEffect_Up.gameObject.SetActive(true);
+                    Invoke("HideEffect", 0.2f);
+
                 }
 
                 curTime = coolTime;
+                i++;
+                if (i == 2)
+                {
+                    i = 0;
+                }
             }
             else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.Q) && !gameManager.isPanelOpen && !isWallSliding)
             {
                 anim.SetTrigger("DownA");
                 playerEffect.AudioPlayer.PlayOneShot(playerEffect.AttackSound);
-                Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
-                foreach (Collider2D collider in collider2Ds)
+                if (i % 2 == 0 && i == 0)
                 {
-                    if (collider.tag == "Enemy")
-                    {
-                        Stat.GetComponent<Stat>().MP += 10;
-                        Debug.Log(AtDmg + " 로 공격");
-                        collider.GetComponent<Enemy>().TakeDamage(AtDmg);
-                    }
+                    AEffect_Down.gameObject.SetActive(true);
+                    Invoke("HideEffect", 0.2f);
+
+                }
+                else if (i % 2 == 1)
+                {
+                    AEffect_Down.gameObject.SetActive(true);
+                    Invoke("HideEffect", 0.2f);
+
                 }
 
                 curTime = coolTime;
+                i++;
+                if (i == 2)
+                {
+                    i = 0;
+                }
             }
             else if (Input.GetKeyDown(KeyCode.Q) && !gameManager.isPanelOpen && !isWallSliding)
             {
                 anim.SetTrigger("Attack");
                 playerEffect.AudioPlayer.PlayOneShot(playerEffect.AttackSound);
-                Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
-                foreach (Collider2D collider in collider2Ds)
+                if (i % 2 == 0 && i == 0)
                 {
-                    if (collider.tag == "Enemy")
-                    {
-                        Stat.GetComponent<Stat>().MP += 10;
-                        Debug.Log(AtDmg + " 로 공격");
-                        collider.GetComponent<Enemy>().TakeDamage(AtDmg);
-                    }
+                    AEffect.gameObject.SetActive(true);
+                    Invoke("HideEffect", 0.2f);
+
+                }
+                else if (i % 2 == 1)
+                {
+                    AEffect.gameObject.SetActive(true);
+                    Invoke("HideEffect", 0.2f);
+
                 }
 
                 curTime = coolTime;
+                i++;
+                if (i == 2)
+                {
+                    i = 0;
+                }
             }
 
         }
@@ -347,16 +366,14 @@ public class Player : MonoBehaviour
 
     }
 
-    private void OnDrawGizmos() //공격박스표시
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(pos.position, boxSize);
-    }
 
-    /*private void HideEffect()
+
+    private void HideEffect()
     {
         AEffect.gameObject.SetActive(false);
-    }*/
+        AEffect_Up.gameObject.SetActive(false);
+        AEffect_Down.gameObject.SetActive(false);
+    }
 
     private IEnumerator Dash()
     {
