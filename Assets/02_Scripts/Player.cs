@@ -62,6 +62,7 @@ public class Player : MonoBehaviour
     [Range(2, 10)]
     public float zoomSize;
 
+    [HideInInspector]
     [Range(0.01f, 0.1f)]
     public float zoomSpeed;
 
@@ -324,6 +325,9 @@ public class Player : MonoBehaviour
             rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
             ZoomOut();
             canDash = true;
+            anim.SetBool("Sit", false);
+            playerEffect.HealEffect.gameObject.SetActive(false);
+
         }
         #endregion
 
@@ -469,17 +473,19 @@ public class Player : MonoBehaviour
                 //누루는 동안 제한해야하는것들
                 hcurT += Time.deltaTime;
                 canDash = false;
-                anim.SetBool("Idle", true);
+                anim.SetBool("Idle", false);
                 rigid.constraints = RigidbodyConstraints2D.FreezeAll;
                 ZoomIn();
+                playerEffect.HealEffect.gameObject.SetActive(true);
+                anim.SetBool("Sit", true);
 
                 if (hgoalT <= hcurT)
                 {
                     //힐 구현부
-                    playerEffect.HealEffect.gameObject.SetActive(true);
                     playerEffect.AudioPlayer.PlayOneShot(playerEffect.HealSound);
-                    Invoke("HideHealEffect", 1f);
+                    playerEffect.HealEffect.gameObject.SetActive(false);
                     ZoomOut();
+                    anim.SetBool("Sit", false);
                     Stat.GetComponent<Stat>().MP -= 100;
                     canDash = true;
                     rigid.constraints = RigidbodyConstraints2D.None;
