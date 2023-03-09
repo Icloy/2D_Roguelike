@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4371835, g: 0.7544492, b: 1.02903, a: 1}
+  m_IndirectSpecularColor: {r: 0.43718317, g: 0.75444984, b: 1.0290304, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8843,6 +8843,8 @@ MonoBehaviour:
   tr: {fileID: 598188434}
   coolTime: 0.25
   pos: {fileID: 1213663646}
+  zoomSize: 10
+  zoomSpeed: 0.01
   AtDmg: 1
   maxHp: 3
   curHp: 3
@@ -9239,9 +9241,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AssetsPPU: 16
-  m_RefResolutionX: 728
-  m_RefResolutionY: 410
+  m_AssetsPPU: 8
+  m_RefResolutionX: 720
+  m_RefResolutionY: 405
   m_UpscaleRT: 0
   m_PixelSnapping: 0
   m_CropFrameX: 0

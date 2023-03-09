@@ -5,7 +5,7 @@ using UnityEngine;
 public class testCamera : MonoBehaviour
 {
     public Transform target;
-    private float offsetY = 2f;
+    float offsetY = 6f;
     private float offsetZ = -10f;
 
     private void LateUpdate()

@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class CamZoom : MonoBehaviour
 {
     Camera cam;
+    PixelPerfectCamera pixelPerfect;
     Rigidbody2D playerRb;
 
     bool zoomIn;
-
     [Range(2, 10)]
     public float zoomSize;
 
@@ -19,31 +20,29 @@ public class CamZoom : MonoBehaviour
     {
         cam = Camera.main;
         playerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+        pixelPerfect = GetComponent<PixelPerfectCamera>();
     }
 
-    void ZoomIn()
+    private void Start()
+    {
+        if (pixelPerfect != null)
+        {
+            // Use pixelPerfect to access the properties and methods of the component.
+            // For example, you can adjust the camera's zoom level:
+            pixelPerfect.assetsPPU = 16;
+        }
+
+    }
+    public void ZoomIn()
     {
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, zoomSize, zoomSpeed);
     }
 
-    void ZoomOut()
+    public void ZoomOut()
     {
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, 12, 1);
     }
 
-    private void LateUpdate()
-    {
-        if (Input.GetKey(KeyCode.A))
-        {
-            Debug.Log('1');
-            ZoomIn();
-        }
 
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            Debug.Log("1");
-            ZoomOut();
-        }
-    }
 
 }

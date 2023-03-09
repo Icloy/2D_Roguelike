@@ -56,6 +56,15 @@ public class Player : MonoBehaviour
     public float coolTime = 0.5f;
     [HideInInspector]  public Transform pos;
 
+    bool zoomIn;
+
+    [HideInInspector]
+    [Range(2, 10)]
+    public float zoomSize;
+
+    [Range(0.01f, 0.1f)]
+    public float zoomSpeed;
+
     //힐 쿨타임
     float hcurT;
     float hgoalT = 1.5f;
@@ -70,6 +79,7 @@ public class Player : MonoBehaviour
     [HideInInspector]  public GameObject AEffect;
     [HideInInspector]  public GameObject AEffect_Up;
     [HideInInspector]  public GameObject AEffect_Down;
+    Camera cam;
 
     //오디오
     private AudioSource AudioPlayer; //오디오 소스 컴포넌트
@@ -78,7 +88,6 @@ public class Player : MonoBehaviour
     public bool IsWallJumping { get => isWallJumping; set => isWallJumping = value; }
 
     GameManager gameManager;
-    CameraShake CameraS;
     Hp hp;
     void Awake()
     {
@@ -88,7 +97,7 @@ public class Player : MonoBehaviour
         AudioPlayer = GetComponent<AudioSource>();
         gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         hp = GameObject.Find("Hp").GetComponent<Hp>();
-        CameraS = GameObject.FindWithTag("MainCamera").GetComponent<CameraShake>();
+        cam = Camera.main;
     }
     // Update is called once per frame
     #endregion
@@ -282,11 +291,6 @@ public class Player : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Debug.Log("Z");
-            CameraS.VibrateForTime(0.1f);
-        }
 
 
         if (Input.GetKeyDown(KeyCode.S))
@@ -318,6 +322,7 @@ public class Player : MonoBehaviour
             hcurT = 0f;
             rigid.constraints = RigidbodyConstraints2D.None;
             rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
+            ZoomOut();
             canDash = true;
         }
         #endregion
@@ -466,6 +471,7 @@ public class Player : MonoBehaviour
                 canDash = false;
                 anim.SetBool("Idle", true);
                 rigid.constraints = RigidbodyConstraints2D.FreezeAll;
+                ZoomIn();
 
                 if (hgoalT <= hcurT)
                 {
@@ -473,6 +479,7 @@ public class Player : MonoBehaviour
                     playerEffect.HealEffect.gameObject.SetActive(true);
                     playerEffect.AudioPlayer.PlayOneShot(playerEffect.HealSound);
                     Invoke("HideHealEffect", 1f);
+                    ZoomOut();
                     Stat.GetComponent<Stat>().MP -= 100;
                     canDash = true;
                     rigid.constraints = RigidbodyConstraints2D.None;
@@ -536,5 +543,15 @@ public class Player : MonoBehaviour
             gameManager.PlayerDead();
             gameObject.SetActive(false); //나중에 프리팹화해서 파괴로 바꿀예정
         }
+    }
+
+    public void ZoomIn()
+    {
+        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, zoomSize, zoomSpeed);
+    }
+
+    public void ZoomOut()
+    {
+        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, 12, 1);
     }
 }
