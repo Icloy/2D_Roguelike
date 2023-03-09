@@ -8,13 +8,14 @@ public class bat : MonoBehaviour
     public float position_change_second;
     public float delete_time;
 
-    private float angle = 0;
+    private bool flag = false;
 
     CircleCollider2D circle;
     Rigidbody2D rigid;
     Transform targetTransform = null;
     Vector3 position;
     Animator animator;
+    SpriteRenderer sprite;
 
     string animationState = "animationState";
 
@@ -29,6 +30,7 @@ public class bat : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         circle = GetComponent<CircleCollider2D>();
         animator = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
         animator.SetInteger(animationState, (int)States.idle);
     }
 
@@ -40,6 +42,14 @@ public class bat : MonoBehaviour
     public IEnumerator Move(Rigidbody2D rigidBodyToMove, float speed)
     {
         animator.SetInteger(animationState, (int)States.fly);
+        if (targetTransform.position.x < rigid.transform.position.x)
+        {
+            sprite.flipX = false;
+        }
+        else
+        {
+            sprite.flipX = true;
+        }
         float remaindistance = (transform.position - position).sqrMagnitude;
         while (remaindistance > float.Epsilon)
         {
@@ -49,9 +59,18 @@ public class bat : MonoBehaviour
             }
             if (rigidBodyToMove != null)
             {
-                Vector3 newposition = Vector3.MoveTowards(rigidBodyToMove.position, position, speed * Time.deltaTime);
-                rigid.MovePosition(newposition);
-                remaindistance = (transform.position - position).sqrMagnitude;
+                if(flag == true)
+                {
+                    Vector3 newposition = Vector3.MoveTowards(rigidBodyToMove.position, position, -speed * Time.deltaTime);
+                    rigid.MovePosition(newposition);
+                    remaindistance = (transform.position - position).sqrMagnitude;
+                }
+                else
+                {
+                    Vector3 newposition = Vector3.MoveTowards(rigidBodyToMove.position, position, speed * Time.deltaTime);
+                    rigid.MovePosition(newposition);
+                    remaindistance = (transform.position - position).sqrMagnitude;
+                }
             }
             yield return new WaitForFixedUpdate();
         }
@@ -66,11 +85,20 @@ public class bat : MonoBehaviour
         }
     }
 
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            flag = false;
+        }
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Destroy(this.gameObject);
+            flag = true;
+            //Destroy(this.gameObject);
         }
     }
 }
