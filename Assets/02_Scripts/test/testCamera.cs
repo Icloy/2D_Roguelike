@@ -5,11 +5,15 @@ using UnityEngine;
 public class testCamera : MonoBehaviour
 {
     public Transform target;
-    float offsetY = 6f;
-    private float offsetZ = -10f;
 
-    private void LateUpdate()
+    public float smoothSpeed = 0.125f;
+    public Vector3 offset;
+
+    private void FixedUpdate()
     {
-        transform.position = new Vector3(target.transform.position.x, target.transform.position.y + offsetY, target.transform.position.z + offsetZ);
+        Vector3 desiredPosition = target.position + offset;
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        transform.position = smoothedPosition;
+
     }
 }

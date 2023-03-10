@@ -25,6 +25,7 @@ public class StageMgr : MonoBehaviour
     private static StageMgr instance;
 
     public Image FadeInOutImg;
+    public Image WhitePanelImg;
 
     public List<GameObject> Stages = new List<GameObject>();
     public int currentStage = 0;
@@ -36,13 +37,30 @@ public class StageMgr : MonoBehaviour
         FadeInOutImg.color = new Vector4(0, 0, 0, a);
         yield return new WaitForSeconds(0.3f);
     }
-    
+
+    public IEnumerator FadeIn1()
+    {
+        a = 0.4f;
+        WhitePanelImg.color = new Vector4(255, 255, 255, a);
+        yield return new WaitForSeconds(0.1f);
+    }
+
     public IEnumerator FadeOut()
     {
         while (a >= 0)
         {
             FadeInOutImg.color = new Vector4(0, 0, 0, a);
             a -= 0.01f;
+            yield return null;
+        }
+    }
+
+    public IEnumerator FadeOut1()
+    {
+        while (a >= 0)
+        {
+            WhitePanelImg.color = new Vector4(255, 255, 255, a);
+            a -= 0.005f;
             yield return null;
         }
     }
@@ -84,6 +102,25 @@ public class StageMgr : MonoBehaviour
         if (fadeInOut)
         {
             yield return StartCoroutine(FadeOut());
+        }
+
+
+    }
+
+
+    public IEnumerator MoveNext3(bool fadeInOut, bool SmoothMoving) //
+    {
+        yield return null;
+        if (fadeInOut)
+        {
+            yield return StartCoroutine(FadeIn1());
+        }
+        mainCamera.Instance.cameraSmoothMoving = SmoothMoving;
+
+
+        if (fadeInOut)
+        {
+            yield return StartCoroutine(FadeOut1());
         }
 
 

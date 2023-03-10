@@ -81,6 +81,8 @@ public class Player : MonoBehaviour
     [HideInInspector]  public GameObject AEffect_Up;
     [HideInInspector]  public GameObject AEffect_Down;
     Camera cam;
+    public bool fadeInOut;
+    public bool SmoothMoving;
 
     //오디오
     private AudioSource AudioPlayer; //오디오 소스 컴포넌트
@@ -404,6 +406,9 @@ public class Player : MonoBehaviour
         canDash = true;
     }
 
+
+
+    #region Check
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
@@ -464,6 +469,8 @@ public class Player : MonoBehaviour
         IsWallJumping = false;
     }
 
+    #endregion
+
     IEnumerator Heal()
     {
         while (true)
@@ -485,6 +492,7 @@ public class Player : MonoBehaviour
                     playerEffect.AudioPlayer.PlayOneShot(playerEffect.HealSound);
                     playerEffect.HealEffect.gameObject.SetActive(false);
                     ZoomOut();
+                    StartCoroutine(StageMgr.Instance.MoveNext3(fadeInOut, SmoothMoving));
                     anim.SetBool("Sit", false);
                     Stat.GetComponent<Stat>().MP -= 100;
                     canDash = true;
