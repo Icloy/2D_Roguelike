@@ -17,16 +17,6 @@ public class CameraController : MonoBehaviour
 
         private void Update()
         {
-            // A 키를 누르면 카메라 줌인
-            if (Input.GetKey(KeyCode.X))
-            {
-                ZoomIn();
-            }
-            // A 키를 뗄 때 카메라 줌아웃
-            if (Input.GetKeyUp(KeyCode.X))
-            {
-                ZoomOut();
-            }
         }
 
         private void ZoomIn()
