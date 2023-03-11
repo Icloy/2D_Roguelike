@@ -37,8 +37,6 @@ public class Player : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Animator anim;
 
-
-
     private float Laddervertical;
     private float Ladderspeed = 8f;
     private bool isLadder;
@@ -90,16 +88,12 @@ public class Player : MonoBehaviour
     public bool IsDashing { get => isDashing; set => isDashing = value; }
     public bool IsWallJumping { get => isWallJumping; set => isWallJumping = value; }
 
-    GameManager gameManager;
-    Hp hp;
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
         AudioPlayer = GetComponent<AudioSource>();
-        gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
-        hp = GameObject.Find("Hp").GetComponent<Hp>();
         cam = Camera.main;
     }
     // Update is called once per frame
@@ -108,12 +102,12 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        hp.udtHp(curHp, maxHp);
+        Hp.instance.udtHp(curHp, maxHp);
     }
 
     void Update()
     {
-        playerEffect = GameObject.Find("Player").GetComponent<PlayerEffect>();
+        playerEffect = GameObject.Find("Player").GetComponent<PlayerEffect>(); // <- 이거 코드 고쳐야해요
 
         #region Move
 
@@ -124,11 +118,11 @@ public class Player : MonoBehaviour
             anim.SetBool("Idle", true);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow)&&!gameManager.isPanelOpen)
+        if (Input.GetKeyDown(KeyCode.LeftArrow)&&!GameManager.instance.isPanelOpen)
         {
             transform.localScale = new Vector3(-1f, 1f);
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow)&& !gameManager.isPanelOpen)
+        else if (Input.GetKeyDown(KeyCode.RightArrow)&& !GameManager.instance.isPanelOpen)
         {
             transform.localScale = new Vector3(1f, 1f);
         }
@@ -148,7 +142,7 @@ public class Player : MonoBehaviour
         {
             doubleJump = false;
         }
-        if (Input.GetButtonDown("Jump") && !gameManager.isShopOpen)
+        if (Input.GetButtonDown("Jump") && !GameManager.instance.isShopOpen)
         {
             if (coyoteTimeCounter > 0f || doubleJump)
             {
@@ -214,7 +208,7 @@ public class Player : MonoBehaviour
         if (curTime <= 0)
         {
            
-            if(Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Q) && !gameManager.isPanelOpen && !isWallSliding)
+            if(Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
             {
                 anim.SetTrigger("UpA");
                 playerEffect.AudioPlayer.PlayOneShot(playerEffect.AttackSound);
@@ -238,7 +232,7 @@ public class Player : MonoBehaviour
                     i = 0;
                 }
             }
-            else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.Q) && !gameManager.isPanelOpen && !isWallSliding)
+            else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
             {
                 anim.SetTrigger("DownA");
                 playerEffect.AudioPlayer.PlayOneShot(playerEffect.AttackSound);
@@ -262,7 +256,7 @@ public class Player : MonoBehaviour
                     i = 0;
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.Q) && !gameManager.isPanelOpen && !isWallSliding)
+            else if (Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
             {
                 anim.SetTrigger("Attack");
                 playerEffect.AudioPlayer.PlayOneShot(playerEffect.AttackSound);
@@ -545,17 +539,17 @@ public class Player : MonoBehaviour
         {
             for (int i = 0; i < dmg; i++)
             {
-                hp.Recover(curHp);
+                Hp.instance.Recover(curHp);
                 curHp++;
             }
             return;
         }
         curHp += dmg;
-        hp.udtHp(curHp, maxHp);
+        Hp.instance.udtHp(curHp, maxHp);
         if (curHp <= 0)
         {
-            gameManager.isGameOver = true;
-            gameManager.PlayerDead();
+            GameManager.instance.isGameOver = true;
+            GameManager.instance.PlayerDead();
             gameObject.SetActive(false); //나중에 프리팹화해서 파괴로 바꿀예정
         }
     }
