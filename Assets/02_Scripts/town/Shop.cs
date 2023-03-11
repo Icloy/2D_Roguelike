@@ -13,6 +13,8 @@ public class Shop : MonoBehaviour
     public Button selBtn;
     public Button selHPBtn;
 
+    //public GameObject Stat;
+
     private bool endStore = false;
 
     public Text dmgPriceText;
@@ -23,15 +25,20 @@ public class Shop : MonoBehaviour
     public int hpLvl = 1;
     private int hpPrice = 2;
 
+
+    GameManager gameManager;
     Player player;
+    Hp hp;
     private void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
+        gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        hp = GameObject.Find("Hp").GetComponent<Hp>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)&& GameManager.instance.isShopOpen)
+        if (Input.GetKeyDown(KeyCode.Escape)&& gameManager.isShopOpen)
         {
             CloseStore();
         }
@@ -61,14 +68,14 @@ public class Shop : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
-                GameManager.instance.isShopOpen = true;
+                gameManager.isShopOpen = true;
                 shopPanel.SetActive(true);
                 selBtn.Select();
                 selHPBtn.Select();
                 mainCamera.enabled = false;
                 subCamera.enabled= true;
                 subCamera.transform.position = new Vector3(target.transform.position.x,target.transform.position.y ,-10);
-                subCamera.orthographicSize = 4.8f;
+                subCamera.orthographicSize = 3.6f;
             }
             yield return null;
         }
@@ -77,7 +84,7 @@ public class Shop : MonoBehaviour
     private void CloseStore()
     {
         endStore = true;
-        GameManager.instance.isShopOpen = false;
+        gameManager.isShopOpen = false;
         shopPanel.SetActive(false);
         subCamera.enabled = false;
         mainCamera.enabled = true;
@@ -87,14 +94,14 @@ public class Shop : MonoBehaviour
 
     public void UpgradeDmg()
     {
-        if (GameManager.instance.remainSoul)
+        if (gameManager.remainSoul)
         {
             ToastMsg.Instance.showMessage("영혼을 흡수하셔야 강화를 할 수 있습니다!", 0.5f);
             return;
         }
-        if (GameManager.instance.coin >= dmgPrice)
+        if (gameManager.coin >= dmgPrice)
         {
-            GameManager.instance.UpdateCoinCnt(-dmgPrice);
+            gameManager.UpdateCoinCnt(-dmgPrice);
             player.AtDmg++;
             dmgLvl++;
             dmgPrice += 2;
@@ -109,16 +116,16 @@ public class Shop : MonoBehaviour
 
     public void UpgradeHP()
     {
-        if (GameManager.instance.remainSoul)
+        if (gameManager.remainSoul)
         {
             ToastMsg.Instance.showMessage("영혼을 흡수하셔야 강화를 할 수 있습니다!", 0.5f);
             return;
         }
-        if (GameManager.instance.coin >= hpPrice && player.maxHp < 7)
+        if (gameManager.coin >= hpPrice && player.maxHp < 7)
         {
-            GameManager.instance.UpdateCoinCnt(-hpPrice);
+            gameManager.UpdateCoinCnt(-hpPrice);
             player.maxHp++;
-            Hp.instance.buyHp(player.maxHp);
+            hp.buyHp(player.maxHp);
             player.Damaged(1);
             hpLvl++;
             hpPrice += 2;

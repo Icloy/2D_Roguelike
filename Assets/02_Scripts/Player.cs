@@ -37,6 +37,8 @@ public class Player : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Animator anim;
 
+
+
     private float Laddervertical;
     private float Ladderspeed = 8f;
     private bool isLadder;
@@ -73,6 +75,7 @@ public class Player : MonoBehaviour
     public int maxHp; //최대 체력 
     public int curHp; //현재 체력
     [HideInInspector]  public GameObject Stat;
+    private PlayerEffect playerEffect;
     private int i = 0;
     [HideInInspector]  public GameObject AEffect;
     [HideInInspector]  public GameObject AEffect_Up;
@@ -81,25 +84,22 @@ public class Player : MonoBehaviour
     public bool fadeInOut;
     public bool SmoothMoving;
 
-    //이펙트
-
-    [HideInInspector]  public GameObject HealEffect;
-    [HideInInspector]  public AudioClip AttackSound;
-    [HideInInspector]  public AudioClip HealSound;
-    [HideInInspector]  public AudioClip DashSound;
-
     //오디오
     private AudioSource AudioPlayer; //오디오 소스 컴포넌트
 
     public bool IsDashing { get => isDashing; set => isDashing = value; }
     public bool IsWallJumping { get => isWallJumping; set => isWallJumping = value; }
 
+    GameManager gameManager;
+    Hp hp;
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
         AudioPlayer = GetComponent<AudioSource>();
+        gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        hp = GameObject.Find("Hp").GetComponent<Hp>();
         cam = Camera.main;
     }
     // Update is called once per frame
@@ -108,11 +108,12 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        Hp.instance.udtHp(curHp, maxHp);
+        hp.udtHp(curHp, maxHp);
     }
 
     void Update()
     {
+        playerEffect = GameObject.Find("Player").GetComponent<PlayerEffect>();
 
         #region Move
 
@@ -123,11 +124,11 @@ public class Player : MonoBehaviour
             anim.SetBool("Idle", true);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow)&&!GameManager.instance.isPanelOpen)
+        if (Input.GetKeyDown(KeyCode.LeftArrow)&&!gameManager.isPanelOpen)
         {
             transform.localScale = new Vector3(-1f, 1f);
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow)&& !GameManager.instance.isPanelOpen)
+        else if (Input.GetKeyDown(KeyCode.RightArrow)&& !gameManager.isPanelOpen)
         {
             transform.localScale = new Vector3(1f, 1f);
         }
@@ -147,7 +148,7 @@ public class Player : MonoBehaviour
         {
             doubleJump = false;
         }
-        if (Input.GetButtonDown("Jump") && !GameManager.instance.isShopOpen)
+        if (Input.GetButtonDown("Jump") && !gameManager.isShopOpen)
         {
             if (coyoteTimeCounter > 0f || doubleJump)
             {
@@ -213,10 +214,10 @@ public class Player : MonoBehaviour
         if (curTime <= 0)
         {
            
-            if(Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
+            if(Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Q) && !gameManager.isPanelOpen && !isWallSliding)
             {
                 anim.SetTrigger("UpA");
-                AudioPlayer.PlayOneShot(AttackSound);
+                playerEffect.AudioPlayer.PlayOneShot(playerEffect.AttackSound);
                 if (i % 2 == 0 && i == 0)
                 {
                     AEffect_Up.gameObject.SetActive(true);
@@ -237,10 +238,10 @@ public class Player : MonoBehaviour
                     i = 0;
                 }
             }
-            else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
+            else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.Q) && !gameManager.isPanelOpen && !isWallSliding)
             {
                 anim.SetTrigger("DownA");
-                AudioPlayer.PlayOneShot(AttackSound);
+                playerEffect.AudioPlayer.PlayOneShot(playerEffect.AttackSound);
                 if (i % 2 == 0 && i == 0)
                 {
                     AEffect_Down.gameObject.SetActive(true);
@@ -261,10 +262,10 @@ public class Player : MonoBehaviour
                     i = 0;
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
+            else if (Input.GetKeyDown(KeyCode.Q) && !gameManager.isPanelOpen && !isWallSliding)
             {
                 anim.SetTrigger("Attack");
-                AudioPlayer.PlayOneShot(AttackSound);
+                playerEffect.AudioPlayer.PlayOneShot(playerEffect.AttackSound);
                 if (i % 2 == 0 && i == 0)
                 {
                     AEffect.gameObject.SetActive(true);
@@ -327,7 +328,7 @@ public class Player : MonoBehaviour
             ZoomOut();
             canDash = true;
             anim.SetBool("Sit", false);
-            HealEffect.gameObject.SetActive(false);
+            playerEffect.HealEffect.gameObject.SetActive(false);
 
         }
         #endregion
@@ -391,7 +392,7 @@ public class Player : MonoBehaviour
         IsDashing = true;
         maxSpeed = 80;
         DashAnim();
-        AudioPlayer.PlayOneShot(DashSound);
+        playerEffect.AudioPlayer.PlayOneShot(playerEffect.DashSound);
         float originalGravity = rigid.gravityScale;
         rigid.gravityScale = 0f;
         rigid.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
@@ -482,14 +483,14 @@ public class Player : MonoBehaviour
                 anim.SetBool("Idle", false);
                 rigid.constraints = RigidbodyConstraints2D.FreezeAll;
                 ZoomIn();
-                HealEffect.gameObject.SetActive(true);
+                playerEffect.HealEffect.gameObject.SetActive(true);
                 anim.SetBool("Sit", true);
 
                 if (hgoalT <= hcurT)
                 {
                     //힐 구현부
-                    AudioPlayer.PlayOneShot(HealSound);
-                    HealEffect.gameObject.SetActive(false);
+                    playerEffect.AudioPlayer.PlayOneShot(playerEffect.HealSound);
+                    playerEffect.HealEffect.gameObject.SetActive(false);
                     ZoomOut();
                     StartCoroutine(StageMgr.Instance.MoveNext3(fadeInOut, SmoothMoving));
                     ShakeCamera.instance.StartShake(0.2f, 0.2f);
@@ -509,7 +510,7 @@ public class Player : MonoBehaviour
 
   void HideHealEffect()
     {
-        HealEffect.gameObject.SetActive(false);
+        playerEffect.HealEffect.gameObject.SetActive(false);
 
     }
 
@@ -544,17 +545,17 @@ public class Player : MonoBehaviour
         {
             for (int i = 0; i < dmg; i++)
             {
-                Hp.instance.Recover(curHp);
+                hp.Recover(curHp);
                 curHp++;
             }
             return;
         }
         curHp += dmg;
-        Hp.instance.udtHp(curHp, maxHp);
+        hp.udtHp(curHp, maxHp);
         if (curHp <= 0)
         {
-            GameManager.instance.isGameOver = true;
-            GameManager.instance.PlayerDead();
+            gameManager.isGameOver = true;
+            gameManager.PlayerDead();
             gameObject.SetActive(false); //나중에 프리팹화해서 파괴로 바꿀예정
         }
     }
@@ -568,6 +569,4 @@ public class Player : MonoBehaviour
     {
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, 12, 1);
     }
-
-
 }

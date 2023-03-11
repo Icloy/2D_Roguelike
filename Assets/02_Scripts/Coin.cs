@@ -4,56 +4,25 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    GameObject target;
-    CircleCollider2D circle;
-    Rigidbody2D rigid;
+    GameManager gameManager;
+    public GameObject target;
+    public CircleCollider2D circle;
 
     float speed;
+    Vector3 startPos;
 
     private void Awake()
     {
+        gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         target = GameObject.Find("coincollect");
         circle = GetComponent<CircleCollider2D>();
-        rigid = GetComponent<Rigidbody2D>();
     }
+
     private void Start()
     {
-        speed = 7f;
+        speed = 13f;
+        startPos = this.transform.position;
     }
-
-    private void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.CompareTag("Player"))
-        {
-            circle.enabled = false;
-            rigid.gravityScale = 0;
-            Vector3 pos = col.transform.position;
-            StartCoroutine(CoinMove());
-        }
-
-    }
-
-    IEnumerator CoinMove( )
-    {
-        while(true)
-        {
-            float distance = (target.transform.position - this.transform.position).sqrMagnitude;
-            if(distance >= 1.5f)
-            {
-                transform.position = Vector3.Lerp(this.transform.position, target.transform.position, speed * Time.deltaTime);
-            }
-            else
-            {
-                GameManager.instance.UpdateCoinCnt(1);
-                Destroy(this.gameObject);
-                break;
-            }
-            yield return null;
-        }
-    }
-}
-
-
 
 /*
     public IEnumerator Move(Rigidbody2D rigidBodyToMove, float speed)
@@ -73,5 +42,36 @@ public class Coin : MonoBehaviour
             }
             yield return new WaitForFixedUpdate();
         }
-}
+    }
 */
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.CompareTag("Player"))
+        {
+            circle.enabled = false;
+            Vector3 pos = col.transform.position;
+            StartCoroutine(CoinMove());
+        }
+
+    }
+
+    IEnumerator CoinMove( )
+    {
+        while(true)
+        {
+            float distance = (target.transform.position - this.transform.position).sqrMagnitude;
+            if(distance >= 1f)
+            {
+                transform.position = Vector3.Lerp(this.transform.position, target.transform.position, speed * Time.deltaTime);
+            }
+            else
+            {
+                gameManager.UpdateCoinCnt(1);
+                Destroy(this.gameObject);
+                break;
+            }
+            yield return null;
+        }
+    }
+}
