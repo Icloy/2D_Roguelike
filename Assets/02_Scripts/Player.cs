@@ -75,7 +75,6 @@ public class Player : MonoBehaviour
     public int maxHp; //최대 체력 
     public int curHp; //현재 체력
     [HideInInspector]  public GameObject Stat;
-    private PlayerEffect playerEffect;
     private int i = 0;
     [HideInInspector]  public GameObject AEffect;
     [HideInInspector]  public GameObject AEffect_Up;
@@ -83,6 +82,11 @@ public class Player : MonoBehaviour
     Camera cam;
     public bool fadeInOut;
     public bool SmoothMoving;
+
+    [HideInInspector]  public GameObject HealEffect;
+    [HideInInspector]  public AudioClip AttackSound;
+    [HideInInspector]  public AudioClip HealSound;
+    [HideInInspector]  public AudioClip DashSound;
 
     //오디오
     private AudioSource AudioPlayer; //오디오 소스 컴포넌트
@@ -113,7 +117,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        playerEffect = GameObject.Find("Player").GetComponent<PlayerEffect>();
 
         #region Move
 
@@ -217,7 +220,7 @@ public class Player : MonoBehaviour
             if(Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Q) && !gameManager.isPanelOpen && !isWallSliding)
             {
                 anim.SetTrigger("UpA");
-                playerEffect.AudioPlayer.PlayOneShot(playerEffect.AttackSound);
+                AudioPlayer.PlayOneShot(AttackSound);
                 if (i % 2 == 0 && i == 0)
                 {
                     AEffect_Up.gameObject.SetActive(true);
@@ -241,7 +244,7 @@ public class Player : MonoBehaviour
             else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.Q) && !gameManager.isPanelOpen && !isWallSliding)
             {
                 anim.SetTrigger("DownA");
-                playerEffect.AudioPlayer.PlayOneShot(playerEffect.AttackSound);
+                AudioPlayer.PlayOneShot(AttackSound);
                 if (i % 2 == 0 && i == 0)
                 {
                     AEffect_Down.gameObject.SetActive(true);
@@ -265,7 +268,7 @@ public class Player : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.Q) && !gameManager.isPanelOpen && !isWallSliding)
             {
                 anim.SetTrigger("Attack");
-                playerEffect.AudioPlayer.PlayOneShot(playerEffect.AttackSound);
+                AudioPlayer.PlayOneShot(AttackSound);
                 if (i % 2 == 0 && i == 0)
                 {
                     AEffect.gameObject.SetActive(true);
@@ -328,7 +331,7 @@ public class Player : MonoBehaviour
             ZoomOut();
             canDash = true;
             anim.SetBool("Sit", false);
-            playerEffect.HealEffect.gameObject.SetActive(false);
+            HealEffect.gameObject.SetActive(false);
 
         }
         #endregion
@@ -392,7 +395,7 @@ public class Player : MonoBehaviour
         IsDashing = true;
         maxSpeed = 80;
         DashAnim();
-        playerEffect.AudioPlayer.PlayOneShot(playerEffect.DashSound);
+        AudioPlayer.PlayOneShot(DashSound);
         float originalGravity = rigid.gravityScale;
         rigid.gravityScale = 0f;
         rigid.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
@@ -483,14 +486,14 @@ public class Player : MonoBehaviour
                 anim.SetBool("Idle", false);
                 rigid.constraints = RigidbodyConstraints2D.FreezeAll;
                 ZoomIn();
-                playerEffect.HealEffect.gameObject.SetActive(true);
+                HealEffect.gameObject.SetActive(true);
                 anim.SetBool("Sit", true);
 
                 if (hgoalT <= hcurT)
                 {
                     //힐 구현부
-                    playerEffect.AudioPlayer.PlayOneShot(playerEffect.HealSound);
-                    playerEffect.HealEffect.gameObject.SetActive(false);
+                    AudioPlayer.PlayOneShot(HealSound);
+                    HealEffect.gameObject.SetActive(false);
                     ZoomOut();
                     StartCoroutine(StageMgr.Instance.MoveNext3(fadeInOut, SmoothMoving));
                     ShakeCamera.instance.StartShake(0.2f, 0.2f);
@@ -510,7 +513,7 @@ public class Player : MonoBehaviour
 
   void HideHealEffect()
     {
-        playerEffect.HealEffect.gameObject.SetActive(false);
+        HealEffect.gameObject.SetActive(false);
 
     }
 

@@ -8902,7 +8902,6 @@ GameObject:
   - component: {fileID: 598188433}
   - component: {fileID: 598188430}
   - component: {fileID: 598188432}
-  - component: {fileID: 598188440}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -8959,6 +8958,10 @@ MonoBehaviour:
   AEffect_Down: {fileID: 459101923}
   fadeInOut: 1
   SmoothMoving: 0
+  HealEffect: {fileID: 594312098}
+  AttackSound: {fileID: 8300000, guid: 13182107f288fdc47a11f9216c8f062b, type: 3}
+  HealSound: {fileID: 8300000, guid: f4eb287819129c648b611a569b4400cf, type: 3}
+  DashSound: {fileID: 8300000, guid: 737188d4252d4c243a4c34bf23b5ca64, type: 3}
 --- !u!82 &598188433
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9217,23 +9220,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &598188440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598188429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da0e655936571d74697274a6e055800e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HealEffect: {fileID: 594312098}
-  AudioPlayer: {fileID: 0}
-  AttackSound: {fileID: 8300000, guid: 13182107f288fdc47a11f9216c8f062b, type: 3}
-  HealSound: {fileID: 8300000, guid: f4eb287819129c648b611a569b4400cf, type: 3}
-  DashSound: {fileID: 8300000, guid: 737188d4252d4c243a4c34bf23b5ca64, type: 3}
 --- !u!1 &616984560
 GameObject:
   m_ObjectHideFlags: 0
