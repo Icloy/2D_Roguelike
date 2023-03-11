@@ -35,14 +35,41 @@ public class GameManager : MonoBehaviour
     public bool isPanelOpen = false; //패널 오픈 여부 판단
     public bool isShopOpen = false; //상점 오픈 여부 판단
 
-
+    public static GameManager instance = null;
     Player player;
     #endregion
 
+    public static GameManager Instance
+    {
+        get
+        {
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+        player = GameObject.Find("Player").GetComponent<Player>();
+    }
+
     private void Start()
     {
+
         isGameOver = false;
-        player = GameObject.Find("Player").GetComponent<Player>();
        
         //초기 카메라 값
         subCamera.enabled = false;
@@ -164,12 +191,14 @@ public class GameManager : MonoBehaviour
         searchpanel();
     }
 
-    public void continueBtn()   //GameOver패널 마을로 버튼
+    public void continueBtn()   //GameOver패널 마을로 버튼 <리스타트버튼>
     {
         isGameOver = false;
         player.gameObject.SetActive(true);
-        player.transform.position = alivePos.position;
+        player.transform.position = alivePos.position; //초기 위치로 복귀
         player.curHp = 3;
+        player.maxHp = 3;
+        Hp.instance.udtHp(player.curHp, player.maxHp);
         isPanelOpen = false;
         GameOverPanel.SetActive(false);
     }

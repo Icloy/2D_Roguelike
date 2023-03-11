@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DeadSoul : MonoBehaviour
 {
-    GameManager gamemanager;
     Player player;
     Shop shop;
 
@@ -17,19 +16,18 @@ public class DeadSoul : MonoBehaviour
 
     private void Awake()
     {
-        gamemanager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         player = GameObject.Find("Player").GetComponent<Player>();
         shop = GameObject.Find("Shop").GetComponent<Shop>();
     }
 
     private void Start()
     {
-        lostCoin = gamemanager.coin;
+        lostCoin = GameManager.instance.coin;
         dmgLvl = player.AtDmg;
         hpLvl = player.maxHp;
         player.AtDmg = 1;
         player.maxHp = 300;
-        gamemanager.UpdateCoinCnt(-9999999);
+        GameManager.instance.UpdateCoinCnt(-9999999);
     }
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -60,11 +58,11 @@ public class DeadSoul : MonoBehaviour
                 curTime += Time.deltaTime;
                 if(gageTime <= curTime)
                 {
-                    gamemanager.UpdateCoinCnt(lostCoin);
+                    GameManager.instance.UpdateCoinCnt(lostCoin);
                     player.AtDmg = dmgLvl;
                     player.maxHp = hpLvl;
                     Destroy(gameObject);
-                    gamemanager.remainSoul = false;
+                    GameManager.instance.remainSoul = false;
                 }
             }
             else
