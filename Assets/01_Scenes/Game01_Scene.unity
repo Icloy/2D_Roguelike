@@ -9120,7 +9120,7 @@ GameObject:
   - component: {fileID: 459101928}
   m_Layer: 0
   m_Name: Attack_Effect_Down
-  m_TagString: Untagged
+  m_TagString: AttackZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16277,7 +16277,7 @@ GameObject:
   - component: {fileID: 848335697}
   m_Layer: 0
   m_Name: Attack_Effect_Up
-  m_TagString: Untagged
+  m_TagString: AttackZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21489,7 +21489,7 @@ GameObject:
   - component: {fileID: 1335608718}
   m_Layer: 0
   m_Name: Attack_Effect_Mid
-  m_TagString: Untagged
+  m_TagString: AttackZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
