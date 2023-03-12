@@ -250,7 +250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 460916094}
   scrollAmount: 17.5
-  moveSpeed: 4
+  moveSpeed: 2
   moveDirection: {x: -1, y: 0, z: 0}
 --- !u!212 &50225880
 SpriteRenderer:
@@ -382,7 +382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 579157441}
   scrollAmount: 17.5
-  moveSpeed: 0.5
+  moveSpeed: 0.1
   moveDirection: {x: -1, y: 0, z: 0}
 --- !u!212 &186512206
 SpriteRenderer:
@@ -1077,7 +1077,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1486641097}
   scrollAmount: 17.5
-  moveSpeed: 5
+  moveSpeed: 3
   moveDirection: {x: -1, y: 0, z: 0}
 --- !u!212 &386416982
 SpriteRenderer:
@@ -1287,7 +1287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 50225878}
   scrollAmount: 17.5
-  moveSpeed: 4
+  moveSpeed: 2
   moveDirection: {x: -1, y: 0, z: 0}
 --- !u!212 &460916096
 SpriteRenderer:
@@ -1532,7 +1532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 186512204}
   scrollAmount: 17.5
-  moveSpeed: 0.5
+  moveSpeed: 0.1
   moveDirection: {x: -1, y: 0, z: 0}
 --- !u!212 &579157443
 SpriteRenderer:
@@ -2704,7 +2704,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1552252074}
   scrollAmount: 17.5
-  moveSpeed: 3
+  moveSpeed: 1
   moveDirection: {x: -1, y: 0, z: 0}
 --- !u!212 &917326257
 SpriteRenderer:
@@ -2842,7 +2842,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1036851435}
   scrollAmount: 17.5
-  moveSpeed: 1
+  moveSpeed: 0.25
   moveDirection: {x: -1, y: 0, z: 0}
 --- !u!212 &954619736
 SpriteRenderer:
@@ -3254,7 +3254,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 954619734}
   scrollAmount: 17.5
-  moveSpeed: 1
+  moveSpeed: 0.25
   moveDirection: {x: -1, y: 0, z: 0}
 --- !u!212 &1036851437
 SpriteRenderer:
@@ -3875,7 +3875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1581428875}
   scrollAmount: 17.5
-  moveSpeed: 2
+  moveSpeed: 0.5
   moveDirection: {x: -1, y: 0, z: 0}
 --- !u!212 &1306814327
 SpriteRenderer:
@@ -4364,7 +4364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 386416980}
   scrollAmount: 17.5
-  moveSpeed: 5
+  moveSpeed: 3
   moveDirection: {x: -1, y: 0, z: 0}
 --- !u!212 &1486641099
 SpriteRenderer:
@@ -4675,7 +4675,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 917326255}
   scrollAmount: 17.5
-  moveSpeed: 3
+  moveSpeed: 1
   moveDirection: {x: -1, y: 0, z: 0}
 --- !u!212 &1552252076
 SpriteRenderer:
@@ -4776,7 +4776,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1306814325}
   scrollAmount: 17.5
-  moveSpeed: 2
+  moveSpeed: 0.5
   moveDirection: {x: -1, y: 0, z: 0}
 --- !u!212 &1581428877
 SpriteRenderer:

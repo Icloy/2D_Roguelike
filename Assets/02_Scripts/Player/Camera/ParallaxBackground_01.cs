@@ -15,7 +15,7 @@ public class ParallaxBackground_01 : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         transform.position += moveDirection * moveSpeed * Time.deltaTime;
 
