@@ -13,8 +13,8 @@ public class Skeleton : MonoBehaviour
     Coroutine coroutine;
 
     string animationState = "animationState";
-    private float nextMove;
     private bool trace;
+    private int nextMove;
     public float movespeed;
     public float tracespeed;
     public float turnrange;
@@ -32,11 +32,12 @@ public class Skeleton : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         coroutine = StartCoroutine(move());
+        Invoke("Think", 5);
     }
 
     void Start()
     {
-        nextMove = 1;
+        animator.SetInteger(animationState, (int)States.idle);
     }
 
     void Update()
@@ -48,20 +49,33 @@ public class Skeleton : MonoBehaviour
     void Turn()//ео
     {
         nextMove = nextMove * (-1);
+        CancelInvoke();
+        Invoke("Think", 3);
     }
 
+    void Think()
+    {
+        nextMove = Random.Range(-1, 2);
+        float nextThinkTime = Random.Range(2f, 5f);
+        Invoke("Think", nextThinkTime);
+    }
     public IEnumerator move()
     {
         while (true)
         {
-            animator.SetInteger(animationState, (int)States.walk);
-            if (rigid.velocity.x > 0)
+            if (nextMove == 1)
             {
                 GetComponentInChildren<SpriteRenderer>().flipX = false;
+                animator.SetInteger(animationState, (int)States.walk);
             }
-            else
+            else if (nextMove == -1)
             {
                 GetComponentInChildren<SpriteRenderer>().flipX = true;
+                animator.SetInteger(animationState, (int)States.walk);
+            }
+            else if (nextMove == 0)
+            {
+                animator.SetInteger(animationState, (int)States.idle);
             }
             if (trace == true)
             {

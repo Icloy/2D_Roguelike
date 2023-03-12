@@ -1381,7 +1381,7 @@ MonoBehaviour:
   movespeed: 2
   tracespeed: 4
   turnrange: 1
-  Player: {fileID: 0}
+  Player: {fileID: 1593543979}
 --- !u!1 &948059471
 GameObject:
   m_ObjectHideFlags: 0
