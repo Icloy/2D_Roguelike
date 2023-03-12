@@ -75,7 +75,7 @@ public class Shop : MonoBehaviour
                 mainCamera.enabled = false;
                 subCamera.enabled= true;
                 subCamera.transform.position = new Vector3(target.transform.position.x,target.transform.position.y ,-10);
-                subCamera.orthographicSize = 3.6f;
+                subCamera.orthographicSize = 4.7f;
             }
             yield return null;
         }
