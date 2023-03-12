@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skeleton : MonoBehaviour
+public class Goblin : MonoBehaviour
 {
     BoxCollider2D box;
     Rigidbody2D rigid;
