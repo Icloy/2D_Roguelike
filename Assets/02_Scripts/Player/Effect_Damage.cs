@@ -28,6 +28,7 @@ public class Effect_Damage : MonoBehaviour
             Stat.GetComponent<Stat>().MP += 30;
             // 데미지 계산 및 적용
             other.gameObject.GetComponent<Enemy>().TakeDamage(AtDmg);
+            ShakeCamera.instance.StartShake(0.05f, 0.05f);
         }
     }
 }
