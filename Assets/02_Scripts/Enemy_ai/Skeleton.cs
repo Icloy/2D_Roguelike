@@ -19,7 +19,7 @@ public class Skeleton : Enemy
     public float movespeed;
     public float tracespeed;
     public float turnrange;
-    public Transform Player;
+    public Transform PlayerPos;
 
     enum States
     {
@@ -80,7 +80,7 @@ public class Skeleton : Enemy
             }
             if (trace == true)
             {
-                if (Player.transform.position.x < rigid.transform.position.x)
+                if (PlayerPos.transform.position.x < rigid.transform.position.x)
                 {
                     rigid.velocity = new Vector2(-1 * tracespeed, rigid.velocity.y);
                     GetComponentInChildren<SpriteRenderer>().flipX = true;
@@ -140,8 +140,7 @@ public class Skeleton : Enemy
     {
         if (col.gameObject.tag == "Player")
         {
-            Player player = GameObject.Find("Player").GetComponent<Player>();
-            player.Damaged(-damage);
+            Player.instance.Damaged(-damage);
         }
     }
 
@@ -149,7 +148,7 @@ public class Skeleton : Enemy
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Player = collision.gameObject.transform;
+            PlayerPos = collision.gameObject.transform;
             trace = true;
         }
     }
