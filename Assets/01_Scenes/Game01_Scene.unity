@@ -20088,7 +20088,6 @@ MonoBehaviour:
   Hp: 2
   dropcoincnt: 0
   Item: {fileID: 2719589337402968649, guid: d070a92108fa381488c354ac14bca927, type: 3}
-  parent: {fileID: 1468135132}
 --- !u!50 &1150768801
 Rigidbody2D:
   serializedVersion: 4
@@ -24311,8 +24310,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 8010698457945844706, guid: f739fd07d683b4845966e003b78cc923, type: 3}
+      propertyPath: Hp
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010698457945844706, guid: f739fd07d683b4845966e003b78cc923, type: 3}
+      propertyPath: Item
+      value: 
+      objectReference: {fileID: 2719589337402968649, guid: d070a92108fa381488c354ac14bca927, type: 3}
+    - target: {fileID: 8010698457945844706, guid: f739fd07d683b4845966e003b78cc923, type: 3}
+      propertyPath: damage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010698457945844706, guid: f739fd07d683b4845966e003b78cc923, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010698457945844706, guid: f739fd07d683b4845966e003b78cc923, type: 3}
+      propertyPath: dropcoincnt
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8010698457945844707, guid: f739fd07d683b4845966e003b78cc923, type: 3}
       propertyPath: m_RootOrder

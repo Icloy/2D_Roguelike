@@ -111,7 +111,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b845d3ca14544a429510dd2f69cb01c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthPoint: 3
+  damage: 0
+  Hp: 0
+  dropcoincnt: 0
+  Item: {fileID: 2719589337402968649, guid: d070a92108fa381488c354ac14bca927, type: 3}
+  parent: {fileID: 0}
   movespeed: 2
   tracespeed: 4
   turnrange: 0.5

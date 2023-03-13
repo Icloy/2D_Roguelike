@@ -16,8 +16,6 @@ public class Skeleton : Enemy
     private bool trace;
     private int nextMove;
 
-    public int HealthPoint;
-
     public float movespeed;
     public float tracespeed;
     public float turnrange;
@@ -112,9 +110,9 @@ public class Skeleton : Enemy
 
     public override void TakeDamage(int AtDmg)
     {
-        HealthPoint = HealthPoint - AtDmg;
-        Debug.Log(HealthPoint);
-        if (HealthPoint <= 0)
+        Hp = Hp - AtDmg;
+        Debug.Log(Hp);
+        if (Hp <= 0)
         {
             Die();
         }
@@ -122,7 +120,29 @@ public class Skeleton : Enemy
 
     void Die()
     {
+        DropItem();
         Destroy(this.gameObject);
+    }
+
+    void DropItem()
+    {
+        Debug.Log("호출");
+        for(int i = 0;i < dropcoincnt; i++)
+        {
+            float x = Random.Range(-1f, 1f); // x축 위치 랜덤 설정
+            float y = Random.Range(-1f, 1f); // y축 위치 랜덤 설정
+            Vector2 position = new Vector2(transform.position.x + x, transform.position.y + y);
+            Instantiate(Item, position, Quaternion.identity);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            Player player = GameObject.Find("Player").GetComponent<Player>();
+            player.Damaged(-damage);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
