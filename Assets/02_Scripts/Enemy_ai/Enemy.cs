@@ -6,12 +6,13 @@ using System;
 
 public class Enemy : MonoBehaviour
 {
-    public int damage;
+    public int collision_damage;
+    public int attack_damage;
     public int Hp;
     public int dropcoincnt;
     public GameObject Item;
 
-    public virtual void TakeDamage(int damage)
+    public virtual void TakeDamage(int damege)
     {
     }
 }

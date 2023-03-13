@@ -140,7 +140,7 @@ public class Skeleton : Enemy
     {
         if (col.gameObject.tag == "Player")
         {
-            Player.instance.Damaged(-damage);
+            Player.instance.Damaged(-collision_damage);
         }
     }
 
