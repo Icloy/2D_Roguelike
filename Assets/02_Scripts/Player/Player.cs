@@ -74,6 +74,7 @@ public class Player : MonoBehaviour
     public int AtDmg; //공격 데미지
     public int maxHp; //최대 체력 
     public int curHp; //현재 체력
+
     [HideInInspector]  public GameObject Stat;
     private int i = 0;
     [HideInInspector]  public GameObject AEffect;
@@ -94,16 +95,36 @@ public class Player : MonoBehaviour
     public bool IsDashing { get => isDashing; set => isDashing = value; }
     public bool IsWallJumping { get => isWallJumping; set => isWallJumping = value; }
 
-    GameManager gameManager;
-    Hp hp;
+    public static Player instance = null;
+
+    public static Player Instance
+    {
+        get
+        {
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+
+
     void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
         AudioPlayer = GetComponent<AudioSource>();
-        gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
-        hp = GameObject.Find("Hp").GetComponent<Hp>();
         cam = Camera.main;
     }
     // Update is called once per frame
@@ -112,7 +133,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        hp.udtHp(curHp, maxHp);
+        Hp.instance.udtHp(curHp, maxHp);
     }
 
     void Update()
@@ -127,11 +148,11 @@ public class Player : MonoBehaviour
             anim.SetBool("Idle", true);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow)&&!gameManager.isPanelOpen)
+        if (Input.GetKeyDown(KeyCode.LeftArrow)&&!GameManager.instance.isPanelOpen)
         {
             transform.localScale = new Vector3(-1f, 1f);
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow)&& !gameManager.isPanelOpen)
+        else if (Input.GetKeyDown(KeyCode.RightArrow)&& !GameManager.instance.isPanelOpen)
         {
             transform.localScale = new Vector3(1f, 1f);
         }
@@ -151,7 +172,7 @@ public class Player : MonoBehaviour
         {
             doubleJump = false;
         }
-        if (Input.GetButtonDown("Jump") && !gameManager.isShopOpen)
+        if (Input.GetButtonDown("Jump") && !GameManager.instance.isShopOpen)
         {
             if (coyoteTimeCounter > 0f || doubleJump)
             {
@@ -217,7 +238,7 @@ public class Player : MonoBehaviour
         if (curTime <= 0)
         {
            
-            if(Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Q) && !gameManager.isPanelOpen && !isWallSliding)
+            if(Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
             {
                 anim.SetTrigger("UpA");
                 AudioPlayer.PlayOneShot(AttackSound);
@@ -241,7 +262,7 @@ public class Player : MonoBehaviour
                     i = 0;
                 }
             }
-            else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.Q) && !gameManager.isPanelOpen && !isWallSliding)
+            else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
             {
                 anim.SetTrigger("DownA");
                 AudioPlayer.PlayOneShot(AttackSound);
@@ -265,7 +286,7 @@ public class Player : MonoBehaviour
                     i = 0;
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.Q) && !gameManager.isPanelOpen && !isWallSliding)
+            else if (Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
             {
                 anim.SetTrigger("Attack");
                 AudioPlayer.PlayOneShot(AttackSound);
@@ -315,11 +336,11 @@ public class Player : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.A) && maxHp == curHp)
         {
-            Debug.Log("회복할 체력이 없습니다");
+            ToastMsg.Instance.showMessage("회복할 체력이 없습니다!", 0.5f);
         }
         else if (Input.GetKeyDown(KeyCode.A) && Stat.GetComponent<Stat>().MP < 100)
         {
-            Debug.Log("마나부족");
+            ToastMsg.Instance.showMessage("마나가 부족합니다!", 0.5f);
 
         }
         if (Input.GetKeyUp(KeyCode.A))
@@ -377,7 +398,6 @@ public class Player : MonoBehaviour
         {
             rigid.gravityScale = 4f;
         }
-
     }
 
 
@@ -548,17 +568,17 @@ public class Player : MonoBehaviour
         {
             for (int i = 0; i < dmg; i++)
             {
-                hp.Recover(curHp);
+                Hp.instance.Recover(curHp);
                 curHp++;
             }
             return;
         }
         curHp += dmg;
-        hp.udtHp(curHp, maxHp);
+        Hp.instance.udtHp(curHp, maxHp);
         if (curHp <= 0)
         {
-            gameManager.isGameOver = true;
-            gameManager.PlayerDead();
+            GameManager.instance.isGameOver = true;
+            GameManager.instance.PlayerDead();
             gameObject.SetActive(false); //나중에 프리팹화해서 파괴로 바꿀예정
         }
     }

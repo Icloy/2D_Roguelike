@@ -41,18 +41,18 @@ public class bat : MonoBehaviour
 
     public IEnumerator Move(Rigidbody2D rigidBodyToMove, float speed)
     {
-        animator.SetInteger(animationState, (int)States.fly);
-        if (targetTransform.position.x < rigid.transform.position.x)
-        {
-            sprite.flipX = false;
-        }
-        else
-        {
-            sprite.flipX = true;
-        }
         float remaindistance = (transform.position - position).sqrMagnitude;
         while (remaindistance > float.Epsilon)
         {
+            animator.SetInteger(animationState, (int)States.fly);
+            if (targetTransform.position.x < rigid.transform.position.x)
+            {
+                sprite.flipX = false;
+            }
+            else
+            {
+                sprite.flipX = true;
+            }
             if (targetTransform != null)
             {
                 position = targetTransform.position;

@@ -4,32 +4,25 @@ using UnityEngine;
 
 public class DeadSoul : MonoBehaviour
 {
-    GameManager gamemanager;
-    Player player;
-    Shop shop;
-
     private int lostCoin; //잃어버린 코인수
-    private int dmgLvl;
-    private int hpLvl;
+    public int dmgLv;
+    public int hpLv;
 
     private float gageTime = 2f;
     private float curTime;
 
     private void Awake()
     {
-        gamemanager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
-        player = GameObject.Find("Player").GetComponent<Player>();
-        shop = GameObject.Find("Shop").GetComponent<Shop>();
     }
 
     private void Start()
     {
-        lostCoin = gamemanager.coin;
-        dmgLvl = player.AtDmg;
-        hpLvl = player.maxHp;
-        player.AtDmg = 1;
-        player.maxHp = 300;
-        gamemanager.UpdateCoinCnt(-9999999);
+        lostCoin = GameManager.instance.coin;
+        dmgLv = Player.instance.AtDmg;
+        hpLv = Player.instance.maxHp;
+        Player.instance.AtDmg = 1;
+        Player.instance.maxHp = 300;
+        GameManager.instance.UpdateCoinCnt(-9999999); //어차피 코인계산에서 음수로 내려가면 0으로 계산
     }
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -39,10 +32,6 @@ public class DeadSoul : MonoBehaviour
             ToastMsg.Instance.showMessage("흡수 하시려면 G를 눌러주세요!", 1f);
             StartCoroutine("Consume");
         }
-    }
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -60,11 +49,12 @@ public class DeadSoul : MonoBehaviour
                 curTime += Time.deltaTime;
                 if(gageTime <= curTime)
                 {
-                    gamemanager.UpdateCoinCnt(lostCoin);
-                    player.AtDmg = dmgLvl;
-                    player.maxHp = hpLvl;
+                    GameManager.instance.UpdateCoinCnt(lostCoin);
+                    Player.instance.AtDmg = dmgLv;
+                    Player.instance.maxHp = hpLv;
+                    Hp.instance.udtHp(Player.instance.curHp, Player.instance.maxHp);
                     Destroy(gameObject);
-                    gamemanager.remainSoul = false;
+                    GameManager.instance.remainSoul = false;
                 }
             }
             else

@@ -11,9 +11,31 @@ public class Hp : MonoBehaviour
 
     Animator[] anim;
 
+    public static Hp instance = null;
+
+    public static Hp Instance
+    {
+        get
+        {
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
 
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
         anim = GetComponentsInChildren<Animator>();
     }
 

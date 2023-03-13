@@ -36,13 +36,40 @@ public class GameManager : MonoBehaviour
     public bool isShopOpen = false; //상점 오픈 여부 판단
 
 
-    Player player;
+    public static GameManager instance = null;
     #endregion
+
+
+
+
+    public static GameManager Instance
+    {
+        get
+        {
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
         isGameOver = false;
-        player = GameObject.Find("Player").GetComponent<Player>();
        
         //초기 카메라 값
         subCamera.enabled = false;
@@ -167,9 +194,11 @@ public class GameManager : MonoBehaviour
     public void continueBtn()   //GameOver패널 마을로 버튼
     {
         isGameOver = false;
-        player.gameObject.SetActive(true);
-        player.transform.position = alivePos.position;
-        player.curHp = 3;
+        Player.instance.gameObject.SetActive(true);
+        Player.instance.transform.position = alivePos.position;
+        Player.instance.curHp = 3;
+        Player.instance.maxHp = 3;
+        Hp.instance.udtHp(Player.instance.curHp, Player.instance.maxHp);
         isPanelOpen = false;
         GameOverPanel.SetActive(false);
     }
@@ -207,7 +236,7 @@ public class GameManager : MonoBehaviour
         
 
         //흔적 남기기
-        Instantiate(soul, player.transform.position, Quaternion.identity);
+        Instantiate(soul, Player.instance.transform.position, Quaternion.identity);
         remainSoul = true;
         //Time.timeScale = 0; //게임 시간 정지 - 삭제 예정
 
