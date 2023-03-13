@@ -8,7 +8,7 @@ public class Flyingeye : MonoBehaviour
     public float position_change_second;
     public float delete_time;
 
-    private bool flag = false;
+    private float dis;
 
     CircleCollider2D circle;
     Rigidbody2D rigid;
@@ -53,12 +53,12 @@ public class Flyingeye : MonoBehaviour
         {
             if (targetTransform.position.x > rigid.transform.position.x)
             {
-                GetComponentInChildren<SpriteRenderer>().flipX = false;
+                sprite.flipX = false;
                 animator.SetInteger(animationState, (int)States.flight);
             }
             else
             {
-                GetComponentInChildren<SpriteRenderer>().flipX = true;
+                sprite.flipX = true;
                 animator.SetInteger(animationState, (int)States.flight);
             }
             if (targetTransform != null)
@@ -67,24 +67,22 @@ public class Flyingeye : MonoBehaviour
             }
             if (rigidBodyToMove != null)
             {
-                if(flag == true)
-                {
-                    Vector3 newposition = Vector3.MoveTowards(rigidBodyToMove.position, position, -speed * Time.deltaTime);
-                    rigid.MovePosition(newposition);
-                    remaindistance = (transform.position - position).sqrMagnitude;
-                }
-                else
-                {
-                    Vector3 newposition = Vector3.MoveTowards(rigidBodyToMove.position, position, speed * Time.deltaTime);
-                    rigid.MovePosition(newposition);
-                    remaindistance = (transform.position - position).sqrMagnitude;
-                }
+                Vector3 newposition = Vector3.MoveTowards(rigidBodyToMove.position, position, speed * Time.deltaTime);
+                rigid.MovePosition(newposition);
+                remaindistance = (transform.position - position).sqrMagnitude;
             }
             yield return new WaitForFixedUpdate();
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    public IEnumerator Boom()
+    {
+        animator.SetInteger(animationState, (int)States.boom);
+        yield return new WaitForSeconds(0.16f);
+        Destroy(this.gameObject);
+    }
+
+        void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -93,20 +91,18 @@ public class Flyingeye : MonoBehaviour
         }
     }
 
-    void OnTriggerExit2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            flag = false;
+            dis = Vector2.Distance(targetTransform.transform.position, rigid.transform.position);
+            Debug.Log(dis);
+            if (dis <= 1.5)
+            {
+                StopAllCoroutines();
+                StartCoroutine(Boom());
+            }
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            flag = true;
-            //Destroy(this.gameObject);
-        }
-    }
 }
