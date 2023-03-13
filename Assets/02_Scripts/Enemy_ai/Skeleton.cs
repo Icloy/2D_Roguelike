@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skeleton : MonoBehaviour
+public class Skeleton : Enemy
 {
     BoxCollider2D box;
     Rigidbody2D rigid;
@@ -15,10 +15,13 @@ public class Skeleton : MonoBehaviour
     string animationState = "animationState";
     private bool trace;
     private int nextMove;
+
+    public int HealthPoint;
+
     public float movespeed;
     public float tracespeed;
     public float turnrange;
-    public GameObject Player;
+    public Transform Player;
 
     enum States
     {
@@ -107,13 +110,28 @@ public class Skeleton : MonoBehaviour
         }
     }
 
+    public override void TakeDamage(int AtDmg)
+    {
+        HealthPoint = HealthPoint - AtDmg;
+        Debug.Log(HealthPoint);
+        if (HealthPoint <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Destroy(this.gameObject);
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            Player = collision.gameObject.transform;
             trace = true;
         }
-        Debug.Log("enter");
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -123,6 +141,5 @@ public class Skeleton : MonoBehaviour
         {
             trace = false;
         }
-        Debug.Log("exit");
     }
 }
