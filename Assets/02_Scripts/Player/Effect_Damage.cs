@@ -16,22 +16,15 @@ public class Effect_Damage : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-<<<<<<< Updated upstream
-            Debug.Log(AtDmg);
-            Stat.GetComponent<Stat>().MP += 30;
-            // 데미지 계산 및 적용
-            other.gameObject.GetComponent<Enemy>().TakeDamage(AtDmg);
-            ShakeCamera.instance.StartShake(0.05f, 0.05f);
-=======
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
             if (enemy != null)
             {
                 Debug.Log(AtDmg);
+                ShakeCamera.instance.StartShake(0.05f, 0.05f);
                 Stat.GetComponent<Stat>().MP += 30;
                 // 데미지 계산 및 적용
                 enemy.TakeDamage(AtDmg);
             }
->>>>>>> Stashed changes
         }
     }
 }
