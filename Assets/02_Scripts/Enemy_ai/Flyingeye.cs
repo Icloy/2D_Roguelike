@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bat : MonoBehaviour
+public class Flyingeye : MonoBehaviour
 {
     public float speed;
     public float position_change_second;
@@ -21,17 +21,24 @@ public class bat : MonoBehaviour
 
     enum States
     {
-        idle = 0,
-        fly = 1
+        flight = 0,
+        boom = 1,
+        hit = 2,
+        fall = 3,
+        die = 4
+    }
+
+    void Awake()
+    {
+        rigid = GetComponent<Rigidbody2D>();
+        circle = GetComponent<CircleCollider2D>();
+        animator = GetComponentInChildren<Animator>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
     }
 
     void Start()
     {
-        rigid = GetComponent<Rigidbody2D>();
-        circle = GetComponent<CircleCollider2D>();
-        animator = GetComponent<Animator>();
-        sprite = GetComponent<SpriteRenderer>();
-        animator.SetInteger(animationState, (int)States.idle);
+        animator.SetInteger(animationState, (int)States.flight);
     }
 
     void Update()
@@ -44,14 +51,15 @@ public class bat : MonoBehaviour
         float remaindistance = (transform.position - position).sqrMagnitude;
         while (remaindistance > float.Epsilon)
         {
-            animator.SetInteger(animationState, (int)States.fly);
-            if (targetTransform.position.x < rigid.transform.position.x)
+            if (targetTransform.position.x > rigid.transform.position.x)
             {
-                sprite.flipX = false;
+                GetComponentInChildren<SpriteRenderer>().flipX = false;
+                animator.SetInteger(animationState, (int)States.flight);
             }
             else
             {
-                sprite.flipX = true;
+                GetComponentInChildren<SpriteRenderer>().flipX = true;
+                animator.SetInteger(animationState, (int)States.flight);
             }
             if (targetTransform != null)
             {
