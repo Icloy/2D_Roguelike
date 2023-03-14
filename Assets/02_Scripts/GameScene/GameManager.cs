@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     public int coin;    //인게임 재화
 
     List<Resolution> resolutions = new List<Resolution>(); //모니터가 지원하는 해상도를 저장할 배열
-    public int resolutionNum;
+    int resolutionNum;
     FullScreenMode screenMode;
 
     public bool isGameOver; //게임오버여부 판단
