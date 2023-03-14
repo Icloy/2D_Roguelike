@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Effect_Damage : MonoBehaviour
 {
-
     public int AtDmg; //공격 데미지
     [HideInInspector] public GameObject Stat;
 
+    private bool repeat = false;
+    private Coroutine delayCoroutine = null;
 
     private void OnEnable()
     {
@@ -16,13 +17,30 @@ public class Effect_Damage : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy") && !repeat)
         {
-            Debug.Log(AtDmg);
-            Stat.GetComponent<Stat>().MP += 30;
-            // 데미지 계산 및 적용
-            other.gameObject.GetComponent<Enemy>().TakeDamage(AtDmg);
-            ShakeCamera.instance.StartShake(0.05f, 0.05f);
+            repeat = true;
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                Debug.Log(AtDmg);
+                ShakeCamera.instance.StartShake(0.05f, 0.05f);
+                Stat.GetComponent<Stat>().MP += 30;
+                // 데미지 계산 및 적용
+                enemy.TakeDamage(AtDmg);
+            }
+            if (delayCoroutine != null)
+            {
+                StopCoroutine(delayCoroutine);
+            }
+            delayCoroutine = StartCoroutine(Delay(0.1f));
         }
+    }
+
+    private IEnumerator Delay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        repeat = false;
+        yield return new WaitForSeconds(delay);
     }
 }

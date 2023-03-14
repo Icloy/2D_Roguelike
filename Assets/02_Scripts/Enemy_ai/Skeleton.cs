@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skeleton : MonoBehaviour
+public class Skeleton : Enemy
 {
     BoxCollider2D box;
     Rigidbody2D rigid;
@@ -15,10 +15,11 @@ public class Skeleton : MonoBehaviour
     string animationState = "animationState";
     private bool trace;
     private int nextMove;
+
     public float movespeed;
     public float tracespeed;
     public float turnrange;
-    public GameObject Player;
+    public Transform PlayerPos;
 
     enum States
     {
@@ -79,7 +80,7 @@ public class Skeleton : MonoBehaviour
             }
             if (trace == true)
             {
-                if (Player.transform.position.x < rigid.transform.position.x)
+                if (PlayerPos.transform.position.x < rigid.transform.position.x)
                 {
                     rigid.velocity = new Vector2(-1 * tracespeed, rigid.velocity.y);
                     GetComponentInChildren<SpriteRenderer>().flipX = true;
@@ -107,13 +108,49 @@ public class Skeleton : MonoBehaviour
         }
     }
 
+    public override void TakeDamage(int AtDmg)
+    {
+        Hp = Hp - AtDmg;
+        Debug.Log(Hp);
+        if (Hp <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        DropItem();
+        Destroy(this.gameObject);
+    }
+
+    void DropItem()
+    {
+        Debug.Log("호출");
+        for(int i = 0;i < dropcoincnt; i++)
+        {
+            float x = Random.Range(-1f, 1f); // x축 위치 랜덤 설정
+            float y = Random.Range(-1f, 1f); // y축 위치 랜덤 설정
+            Vector2 position = new Vector2(transform.position.x + x, transform.position.y + y);
+            Instantiate(Item, position, Quaternion.identity);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            Player.instance.Damaged(-collision_damage);
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            PlayerPos = collision.gameObject.transform;
             trace = true;
         }
-        Debug.Log("enter");
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -123,6 +160,5 @@ public class Skeleton : MonoBehaviour
         {
             trace = false;
         }
-        Debug.Log("exit");
     }
 }

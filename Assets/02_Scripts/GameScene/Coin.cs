@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Coin : MonoBehaviour
 {
@@ -29,10 +30,12 @@ public class Coin : MonoBehaviour
         {
             circle.enabled = false;
             rigid.gravityScale = 0;
-            Vector3 pos = col.transform.position;
             StartCoroutine(CoinMove());
         }
-
+        else if(!(col.gameObject.GetComponent<TilemapCollider2D>() != null))
+        {
+            Physics2D.IgnoreCollision(col.collider, GetComponent<Collider2D>());
+        }
     }
 
     IEnumerator CoinMove( )
