@@ -9544,6 +9544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AtDmg: 0
   Stat: {fileID: 598188429}
+  repeat: 0
 --- !u!61 &459101928
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -16919,6 +16920,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AtDmg: 0
   Stat: {fileID: 598188429}
+  repeat: 0
 --- !u!61 &848335697
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -18921,7 +18923,7 @@ GameObject:
   m_Component:
   - component: {fileID: 978099530}
   - component: {fileID: 978099531}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: attackbox1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22538,6 +22540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AtDmg: 0
   Stat: {fileID: 598188429}
+  repeat: 0
 --- !u!61 &1335608718
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -25036,9 +25039,14 @@ PrefabInstance:
       objectReference: {fileID: 4723107735738678597, guid: 1018b0ba13578bf459bd254ae1a2be99, type: 3}
     - target: {fileID: 8010698459640822350, guid: f739fd07d683b4845966e003b78cc923, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8010698459640822350, guid: f739fd07d683b4845966e003b78cc923, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8010698457945844710, guid: f739fd07d683b4845966e003b78cc923, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f739fd07d683b4845966e003b78cc923, type: 3}
 --- !u!4 &1516997196 stripped
 Transform:
@@ -25178,6 +25186,64 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1527537259}
   m_CullTransparentMesh: 1
+--- !u!1 &1527984870
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1527984871}
+  - component: {fileID: 1527984872}
+  m_Layer: 7
+  m_Name: trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1527984871
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527984870}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1516997196}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1527984872
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527984870}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.45, y: 0.45}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 4, y: 1}
+  m_EdgeRadius: 0
 --- !u!4 &1531668852 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3284380142945954006, guid: fc9968c4dc5d5264b89413cdfe5d303e, type: 3}
@@ -45124,7 +45190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1705126754}
   - component: {fileID: 1705126755}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: attackbox2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

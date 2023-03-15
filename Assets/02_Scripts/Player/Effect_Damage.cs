@@ -7,12 +7,13 @@ public class Effect_Damage : MonoBehaviour
     public int AtDmg; //공격 데미지
     [HideInInspector] public GameObject Stat;
 
-    private bool repeat = false;
+    public bool repeat = false;
     private Coroutine delayCoroutine = null;
 
     private void OnEnable()
     {
         AtDmg = Player.instance.AtDmg;
+        repeat = false;
     }
 
     void OnTriggerEnter2D(Collider2D other)

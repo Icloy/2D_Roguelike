@@ -29,7 +29,7 @@ public class Skeleton : Enemy
     void Awake()
     {
         animator = GetComponentInChildren<Animator>();
-        box = GetComponent<BoxCollider2D>();
+        box = GetComponentInChildren<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         coroutine = StartCoroutine(move());
