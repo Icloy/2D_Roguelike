@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject optionPanel; //게임정지패널
     public Button optionPanelSelBtn; //초기 선택되어있는 버튼(키보드용)
     public GameObject GameOverPanel; //게임오버패널
+    public GameObject MapPanel; //맵 패널
     public GameObject graphicOptionPanel;
     public GameObject soundOptionPanel;
 
@@ -89,6 +90,22 @@ public class GameManager : MonoBehaviour
                 return;
             }
             pasueGame();
+        }
+        if (Input.GetKeyDown(KeyCode.M) && !isGameOver)
+        {
+            Map();
+        }
+    }
+
+    void Map()
+    {
+        if (!MapPanel.activeSelf) //패널이 열려있지 않다면
+        {
+            MapPanel.SetActive(true);
+        }
+        else
+        {
+            MapPanel.SetActive(false);
         }
     }
 
