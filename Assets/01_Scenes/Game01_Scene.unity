@@ -19035,13 +19035,14 @@ GameObject:
   m_Component:
   - component: {fileID: 978099530}
   - component: {fileID: 978099531}
+  - component: {fileID: 978099532}
   m_Layer: 0
   m_Name: attackbox1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &978099530
 Transform:
   m_ObjectHideFlags: 0
@@ -19100,6 +19101,19 @@ PolygonCollider2D:
       - {x: -0.57132185, y: -0.66945016}
       - {x: -0.7009071, y: -1.1048123}
       - {x: -0.68368876, y: -1.6255999}
+--- !u!114 &978099532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978099529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c827ba215c35974e86ea36e41245f48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  repeat: 0
 --- !u!1 &978680035
 GameObject:
   m_ObjectHideFlags: 0
@@ -25200,6 +25214,18 @@ PrefabInstance:
     - target: {fileID: 8010698457945844706, guid: f739fd07d683b4845966e003b78cc923, type: 3}
       propertyPath: dropcoincnt
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010698457945844706, guid: f739fd07d683b4845966e003b78cc923, type: 3}
+      propertyPath: Attack1_check
+      value: 
+      objectReference: {fileID: 978099529}
+    - target: {fileID: 8010698457945844706, guid: f739fd07d683b4845966e003b78cc923, type: 3}
+      propertyPath: Attack2_check
+      value: 
+      objectReference: {fileID: 1705126753}
+    - target: {fileID: 8010698457945844706, guid: f739fd07d683b4845966e003b78cc923, type: 3}
+      propertyPath: attack_damage
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8010698457945844706, guid: f739fd07d683b4845966e003b78cc923, type: 3}
       propertyPath: collision_damage
@@ -45422,13 +45448,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1705126754}
   - component: {fileID: 1705126755}
+  - component: {fileID: 1705126756}
   m_Layer: 0
   m_Name: attackbox2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1705126754
 Transform:
   m_ObjectHideFlags: 0
@@ -45494,6 +45521,19 @@ PolygonCollider2D:
       - {x: 0.44218475, y: -0.7656682}
       - {x: 0.4678947, y: -0.7396588}
       - {x: 0.7221743, y: -0.72268695}
+--- !u!114 &1705126756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705126753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c827ba215c35974e86ea36e41245f48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  repeat: 0
 --- !u!4 &1709004640 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3564026850829729314, guid: 72a905bcc22e3e443be6f48bfb173c00, type: 3}
