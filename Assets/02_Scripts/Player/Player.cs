@@ -58,8 +58,8 @@ public class Player : MonoBehaviour
 
     bool zoomIn;
 
-    [HideInInspector]
-    [Range(2, 10)]
+    
+    [Range(2, 100)]
     public float zoomSize;
 
     [HideInInspector]
@@ -590,6 +590,6 @@ public class Player : MonoBehaviour
 
     public void ZoomOut()
     {
-        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, 12, 1);
+        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, 9, 1);
     }
 }

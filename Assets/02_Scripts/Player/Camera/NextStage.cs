@@ -59,7 +59,7 @@ public class NextStage : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("DDD");
         }
     }
 }

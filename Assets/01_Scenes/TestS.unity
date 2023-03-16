@@ -1462,7 +1462,9 @@ MonoBehaviour:
   selBtn: {fileID: 336593112}
   selHPBtn: {fileID: 2143432785}
   dmgPriceText: {fileID: 1494964093}
+  dmgLvl: 1
   hpPriceText: {fileID: 1099693436}
+  hpLvl: 1
 --- !u!212 &274882203
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3310,13 +3312,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b86613d4c1e28b6498e58bcb7810f069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpbarcanvas: {fileID: 0}
-  prfhpbar: {fileID: 2963843329728097170, guid: e38fe2568803f2e43811b279a9d32b90, type: 3}
-  damage: 5
+  collision_damage: 0
+  attack_damage: 0
   Hp: 2
   dropcoincnt: 0
   Item: {fileID: 2719589337402968649, guid: d070a92108fa381488c354ac14bca927, type: 3}
-  parent: {fileID: 980481279}
 --- !u!50 &563495757
 Rigidbody2D:
   serializedVersion: 4
@@ -3672,6 +3672,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 737837604}
+  smoothSpeed: 0.125
+  offset: {x: 0, y: 0, z: 0}
 --- !u!114 &592051697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4448,12 +4450,21 @@ MonoBehaviour:
   tr: {fileID: 737837599}
   coolTime: 0.25
   pos: {fileID: 520453691}
-  boxSize: {x: 1.76, y: 2.11}
+  zoomSize: 0
+  zoomSpeed: 0
   AtDmg: 1
   maxHp: 300
   curHp: 300
   Stat: {fileID: 737837594}
+  AEffect: {fileID: 0}
+  AEffect_Up: {fileID: 0}
+  AEffect_Down: {fileID: 0}
+  fadeInOut: 0
+  SmoothMoving: 0
+  HealEffect: {fileID: 0}
   AttackSound: {fileID: 8300000, guid: 13182107f288fdc47a11f9216c8f062b, type: 3}
+  HealSound: {fileID: 0}
+  DashSound: {fileID: 0}
 --- !u!82 &737837598
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5111,12 +5122,16 @@ MonoBehaviour:
   optionPanel: {fileID: 805211208}
   optionPanelSelBtn: {fileID: 547305301}
   GameOverPanel: {fileID: 1217444844}
+  MapPanel: {fileID: 0}
   graphicOptionPanel: {fileID: 1991637560}
   soundOptionPanel: {fileID: 303148367}
   resolutionDropdown: {fileID: 113317510}
+  alivePos: {fileID: 0}
+  soul: {fileID: 0}
+  remainSoul: 0
   coinCnt: {fileID: 365563864}
   coin: 0
-  resolutionNum: 0
+  isGameOver: 0
   isPanelOpen: 0
   isShopOpen: 0
 --- !u!114 &791730370
@@ -5132,6 +5147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FadeInOutImg: {fileID: 383072595}
+  WhitePanelImg: {fileID: 0}
   Stages:
   - {fileID: 1057990873}
   - {fileID: 980481279}
@@ -18746,13 +18762,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b86613d4c1e28b6498e58bcb7810f069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpbarcanvas: {fileID: 0}
-  prfhpbar: {fileID: 2963843329728097170, guid: e38fe2568803f2e43811b279a9d32b90, type: 3}
-  damage: 100
+  collision_damage: 0
+  attack_damage: 0
   Hp: 1
   dropcoincnt: 3
   Item: {fileID: 2719589337402968649, guid: d070a92108fa381488c354ac14bca927, type: 3}
-  parent: {fileID: 1057990873}
 --- !u!50 &1759321738
 Rigidbody2D:
   serializedVersion: 4
