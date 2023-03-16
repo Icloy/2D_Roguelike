@@ -35,7 +35,6 @@ public class Hp : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
         anim = GetComponentsInChildren<Animator>();
     }
 
@@ -75,6 +74,18 @@ public class Hp : MonoBehaviour
         }
     }
 
+    public void Recover(int a)
+    {
+        hearts[a].sprite = fullHeart;
+        anim[a].enabled = true;
+        anim[a].Play("Recovery");
+    }
+
+    public void buyHp(int m)
+    {
+        hearts[m - 1].enabled = true;
+    }
+
     IEnumerator Breath()
     {
         while (true)
@@ -95,17 +106,5 @@ public class Hp : MonoBehaviour
 
         hearts[a].sprite = emptyHeart;
         anim[a].enabled = false;
-    }
-
-    public void Recover(int a)
-    {
-        hearts[a].sprite = fullHeart;
-        anim[a].enabled = true;
-        anim[a].Play("Recovery");
-    }
-
-    public void buyHp(int m)
-    {
-        hearts[m-1].enabled = true;
     }
 }
