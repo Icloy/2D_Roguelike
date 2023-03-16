@@ -37,10 +37,6 @@ public class Shop : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)&& GameManager.instance.isShopOpen)
-        {
-            CloseStore();
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -80,7 +76,7 @@ public class Shop : MonoBehaviour
         }
     }
 
-    private void CloseStore()
+    public void CloseStore()
     {
         endStore = true;
         GameManager.instance.isShopOpen = false;

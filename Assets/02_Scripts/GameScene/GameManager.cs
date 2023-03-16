@@ -10,38 +10,20 @@ public class GameManager : MonoBehaviour
     public Camera mainCamera;
     public Camera subCamera;
 
-    public GameObject pausePanel; //게임정지패널
-    public Button pausePanelSelBtn; //초기 선택되어있는 버튼(키보드용)
-    public GameObject optionPanel; //게임정지패널
-    public Button optionPanelSelBtn; //초기 선택되어있는 버튼(키보드용)
-    public GameObject GameOverPanel; //게임오버패널
-    public GameObject MapPanel; //맵 패널
-    public GameObject graphicOptionPanel;
-    public GameObject soundOptionPanel;
-
-    public Dropdown resolutionDropdown;
-
     public Transform alivePos;  //살아날 위치
     public GameObject soul;     //플레이어가 죽었을때 드랍할 오브젝트
-    public bool remainSoul = false; //해골이 아직 맵에있는지
 
-    public Text coinCnt;    //코인 카운트 텍스트
     public int coin;    //인게임 재화
 
-    List<Resolution> resolutions = new List<Resolution>(); //모니터가 지원하는 해상도를 저장할 배열
-    int resolutionNum;
-    FullScreenMode screenMode;
+    public bool isGameOver; //게임오버 여부
+    public bool isPanelOpen = false; //패널 오픈 여부
+    public bool isShopOpen = false; //상점 오픈 여부
+    public bool isMapOpen = false; //맵 오픈 여부
+    public bool remainSoul = false; //해골이 아직 맵에있는지
 
-    public bool isGameOver; //게임오버여부 판단
-    public bool isPanelOpen = false; //패널 오픈 여부 판단
-    public bool isShopOpen = false; //상점 오픈 여부 판단
-
-
+    GameUI gameUI;
+    Shop shop;
     public static GameManager instance = null;
-    #endregion
-
-
-
 
     public static GameManager Instance
     {
@@ -54,6 +36,7 @@ public class GameManager : MonoBehaviour
             return instance;
         }
     }
+    #endregion
 
     private void Awake()
     {
@@ -66,6 +49,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        gameUI = GameObject.Find("Canvas").GetComponent<GameUI>();
+        shop = GameObject.Find("Shop").GetComponent<Shop>();
     }
 
     private void Start()
@@ -82,150 +67,29 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //esc가 입력되면 게임을 정지시키고 옵션창을 띄운다.
-        if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver && !isShopOpen)
+        if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver)
         {
-            if (optionPanel.activeSelf)
+            if (isShopOpen)
             {
-                optionBtn();
+                shop.CloseStore();
                 return;
             }
-            pasueGame();
-        }
-        if (Input.GetKeyDown(KeyCode.M) && !isGameOver)
-        {
-            Map();
-        }
-    }
-
-    void Map()
-    {
-        if (!MapPanel.activeSelf) //패널이 열려있지 않다면
-        {
-            MapPanel.SetActive(true);
-        }
-        else
-        {
-            MapPanel.SetActive(false);
-        }
-    }
-
-    void pasueGame() //esc가 눌렸을때 실행되는 함수
-    {
-        if (!pausePanel.activeSelf)
-        {
-            Time.timeScale = 0; //게임 시간 정지
-            isPanelOpen = true;
-            pausePanel.SetActive(true);
-            pausePanelSelBtn.Select();
-        }
-        else //게임이 이미 정지 되어있다면
-        {
-            Time.timeScale = 1.0f; //시간 원상 복귀
-            isPanelOpen = false;
-            pausePanel.SetActive(false);
-        }
-    }
-
-    public void resumeBtn() //다시 시작
-    {
-        pasueGame();
-    }
-
-    public void optionBtn() //옵션 세부창
-    {
-        if (!optionPanel.activeSelf)
-        {
-            pausePanel.SetActive(false);
-            optionPanel.SetActive(true);
-            optionPanelSelBtn.Select();
-        }
-        else 
-        {
-            optionPanel.SetActive(false);
-            pausePanel.SetActive(true);
-            pausePanelSelBtn.Select();
-        }
-    }
-
-    public void ExitBtn() //메인 화면으로
-    {
-        SceneManager.LoadScene("Menu_Scene");
-    }
-
-    public void backBtn()
-    {
-        searchpanel();
-        optionBtn();
-    }
-
-    public void graphicBtn()
-    {
-        searchpanel();
-        graphicOptionPanel.SetActive(true);
-
-        for (int i = 0; i < Screen.resolutions.Length; i++)
-        {
-            resolutions.Add(Screen.resolutions[i]);
-        }
-
-        resolutionDropdown.options.Clear();
-        int optionNum = 0;
-
-        foreach (Resolution item in resolutions)
-        {
-            Dropdown.OptionData option = new Dropdown.OptionData();
-            option.text = item.width + " X " + item.height + " " + item.refreshRate + "hz";
-            resolutionDropdown.options.Add(option);
-
-            if (item.width == Screen.width && item.height == Screen.height)
+            else if (isMapOpen)
             {
-                resolutionDropdown.value = optionNum;
+                gameUI.Map();
+                return;
             }
-            optionNum++;
+            else if (gameUI.optionPanel.activeSelf)
+            {
+                gameUI.OptionBtn();
+                return;
+            }
+            gameUI.PasueGame();
         }
-    }
 
-    public void FullScreenBtn(bool isFull) //전체화면 토글 
-    {
-        screenMode = isFull ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
-    }
-
-
-    public void DropboxOptionChange(int x) //해상도 드랍박스에서 설정한값 저장용
-    {
-        resolutionNum = x;
-    }
-
-    public void soundBtn()
-    {
-        searchpanel();
-        soundOptionPanel.SetActive(true);
-    }
-
-    public void applyBtn()
-    {
-        Screen.SetResolution(resolutions[resolutionNum].width, resolutions[resolutionNum].height, screenMode);
-        searchpanel();
-    }
-
-    public void continueBtn()   //GameOver패널 마을로 버튼
-    {
-        isGameOver = false;
-        Player.instance.gameObject.SetActive(true);
-        Player.instance.transform.position = alivePos.position;
-        Player.instance.curHp = 3;
-        Player.instance.maxHp = 3;
-        Hp.instance.udtHp(Player.instance.curHp, Player.instance.maxHp);
-        isPanelOpen = false;
-        GameOverPanel.SetActive(false);
-    }
-
-    private void searchpanel() //켜져 있는 패널 검색용
-    {
-        if (graphicOptionPanel.activeSelf || soundOptionPanel.activeSelf)
+        if (Input.GetKeyDown(KeyCode.M) && !isGameOver &&!isShopOpen)
         {
-            graphicOptionPanel.SetActive(false);
-            soundOptionPanel.SetActive(false);
+            gameUI.Map();
         }
     }
 
@@ -236,14 +100,15 @@ public class GameManager : MonoBehaviour
         //코인의 계수가 음수가 아니라면
         if(coin >= 0)
         {
-            coinCnt.text = coin.ToString();
+            gameUI.coinCnt.text = coin.ToString();
         }
         else
         {
             coin = 0;
-            coinCnt.text = coin.ToString();
+            gameUI.coinCnt.text = coin.ToString();
         }
     }
+
     public void PlayerDead()
     {
         if (!isGameOver)
@@ -251,13 +116,12 @@ public class GameManager : MonoBehaviour
             return;
         }
         
-
         //흔적 남기기
         Instantiate(soul, Player.instance.transform.position, Quaternion.identity);
         remainSoul = true;
         //Time.timeScale = 0; //게임 시간 정지 - 삭제 예정
 
         isPanelOpen = true;
-        GameOverPanel.SetActive(true);
+        gameUI.gameoverPanel.SetActive(true);
     }
 }
