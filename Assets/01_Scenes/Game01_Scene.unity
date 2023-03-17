@@ -11179,7 +11179,7 @@ MonoBehaviour:
   tr: {fileID: 598188434}
   coolTime: 0.25
   pos: {fileID: 1213663646}
-  zoomSize: 10
+  zoomSize: 7
   zoomSpeed: 0.01
   AtDmg: 1
   maxHp: 3
@@ -11787,7 +11787,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 598188439}
   smoothSpeed: 0.3
-  offset: {x: 0, y: 6.5, z: -10}
+  offset: {x: 0, y: 5, z: -10}
 --- !u!81 &616984563
 AudioListener:
   m_ObjectHideFlags: 0
@@ -11823,7 +11823,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 12
+  orthographic size: 9
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
