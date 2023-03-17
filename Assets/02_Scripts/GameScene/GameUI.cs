@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Threading;
+using UnityEditor.Experimental.GraphView;
 
 public class GameUI : MonoBehaviour
 {
@@ -24,6 +26,17 @@ public class GameUI : MonoBehaviour
     List<Resolution> resolutions = new List<Resolution>(); //모니터가 지원하는 해상도를 저장할 배열
     FullScreenMode screenMode;
     int resolutionNum;
+    
+    Animator anim;
+    GameObject minimap;
+    RectTransform rectminimap;
+
+    private void Awake()
+    {
+        minimap = transform.GetChild(1).gameObject;
+        anim = minimap.GetComponent<Animator>();
+        rectminimap = minimap.GetComponent<RectTransform>();
+    }
 
     private void Start()
     {
@@ -129,14 +142,23 @@ public class GameUI : MonoBehaviour
     {
         if (!mapPanel.activeSelf && !GameManager.instance.isPanelOpen)
         {
-            mapPanel.SetActive(true);
-            GameManager.instance.isMapOpen = true;
+            anim.Play("MiniMap");
+            StartCoroutine("Map2");
         }
         else
         {
             mapPanel.SetActive(false);
+            minimap.SetActive(true);
             GameManager.instance.isMapOpen = false;
         }
+    }
+    IEnumerator Map2()
+    {
+            yield return new WaitForSeconds(0.35f);
+            mapPanel.SetActive(true);
+            rectminimap.localScale = new Vector3(1f, 1f, 1f);
+            minimap.SetActive(false);
+            GameManager.instance.isMapOpen = true;
     }
 
     public void ContinueBtn()   //GameOver
