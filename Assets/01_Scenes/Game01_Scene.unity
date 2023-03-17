@@ -25296,6 +25296,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8010698457945844708, guid: f739fd07d683b4845966e003b78cc923, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010698457945844708, guid: f739fd07d683b4845966e003b78cc923, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 8010698457945844709, guid: f739fd07d683b4845966e003b78cc923, type: 3}
       propertyPath: m_Simulated
       value: 1
@@ -25316,6 +25324,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 4723107735738678597, guid: 1018b0ba13578bf459bd254ae1a2be99, type: 3}
+    - target: {fileID: 8010698459640822349, guid: f739fd07d683b4845966e003b78cc923, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8010698459640822350, guid: f739fd07d683b4845966e003b78cc923, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -25510,7 +25522,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.02}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
