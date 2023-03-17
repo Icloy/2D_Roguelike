@@ -10,8 +10,6 @@ public class Skeleton : Enemy
     SpriteRenderer spriteRenderer;
     Animator animator;
 
-    Coroutine coroutine;
-
     string animationState = "animationState";
     private bool trace;
     private int nextMove;
@@ -37,13 +35,13 @@ public class Skeleton : Enemy
         box = GetComponentInChildren<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        coroutine = StartCoroutine(move());
-        Invoke("Think", 5);
     }
 
     void Start()
     {
         animator.SetInteger(animationState, (int)States.idle);
+        StartCoroutine(move());
+        Invoke("Think", 5);
     }
 
     void Update()
@@ -65,57 +63,27 @@ public class Skeleton : Enemy
         float nextThinkTime = Random.Range(2f, 5f); // 대기시간 2초에서 5초 사이랜덤
         Invoke("Think", nextThinkTime);
     }
+
     public IEnumerator move()
     {
         while (true)
         {
-            if(PlayerPos != null)
+            if (PlayerPos != null)
             {
                 dis = Vector2.Distance(PlayerPos.transform.position, rigid.transform.position);
-                if (dis < 2)
+                if (dis < 1.8f)
                 {
-                    int actmove = Random.Range(1, 3);
-                    switch (actmove)
-                    {
-                        case 1:
-                            animator.SetInteger(animationState, (int)States.attack1);
-                            if (PlayerPos.transform.position.x < rigid.transform.position.x)
-                            {
-                                GetComponentInChildren<SpriteRenderer>().flipX = true;
-                            }
-                            else
-                            {
-                                GetComponentInChildren<SpriteRenderer>().flipX = false;
-                            }
-                            yield return new WaitForSeconds(1f);
-                            Attack1_check.gameObject.SetActive(true);
-                            yield return new WaitForSeconds(0.2f);
-                            break;
-                        case 2:
-                            animator.SetInteger(animationState, (int)States.attack2);
-                            if (PlayerPos.transform.position.x < rigid.transform.position.x)
-                            {
-                                GetComponentInChildren<SpriteRenderer>().flipX = true;
-                            }
-                            else
-                            {
-                                GetComponentInChildren<SpriteRenderer>().flipX = false;
-                            }
-                            yield return new WaitForSeconds(1f);
-                            Attack2_check.gameObject.SetActive(true);
-                            yield return new WaitForSeconds(0.2f);
-                            break;
-                    }
+                    yield return StartCoroutine(Attack());
                 }
             }
-            if (nextMove == 1)//애니메이션 및 스프라이트 방향 변경
+            if (nextMove == 1)//애니메이션 및 스프라이트 방향 변경 자식 개체까지 바꿔야하므로 가장 상위 transform 변경
             {
-                GetComponentInChildren<SpriteRenderer>().flipX = false;
+                FlipBack();
                 animator.SetInteger(animationState, (int)States.walk);
             }
             else if (nextMove == -1)
             {
-                GetComponentInChildren<SpriteRenderer>().flipX = true;
+                FlipX();
                 animator.SetInteger(animationState, (int)States.walk);
             }
             else if (nextMove == 0)
@@ -126,14 +94,16 @@ public class Skeleton : Enemy
             {
                 if (PlayerPos.transform.position.x < rigid.transform.position.x)
                 {
-                    rigid.velocity = new Vector2(-1 * tracespeed, rigid.velocity.y);
-                    GetComponentInChildren<SpriteRenderer>().flipX = true;
+                    FlipX();
+                    nextMove = -1;
+                    rigid.velocity = new Vector2(nextMove * tracespeed, rigid.velocity.y);
                     animator.SetInteger(animationState, (int)States.walk);
                 }
                 else
                 {
-                    rigid.velocity = new Vector2(1 * tracespeed, rigid.velocity.y);
-                    GetComponentInChildren<SpriteRenderer>().flipX = false;
+                    FlipBack();
+                    nextMove = 1;
+                    rigid.velocity = new Vector2(nextMove * tracespeed, rigid.velocity.y);
                     animator.SetInteger(animationState, (int)States.walk);
                 }
             }
@@ -150,6 +120,44 @@ public class Skeleton : Enemy
             }
             yield return new WaitForSeconds(0f);
         }
+    }
+
+    public IEnumerator Attack()
+    {
+        int actmove = Random.Range(1, 3);
+        Debug.Log(dis);
+        switch (actmove)
+        {
+            case 1:
+                animator.SetInteger(animationState, (int)States.attack1);
+                yield return new WaitForSeconds(0.84f);//애니메이션 공격 이펙트 위치
+                Attack1_check.gameObject.SetActive(true);
+                break;
+            case 2:
+                animator.SetInteger(animationState, (int)States.attack2);
+                yield return new WaitForSeconds(0.84f);
+                Attack2_check.gameObject.SetActive(true);
+                break;
+        }
+        yield return new WaitForSeconds(0.16f);// 애니메이션 끝나는 위치
+        Attack_Check_Off();
+        yield break;
+    }
+
+    void FlipX() // transform 변경 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z); 이 아닌 고정값으로 하는 이유는 트리거 안에 들어갔다 나오는식으로 플레이어가 행동하게되면 *-1이라서 반전 버그남
+    {
+        transform.localScale = new Vector3(-3, transform.localScale.y, transform.localScale.z);
+    }
+
+    void FlipBack()
+    {
+        transform.localScale = new Vector3(3, transform.localScale.y, transform.localScale.z);
+    }
+
+    void Attack_Check_Off()
+    {
+        Attack1_check.gameObject.SetActive(false);
+        Attack2_check.gameObject.SetActive(false);
     }
 
     public override void TakeDamage(int AtDmg)
@@ -189,11 +197,14 @@ public class Skeleton : Enemy
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D collision) //Enter에서 Stay로 변경 공격을 당하면 자식트리거쪽 exit도 반응해서 추적 풀려버림
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            PlayerPos = collision.gameObject.transform;
+            if (PlayerPos == null)
+            {
+                PlayerPos = collision.gameObject.transform;
+            }
             trace = true;
         }
     }
@@ -203,7 +214,10 @@ public class Skeleton : Enemy
 
         if (collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("player exit");
             trace = false;
         }
     }
+
+
 }

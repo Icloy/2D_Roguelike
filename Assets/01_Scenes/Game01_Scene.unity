@@ -25225,7 +25225,7 @@ PrefabInstance:
       objectReference: {fileID: 1705126753}
     - target: {fileID: 8010698457945844706, guid: f739fd07d683b4845966e003b78cc923, type: 3}
       propertyPath: attack_damage
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8010698457945844706, guid: f739fd07d683b4845966e003b78cc923, type: 3}
       propertyPath: collision_damage
@@ -25500,7 +25500,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4, y: 1}
+  m_Size: {x: 8, y: 0.5}
   m_EdgeRadius: 0
 --- !u!4 &1531668852 stripped
 Transform:

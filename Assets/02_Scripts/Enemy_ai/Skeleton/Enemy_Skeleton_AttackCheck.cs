@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy_Skeleton_AttackCheck : MonoBehaviour
 {
-    public bool repeat = false;
+    public bool repeat;
     private Coroutine delayCoroutine = null;
     GameObject skeleton;
     private void OnEnable()
@@ -29,7 +29,7 @@ public class Enemy_Skeleton_AttackCheck : MonoBehaviour
             {
                 StopCoroutine(delayCoroutine);
             }
-            delayCoroutine = StartCoroutine(Delay(0.1f));
+            delayCoroutine = StartCoroutine(Delay(0.2f));
         }
     }
 
@@ -37,6 +37,6 @@ public class Enemy_Skeleton_AttackCheck : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         repeat = false;
-        yield return new WaitForSeconds(delay);
+        yield return null;
     }
 }
