@@ -9,6 +9,7 @@ using UnityEditor.Experimental.GraphView;
 
 public class GameUI : MonoBehaviour
 {
+    #region
     public GameObject mapPanel; //맵 패널(m)
     public GameObject pausePanel; //퍼즈 패널(esc)
     public GameObject optionPanel; //옵션 패널()
@@ -30,16 +31,12 @@ public class GameUI : MonoBehaviour
     Animator anim;
     GameObject minimap;
     RectTransform rectminimap;
-
+    #endregion
     private void Awake()
     {
         minimap = transform.GetChild(1).gameObject;
         anim = minimap.GetComponent<Animator>();
         rectminimap = minimap.GetComponent<RectTransform>();
-    }
-
-    private void Start()
-    {
     }
 
     public void PasueGame() //pausePanel (esc)
@@ -68,6 +65,7 @@ public class GameUI : MonoBehaviour
     {
         SceneManager.LoadScene("Menu_Scene");
     }
+
     public void OptionBtn() //Option Panel
     {
         if (!optionPanel.activeSelf)
@@ -89,6 +87,7 @@ public class GameUI : MonoBehaviour
         Searchpanel();
         OptionBtn();
     }
+
     #region graphic
     public void GraphicBtn()
     {
@@ -121,12 +120,12 @@ public class GameUI : MonoBehaviour
         screenMode = isFull ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
     }
 
-
     public void DropboxOptionChange(int x) //해상도 드랍박스에서 설정한값 저장용
     {
         resolutionNum = x;
     }
     #endregion graphic
+
     public void SoundBtn() //Option
     {
         Searchpanel();
@@ -138,6 +137,7 @@ public class GameUI : MonoBehaviour
         Searchpanel();
     }
 
+    #region Map
     public void Map()
     {
         if (!mapPanel.activeSelf && !GameManager.instance.isPanelOpen)
@@ -160,7 +160,7 @@ public class GameUI : MonoBehaviour
             minimap.SetActive(false);
             GameManager.instance.isMapOpen = true;
     }
-
+    #endregion
     public void ContinueBtn()   //GameOver
     {
         GameManager.instance.isGameOver = false;

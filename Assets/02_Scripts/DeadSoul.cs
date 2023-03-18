@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class DeadSoul : MonoBehaviour
 {
@@ -32,13 +33,25 @@ public class DeadSoul : MonoBehaviour
             ToastMsg.Instance.showMessage("흡수 하시려면 G를 눌러주세요!", 1f);
             StartCoroutine("Consume");
         }
+        else if(!(col.gameObject.GetComponent<TilemapCollider2D>() != null))
+        {
+            Physics2D.IgnoreCollision(col.collider, GetComponent<Collider2D>());
+        }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnCollisionExit2D(Collision2D col)
     {
-        StopCoroutine("Consume");
+        if (col.gameObject.tag == "Player")
+        { 
+            StopCoroutine("Consume");
+        }
     }
 
+    public void duplicate()
+    {
+        //나중에 데이터를 다른 해골로 옮기게 되면 여기에다가
+        Destroy(gameObject);
+    }
 
     private IEnumerator Consume()
     {

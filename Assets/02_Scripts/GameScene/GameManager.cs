@@ -115,11 +115,16 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-        
+
+        if (remainSoul == true) //이미 죽었던 적이 있다면
+        {
+            DeadSoul deadSoul = GameObject.Find("soul(Clone)").GetComponent<DeadSoul>();
+            deadSoul.duplicate();
+        }
+
         //흔적 남기기
         Instantiate(soul, Player.instance.transform.position, Quaternion.identity);
         remainSoul = true;
-        //Time.timeScale = 0; //게임 시간 정지 - 삭제 예정
 
         isPanelOpen = true;
         gameUI.gameoverPanel.SetActive(true);
