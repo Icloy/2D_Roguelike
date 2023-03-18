@@ -2,33 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Effect_Damage : MonoBehaviour
+public class Enemy_Flyingeye_Boom : MonoBehaviour
 {
-    public int AtDmg; //공격 데미지
-    [HideInInspector] public GameObject Stat;
-
-    public bool repeat = false;
+    public bool repeat;
     private Coroutine delayCoroutine = null;
-
+    GameObject flyingeye;
     private void OnEnable()
     {
-        AtDmg = Player.instance.AtDmg;
         repeat = false;
     }
 
+
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Enemy") && !repeat)
+        if (other.gameObject.CompareTag("Player") && !repeat)
         {
             repeat = true;
-            Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            if (enemy != null)
+            Flyingeye flyingeye = transform.parent.GetComponent<Flyingeye>();
+            if (flyingeye != null)
             {
-                Debug.Log(AtDmg);
+                Debug.Log(flyingeye.attack_damage);
                 ShakeCamera.instance.StartShake(0.05f, 0.05f);
-                Stat.GetComponent<Stat>().MP += 30;
-                // 데미지 계산 및 적용
-                enemy.TakeDamage(AtDmg);
+                Player.instance.Damaged(-flyingeye.attack_damage);
             }
             if (delayCoroutine != null)
             {
