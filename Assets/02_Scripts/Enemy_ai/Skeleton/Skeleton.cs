@@ -15,6 +15,7 @@ public class Skeleton : Enemy
     private int nextMove;
     private float dis;
 
+    public float knockbackdis;
     public float movespeed;
     public float tracespeed;
     public float turnrange;
@@ -27,7 +28,8 @@ public class Skeleton : Enemy
         idle = 0,
         walk = 1,
         attack1 = 2,
-        attack2 = 3
+        attack2 = 3,
+        hit = 4
     }
     void Awake()
     {
@@ -57,7 +59,7 @@ public class Skeleton : Enemy
         Invoke("Think", 3);
     }
 
-    void Think() 
+    void Think()
     {
         nextMove = Random.Range(-1, 2); // -1~1 랜덤돌리고 값 던지기
         float nextThinkTime = Random.Range(2f, 5f); // 대기시간 2초에서 5초 사이랜덤
@@ -71,7 +73,7 @@ public class Skeleton : Enemy
             if (PlayerPos != null)
             {
                 dis = Vector2.Distance(PlayerPos.transform.position, rigid.transform.position);
-                if (dis < 1.8f)
+                if (dis < 2.4f)
                 {
                     yield return StartCoroutine(Attack());
                 }
@@ -164,9 +166,33 @@ public class Skeleton : Enemy
     {
         Hp = Hp - AtDmg;
         Debug.Log(Hp);
+        StopAllCoroutines();
+        StartCoroutine(KnockBack());
         if (Hp <= 0)
         {
             Die();
+        }
+        
+    }
+
+    public IEnumerator KnockBack()
+    {
+        if (PlayerPos != null)
+        {
+            Debug.Log("knockback check");
+            animator.SetInteger(animationState, (int)States.hit);
+            rigid.AddForce(Vector2.up * knockbackdis, ForceMode2D.Impulse);
+            if (PlayerPos.transform.position.x < rigid.transform.position.x)
+            {
+                rigid.AddForce(Vector2.right * knockbackdis, ForceMode2D.Impulse);
+            }
+            else
+            {
+                rigid.AddForce(Vector2.left * knockbackdis, ForceMode2D.Impulse);
+            }
+            yield return new WaitForSeconds(1.2f);
+            StartCoroutine(move());
+            yield break;
         }
     }
 
@@ -187,7 +213,6 @@ public class Skeleton : Enemy
             Instantiate(Item, position, Quaternion.identity);
         }
     }
-
 
     void OnCollisionEnter2D(Collision2D col)
     {
