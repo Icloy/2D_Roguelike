@@ -49,7 +49,12 @@ public class DeadSoul : MonoBehaviour
 
     public void duplicate()
     {
-        //나중에 데이터를 다른 해골로 옮기게 되면 여기에다가
+        //아이디어 생각나면 fix
+        GameManager.instance.UpdateCoinCnt(lostCoin);
+        Player.instance.AtDmg = dmgLv;
+        Player.instance.maxHp = hpLv;
+        Hp.instance.udtHp(Player.instance.curHp, Player.instance.maxHp);
+
         Destroy(gameObject);
     }
 
