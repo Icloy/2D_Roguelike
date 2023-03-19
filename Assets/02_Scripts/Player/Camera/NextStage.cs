@@ -17,6 +17,8 @@ public class NextStage : MonoBehaviour
     public bool fadeInOut;
     public bool SmoothMoving;
     public bool IfStage;
+    public bool DStage;
+
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -51,6 +53,14 @@ public class NextStage : MonoBehaviour
                     StartCoroutine(StageMgr.Instance.MoveNext2(collision, DestinationPoint.position, fadeInOut, SmoothMoving));
                 }
                 else { }
+            }
+        }
+
+        if(DStage == true)
+        {
+            if (collision.transform.CompareTag("Player"))
+            {
+                SceneManager.LoadScene("DDD");
             }
         }
     }
