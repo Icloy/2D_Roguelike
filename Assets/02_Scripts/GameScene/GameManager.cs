@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     public int coin;    //인게임 재화
 
-    public bool isGameOver; //게임오버 여부
+    public bool isGameOver = false; //게임오버 여부
     public bool isPanelOpen = false; //패널 오픈 여부
     public bool isShopOpen = false; //상점 오픈 여부
     public bool isMapOpen = false; //맵 오픈 여부
@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     GameUI gameUI;
     Shop shop;
+
     public static GameManager instance = null;
 
     public static GameManager Instance
@@ -40,6 +41,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        gameUI = GameObject.Find("Canvas").GetComponent<GameUI>();
+        shop = GameObject.Find("Shop").GetComponent<Shop>();
         if (instance == null)
         {
             instance = this;
@@ -49,14 +52,20 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        gameUI = GameObject.Find("Canvas").GetComponent<GameUI>();
-        shop = GameObject.Find("Shop").GetComponent<Shop>();
+        Debug.Log("Awake 실행");
+    }
+
+    private void OnLevelWasLoaded(int level) //씬전환시 호출
+    {
+        Debug.Log("OnLevelWasLoaded 실행");
+        Awake();
+        UpdateCoinCnt(0);
     }
 
     private void Start()
     {
-        isGameOver = false;
-       
+        Debug.Log("Start 실행");
+
         //초기 카메라 값
         subCamera.enabled = false;
         mainCamera.enabled = true;
