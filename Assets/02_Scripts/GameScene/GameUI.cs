@@ -154,7 +154,7 @@ public class GameUI : MonoBehaviour
     }
     IEnumerator Map2()
     {
-            yield return new WaitForSeconds(0.35f);
+            yield return new WaitForSeconds(0.1f);
             mapPanel.SetActive(true);
             rectminimap.localScale = new Vector3(1f, 1f, 1f);
             minimap.SetActive(false);
