@@ -15,7 +15,7 @@ public class SlowMotionClass : MonoBehaviour
             instance = this;
     }
 
-    public float slowFactor = 0.05f;
+    public float slowFactor = 0.2f;
     public float slowLength = 4f;
 
     public Action OnSlowMotionAudio;

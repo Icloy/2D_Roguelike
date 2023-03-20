@@ -23,6 +23,11 @@ public class Skeleton : Enemy
 
     public GameObject Attack1_check;
     public GameObject Attack2_check;
+
+    public AudioClip EnemyAttackSound;
+
+    private AudioSource AudioPlayer; //오디오 소스 컴포넌트
+
     enum States
     {
         idle = 0,
@@ -37,6 +42,8 @@ public class Skeleton : Enemy
         box = GetComponentInChildren<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        AudioPlayer = GetComponent<AudioSource>();
+
     }
 
     void Start()
@@ -134,11 +141,15 @@ public class Skeleton : Enemy
                 animator.SetInteger(animationState, (int)States.attack1);
                 yield return new WaitForSeconds(0.84f);//애니메이션 공격 이펙트 위치
                 Attack1_check.gameObject.SetActive(true);
+                AudioPlayer.PlayOneShot(EnemyAttackSound);
+
                 break;
             case 2:
                 animator.SetInteger(animationState, (int)States.attack2);
                 yield return new WaitForSeconds(0.84f);
                 Attack2_check.gameObject.SetActive(true);
+                AudioPlayer.PlayOneShot(EnemyAttackSound);
+
                 break;
         }
         yield return new WaitForSeconds(0.16f);// 애니메이션 끝나는 위치

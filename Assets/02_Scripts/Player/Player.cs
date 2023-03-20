@@ -84,13 +84,18 @@ public class Player : MonoBehaviour
     public bool fadeInOut;
     public bool SmoothMoving;
 
+    [SerializeField]
+    float lowpassValue = 100;
+
     [HideInInspector]  public GameObject HealEffect;
     [HideInInspector]  public AudioClip AttackSound;
     [HideInInspector]  public AudioClip HealSound;
     [HideInInspector]  public AudioClip DashSound;
+      public AudioClip DamagedSound;
 
     //오디오
     private AudioSource AudioPlayer; //오디오 소스 컴포넌트
+    private AudioLowPassFilter audioLowPassFilter;
 
     public bool IsDashing { get => isDashing; set => isDashing = value; }
     public bool IsWallJumping { get => isWallJumping; set => isWallJumping = value; }
@@ -126,6 +131,7 @@ public class Player : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         AudioPlayer = GetComponent<AudioSource>();
         cam = Camera.main;
+        audioLowPassFilter = GetComponent<AudioLowPassFilter>();
     }
     // Update is called once per frame
     #endregion
@@ -568,6 +574,8 @@ public class Player : MonoBehaviour
     {
         if(dmg > 0)
         {
+            Debug.Log("1");
+
             for (int i = 0; i < dmg; i++)
             {
                 Hp.instance.Recover(curHp);
@@ -583,6 +591,16 @@ public class Player : MonoBehaviour
             GameManager.instance.PlayerDead();
             gameObject.SetActive(false); //나중에 프리팹화해서 파괴로 바꿀예정
         }
+
+        if(dmg < 0)
+        {
+            SlowMotionClass.instance.DoSlowMotion();
+            AudioPlayer.PlayOneShot(DamagedSound);
+            SetAudioEffect(true);
+            Invoke("ResetAudioEffect", 0.35f);
+
+
+        }
     }
 
     public void ZoomIn()
@@ -593,5 +611,16 @@ public class Player : MonoBehaviour
     public void ZoomOut()
     {
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, 9, 1);
+    }
+
+    public void SetAudioEffect(bool is1stView)
+    {
+        audioLowPassFilter.cutoffFrequency = (is1stView == true) ? lowpassValue : 22000;
+    }
+    void ResetAudioEffect()
+    {
+        audioLowPassFilter.cutoffFrequency = 22000;
+        AudioPlayer.volume = 1;
+
     }
 }
