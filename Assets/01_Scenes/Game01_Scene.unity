@@ -11257,6 +11257,8 @@ GameObject:
   - component: {fileID: 598188433}
   - component: {fileID: 598188430}
   - component: {fileID: 598188432}
+  - component: {fileID: 598188440}
+  - component: {fileID: 598188441}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -11576,6 +11578,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &598188440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598188429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3898e839ceab90a47a8c62abc4fdb0cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slowFactor: 0.05
+  slowLength: 0.5
+--- !u!114 &598188441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598188429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1c76a8bfe1237445b7915ca4cea1f6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &601576141
 PrefabInstance:
   m_ObjectHideFlags: 0
