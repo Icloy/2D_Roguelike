@@ -292,7 +292,6 @@ public class Player : MonoBehaviour
             {
                 anim.SetTrigger("Attack");
                 AudioPlayer.PlayOneShot(AttackSound);
-                SlowMotionClass.instance.DoSlowMotion();
                 if (i % 2 == 0 && i == 0)
                 {
                     AEffect.gameObject.SetActive(true);

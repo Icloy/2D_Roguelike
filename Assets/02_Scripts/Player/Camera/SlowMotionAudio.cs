@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SlowMotionAudio : MonoBehaviour
 {
-    /*private void OnEnable()
+    private void OnEnable()
     {
         SlowMotionClass.instance.OnSlowMotionAudio += OnSlowMotionAudio;
     }
@@ -17,5 +17,5 @@ public class SlowMotionAudio : MonoBehaviour
     void OnSlowMotionAudio()
     {
         GetComponent<AudioSource>().pitch = Time.timeScale;
-    }*/
+    }
 }

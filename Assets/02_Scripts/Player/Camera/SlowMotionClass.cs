@@ -18,7 +18,7 @@ public class SlowMotionClass : MonoBehaviour
     public float slowFactor = 0.05f;
     public float slowLength = 4f;
 
-    //public Action OnSlowMotionAudio;
+    public Action OnSlowMotionAudio;
 
     public void DoSlowMotion()
     {
@@ -32,6 +32,6 @@ public class SlowMotionClass : MonoBehaviour
         Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
 
-        //OnSlowMotionAudio.Invoke();
+        OnSlowMotionAudio.Invoke();
     }
 }
