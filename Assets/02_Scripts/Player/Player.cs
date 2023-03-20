@@ -148,21 +148,23 @@ public class Player : MonoBehaviour
             anim.SetBool("Idle", true);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow)&&!GameManager.instance.isPanelOpen)
+        if (Input.GetKey(KeyCode.LeftArrow)&&!GameManager.instance.isPanelOpen)
         {
             transform.localScale = new Vector3(-1f, 1f);
+            anim.SetBool("Run", true);
+
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow)&& !GameManager.instance.isPanelOpen)
+        else if (Input.GetKey(KeyCode.RightArrow)&& !GameManager.instance.isPanelOpen)
         {
             transform.localScale = new Vector3(1f, 1f);
+            anim.SetBool("Run", true);
+
         }
 
         if (rigid.velocity.normalized.x == 0)
         {
             anim.SetBool("Run", false);
         }
-        else
-            anim.SetBool("Run", true);
 
         #endregion
 
