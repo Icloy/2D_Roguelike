@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class Coin : MonoBehaviour
 {
-    GameObject target;
+    public GameObject target;
     CircleCollider2D circle;
     Rigidbody2D rigid;
 
@@ -29,6 +29,7 @@ public class Coin : MonoBehaviour
         if (col.gameObject.CompareTag("Player"))
         {
             circle.enabled = false;
+            rigid.velocity = Vector3.zero;
             rigid.gravityScale = 0;
             StartCoroutine(CoinMove());
         }
