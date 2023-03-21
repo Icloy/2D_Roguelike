@@ -619,7 +619,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ui_btn_20: 583903004
+      ui_btn_11: 1412206974
       ui_btn_14: -1482150026
       ui_btn_26: -576397696
       ui_btn_2: -1755588410
@@ -641,11 +641,11 @@ TextureImporter:
       ui_btn_24: -884212195
       ui_btn_23: 906182385
       ui_btn_0: 1170808790
+      ui_btn_20: 583903004
       ui_btn_15: -1269573864
       ui_btn_8: -251693172
-      ui_btn_11: 1412206974
-      ui_btn_7: -916346709
       ui_btn_25: -2059785857
+      ui_btn_7: -916346709
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
