@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skeleton : Enemy
+public class Mushroom : Enemy
 {
     BoxCollider2D box;
     Rigidbody2D rigid;
@@ -80,7 +80,7 @@ public class Skeleton : Enemy
             if (PlayerPos != null)
             {
                 dis = Vector2.Distance(PlayerPos.transform.position, rigid.transform.position);
-                if (dis < 2.4f)
+                if (dis < 1.4f)
                 {
                     CancelInvoke();
                     rigid.velocity = Vector2.zero;
@@ -162,12 +162,12 @@ public class Skeleton : Enemy
 
     void FlipX() // transform 변경 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z); 이 아닌 고정값으로 하는 이유는 트리거 안에 들어갔다 나오는식으로 플레이어가 행동하게되면 *-1이라서 반전 버그남
     {
-        transform.localScale = new Vector3(-3, transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector3(-5, transform.localScale.y, transform.localScale.z);
     }
 
     void FlipBack()
     {
-        transform.localScale = new Vector3(3, transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector3(5, transform.localScale.y, transform.localScale.z);
     }
 
     void Attack_Check_Off()
@@ -186,7 +186,7 @@ public class Skeleton : Enemy
         {
             Die();
         }
-        
+
     }
 
     public IEnumerator KnockBack()
@@ -219,7 +219,7 @@ public class Skeleton : Enemy
     void DropItem()
     {
         Debug.Log("호출");
-        for(int i = 0;i < dropcoincnt; i++)
+        for (int i = 0; i < dropcoincnt; i++)
         {
             float x = Random.Range(-1f, 1f); // x축 위치 랜덤 설정
             float y = Random.Range(-1f, 1f); // y축 위치 랜덤 설정

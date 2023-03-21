@@ -75,7 +75,10 @@ public class Goblin : Enemy
                 dis = Vector2.Distance(PlayerPos.transform.position, rigid.transform.position);
                 if (dis < 1.5f)
                 {
+                    CancelInvoke();
+                    rigid.velocity = Vector2.zero;
                     yield return StartCoroutine(Attack());
+                    Invoke("Think", 3);
                 }
             }
             if (nextMove == 1)//애니메이션 및 스프라이트 방향 변경 자식 개체까지 바꿔야하므로 가장 상위 transform 변경
@@ -109,7 +112,7 @@ public class Goblin : Enemy
                     animator.SetInteger(animationState, (int)States.walk);
                 }
             }
-            else //땅 체크 + 턴 및 이동
+            if (trace == false) //땅 체크 + 턴 및 이동
             {
                 Vector2 frontVec = new Vector2(rigid.position.x + nextMove * turnrange, rigid.position.y);
                 Debug.DrawRay(frontVec, Vector3.down, new Color(0, 255, 0));
