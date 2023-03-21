@@ -9,9 +9,11 @@ public class Skeleton : Enemy
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     Animator animator;
+    Coroutine thinkcoroutine;
 
     string animationState = "animationState";
     private bool trace;
+    private bool turnflag;
     private int nextMove;
     private float dis;
 
@@ -49,8 +51,9 @@ public class Skeleton : Enemy
     void Start()
     {
         animator.SetInteger(animationState, (int)States.idle);
+        trace = turnflag = false;
         StartCoroutine(move());
-        Invoke("Think", 5);
+        ThinkCall();
     }
 
     void Update()
@@ -59,18 +62,18 @@ public class Skeleton : Enemy
         Debug.DrawRay(frontVec, Vector3.down, new Color(0, 255, 0)); // 디버그용 두문장 나중에 지워도 상관없음
     }
 
-    void Turn()//턴
+    public IEnumerator Think()
     {
-        nextMove = nextMove * (-1);
-        CancelInvoke();
-        Invoke("Think", 3);
-    }
-
-    void Think()
-    {
-        nextMove = Random.Range(-1, 2); // -1~1 랜덤돌리고 값 던지기
-        float nextThinkTime = Random.Range(2f, 5f); // 대기시간 2초에서 5초 사이랜덤
-        Invoke("Think", nextThinkTime);
+        while (true)
+        {
+            float nextThinkTime = Random.Range(2f, 5f); // 대기시간 2초에서 5초 사이랜덤
+            if (turnflag == true)
+            {
+                yield return new WaitForSeconds(nextThinkTime);
+            }
+            nextMove = Random.Range(-1, 2); // -1~1 랜덤돌리고 값 던지기
+            yield return new WaitForSeconds(nextThinkTime);
+        }
     }
 
     public IEnumerator move()
@@ -82,10 +85,8 @@ public class Skeleton : Enemy
                 dis = Vector2.Distance(PlayerPos.transform.position, rigid.transform.position);
                 if (dis < 2.4f)
                 {
-                    CancelInvoke();
                     rigid.velocity = Vector2.zero;
                     yield return StartCoroutine(Attack());
-                    Invoke("Think", 3);
                 }
             }
             if (nextMove == 1)//애니메이션 및 스프라이트 방향 변경 자식 개체까지 바꿔야하므로 가장 상위 transform 변경
@@ -160,35 +161,6 @@ public class Skeleton : Enemy
         yield break;
     }
 
-    void FlipX() // transform 변경 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z); 이 아닌 고정값으로 하는 이유는 트리거 안에 들어갔다 나오는식으로 플레이어가 행동하게되면 *-1이라서 반전 버그남
-    {
-        transform.localScale = new Vector3(-3, transform.localScale.y, transform.localScale.z);
-    }
-
-    void FlipBack()
-    {
-        transform.localScale = new Vector3(3, transform.localScale.y, transform.localScale.z);
-    }
-
-    void Attack_Check_Off()
-    {
-        Attack1_check.gameObject.SetActive(false);
-        Attack2_check.gameObject.SetActive(false);
-    }
-
-    public override void TakeDamage(int AtDmg)
-    {
-        Hp = Hp - AtDmg;
-        Debug.Log(Hp);
-        StopAllCoroutines();
-        StartCoroutine(KnockBack());
-        if (Hp <= 0)
-        {
-            Die();
-        }
-        
-    }
-
     public IEnumerator KnockBack()
     {
         if (PlayerPos != null)
@@ -206,7 +178,58 @@ public class Skeleton : Enemy
             }
             yield return new WaitForSeconds(1.2f);
             StartCoroutine(move());
+            ThinkCall();
             yield break;
+        }
+    }
+
+    public override void TakeDamage(int AtDmg)
+    {
+        Hp = Hp - AtDmg;
+        Debug.Log(Hp);
+        StopAllCoroutines();
+        StartCoroutine(KnockBack());
+        if (Hp <= 0)
+        {
+            Die();
+        }
+
+    }
+
+    void FlipX() // transform 변경 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z); 이 아닌 고정값으로 하는 이유는 트리거 안에 들어갔다 나오는식으로 플레이어가 행동하게되면 *-1이라서 반전 버그남
+    {
+        transform.localScale = new Vector3(-3, transform.localScale.y, transform.localScale.z);
+    }
+
+    void FlipBack()
+    {
+        transform.localScale = new Vector3(3, transform.localScale.y, transform.localScale.z);
+    }
+
+    void Attack_Check_Off()
+    {
+        Attack1_check.gameObject.SetActive(false);
+        Attack2_check.gameObject.SetActive(false);
+    }
+
+    void Turn()//턴
+    {
+        nextMove = nextMove * (-1);
+        turnflag = true;
+        ThinkStop();
+        ThinkCall();
+    }
+
+    void ThinkCall()
+    {
+        thinkcoroutine = StartCoroutine(Think());
+    }
+
+    void ThinkStop()
+    {
+        if (thinkcoroutine != null)
+        {
+            StopCoroutine(thinkcoroutine);
         }
     }
 
