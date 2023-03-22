@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class StageMgr : MonoBehaviour
 {
+
+    public GameObject Stage_Map1;
+    public GameObject Stage_Map2;
+
     public static StageMgr Instance
     {
         get
@@ -73,10 +77,15 @@ public class StageMgr : MonoBehaviour
             yield return StartCoroutine(FadeIn());
         }
         mainCamera.Instance.cameraSmoothMoving = SmoothMoving;
-
         Stages[currentStage++].SetActive(false);
         Stages[currentStage].SetActive(true);
-
+        switch (currentStage)
+        {
+            case 1:
+                Stage_Map1.gameObject.SetActive(false);
+                Stage_Map2.gameObject.SetActive(true);
+                break;       
+        }
         collision.transform.position = destination;
 
         if (fadeInOut)

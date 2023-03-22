@@ -85,13 +85,13 @@ public class Player : MonoBehaviour
     public bool SmoothMoving;
 
     [SerializeField]
-    float lowpassValue = 100;
+    [HideInInspector] float lowpassValue = 100;
 
     [HideInInspector]  public GameObject HealEffect;
     [HideInInspector]  public AudioClip AttackSound;
     [HideInInspector]  public AudioClip HealSound;
     [HideInInspector]  public AudioClip DashSound;
-      public AudioClip DamagedSound;
+    [HideInInspector] public AudioClip DamagedSound;
 
     //오디오
     private AudioSource AudioPlayer; //오디오 소스 컴포넌트
@@ -233,7 +233,7 @@ public class Player : MonoBehaviour
         }
 
         //Dash
-        if (Input.GetKeyDown(KeyCode.W) && canDash)
+        if (Input.GetKeyDown(KeyCode.W) && canDash &&(!isWallSliding))
         {
             StartCoroutine(Dash());
         }
@@ -423,10 +423,10 @@ public class Player : MonoBehaviour
         IsDashing = true;
         maxSpeed = 80;
         DashAnim();
-        AudioPlayer.PlayOneShot(DashSound);
         float originalGravity = rigid.gravityScale;
         rigid.gravityScale = 0f;
         rigid.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
+        AudioPlayer.PlayOneShot(DashSound);
         tr.emitting = true;
         yield return new WaitForSeconds(dashingTime);
         tr.emitting = false;
