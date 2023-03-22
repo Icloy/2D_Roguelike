@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bat : MonoBehaviour
+public class bat : Enemy
 {
-    public float speed;
+    public float movespeed;
+    public float rushspeed;
     public float position_change_second;
     public float delete_time;
 
-    private bool flag = false;
+    private float dis;
+    public float savespeed;
+    private bool traceflag;
+    private bool startflag;
 
     CircleCollider2D circle;
     Rigidbody2D rigid;
@@ -16,6 +20,7 @@ public class bat : MonoBehaviour
     Vector3 position;
     Animator animator;
     SpriteRenderer sprite;
+    Coroutine coroutine;
 
     string animationState = "animationState";
 
@@ -25,13 +30,19 @@ public class bat : MonoBehaviour
         fly = 1
     }
 
-    void Start()
+    void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        circle = GetComponent<CircleCollider2D>();
-        animator = GetComponent<Animator>();
-        sprite = GetComponent<SpriteRenderer>();
+        circle = GetComponentInChildren<CircleCollider2D>();
+        animator = GetComponentInChildren<Animator>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
         animator.SetInteger(animationState, (int)States.idle);
+    }
+
+    void start()
+    {
+        savespeed = movespeed;
+        traceflag = startflag = true;
     }
 
     void Update()
@@ -39,8 +50,9 @@ public class bat : MonoBehaviour
         Debug.DrawLine(rigid.position, position, Color.red);
     }
 
-    public IEnumerator Move(Rigidbody2D rigidBodyToMove, float speed)
+    public IEnumerator Move(Rigidbody2D rigidBodyToMove, float movespeed)
     {
+        Debug.Log(dis);
         float remaindistance = (transform.position - position).sqrMagnitude;
         while (remaindistance > float.Epsilon)
         {
@@ -59,15 +71,22 @@ public class bat : MonoBehaviour
             }
             if (rigidBodyToMove != null)
             {
-                if(flag == true)
+                movespeed = savespeed;
+                if (dis < 2f)
                 {
-                    Vector3 newposition = Vector3.MoveTowards(rigidBodyToMove.position, position, -speed * Time.deltaTime);
+                    movespeed = rushspeed;
+                }
+                dis = Vector2.Distance(targetTransform.transform.position, rigidBodyToMove.transform.position);
+                Debug.Log(dis);
+                if (traceflag == true)
+                {
+                    Vector3 newposition = Vector3.MoveTowards(rigidBodyToMove.position, position, -movespeed * Time.deltaTime);
                     rigid.MovePosition(newposition);
                     remaindistance = (transform.position - position).sqrMagnitude;
                 }
                 else
                 {
-                    Vector3 newposition = Vector3.MoveTowards(rigidBodyToMove.position, position, speed * Time.deltaTime);
+                    Vector3 newposition = Vector3.MoveTowards(rigidBodyToMove.position, position, movespeed * Time.deltaTime);
                     rigid.MovePosition(newposition);
                     remaindistance = (transform.position - position).sqrMagnitude;
                 }
@@ -80,8 +99,12 @@ public class bat : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("enter");
             targetTransform = collision.gameObject.transform;
-            StartCoroutine(Move(rigid, speed));
+            if (coroutine == null)
+            {
+                coroutine = StartCoroutine(Move(rigid, movespeed));
+            }
         }
     }
 
@@ -89,7 +112,7 @@ public class bat : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            flag = false;
+            traceflag = true;
         }
     }
 
@@ -97,8 +120,8 @@ public class bat : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            flag = true;
-            //Destroy(this.gameObject);
+            Debug.Log("false");
+            traceflag = false;
         }
     }
 }
