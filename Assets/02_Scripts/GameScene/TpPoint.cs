@@ -11,6 +11,13 @@ public class TpPoint : MonoBehaviour
 
     private bool isRegister = false;
 
+    GameObject light;
+
+    private void Awake()
+    {
+        light = this.transform.GetChild(0).gameObject;
+    }
+
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "Player" && !isRegister)
@@ -37,6 +44,7 @@ public class TpPoint : MonoBehaviour
                 //TP 활성화
                 btn.interactable = true;
                 ToastMsg.Instance.showMessage("등록하였습니다.!", 1f);
+                light.SetActive(true);
                 isRegister = true;
                 break;
             }

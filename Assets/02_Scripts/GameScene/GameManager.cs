@@ -52,20 +52,16 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        Debug.Log("Awake 실행");
     }
 
     private void OnLevelWasLoaded(int level) //씬전환시 호출
     {
-        Debug.Log("OnLevelWasLoaded 실행");
         Awake();
         UpdateCoinCnt(0);
     }
 
     private void Start()
     {
-        Debug.Log("Start 실행");
-
         //초기 카메라 값
         subCamera.enabled = false;
         mainCamera.enabled = true;
