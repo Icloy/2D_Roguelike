@@ -36,13 +36,13 @@ public class bat : Enemy
         circle = GetComponentInChildren<CircleCollider2D>();
         animator = GetComponentInChildren<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
-        animator.SetInteger(animationState, (int)States.idle);
     }
 
     void start()
     {
         savespeed = movespeed;
-        traceflag = startflag = true;
+        traceflag = startflag = false;
+        animator.SetInteger(animationState, (int)States.idle);
     }
 
     void Update()
@@ -52,11 +52,11 @@ public class bat : Enemy
 
     public IEnumerator Move(Rigidbody2D rigidBodyToMove, float movespeed)
     {
-        Debug.Log(dis);
         float remaindistance = (transform.position - position).sqrMagnitude;
         while (remaindistance > float.Epsilon)
         {
             animator.SetInteger(animationState, (int)States.fly);
+            Debug.Log(dis);
             if (targetTransform.position.x < rigid.transform.position.x)
             {
                 sprite.flipX = false;
@@ -72,14 +72,23 @@ public class bat : Enemy
             if (rigidBodyToMove != null)
             {
                 movespeed = savespeed;
-                if (dis < 2f)
+                dis = Vector2.Distance(targetTransform.transform.position, rigidBodyToMove.transform.position);
+                if (dis < 4f)
                 {
+                    Debug.Log("2f");
                     movespeed = rushspeed;
                 }
-                dis = Vector2.Distance(targetTransform.transform.position, rigidBodyToMove.transform.position);
                 Debug.Log(dis);
                 if (traceflag == true)
                 {
+                    if (targetTransform.position.x < rigid.transform.position.x)
+                    {
+                        sprite.flipX = true;
+                    }
+                    else
+                    {
+                        sprite.flipX = false;
+                    }
                     Vector3 newposition = Vector3.MoveTowards(rigidBodyToMove.position, position, -movespeed * Time.deltaTime);
                     rigid.MovePosition(newposition);
                     remaindistance = (transform.position - position).sqrMagnitude;
@@ -103,6 +112,7 @@ public class bat : Enemy
             targetTransform = collision.gameObject.transform;
             if (coroutine == null)
             {
+                Debug.Log("s");
                 coroutine = StartCoroutine(Move(rigid, movespeed));
             }
         }
@@ -112,7 +122,7 @@ public class bat : Enemy
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            traceflag = true;
+            traceflag = false;
         }
     }
 
@@ -121,7 +131,7 @@ public class bat : Enemy
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("false");
-            traceflag = false;
+            traceflag = true;
         }
     }
 }
