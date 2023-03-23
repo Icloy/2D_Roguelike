@@ -1,0 +1,409 @@
+fileFormatVersion: 2
+guid: 83265bcac610b9d4dbc526b760e827fc
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: sword_effect_Yellow_0
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 280
+        width: 170
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ee7c88515e86ee45a57bcda2747259a
+      internalID: -342247447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sword_effect_Yellow_2
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 279
+        width: 247
+        height: 221
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90a41ffe556055f4e8d18702ee92d5de
+      internalID: -978922440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sword_effect_Yellow_3
+      rect:
+        serializedVersion: 2
+        x: 653
+        y: 296
+        width: 213
+        height: 246
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3713a0bb9c2dc5f4ab77b20e47389a3a
+      internalID: -1202549768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sword_effect_Yellow_6
+      rect:
+        serializedVersion: 2
+        x: 883
+        y: 300
+        width: 284
+        height: 227
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43bbba9cf2fca7749ab71156f666231a
+      internalID: -456322943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sword_effect_Yellow_12
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 323
+        width: 228
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67e64c06c2fd593478b9278d5961c043
+      internalID: 9983580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sword_effect_Yellow_13
+      rect:
+        serializedVersion: 2
+        x: 1528
+        y: 289
+        width: 284
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 675f048dfcd318e49a8fa20e8479d9c5
+      internalID: 1291858956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sword_effect_Yellow_17
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 59
+        width: 244
+        height: 199
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5f411db71928bc46b2fb331ab9f9102
+      internalID: 1370782095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sword_effect_Yellow_20
+      rect:
+        serializedVersion: 2
+        x: 1637
+        y: 58
+        width: 224
+        height: 214
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ac291d6c03ce0241a6874bf4ce5c49c
+      internalID: 71421781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sword_effect_Yellow_21
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 103
+        width: 342
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c73260e9ce71d741955e1a85d5a77a6
+      internalID: 755245774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sword_effect_Yellow_23
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 69
+        width: 333
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d46e06244de1acb41bcfc6b83c4c0367
+      internalID: 1724954699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sword_effect_Yellow_28
+      rect:
+        serializedVersion: 2
+        x: 1178
+        y: 73
+        width: 299
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fcd31eb54f3d684c9b5bcbc3bbe6a50
+      internalID: -1650645811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sword_effect_Yellow_33
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 65
+        width: 14
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e762af0b63490c45bed1e27c2de2120
+      internalID: 1257118344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      sword_effect_Yellow_4: -537087671
+      sword_effect_Yellow_29: 2042796720
+      sword_effect_Yellow_30: -639194269
+      sword_effect_Yellow_23: 1724954699
+      sword_effect_Yellow_7: 360846958
+      sword_effect_Yellow_21: 755245774
+      sword_effect_Yellow_28: -1650645811
+      sword_effect_Yellow_24: -1183373973
+      sword_effect_Yellow_15: -450564099
+      sword_effect_Yellow_3: -1202549768
+      sword_effect_Yellow_9: 114321096
+      sword_effect_Yellow_8: 1274956969
+      sword_effect_Yellow_13: 1291858956
+      sword_effect_Yellow_6: -456322943
+      sword_effect_Yellow_11: 1341325692
+      sword_effect_Yellow_5: -1606524948
+      sword_effect_Yellow_10: -753577350
+      sword_effect_Yellow_25: -1949903450
+      sword_effect_Yellow_32: -282442419
+      sword_effect_Yellow_26: 1494204330
+      sword_effect_Yellow_17: 1370782095
+      sword_effect_Yellow_20: 71421781
+      sword_effect_Yellow_2: -978922440
+      sword_effect_Yellow_27: -1032855644
+      sword_effect_Yellow_22: -396723544
+      sword_effect_Yellow_16: -1130932872
+      sword_effect_Yellow_1: 1787229035
+      sword_effect_Yellow_33: 1257118344
+      sword_effect_Yellow_12: 9983580
+      sword_effect_Yellow_18: -461771869
+      sword_effect_Yellow_14: 84153184
+      sword_effect_Yellow_31: 820196635
+      sword_effect_Yellow_19: -1576565461
+      sword_effect_Yellow_0: -342247447
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
