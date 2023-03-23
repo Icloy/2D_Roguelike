@@ -61884,6 +61884,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c1cf4e1cbd34e54f9b79045e56e9abd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Stage_Map1: {fileID: 0}
+  Stage_Map2: {fileID: 0}
   FadeInOutImg: {fileID: 600496904}
   WhitePanelImg: {fileID: 785786169}
   Stages:
@@ -64688,6 +64690,7 @@ GameObject:
   - component: {fileID: 1302468748}
   - component: {fileID: 1302468747}
   - component: {fileID: 1302468746}
+  - component: {fileID: 1302468749}
   - component: {fileID: 1302468745}
   - component: {fileID: 1302468744}
   - component: {fileID: 1302468742}
@@ -65014,6 +65017,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!169 &1302468749
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302468741}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1303635965
 GameObject:
   m_ObjectHideFlags: 0
