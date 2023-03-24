@@ -255,7 +255,7 @@ public class Goblin : Enemy
         for (int i = 0; i < dropcoincnt; i++)
         {
             float x = Random.Range(-1f, 1f); // x축 위치 랜덤 설정
-            float y = Random.Range(-1f, 1f); // y축 위치 랜덤 설정
+            float y = Random.Range(0f, 1f); // y축 위치 랜덤 설정
             Vector2 position = new Vector2(transform.position.x + x, transform.position.y + y);
             Instantiate(Item, position, Quaternion.identity);
         }
