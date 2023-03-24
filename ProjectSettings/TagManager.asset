@@ -9,6 +9,7 @@ TagManager:
   - Ladder
   - UI
   - AttackZone
+  - OneWayPlatform
   layers:
   - Default
   - TransparentFX
