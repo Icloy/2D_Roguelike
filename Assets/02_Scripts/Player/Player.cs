@@ -553,14 +553,14 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Ladder"))
+        if (collision.gameObject.CompareTag("DamagedTile"))
         {
-            isLadder = true;
+            Damaged(-1);
         }
     }
 
 
-    private void OnTriggerExit2D(Collider2D collision)
+  /*  private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Ladder"))
         {
@@ -569,7 +569,7 @@ public class Player : MonoBehaviour
             isClimbing = false;
         }
     }
-
+  */
     public void Damaged(int dmg)
     {
         if(dmg > 0)

@@ -10,6 +10,7 @@ TagManager:
   - UI
   - AttackZone
   - OneWayPlatform
+  - DamagedTile
   layers:
   - Default
   - TransparentFX
