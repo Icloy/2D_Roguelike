@@ -12,14 +12,12 @@ public class Slime : Enemy
     Coroutine coroutine;
     Coroutine thinkcoroutine;
     string animationState = "animationState";
-    private float dis;
     private float nextMove;
     private int direction;
     private int actmove;
     private bool attackflag;
     private bool turnflag;
-    public float knockbackdis;
-    public float movespeed;
+
     public float jumpPower;
     public float turnrange;
     public Transform PlayerPos;

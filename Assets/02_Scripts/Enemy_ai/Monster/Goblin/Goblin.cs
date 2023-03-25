@@ -15,10 +15,7 @@ public class Goblin : Enemy
     private bool trace;
     private bool turnflag;
     private int nextMove;
-    private float dis;
 
-    public float knockbackdis;
-    public float movespeed;
     public float tracespeed;
     public float turnrange;
     public Transform PlayerPos;
