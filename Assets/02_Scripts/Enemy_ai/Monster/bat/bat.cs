@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class bat : Enemy
 {
-    public float movespeed;
     public float position_change_second;
     public float delete_time;
-    public float knockbackdis;
 
-
-    private float dis;
     private bool traceflag;
     private bool Collision_Damage_Delay;
     CircleCollider2D circle;

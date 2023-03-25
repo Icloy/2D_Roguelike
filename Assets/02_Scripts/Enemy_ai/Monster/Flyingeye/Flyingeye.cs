@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class Flyingeye : Enemy
 {
-    public float speed;
     public float position_change_second;
     public float delete_time;
-    public float knockbackdis;
 
-    private float dis;
     private bool flag;
 
     CircleCollider2D circle;
@@ -70,7 +67,7 @@ public class Flyingeye : Enemy
             {
                 position = targetTransform.position;
             }
-            Vector3 newposition = Vector3.MoveTowards(rigid.position, position, speed * Time.deltaTime);
+            Vector3 newposition = Vector3.MoveTowards(rigid.position, position, movespeed * Time.deltaTime);
             rigid.MovePosition(newposition);
             remaindistance = (transform.position - position).sqrMagnitude;
             yield return new WaitForFixedUpdate();
@@ -116,7 +113,7 @@ public class Flyingeye : Enemy
             }
             yield return new WaitForSeconds(0.2f);
             flag = true;
-            StartCoroutine(Move(speed));
+            StartCoroutine(Move(movespeed));
             yield break;
         }
     }
@@ -143,7 +140,7 @@ public class Flyingeye : Enemy
         if (collision.gameObject.CompareTag("Player"))
         {
             targetTransform = collision.gameObject.transform;
-            StartCoroutine(Move(speed));
+            StartCoroutine(Move(movespeed));
         }
     }
 
