@@ -14717,7 +14717,7 @@ GameObject:
   - component: {fileID: 598188436}
   - component: {fileID: 598188434}
   - component: {fileID: 598188433}
-  - component: {fileID: 598188442}
+  - component: {fileID: 598188444}
   - component: {fileID: 598188430}
   - component: {fileID: 598188432}
   - component: {fileID: 598188440}
@@ -14795,7 +14795,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -172163427008174384, guid: 1d0b3ed0cd580954d88ef7331845e3af, type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: dc496ed44b40c4847ae5aa9e31cc52f1, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -15070,7 +15070,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1c76a8bfe1237445b7915ca4cea1f6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!169 &598188442
+--- !u!114 &598188443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598188429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa5d4ee88450ab4db1a7bb8428da0ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playercollier: {fileID: 598188436}
+--- !u!169 &598188444
 AudioLowPassFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -15085,7 +15098,7 @@ AudioLowPassFilter:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.2272883
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -15095,19 +15108,6 @@ AudioLowPassFilter:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &598188443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598188429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaa5d4ee88450ab4db1a7bb8428da0ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playercollier: {fileID: 598188436}
 --- !u!1001 &601576141
 PrefabInstance:
   m_ObjectHideFlags: 0
