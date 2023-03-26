@@ -6,12 +6,9 @@ public class Flyingeye : Enemy
 {
     public float position_change_second;
     public float delete_time;
-
     private bool flag;
-
     CircleCollider2D circle;
     Rigidbody2D rigid;
-    Transform targetTransform = null;
     Vector3 position;
     Animator animator;
     SpriteRenderer sprite;
@@ -48,12 +45,12 @@ public class Flyingeye : Enemy
         Debug.DrawLine(rigid.position, position, Color.red);
     }
 
-    public IEnumerator Move(float speed)
+    public IEnumerator Move(float movespeed)
     {
         float remaindistance = (transform.position - position).sqrMagnitude;
         while (remaindistance > float.Epsilon)
         {
-            if (targetTransform.position.x > rigid.transform.position.x)
+            if (PlayerPos.position.x > rigid.transform.position.x)
             {
                 sprite.flipX = false;
                 animator.SetInteger(animationState, (int)States.flight);
@@ -63,9 +60,9 @@ public class Flyingeye : Enemy
                 sprite.flipX = true;
                 animator.SetInteger(animationState, (int)States.flight);
             }
-            if (targetTransform != null)
+            if (PlayerPos != null)
             {
-                position = targetTransform.position;
+                position = PlayerPos.position;
             }
             Vector3 newposition = Vector3.MoveTowards(rigid.position, position, movespeed * Time.deltaTime);
             rigid.MovePosition(newposition);
@@ -99,11 +96,11 @@ public class Flyingeye : Enemy
 
     public IEnumerator KnockBack()
     {
-        if (targetTransform != null)
+        if (PlayerPos != null)
         {
             animator.SetInteger(animationState, (int)States.hit);
             rigid.AddForce(Vector2.up * knockbackdis, ForceMode2D.Impulse);
-            if (targetTransform.transform.position.x < rigid.transform.position.x)
+            if (PlayerPos.transform.position.x < rigid.transform.position.x)
             {
                 rigid.AddForce(Vector2.right * knockbackdis, ForceMode2D.Impulse);
             }
@@ -139,7 +136,7 @@ public class Flyingeye : Enemy
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            targetTransform = collision.gameObject.transform;
+            PlayerPos = collision.gameObject.transform;
             StartCoroutine(Move(movespeed));
         }
     }
@@ -148,7 +145,7 @@ public class Flyingeye : Enemy
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            dis = Vector2.Distance(targetTransform.transform.position, rigid.transform.position);
+            dis = Vector2.Distance(PlayerPos.transform.position, rigid.transform.position);
             if (dis < 1)
             {
                 if (flag == true)

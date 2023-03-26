@@ -18,7 +18,6 @@ public class Goblin : Enemy
 
     public float tracespeed;
     public float turnrange;
-    public Transform PlayerPos;
 
     public GameObject Attack1_check;
     public GameObject Attack2_check;
@@ -172,7 +171,7 @@ public class Goblin : Enemy
     {
         if (PlayerPos != null)
         {
-            Debug.Log("knockback check");
+            rigid.velocity = Vector2.zero;
             animator.SetInteger(animationState, (int)States.hit);
             rigid.AddForce(Vector2.up * knockbackdis, ForceMode2D.Impulse);
             if (PlayerPos.transform.position.x < rigid.transform.position.x)

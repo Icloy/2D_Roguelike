@@ -20,7 +20,6 @@ public class Slime : Enemy
 
     public float jumpPower;
     public float turnrange;
-    public Transform PlayerPos;
 
     enum States
     {
@@ -156,7 +155,7 @@ public class Slime : Enemy
     {
         if (PlayerPos != null)
         {
-            Debug.Log("knockback check");
+            rigid.velocity = Vector2.zero;
             animator.SetInteger(animationState, (int)States.walk);
             rigid.AddForce(Vector2.up * knockbackdis, ForceMode2D.Impulse);
             if (PlayerPos.transform.position.x < rigid.transform.position.x)

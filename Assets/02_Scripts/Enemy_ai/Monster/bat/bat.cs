@@ -11,7 +11,6 @@ public class bat : Enemy
     private bool Collision_Damage_Delay;
     CircleCollider2D circle;
     Rigidbody2D rigid;
-    Transform targetTransform = null;
     Vector3 position;
     Animator animator;
     SpriteRenderer sprite;
@@ -52,13 +51,13 @@ public class bat : Enemy
         {
             animator.SetInteger(animationState, (int)States.fly);
             Debug.Log(dis);
-            if (targetTransform != null)
+            if (PlayerPos != null)
             {
-                position = targetTransform.position;
+                position = PlayerPos.position;
             }
             if (rigidBodyToMove != null)
             {
-                if (targetTransform.position.x < rigid.transform.position.x)
+                if (PlayerPos.position.x < rigid.transform.position.x)
                 {
                     sprite.flipX = false;
                 }
@@ -85,11 +84,11 @@ public class bat : Enemy
 
     public IEnumerator KnockBack()
     {
-        if (targetTransform != null)
+        if (PlayerPos != null)
         {
             animator.SetInteger(animationState, (int)States.hit);
             Debug.Log("knockback check");
-            if (targetTransform.transform.position.x < rigid.transform.position.x)
+            if (PlayerPos.transform.position.x < rigid.transform.position.x)
             {
                 rigid.AddForce(Vector2.right * knockbackdis, ForceMode2D.Impulse);
             }
@@ -151,7 +150,7 @@ public class bat : Enemy
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("enter");
-            targetTransform = collision.gameObject.transform;
+            PlayerPos = collision.gameObject.transform;
             MoveCall();
         }
     }

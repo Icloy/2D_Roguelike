@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     public int dropcoincnt;
     public float knockbackdis;
     public float movespeed;
+    public Transform PlayerPos;
     [HideInInspector] public float dis;
     public GameObject Item;
 
