@@ -17,7 +17,7 @@ public class bat : Enemy
     Coroutine coroutine;
 
     string animationState = "animationState";
-
+    public GameObject alert;
     enum States
     {
         idle = 0,
@@ -102,6 +102,13 @@ public class bat : Enemy
         }
     }
 
+    IEnumerator Alert()
+    {
+        alert.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        alert.gameObject.SetActive(false);
+    }
+
     public override void TakeDamage(int AtDmg)
     {
         Hp = Hp - AtDmg;
@@ -150,6 +157,7 @@ public class bat : Enemy
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("enter");
+            StartCoroutine(Alert());
             PlayerPos = collision.gameObject.transform;
             MoveCall();
         }

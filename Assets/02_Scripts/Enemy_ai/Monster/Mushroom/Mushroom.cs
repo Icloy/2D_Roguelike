@@ -21,6 +21,7 @@ public class Mushroom : Enemy
 
     public GameObject Attack1_check;
     public GameObject Attack2_check;
+    public GameObject alert;
 
     public AudioClip EnemyAttackSound;
 
@@ -157,6 +158,35 @@ public class Mushroom : Enemy
         yield break;
     }
 
+    public IEnumerator KnockBack()
+    {
+        if (PlayerPos != null)
+        {
+            rigid.velocity = Vector2.zero;
+            animator.SetInteger(animationState, (int)States.hit);
+            rigid.AddForce(Vector2.up * knockbackdis, ForceMode2D.Impulse);
+            if (PlayerPos.transform.position.x < rigid.transform.position.x)
+            {
+                rigid.AddForce(Vector2.right * knockbackdis, ForceMode2D.Impulse);
+            }
+            else
+            {
+                rigid.AddForce(Vector2.left * knockbackdis, ForceMode2D.Impulse);
+            }
+            yield return new WaitForSeconds(1.2f);
+            StartCoroutine(move());
+            ThinkCall();
+            yield break;
+        }
+    }
+
+    IEnumerator Alert()
+    {
+        alert.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        alert.gameObject.SetActive(false);
+    }
+
     public override void TakeDamage(int AtDmg)
     {
         Hp = Hp - AtDmg;
@@ -184,28 +214,6 @@ public class Mushroom : Enemy
     {
         Attack1_check.gameObject.SetActive(false);
         Attack2_check.gameObject.SetActive(false);
-    }
-
-    public IEnumerator KnockBack()
-    {
-        if (PlayerPos != null)
-        {
-            rigid.velocity = Vector2.zero;
-            animator.SetInteger(animationState, (int)States.hit);
-            rigid.AddForce(Vector2.up * knockbackdis, ForceMode2D.Impulse);
-            if (PlayerPos.transform.position.x < rigid.transform.position.x)
-            {
-                rigid.AddForce(Vector2.right * knockbackdis, ForceMode2D.Impulse);
-            }
-            else
-            {
-                rigid.AddForce(Vector2.left * knockbackdis, ForceMode2D.Impulse);
-            }
-            yield return new WaitForSeconds(1.2f);
-            StartCoroutine(move());
-            ThinkCall();
-            yield break;
-        }
     }
 
     void Turn()//턴
@@ -255,10 +263,11 @@ public class Mushroom : Enemy
         }
     }
 
-    void OnTriggerStay2D(Collider2D collision) //Enter에서 Stay로 변경 공격을 당하면 자식트리거쪽 exit도 반응해서 추적 풀려버림
+    void OnTriggerEnter2D(Collider2D collision) //Enter에서 Stay로 변경 공격을 당하면 자식트리거쪽 exit도 반응해서 추적 풀려버림
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            StartCoroutine(Alert());
             if (PlayerPos == null)
             {
                 PlayerPos = collision.gameObject.transform;
