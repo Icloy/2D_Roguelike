@@ -2,27 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Boss : MonoBehaviour
+public class Enemy_Boss : Enemy
 {
     CircleCollider2D circle;
     Rigidbody2D rigid;
     SpriteRenderer sprite;
     Animator animator;
 
-    public int actmove;
-    public float movespeed;
     public float jumpPower;
     public GameObject Player;
     public GameObject Boss;
     public GameObject trap;
     public GameObject drop;
 
-    private float dis;
+    private int actmove;
     private int direction;
     private int dropcnt;
     private int dropran;
     private bool flag;
     string animationState = "animationState";
+
+    public GameObject Attack1_check;
+    public GameObject Attack2_check;
 
     enum States
     {
@@ -37,7 +38,7 @@ public class Enemy_Boss : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
-        circle = GetComponent<CircleCollider2D>();
+        circle = GetComponentInChildren<CircleCollider2D>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         animator = GetComponentInChildren<Animator>();
         flag = true;
@@ -52,17 +53,17 @@ public class Enemy_Boss : MonoBehaviour
         while (true)
         {
             animator.SetInteger(animationState, (int)States.idle);
-            dis = Vector2.Distance(Player.transform.position, Boss.transform.position);
+            float dis = Vector2.Distance(Player.transform.position, Boss.transform.position);
             Vector2 player = Player.transform.position;
             if (player.x < Boss.transform.position.x)
             {
                 direction = 1;
-                transform.localScale = new Vector3(4, 5, 1);
+                FlipBack();
             }
             else
             {
                 direction = 2;
-                transform.localScale = new Vector3(-4, 5, 1);
+                FlipX();
             }
             actmove = Random.Range(1, 3);
             Debug.Log(dis);
@@ -70,17 +71,17 @@ public class Enemy_Boss : MonoBehaviour
             Debug.Log(actmove);
             if (dis <= 2.5)
             {
-                StartCoroutine(act1(actmove));
+                yield return StartCoroutine(act1(actmove));
             }
             else if (dis <= 5)
             {
-                StartCoroutine(act2(actmove));
+                yield return StartCoroutine(act2(actmove));
             }
             else
             {
-                StartCoroutine(act3(actmove));
+                yield return StartCoroutine(act3(actmove));
             }
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(0f);
         }
         
     }
@@ -128,7 +129,7 @@ public class Enemy_Boss : MonoBehaviour
                 {
                     case 1:
                         gameObject.transform.position = new Vector3(Player.transform.position.x + 1.5f, Player.transform.position.y + 5f, Player.transform.position.z);
-                        transform.localScale = new Vector3(4, 5, 1);
+                        FlipBack();
                         animator.SetInteger(animationState, (int)States.appears);
                         yield return new WaitForSeconds(1f);
                         rigid.isKinematic = false;
@@ -138,7 +139,7 @@ public class Enemy_Boss : MonoBehaviour
                         break;
                     case 2:
                         gameObject.transform.position = new Vector3(Player.transform.position.x + -1.5f, Player.transform.position.y + 5f, Player.transform.position.z);
-                        transform.localScale = new Vector3(-4, 5, 1);
+                        FlipX();
                         animator.SetInteger(animationState, (int)States.appears);
                         yield return new WaitForSeconds(1f);
                         rigid.isKinematic = false;
@@ -157,7 +158,7 @@ public class Enemy_Boss : MonoBehaviour
                 {
                     case 1:
                         gameObject.transform.position = new Vector3(Player.transform.position.x + 1.5f, Player.transform.position.y-0.5f, Player.transform.position.z);
-                        transform.localScale = new Vector3(4, 5, 1);
+                        FlipBack();
                         animator.SetInteger(animationState, (int)States.appears);
                         yield return new WaitForSeconds(1f);
                         animator.SetInteger(animationState, (int)States.attack);
@@ -166,7 +167,7 @@ public class Enemy_Boss : MonoBehaviour
                         break;
                     case 2:
                         gameObject.transform.position = new Vector3(Player.transform.position.x + -1.5f, Player.transform.position.y-0.5f, Player.transform.position.z);
-                        transform.localScale = new Vector3(-4, 5, 1);
+                        FlipX();
                         animator.SetInteger(animationState, (int)States.appears);
                         yield return new WaitForSeconds(1f);
                         animator.SetInteger(animationState, (int)States.attack);
@@ -214,6 +215,44 @@ public class Enemy_Boss : MonoBehaviour
                 break;
         }
         animator.SetInteger(animationState, (int)States.idle);
+    }
+
+    public override void TakeDamage(int AtDmg)
+    {
+        Hp = Hp - AtDmg;
+        Debug.Log(Hp);
+        if (Hp <= 0)
+        {
+            Die();
+        }
+
+    }
+
+    void Die()
+    {
+        DropItem();
+        Destroy(this.gameObject);
+    }
+
+    void DropItem()
+    {
+        for (int i = 0; i < dropcoincnt; i++)
+        {
+            float x = Random.Range(-1f, 1f); // x축 위치 랜덤 설정
+            float y = Random.Range(0f, 1f); // y축 위치 랜덤 설정
+            Vector2 position = new Vector2(transform.position.x + x, transform.position.y + y);
+            Instantiate(Item, position, Quaternion.identity);
+        }
+    }
+
+    void FlipX()
+    {
+        transform.localScale = new Vector3(-4, 5, 1);
+    }
+
+    void FlipBack()
+    {
+        transform.localScale = new Vector3(4, 5, 1);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
