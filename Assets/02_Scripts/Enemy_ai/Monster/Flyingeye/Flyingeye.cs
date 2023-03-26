@@ -14,6 +14,7 @@ public class Flyingeye : Enemy
     SpriteRenderer sprite;
 
     public GameObject explosion;
+    public GameObject alert;
 
     string animationState = "animationState";
 
@@ -115,6 +116,13 @@ public class Flyingeye : Enemy
         }
     }
 
+    IEnumerator Alert()
+    {
+        alert.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        alert.gameObject.SetActive(false);
+    }
+
     void Die()
     {
         DropItem();
@@ -136,6 +144,7 @@ public class Flyingeye : Enemy
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            StartCoroutine(Alert());
             PlayerPos = collision.gameObject.transform;
             StartCoroutine(Move(movespeed));
         }

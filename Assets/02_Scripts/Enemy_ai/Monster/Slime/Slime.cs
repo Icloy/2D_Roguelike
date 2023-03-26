@@ -21,6 +21,8 @@ public class Slime : Enemy
     public float jumpPower;
     public float turnrange;
 
+    public GameObject alert;
+
     enum States
     {
         walk = 1,
@@ -173,6 +175,13 @@ public class Slime : Enemy
         }
     }
 
+    IEnumerator Alert()
+    {
+        alert.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        alert.gameObject.SetActive(false);
+    }
+
     public override void TakeDamage(int AtDmg)
     {
         Hp = Hp - AtDmg;
@@ -243,6 +252,7 @@ public class Slime : Enemy
             }
             if (attackflag == false)
             {
+                StartCoroutine(Alert());
                 attackflag = true;
                 StopAllCoroutines();
                 coroutine = StartCoroutine(attack());

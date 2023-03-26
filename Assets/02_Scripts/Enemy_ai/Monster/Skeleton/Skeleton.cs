@@ -21,6 +21,7 @@ public class Skeleton : Enemy
 
     public GameObject Attack1_check;
     public GameObject Attack2_check;
+    public GameObject alert;
 
     public AudioClip EnemyAttackSound;
 
@@ -179,6 +180,13 @@ public class Skeleton : Enemy
         }
     }
 
+    IEnumerator Alert()
+    {
+        alert.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        alert.gameObject.SetActive(false);
+    }
+
     public override void TakeDamage(int AtDmg)
     {
         Hp = Hp - AtDmg;
@@ -255,13 +263,14 @@ public class Skeleton : Enemy
         }
     }
 
-    void OnTriggerStay2D(Collider2D collision) //Enter에서 Stay로 변경 공격을 당하면 자식트리거쪽 exit도 반응해서 추적 풀려버림
+    void OnTriggerStay2D(Collider2D collision) 
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             if (PlayerPos == null)
             {
                 PlayerPos = collision.gameObject.transform;
+                StartCoroutine(Alert());
             }
             trace = true;
         }
