@@ -240,6 +240,8 @@ public class Skeleton : Enemy
     void Die()
     {
         DropItem();
+        Vector2 position = new Vector2(rigid.position.x, rigid.position.y + 0.2f);
+        Instantiate(Corpse, position, Quaternion.identity);
         Destroy(this.gameObject);
     }
 

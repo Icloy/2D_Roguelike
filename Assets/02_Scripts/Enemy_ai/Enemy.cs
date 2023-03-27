@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     public Transform PlayerPos;
     [HideInInspector] public float dis;
     public GameObject Item;
+    public GameObject Corpse;
 
     public virtual void TakeDamage(int damege)
     {

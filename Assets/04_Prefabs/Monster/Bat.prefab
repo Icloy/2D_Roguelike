@@ -142,6 +142,7 @@ MonoBehaviour:
   PlayerPos: {fileID: 0}
   dis: 0
   Item: {fileID: 2719589337402968649, guid: d070a92108fa381488c354ac14bca927, type: 3}
+  Corpse: {fileID: 4183150248809980244, guid: de5585f84d19dfa4e98f34b08b230d00, type: 3}
   position_change_second: 0
   delete_time: 0
   alert: {fileID: 328985850308743259}

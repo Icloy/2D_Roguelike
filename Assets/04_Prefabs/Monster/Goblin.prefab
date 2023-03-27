@@ -523,6 +523,7 @@ MonoBehaviour:
   PlayerPos: {fileID: 0}
   dis: 0
   Item: {fileID: 2719589337402968649, guid: d070a92108fa381488c354ac14bca927, type: 3}
+  Corpse: {fileID: 8011558884831095450, guid: 978c47063e95e7c43ac65924baaa0041, type: 3}
   tracespeed: 8
   turnrange: 1
   Attack1_check: {fileID: 1371395764}
