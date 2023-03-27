@@ -101,7 +101,7 @@ public class Shop : MonoBehaviour
             dmgLvl++;
             dmgPrice += 2;
             ToastMsg.Instance.showMessage("무기 업그레이드!", 0.5f);
-            dmgPriceText.text = dmgPrice.ToString() + " 코인";
+            dmgPriceText.text = dmgPrice.ToString();
         }
         else
         {
@@ -125,7 +125,7 @@ public class Shop : MonoBehaviour
             hpLvl++;
             hpPrice += 2;
             ToastMsg.Instance.showMessage("체력 한칸 증가!", 0.5f);
-            hpPriceText.text = hpPrice.ToString() + " 코인";
+            hpPriceText.text = hpPrice.ToString();
         }
         else if (Player.instance.maxHp >= 7)
         {
