@@ -27,7 +27,8 @@ public class Slime : Enemy
     {
         walk = 1,
         jump = 2,
-        spin = 3
+        spin = 3,
+        die = 4
     }
     void Awake()
     {
@@ -186,13 +187,35 @@ public class Slime : Enemy
     {
         Hp = Hp - AtDmg;
         Debug.Log(Hp);
-        StopAllCoroutines();
-        StartCoroutine(KnockBack());
         if (Hp <= 0)
         {
-            Die();
+            StopAllCoroutines();
+            StartCoroutine(Die());
         }
+        else
+        {
+            StopAllCoroutines();
+            StartCoroutine(KnockBack());
+        }
+    }
 
+    IEnumerator Die()
+    {
+        animator.SetInteger(animationState, (int)States.die);
+        rigid.AddForce(Vector2.up * knockbackdis, ForceMode2D.Impulse);
+        if (PlayerPos.transform.position.x < rigid.transform.position.x)
+        {
+            rigid.AddForce(Vector2.right * knockbackdis, ForceMode2D.Impulse);
+        }
+        else
+        {
+            rigid.AddForce(Vector2.left * knockbackdis, ForceMode2D.Impulse);
+        }
+        yield return new WaitForSeconds(0.2f);
+        DropItem();
+        Vector2 position = new Vector2(rigid.position.x, rigid.position.y + 0.2f);
+        Instantiate(Corpse, position, Quaternion.identity);
+        Destroy(this.gameObject);
     }
 
     void Turn()//ео
@@ -214,14 +237,6 @@ public class Slime : Enemy
         {
             StopCoroutine(thinkcoroutine);
         }
-    }
-
-    void Die()
-    {
-        DropItem();
-        Vector2 position = new Vector2(rigid.position.x, rigid.position.y + 0.2f);
-        Instantiate(Corpse, position, Quaternion.identity);
-        Destroy(this.gameObject);
     }
 
     void DropItem()

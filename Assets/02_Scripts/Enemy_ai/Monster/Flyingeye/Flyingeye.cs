@@ -23,8 +23,7 @@ public class Flyingeye : Enemy
         flight = 0,
         boom = 1,
         hit = 2,
-        fall = 3,
-        die = 4
+        die = 3
     }
 
     void Awake()
@@ -86,13 +85,16 @@ public class Flyingeye : Enemy
     {
         Hp = Hp - AtDmg;
         Debug.Log(Hp);
-        StopAllCoroutines();
-        StartCoroutine(KnockBack());
         if (Hp <= 0)
         {
-            Die();
+            StopAllCoroutines();
+            StartCoroutine(Die());
         }
-
+        else
+        {
+            StopAllCoroutines();
+            StartCoroutine(KnockBack());
+        }
     }
 
     public IEnumerator KnockBack()
@@ -123,8 +125,19 @@ public class Flyingeye : Enemy
         alert.gameObject.SetActive(false);
     }
 
-    void Die()
+    IEnumerator Die()
     {
+        animator.SetInteger(animationState, (int)States.die);
+        rigid.AddForce(Vector2.up * knockbackdis, ForceMode2D.Impulse);
+        if (PlayerPos.transform.position.x < rigid.transform.position.x)
+        {
+            rigid.AddForce(Vector2.right * knockbackdis, ForceMode2D.Impulse);
+        }
+        else
+        {
+            rigid.AddForce(Vector2.left * knockbackdis, ForceMode2D.Impulse);
+        }
+        yield return new WaitForSeconds(0.2f);
         DropItem();
         Vector2 position = new Vector2(rigid.position.x, rigid.position.y + 0.2f);
         Instantiate(Corpse, position, Quaternion.identity);

@@ -28,7 +28,8 @@ public class Goblin : Enemy
         walk = 1,
         attack1 = 2,
         attack2 = 3,
-        hit = 4
+        hit = 4,
+        die = 5
     }
     void Awake()
     {
@@ -197,17 +198,39 @@ public class Goblin : Enemy
         alert.gameObject.SetActive(false);
     }
 
+    IEnumerator Die()
+    {
+        animator.SetInteger(animationState, (int)States.die);
+        rigid.AddForce(Vector2.up * knockbackdis, ForceMode2D.Impulse);
+        if (PlayerPos.transform.position.x < rigid.transform.position.x)
+        {
+            rigid.AddForce(Vector2.right * knockbackdis, ForceMode2D.Impulse);
+        }
+        else
+        {
+            rigid.AddForce(Vector2.left * knockbackdis, ForceMode2D.Impulse);
+        }
+        yield return new WaitForSeconds(0.2f);
+        DropItem();
+        Vector2 position = new Vector2(rigid.position.x, rigid.position.y + 0.2f);
+        Instantiate(Corpse, position, Quaternion.identity);
+        Destroy(this.gameObject);
+    }
+
     public override void TakeDamage(int AtDmg)
     {
         Hp = Hp - AtDmg;
         Debug.Log(Hp);
-        StopAllCoroutines();
-        StartCoroutine(KnockBack());
         if (Hp <= 0)
         {
-            Die();
+            StopAllCoroutines();
+            StartCoroutine(Die());
         }
-
+        else
+        {
+            StopAllCoroutines();
+            StartCoroutine(KnockBack());
+        }
     }
 
     void FlipX() // transform 변경 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z); 이 아닌 고정값으로 하는 이유는 트리거 안에 들어갔다 나오는식으로 플레이어가 행동하게되면 *-1이라서 반전 버그남
@@ -245,14 +268,6 @@ public class Goblin : Enemy
         {
             StopCoroutine(thinkcoroutine);
         }
-    }
-
-    void Die()
-    {
-        DropItem();
-        Vector2 position = new Vector2(rigid.position.x, rigid.position.y + 0.2f);
-        Instantiate(Corpse, position, Quaternion.identity);
-        Destroy(this.gameObject);
     }
 
     void DropItem()

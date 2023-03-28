@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Corpse : MonoBehaviour
 {
-    CircleCollider2D circle;
     Rigidbody2D rigid;
     public float knockbackdis;
     Transform PlayerPos;
@@ -12,7 +11,6 @@ public class Corpse : MonoBehaviour
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        circle = GetComponentInChildren<CircleCollider2D>();
     }
 
     void Start()
