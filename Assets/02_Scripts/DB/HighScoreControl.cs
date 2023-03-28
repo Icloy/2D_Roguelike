@@ -11,6 +11,7 @@ public class HighScoreControl : MonoBehaviour
     string secretKey = "mySecretKey";
     public string addScoreURL = "http://localhost/HighScoreGame/addscore.php?";
     public string highscoreURL = "http://localhost/HighScoreGame/display.php?";
+
     public Text nameTextInput;
     public Text scoreTextInput;
     public Text nameResultText;
@@ -24,8 +25,7 @@ public class HighScoreControl : MonoBehaviour
     }
     public void SendScoreBtn()
     {
-        StartCoroutine(PostScores(nameTextInput.text,
-           Convert.ToInt32(scoreTextInput.text)));
+        StartCoroutine(PostScores(nameTextInput.text,Convert.ToInt32(scoreTextInput.text)));
         nameTextInput.gameObject.transform.parent.GetComponent<InputField>().text = "";
         scoreTextInput.gameObject.transform.parent.GetComponent<InputField>().text = "";
     }
