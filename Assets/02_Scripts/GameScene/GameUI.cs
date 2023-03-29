@@ -142,13 +142,13 @@ public class GameUI : MonoBehaviour
     {
         if (!mapPanel.activeSelf && !GameManager.instance.isPanelOpen)
         {
-            anim.Play("MiniMap");
+            //anim.Play("MiniMap");
             StartCoroutine("Map2");
         }
         else
         {
             mapPanel.SetActive(false);
-            minimap.SetActive(true);
+            //minimap.SetActive(true);
             GameManager.instance.isMapOpen = false;
         }
     }
@@ -156,8 +156,8 @@ public class GameUI : MonoBehaviour
     {
             yield return new WaitForSeconds(0.1f);
             mapPanel.SetActive(true);
-            rectminimap.localScale = new Vector3(1f, 1f, 1f);
-            minimap.SetActive(false);
+            //rectminimap.localScale = new Vector3(1f, 1f, 1f);
+            //minimap.SetActive(false);
             GameManager.instance.isMapOpen = true;
     }
     #endregion
@@ -181,5 +181,4 @@ public class GameUI : MonoBehaviour
             optionSound.SetActive(false);
         }
     }
-
 }
