@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Trap : MonoBehaviour
+public class Enemy_Trap : MonoBehaviour
 {
     public float speed;
     public float position_change_second;
