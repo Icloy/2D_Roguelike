@@ -30,7 +30,7 @@ public class NextStage : MonoBehaviour
             {
                 if (nextPositionType == NextPositionType.InitPosition)
                 {
-                    StartCoroutine(StageMgr.Instance.MoveNext(collision, Vector3.zero, fadeInOut, SmoothMoving));
+                    StartCoroutine(StageMgr.Instance.MoveNext(collision, DestinationPoint.position, fadeInOut, SmoothMoving));
                 }
 
                 else if (nextPositionType == NextPositionType.SomePosition)
