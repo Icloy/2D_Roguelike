@@ -8,6 +8,7 @@ public class StageMgr : MonoBehaviour
 
     public GameObject Stage_Map1;
     public GameObject Stage_Map2;
+    public GameObject Stage_Map3;
 
     public static StageMgr Instance
     {
@@ -84,7 +85,11 @@ public class StageMgr : MonoBehaviour
             case 1:
                 Stage_Map1.gameObject.SetActive(false);
                 Stage_Map2.gameObject.SetActive(true);
-                break;       
+                break;
+            case 2:
+                Stage_Map2.gameObject.SetActive(false);
+                Stage_Map3.gameObject.SetActive(true);
+                break;
         }
         collision.transform.position = destination;
 
