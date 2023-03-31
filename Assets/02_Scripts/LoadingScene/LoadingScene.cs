@@ -7,38 +7,49 @@ using UnityEngine.SceneManagement;
 
 public class LoadingScene : MonoBehaviour
 {
-    public Slider loadbar; //로딩바
+    [SerializeField]
+    Image loadbar;
+
     public Text loadtext;  //로딩중 텍스트
     public Text helptext;  //도움말
 
+    static string nextScene;
+
+    public static void LoadScene(string sceneName)
+    {
+        nextScene = sceneName;
+        SceneManager.LoadScene("Loading_Scene");
+    }
+
     private void Start()
     {
-        StartCoroutine(LoadScene());
+        StartCoroutine(LoadSceneProcess());
     }
 
 
-    IEnumerator LoadScene()
-    {
-        yield return null;
-        AsyncOperation operation = SceneManager.LoadSceneAsync("Game01_Scene");
-        operation.allowSceneActivation= false;
 
-        while (!operation.isDone) //로딩이 끝날때까지 돌아가는 반복문
+    IEnumerator LoadSceneProcess()
+    {
+        AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
+        op.allowSceneActivation = false;
+        float timer = 0f;
+        while (!op.isDone)
         {
             yield return null;
-            if (loadbar.value < 1f)
+            if (op.progress < 0.9f)
             {
-                loadbar.value = Mathf.MoveTowards(loadbar.value, 1f, Time.deltaTime); //로딩바 값주는 코드
+                loadbar.fillAmount = op.progress;
             }
             else
             {
-                loadtext.text = "시작하려면 아무키나 입력하세요";
-            }
-
-            if (Input.anyKeyDown && loadbar.value >= 1f && operation.progress >= 0.9f)
-            {
-                operation.allowSceneActivation= true;
+                timer += Time.unscaledDeltaTime;
+                loadbar.fillAmount = Mathf.Lerp(0.9f, 1f, timer);
+                if (loadbar.fillAmount >= 1f)
+                {
+                    op.allowSceneActivation = true;
+                    yield break;
+                }
             }
         }
-    }
+    } 
 }

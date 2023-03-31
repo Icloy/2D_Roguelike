@@ -67,7 +67,7 @@ public class MainMenu_Manager : MonoBehaviour
 
     public void GameBtnClick() //Game버튼 클릭시
     {
-        SceneManager.LoadScene("Loading_Scene"); //로딩씬으로 넘김
+        LoadingScene.LoadScene("Game01_Scene");
     }
 
     public void OptionBtnClick() //Option버튼 클릭시와 Back버튼 클릭시 
