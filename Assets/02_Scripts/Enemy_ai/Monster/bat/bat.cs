@@ -86,6 +86,7 @@ public class bat : Enemy
     {
         if (PlayerPos != null)
         {
+            rigid.velocity = Vector2.zero;
             animator.SetInteger(animationState, (int)States.hit);
             Debug.Log("knockback check");
             if (PlayerPos.transform.position.x < rigid.transform.position.x)

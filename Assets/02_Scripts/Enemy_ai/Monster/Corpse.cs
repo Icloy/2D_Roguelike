@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Corpse : MonoBehaviour
 {
@@ -33,10 +34,14 @@ public class Corpse : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Platform")
+        if (col.gameObject.tag == "Platform" || col.gameObject.GetComponent<TilemapCollider2D>() != null)
         {
             rigid.velocity = Vector2.zero;
             rigid.simulated = false;
+        }
+        else if (!(col.gameObject.GetComponent<TilemapCollider2D>() != null))
+        {
+            Physics2D.IgnoreCollision(col.collider, GetComponent<Collider2D>());
         }
     }
 }

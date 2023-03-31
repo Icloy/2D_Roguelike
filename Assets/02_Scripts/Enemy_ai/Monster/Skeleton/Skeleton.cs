@@ -193,6 +193,7 @@ public class Skeleton : Enemy
 
     IEnumerator Die()
     {
+        rigid.velocity = Vector2.zero;
         animator.SetInteger(animationState, (int)States.die);
         rigid.AddForce(Vector2.up * knockbackdis, ForceMode2D.Impulse);
         if (PlayerPos.transform.position.x < rigid.transform.position.x)
