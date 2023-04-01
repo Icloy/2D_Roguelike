@@ -135,6 +135,7 @@ public class GameUI : MonoBehaviour
     {
         Screen.SetResolution(resolutions[resolutionNum].width, resolutions[resolutionNum].height, screenMode);
         Searchpanel();
+        OptionBtn();
     }
 
     #region Map

@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
         else if (instance != this)
         {
@@ -55,13 +55,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-/*
-    private void OnLevelWasLoaded(int level) //씬전환시 호출
-    {
-        Awake();
-        UpdateCoinCnt(0);
-    }
-*/
 
     private void Start()
     {
