@@ -165,11 +165,19 @@ public class Flyingeye : Enemy
             PlayerPos = collision.gameObject.transform;
             StartCoroutine(Move(movespeed));
         }
+
+    }
+    void OnCollisionEnter2D(Collision2D col)
+    {
+            if (col.gameObject.CompareTag("Enemy"))
+            {
+                Physics2D.IgnoreCollision(col.collider, GetComponent<Collider2D>());
+            }
     }
 
-    void OnTriggerStay2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D col)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (col.gameObject.CompareTag("Player"))
         {
             dis = Vector2.Distance(PlayerPos.transform.position, rigid.transform.position);
             if (dis < 1)

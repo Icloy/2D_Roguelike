@@ -189,6 +189,10 @@ public class bat : Enemy
                 traceflag = true;
                 Player.instance.Damaged(-collision_damage);
             }
+            else if (col.gameObject.CompareTag("Enemy"))
+            {
+                Physics2D.IgnoreCollision(col.collider, GetComponent<Collider2D>());
+            }
         }
     }
 }

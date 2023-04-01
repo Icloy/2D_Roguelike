@@ -258,6 +258,10 @@ public class Slime : Enemy
         {
             Player.instance.Damaged(-collision_damage);
         }
+        else if (col.gameObject.CompareTag("Enemy"))
+        {
+            Physics2D.IgnoreCollision(col.collider, GetComponent<Collider2D>());
+        }
     }
 
     void OnTriggerStay2D(Collider2D collision)

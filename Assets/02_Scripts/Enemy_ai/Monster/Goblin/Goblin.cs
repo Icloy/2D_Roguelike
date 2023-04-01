@@ -289,6 +289,10 @@ public class Goblin : Enemy
         {
             Player.instance.Damaged(-collision_damage);
         }
+        else if (col.gameObject.CompareTag("Enemy"))
+        {
+            Physics2D.IgnoreCollision(col.collider, GetComponent<Collider2D>());
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision) //Enter에서 Stay로 변경 공격을 당하면 자식트리거쪽 exit도 반응해서 추적 풀려버림
