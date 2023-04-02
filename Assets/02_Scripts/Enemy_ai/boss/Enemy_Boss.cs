@@ -19,7 +19,6 @@ public class Enemy_Boss : Enemy
     private int direction;
     private int dropcnt;
     private int dropran;
-    private bool flag;
     string animationState = "animationState";
 
     public GameObject Attack1_check;
@@ -41,7 +40,8 @@ public class Enemy_Boss : Enemy
         circle = GetComponentInChildren<CircleCollider2D>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         animator = GetComponentInChildren<Animator>();
-        flag = true;
+        Player = GameObject.FindWithTag("Player");
+        StartCoroutine(Think());
     }
 
     void Update()
@@ -254,18 +254,4 @@ public class Enemy_Boss : Enemy
     {
         transform.localScale = new Vector3(4, 5, 1);
     }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (flag == true)
-        {
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                StartCoroutine(Think());
-                flag = false;
-            }
-        }
-
-    }
-
 }
