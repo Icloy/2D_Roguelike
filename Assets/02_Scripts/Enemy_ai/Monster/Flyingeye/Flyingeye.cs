@@ -12,9 +12,12 @@ public class Flyingeye : Enemy
     Vector3 position;
     Animator animator;
     SpriteRenderer sprite;
+    bool bloodflag;
 
     public GameObject explosion;
     public GameObject alert;
+    public ParticleSystem lblood;
+    public ParticleSystem rblood;
 
     string animationState = "animationState";
 
@@ -37,7 +40,7 @@ public class Flyingeye : Enemy
     void Start()
     {
         animator.SetInteger(animationState, (int)States.flight);
-        flag = true;
+        flag = bloodflag =true;
     }
 
     void Update()
@@ -52,12 +55,12 @@ public class Flyingeye : Enemy
         {
             if (PlayerPos.position.x > rigid.transform.position.x)
             {
-                sprite.flipX = false;
+                FlipBack();
                 animator.SetInteger(animationState, (int)States.flight);
             }
             else
             {
-                sprite.flipX = true;
+                FlipX();
                 animator.SetInteger(animationState, (int)States.flight);
             }
             if (PlayerPos != null)
@@ -102,6 +105,14 @@ public class Flyingeye : Enemy
         if (PlayerPos != null)
         {
             rigid.velocity = Vector2.zero;
+            if(bloodflag == true)
+            {
+                StartCoroutine(LBlood());
+            }
+            else
+            {
+                StartCoroutine(RBlood());
+            }
             animator.SetInteger(animationState, (int)States.hit);
             rigid.AddForce(Vector2.up * knockbackdis, ForceMode2D.Impulse);
             if (PlayerPos.transform.position.x < rigid.transform.position.x)
@@ -126,6 +137,20 @@ public class Flyingeye : Enemy
         alert.gameObject.SetActive(false);
     }
 
+    IEnumerator LBlood()
+    {
+        lblood.Play();
+        yield return new WaitForSeconds(0.6f);
+        lblood.Stop();
+    }
+
+    IEnumerator RBlood()
+    {
+        rblood.Play();
+        yield return new WaitForSeconds(0.6f);
+        rblood.Stop();
+    }
+
     IEnumerator Die()
     {
         rigid.velocity = Vector2.zero;
@@ -146,13 +171,25 @@ public class Flyingeye : Enemy
         Destroy(this.gameObject);
     }
 
+    void FlipX()
+    {
+        transform.localScale = new Vector3(-2.5f, transform.localScale.y, transform.localScale.z);
+        bloodflag = false;
+    }
+
+    void FlipBack()
+    {
+        transform.localScale = new Vector3(2.5f, transform.localScale.y, transform.localScale.z);
+        bloodflag = true;
+    }
+
     void DropItem()
     {
         Debug.Log("호출");
         for (int i = 0; i < dropcoincnt; i++)
         {
             float x = Random.Range(-1f, 1f); // x축 위치 랜덤 설정
-            float y = Random.Range(-1f, 1f); // y축 위치 랜덤 설정
+            float y = Random.Range(0f, 1f); // y축 위치 랜덤 설정
             Vector2 position = new Vector2(transform.position.x + x, transform.position.y + y);
             Instantiate(Item, position, Quaternion.identity);
         }
