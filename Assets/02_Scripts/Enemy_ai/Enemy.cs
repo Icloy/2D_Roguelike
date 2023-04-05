@@ -16,6 +16,8 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public float dis;
     public GameObject Item;
     public GameObject Corpse;
+    public ParticleSystem lblood;
+    public ParticleSystem rblood;
 
     public virtual void TakeDamage(int damege)
     {

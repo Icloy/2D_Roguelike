@@ -17,6 +17,7 @@ public class Slime : Enemy
     private int actmove;
     private bool attackflag;
     private bool turnflag;
+    bool bloodflag;
 
     public float jumpPower;
     public float turnrange;
@@ -71,10 +72,12 @@ public class Slime : Enemy
             if (rigid.velocity.x > 0)
             {
                 GetComponentInChildren<SpriteRenderer>().flipX = false;
+                bloodflag = true;
             }
             else
             {
                 GetComponentInChildren<SpriteRenderer>().flipX = true;
+                bloodflag = false;
             }
             animator.SetInteger(animationState, (int)States.walk);
             Vector2 frontVec = new Vector2(rigid.position.x + nextMove * turnrange, rigid.position.y);
@@ -159,6 +162,14 @@ public class Slime : Enemy
         if (PlayerPos != null)
         {
             rigid.velocity = Vector2.zero;
+            if (bloodflag == true)
+            {
+                StartCoroutine(LBlood());
+            }
+            else
+            {
+                StartCoroutine(RBlood());
+            }
             animator.SetInteger(animationState, (int)States.walk);
             rigid.AddForce(Vector2.up * knockbackdis, ForceMode2D.Impulse);
             if (PlayerPos.transform.position.x < rigid.transform.position.x)
@@ -217,6 +228,20 @@ public class Slime : Enemy
         Vector2 position = new Vector2(rigid.position.x, rigid.position.y + 0.2f);
         Instantiate(Corpse, position, Quaternion.identity);
         Destroy(this.gameObject);
+    }
+
+    IEnumerator LBlood()
+    {
+        lblood.Play();
+        yield return new WaitForSeconds(0.6f);
+        lblood.Stop();
+    }
+
+    IEnumerator RBlood()
+    {
+        rblood.Play();
+        yield return new WaitForSeconds(0.6f);
+        rblood.Stop();
     }
 
     void Turn()//ео

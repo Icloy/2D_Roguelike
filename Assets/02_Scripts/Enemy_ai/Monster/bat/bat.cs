@@ -7,6 +7,7 @@ public class bat : Enemy
     public float position_change_second;
     public float delete_time;
 
+    bool bloodflag;
     private bool traceflag;
     private bool Collision_Damage_Delay;
     CircleCollider2D circle;
@@ -60,10 +61,12 @@ public class bat : Enemy
                 if (PlayerPos.position.x < rigid.transform.position.x)
                 {
                     sprite.flipX = false;
+                    bloodflag = false;
                 }
                 else
                 {
                     sprite.flipX = true;
+                    bloodflag = true;
                 }
                 if (traceflag == true)
                 {
@@ -87,6 +90,14 @@ public class bat : Enemy
         if (PlayerPos != null)
         {
             rigid.velocity = Vector2.zero;
+            if (bloodflag == true)
+            {
+                StartCoroutine(LBlood());
+            }
+            else
+            {
+                StartCoroutine(RBlood());
+            }
             animator.SetInteger(animationState, (int)States.hit);
             Debug.Log("knockback check");
             if (PlayerPos.transform.position.x < rigid.transform.position.x)
@@ -108,6 +119,20 @@ public class bat : Enemy
         alert.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.3f);
         alert.gameObject.SetActive(false);
+    }
+
+    IEnumerator LBlood()
+    {
+        lblood.Play();
+        yield return new WaitForSeconds(0.6f);
+        lblood.Stop();
+    }
+
+    IEnumerator RBlood()
+    {
+        rblood.Play();
+        yield return new WaitForSeconds(0.6f);
+        rblood.Stop();
     }
 
     public override void TakeDamage(int AtDmg)
@@ -136,7 +161,7 @@ public class bat : Enemy
         for (int i = 0; i < dropcoincnt; i++)
         {
             float x = Random.Range(-1f, 1f); // x축 위치 랜덤 설정
-            float y = Random.Range(-1f, 1f); // y축 위치 랜덤 설정
+            float y = Random.Range(0f, 1f); // y축 위치 랜덤 설정
             Vector2 position = new Vector2(transform.position.x + x, transform.position.y + y);
             Instantiate(Item, position, Quaternion.identity);
         }

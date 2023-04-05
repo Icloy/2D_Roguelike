@@ -15,6 +15,7 @@ public class Mushroom : Enemy
     private bool trace;
     private bool turnflag;
     private int nextMove;
+    bool bloodflag;
 
     public float tracespeed;
     public float turnrange;
@@ -164,6 +165,14 @@ public class Mushroom : Enemy
         if (PlayerPos != null)
         {
             rigid.velocity = Vector2.zero;
+            if (bloodflag == true)
+            {
+                StartCoroutine(LBlood());
+            }
+            else
+            {
+                StartCoroutine(RBlood());
+            }
             animator.SetInteger(animationState, (int)States.hit);
             rigid.AddForce(Vector2.up * knockbackdis, ForceMode2D.Impulse);
             if (PlayerPos.transform.position.x < rigid.transform.position.x)
@@ -224,14 +233,30 @@ public class Mushroom : Enemy
         Destroy(this.gameObject);
     }
 
+    IEnumerator LBlood()
+    {
+        lblood.Play();
+        yield return new WaitForSeconds(0.6f);
+        lblood.Stop();
+    }
+
+    IEnumerator RBlood()
+    {
+        rblood.Play();
+        yield return new WaitForSeconds(0.6f);
+        rblood.Stop();
+    }
+
     void FlipX() // transform 변경 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z); 이 아닌 고정값으로 하는 이유는 트리거 안에 들어갔다 나오는식으로 플레이어가 행동하게되면 *-1이라서 반전 버그남
     {
         transform.localScale = new Vector3(-5, transform.localScale.y, transform.localScale.z);
+        bloodflag = false;
     }
 
     void FlipBack()
     {
-        transform.localScale = new Vector3(5, transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector3(5f, transform.localScale.y, transform.localScale.z);
+        bloodflag = true;
     }
 
     void Attack_Check_Off()

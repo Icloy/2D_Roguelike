@@ -16,9 +16,6 @@ public class Flyingeye : Enemy
 
     public GameObject explosion;
     public GameObject alert;
-    public ParticleSystem lblood;
-    public ParticleSystem rblood;
-
     string animationState = "animationState";
 
     enum States
