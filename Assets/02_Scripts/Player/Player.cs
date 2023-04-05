@@ -548,6 +548,8 @@ public class Player : MonoBehaviour
 
     public void DashAnim()
     {
+        anim.SetBool("Idle", false);
+
         anim.SetTrigger("Dash");
     }
 
