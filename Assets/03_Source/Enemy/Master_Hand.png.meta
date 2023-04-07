@@ -1,0 +1,1170 @@
+fileFormatVersion: 2
+guid: 54bf41d11889aa44086eba52d75d1c94
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Master_Hand_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 419
+        width: 55
+        height: 39
+      alignment: 9
+      pivot: {x: 0.6157135, y: 0.36401054}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f3f28f2eabb2d44587271d69b708104
+      internalID: -196800999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_1
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 418
+        width: 52
+        height: 34
+      alignment: 9
+      pivot: {x: 0.59179187, y: 0.40640616}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bf52e72c7f96304b9205191a4cd7689
+      internalID: 842152204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_2
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 419
+        width: 48
+        height: 32
+      alignment: 9
+      pivot: {x: 0.54419583, y: 0.43370438}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 100f52324b2a7bf4482df72cf62262b1
+      internalID: 1300756354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_3
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 418
+        width: 43
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 175ad0ff4a8239b4384ef306565b7965
+      internalID: -1899342485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_4
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 419
+        width: 42
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 341c1597f1db9b343840ba84264180df
+      internalID: -52268355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_5
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 418
+        width: 50
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2c44cc7a8132084591f18f45e861627
+      internalID: -405815012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_6
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 418
+        width: 53
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5600396, y: 0.4999981}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41769f373e7867941b2a2e396deaab2e
+      internalID: 633258452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_7
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 418
+        width: 53
+        height: 33
+      alignment: 9
+      pivot: {x: 0.57004535, y: 0.46785575}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46de50791e13a33409f39699f7f77c0a
+      internalID: -385822190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_8
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 418
+        width: 56
+        height: 40
+      alignment: 9
+      pivot: {x: 0.62311715, y: 0.43370438}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 227ca3202ba5a3a47827aa5ecbd4ff57
+      internalID: 19781663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_9
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 367
+        width: 52
+        height: 40
+      alignment: 9
+      pivot: {x: 0.5203981, y: 0.49999923}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0b7865491258144ca0f3258c23616f1
+      internalID: 1382822656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_10
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 367
+        width: 46
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c38dd8dd39ed2fa42a71fabd4d2d1237
+      internalID: 1458726697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_11
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 367
+        width: 41
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93e97a0d715f8b34a81b0b040d06965f
+      internalID: -1218537072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_12
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 367
+        width: 31
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cd06abd794117a498e1ce408193905b
+      internalID: 1931878626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_13
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 367
+        width: 39
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b042f83f7399c74a85cb290c8d29a8d
+      internalID: 98875287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_14
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 367
+        width: 30
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f964924d8ff49047974a72a4a82d14d
+      internalID: -69297538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_15
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 367
+        width: 43
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54604da99fbfed347a4b89a1b70a14c1
+      internalID: 1501124552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_16
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 367
+        width: 48
+        height: 37
+      alignment: 9
+      pivot: {x: 0.5110486, y: 0.54300094}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efb4994cde7381b4f9d271348a2c4547
+      internalID: -1346771208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_17
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 304
+        width: 53
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ddf5404bdda406499c1d893d0b8f1b8
+      internalID: -475751591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_18
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 304
+        width: 46
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bbd19845a76f9647863c80cc450d2eb
+      internalID: -2136927297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_19
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 303
+        width: 42
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b306948a667c8740b7501e40e85d276
+      internalID: -2015259516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_20
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 303
+        width: 30
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd8768d1d7e740c439e58c37dfd215fc
+      internalID: -2088973400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_21
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 304
+        width: 44
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f23d513127e178c4291d204190b99bce
+      internalID: -1560019574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_22
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 304
+        width: 47
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79fc7d693c1083f48aa240ef6252fed2
+      internalID: 462679238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_23
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 247
+        width: 44
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d337e38bf43ab048acfbbf24f8aaa73
+      internalID: -1685894282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_24
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 247
+        width: 45
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 261066b0900cd664680cd908700957b9
+      internalID: 431770010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_25
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 247
+        width: 48
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86d3851a8d618184cbd44e818e39edb4
+      internalID: 1855739924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_26
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 194
+        width: 73
+        height: 54
+      alignment: 9
+      pivot: {x: 0.6235063, y: 0.4017854}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c3b471b76cf73f46838c62846818d1a
+      internalID: -1766779559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_27
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 193
+        width: 57
+        height: 38
+      alignment: 9
+      pivot: {x: 0.565131, y: 0.4999992}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd1ef1e5d38397d4e821780b16ae9c58
+      internalID: 2042918035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_28
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 193
+        width: 61
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5782488, y: 0.4116074}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 067c71b2469528d46bd59411d006bb76
+      internalID: 590958103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_29
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 193
+        width: 54
+        height: 53
+      alignment: 9
+      pivot: {x: 0.5196423, y: 0.4699796}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3601168e9bcbbe14aadf05ef83c88e45
+      internalID: -1191888604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_30
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 145
+        width: 100
+        height: 47
+      alignment: 9
+      pivot: {x: 0.7333557, y: 0.42101076}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da9f1aa0ccd703746953462301381b83
+      internalID: -464493701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_31
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 192
+        width: 67
+        height: 53
+      alignment: 9
+      pivot: {x: 0.58707255, y: 0.45997304}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c882a184b6bf0c24190f833ce3d35fbe
+      internalID: -1880758420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_33
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 193
+        width: 70
+        height: 53
+      alignment: 9
+      pivot: {x: 0.5984942, y: 0.43995956}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 449312506ca85c64088601e2ce88b2b9
+      internalID: -1813659922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_34
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 146
+        width: 79
+        height: 47
+      alignment: 9
+      pivot: {x: 0.72825396, y: 0.387158}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8531da1b9ed10fd4b84adde112d9de98
+      internalID: 331871871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_35
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 146
+        width: 83
+        height: 47
+      alignment: 9
+      pivot: {x: 0.71086395, y: 0.3645896}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 631a4eb8542de094ca657b5cdaba2e94
+      internalID: -1987173542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_36
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 193
+        width: 74
+        height: 57
+      alignment: 9
+      pivot: {x: 0.5860029, y: 0.44417292}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7981ca5706a6aa345b6d5ca9f96ba183
+      internalID: 971600685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_37
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 155
+        width: 34
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b076e54628c6e6646965b0d521b4f904
+      internalID: -1237821791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_38
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 153
+        width: 35
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 578ee4a3c305dfb4b983e19a120cac4c
+      internalID: -503957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_39
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 154
+        width: 37
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83d99e8b095ff6b448e0a1b418ee6af8
+      internalID: 2080999869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_40
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 76
+        width: 47
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf1910afbae607d46b2dd8f2c89aeb62
+      internalID: 527749029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_41
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 76
+        width: 48
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8441aec23354394e91c316b3c246e16
+      internalID: 152859022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_42
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 76
+        width: 44
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdc88b3e825b89e4b96384d94d2a9336
+      internalID: 1406007168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_43
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 77
+        width: 45
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b22b7dae4614961429f55ad4fd843da2
+      internalID: -131541786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_44
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 12
+        width: 26
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bc2fd764ec42c54e81412173bf91d6c
+      internalID: 7865265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_45
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 12
+        width: 43
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7e916449cd01f843bd8bbc749677317
+      internalID: -1589936295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_46
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 12
+        width: 47
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 010d0487fbc360c46913c40de6c1120e
+      internalID: 885111263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_Hand_47
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 12
+        width: 55
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3c3a32811329d84f85c68f4cbdfcaa8
+      internalID: 1160067193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Master_Hand_46: 885111263
+      Master_Hand_36: 971600685
+      Master_Hand_25: 1855739924
+      Master_Hand_22: 462679238
+      Master_Hand_12: 1931878626
+      Master_Hand_5: -405815012
+      Master_Hand_19: -2015259516
+      Master_Hand_3: -1899342485
+      Master_Hand_45: -1589936295
+      Master_Hand_24: 431770010
+      Master_Hand_39: 2080999869
+      Master_Hand_29: -1191888604
+      Master_Hand_15: 1501124552
+      Master_Hand_11: -1218537072
+      Master_Hand_17: -475751591
+      Master_Hand_28: 590958103
+      Master_Hand_30: -464493701
+      Master_Hand_31: -1880758420
+      Master_Hand_42: 1406007168
+      Master_Hand_37: -1237821791
+      Master_Hand_1: 842152204
+      Master_Hand_8: 19781663
+      Master_Hand_40: 527749029
+      Master_Hand_7: -385822190
+      Master_Hand_32: 368746796
+      Master_Hand_34: 331871871
+      Master_Hand_10: 1458726697
+      Master_Hand_38: -503957
+      Master_Hand_13: 98875287
+      Master_Hand_33: -1813659922
+      Master_Hand_21: -1560019574
+      Master_Hand_16: -1346771208
+      Master_Hand_6: 633258452
+      Master_Hand_23: -1685894282
+      Master_Hand_18: -2136927297
+      Master_Hand_35: -1987173542
+      Master_Hand_44: 7865265
+      Master_Hand_43: -131541786
+      Master_Hand_20: -2088973400
+      Master_Hand_2: 1300756354
+      Master_Hand_9: 1382822656
+      Master_Hand_26: -1766779559
+      Master_Hand_41: 152859022
+      Master_Hand_14: -69297538
+      Master_Hand_0: -196800999
+      Master_Hand_47: 1160067193
+      Master_Hand_27: 2042918035
+      Master_Hand_4: -52268355
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

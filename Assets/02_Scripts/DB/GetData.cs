@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using UnityEditor.ShaderGraph.Serialization;
 using UnityEngine;
 using UnityEngine.Networking;
-
+using SimpleJSON;
 
 public class GetData : MonoBehaviour
 {
@@ -17,33 +19,41 @@ public class GetData : MonoBehaviour
 
     IEnumerator GetDB(string name)
     {
-        UnityWebRequest www = UnityWebRequest.Get(getSaveDataURL);
+        WWWForm form = new WWWForm();
+        form.AddField("name", name);
+
+        UnityWebRequest www = UnityWebRequest.Post(getSaveDataURL, form);
         yield return www.SendWebRequest();
 
         if (www.result != UnityWebRequest.Result.Success)
         {
-            Debug.Log(www.error);
+            Debug.Log("Error retrieving data: " + www.error);
         }
         else
         {
+
             string jsonString = www.downloadHandler.text;
+            JSONNode jsonNode = JSON.Parse(jsonString);
+            Debug.Log(jsonNode);
 
-            // JSON 형식의 데이터를 Dictionary로 변환
-            Dictionary<string, object> data = JsonUtility.FromJson<Dictionary<string, object>>(jsonString);
+            if (jsonNode != null && jsonNode[0].Tag == JSONNodeType.Object)
+            {
+                JSONObject jsonObject = jsonNode[0].AsObject;
 
-            // 각 데이터를 변수에 저장
-            string name1 = (string)data["name"];
-            int coin = (int)(long)data["coin"]; // coin은 int형 데이터이지만, JSON으로부터 long형으로 읽어오기 때문에 형변환 필요
-            int curhp = (int)(long)data["curhp"];
-            int maxhp = (int)(long)data["maxhp"];
-            int dmg = (int)(long)data["dmg"];
+                coin = jsonObject["coin"].AsInt;
+                curhp = jsonObject["curhp"].AsInt;
+                maxhp = jsonObject["maxhp"].AsInt;
+                dmg = jsonObject["dmg"].AsInt;
 
-            // 데이터 출력
-            Debug.Log("Name: " + name1);
-            Debug.Log("Coin: " + coin);
-            Debug.Log("Current HP: " + curhp);
-            Debug.Log("Max HP: " + maxhp);
-            Debug.Log("Damage: " + dmg);
+                Debug.Log("Coin: " + coin);
+                Debug.Log("CurHP: " + curhp);
+                Debug.Log("MaxHP: " + maxhp);
+                Debug.Log("Dmg: " + dmg);
+            }
+            else
+            {
+                Debug.Log("No data retrieved.");
+            }
         }
     }
 }
