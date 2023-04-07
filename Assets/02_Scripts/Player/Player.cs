@@ -47,12 +47,12 @@ public class Player : MonoBehaviour
     private bool isClimbing;
 
 
-    [HideInInspector]  [SerializeField] private Rigidbody2D rigid;
-    [HideInInspector]  [SerializeField] private Transform groundCheck;
-    [HideInInspector]  [SerializeField] private LayerMask groundLayer;
-    [HideInInspector]  [SerializeField] private Transform wallCheck;
-    [HideInInspector]  [SerializeField] private LayerMask wallLayer;
-    [HideInInspector]  [SerializeField] private TrailRenderer tr;
+      [SerializeField] private Rigidbody2D rigid;
+      [SerializeField] private Transform groundCheck;
+      [SerializeField] private LayerMask groundLayer;
+      [SerializeField] private Transform wallCheck;
+      [SerializeField] private LayerMask wallLayer;
+      [SerializeField] private TrailRenderer tr;
 
     private float curTime;
     public float coolTime = 0.5f;
@@ -79,9 +79,9 @@ public class Player : MonoBehaviour
 
     [HideInInspector]  public GameObject Stat;
     private int i = 0;
-      public GameObject AEffect;
-      public GameObject AEffect_Up;
-      public GameObject AEffect_Down;
+    [HideInInspector] public GameObject AEffect;
+    [HideInInspector] public GameObject AEffect_Up;
+    [HideInInspector] public GameObject AEffect_Down;
     Camera cam;
     public bool fadeInOut;
     public bool SmoothMoving;
@@ -150,7 +150,7 @@ public class Player : MonoBehaviour
 
         #region Move
 
-        horizontal = Input.GetAxisRaw("Horizontal") * maxSpeed;
+        horizontal = Input.GetAxisRaw("Horizontal");
         float moveDirection = transform.localScale.x * horizontal;
 
 
@@ -188,6 +188,10 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Jump") && !GameManager.instance.isShopOpen)
         {
             jumpLeft -= 1;
+            if (jumpLeft == 1)
+            {
+                anim.SetTrigger("IsJumpFirst");
+            }
             if (coyoteTimeCounter > 0f || doubleJump)
             {
                 rigid.velocity = new Vector2(rigid.velocity.x, doubleJump ? doubleJumpingPower : jumpingPower);
@@ -200,15 +204,8 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Jump") && doubleJump == false && jumpLeft == 0)
-        {
-            anim.SetTrigger("IsJumpSecond");
-        }
 
-        else if (Input.GetButtonDown("Jump") && doubleJump == true && jumpLeft == 1)
-        {
-            anim.SetTrigger("IsJumpFirst");
-        }
+ 
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -235,6 +232,7 @@ public class Player : MonoBehaviour
         else
         {
             coyoteTimeCounter = coyoteTime;
+            anim.SetBool("IsJump", false);
         }
 
         WallSlide();
@@ -459,7 +457,6 @@ public class Player : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-
     }
 
     private bool IsWalled()
@@ -469,6 +466,7 @@ public class Player : MonoBehaviour
 
     private void WallSlide()
     {
+
         if (IsWalled() && !IsGrounded() && horizontal != 0f)
         {
             anim.SetBool("IsClimb", true);
@@ -640,30 +638,21 @@ public class Player : MonoBehaviour
 
     }
 
+
     private void updatePlayerState()
     {
         _IsGrounded = IsGrounded();
         anim.SetBool("IsGround", _IsGrounded);
         float verticalVelocity = rigid.velocity.y;
         anim.SetBool("IsDown", verticalVelocity < 0);
-        if (IsGrounded())
+        if (IsGrounded() || IsWalled())
         {
-            verticalVelocity = 0f;
-        }
-        if(IsGrounded() && verticalVelocity == 0f )
-        {
-            jumpLeft = 2;
+            jumpLeft = 1;
             anim.SetBool("IsJump", false);
             anim.ResetTrigger("IsJumpFirst");
-            anim.ResetTrigger("IsJumpSecond");
             anim.SetBool("IsDown", false);
-
-            isWallSliding = false;
-            isDashing = true;
 
         }
     }
-
-
 
 }
