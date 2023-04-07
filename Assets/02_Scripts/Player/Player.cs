@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public float jumpingPower = 25f;
     private bool doubleJump;
     private float doubleJumpingPower = 20f;
+    public int jumpLeft;
 
     private float coyoteTime = 0.2f;
     private float coyoteTimeCounter;
@@ -37,7 +38,8 @@ public class Player : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Animator anim;
 
-
+    private bool _IsGrounded;
+    private Transform _transform;
 
     private float Laddervertical;
     private float Ladderspeed = 8f;
@@ -77,9 +79,9 @@ public class Player : MonoBehaviour
 
     [HideInInspector]  public GameObject Stat;
     private int i = 0;
-    [HideInInspector]  public GameObject AEffect;
-    [HideInInspector]  public GameObject AEffect_Up;
-    [HideInInspector]  public GameObject AEffect_Down;
+      public GameObject AEffect;
+      public GameObject AEffect_Up;
+      public GameObject AEffect_Down;
     Camera cam;
     public bool fadeInOut;
     public bool SmoothMoving;
@@ -144,32 +146,35 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        updatePlayerState();
 
         #region Move
 
-        horizontal = Input.GetAxisRaw("Horizontal");
+        horizontal = Input.GetAxisRaw("Horizontal") * maxSpeed;
+        float moveDirection = transform.localScale.x * horizontal;
 
-        if (!Input.anyKeyDown)
-        {
-            anim.SetBool("Idle", true);
-        }
+
 
         if (Input.GetKey(KeyCode.LeftArrow)&&!GameManager.instance.isPanelOpen)
         {
             transform.localScale = new Vector3(-1f, 1f);
-            anim.SetBool("Run", true);
+            anim.SetBool("IsRun", true);
 
         }
         else if (Input.GetKey(KeyCode.RightArrow)&& !GameManager.instance.isPanelOpen)
         {
             transform.localScale = new Vector3(1f, 1f);
-            anim.SetBool("Run", true);
+            anim.SetBool("IsRun", true);
 
         }
-
-        if (rigid.velocity.normalized.x == 0)
+            if (rigid.velocity.normalized.x == 0)
         {
-            anim.SetBool("Run", false);
+            anim.SetTrigger("StopRun");
+            anim.SetBool("IsRun", false);
+        }
+        else
+        {
+            anim.ResetTrigger("StopRun");
         }
 
         #endregion
@@ -182,15 +187,27 @@ public class Player : MonoBehaviour
         }
         if (Input.GetButtonDown("Jump") && !GameManager.instance.isShopOpen)
         {
+            jumpLeft -= 1;
             if (coyoteTimeCounter > 0f || doubleJump)
             {
                 rigid.velocity = new Vector2(rigid.velocity.x, doubleJump ? doubleJumpingPower : jumpingPower);
                 doubleJump = !doubleJump;
+
                 if (jumpBufferCounter > 0f)
                 {
                     jumpBufferCounter = 0f;
                 }
             }
+        }
+
+        if (Input.GetButtonDown("Jump") && doubleJump == false && jumpLeft == 0)
+        {
+            anim.SetTrigger("IsJumpSecond");
+        }
+
+        else if (Input.GetButtonDown("Jump") && doubleJump == true && jumpLeft == 1)
+        {
+            anim.SetTrigger("IsJumpFirst");
         }
 
         if (Input.GetButtonDown("Jump"))
@@ -212,13 +229,12 @@ public class Player : MonoBehaviour
 
         if (!IsGrounded() && !IsWalled() && isLadder == false)
         {
+        anim.SetBool("IsJump", true);
             coyoteTimeCounter -= Time.deltaTime;
-            anim.SetBool("Jump", true);
         }
         else
         {
             coyoteTimeCounter = coyoteTime;
-            anim.SetBool("Jump", false);
         }
 
         WallSlide();
@@ -248,18 +264,18 @@ public class Player : MonoBehaviour
            
             if(Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
             {
-                anim.SetTrigger("UpA");
+                anim.SetTrigger("IsAttackUp");
                 AudioPlayer.PlayOneShot(AttackSound);
                 if (i % 2 == 0 && i == 0)
                 {
                     AEffect_Up.gameObject.SetActive(true);
-                    Invoke("HideEffect", 0.2f);
+                    Invoke("HideEffect", 0.1f);
 
                 }
                 else if (i % 2 == 1)
                 {
                     AEffect_Up.gameObject.SetActive(true);
-                    Invoke("HideEffect", 0.2f);
+                    Invoke("HideEffect", 0.1f);
 
                 }
 
@@ -272,18 +288,18 @@ public class Player : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
             {
-                anim.SetTrigger("DownA");
+                anim.SetTrigger("IsAttackDown");
                 AudioPlayer.PlayOneShot(AttackSound);
                 if (i % 2 == 0 && i == 0)
                 {
                     AEffect_Down.gameObject.SetActive(true);
-                    Invoke("HideEffect", 0.2f);
+                    Invoke("HideEffect", 0.1f);
 
                 }
                 else if (i % 2 == 1)
                 {
                     AEffect_Down.gameObject.SetActive(true);
-                    Invoke("HideEffect", 0.2f);
+                    Invoke("HideEffect", 0.1f);
 
                 }
 
@@ -296,18 +312,18 @@ public class Player : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
             {
-                anim.SetTrigger("Attack");
+                anim.SetTrigger("IsAttack");
                 AudioPlayer.PlayOneShot(AttackSound);
                 if (i % 2 == 0 && i == 0)
                 {
                     AEffect.gameObject.SetActive(true);
-                    Invoke("HideEffect", 0.2f);
+                    Invoke("HideEffect", 0.1f);
 
                 }
                 else if (i % 2 == 1)
                 {
                     AEffect.gameObject.SetActive(true);
-                    Invoke("HideEffect", 0.2f);
+                    Invoke("HideEffect", 0.1f);
 
                 }
 
@@ -366,7 +382,7 @@ public class Player : MonoBehaviour
         #endregion
 
 
-        #region Ladder
+        /*#region Ladder
 
         Laddervertical = Input.GetAxis("Vertical");
 
@@ -382,7 +398,7 @@ public class Player : MonoBehaviour
             anim.SetBool("Run", false);
         }
 
-        #endregion
+        #endregion*/
 
     }
 
@@ -443,6 +459,7 @@ public class Player : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+
     }
 
     private bool IsWalled()
@@ -454,15 +471,14 @@ public class Player : MonoBehaviour
     {
         if (IsWalled() && !IsGrounded() && horizontal != 0f)
         {
-            anim.SetBool("Idle", false);
-            anim.SetBool("Run", false);
-            anim.SetBool("WallS", true);
+            anim.SetBool("IsClimb", true);
+
             isWallSliding = true;
             rigid.velocity = new Vector2(rigid.velocity.x, Mathf.Clamp(rigid.velocity.y, -wallSlidingSpeed, float.MaxValue));
         }
         else
         {
-            anim.SetBool("WallS", false);
+            anim.SetBool("IsClimb", false);
             isWallSliding = false;
         }
 
@@ -548,9 +564,7 @@ public class Player : MonoBehaviour
 
     public void DashAnim()
     {
-        anim.SetBool("Idle", false);
-
-        anim.SetTrigger("Dash");
+        anim.SetTrigger("IsDash");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -625,4 +639,31 @@ public class Player : MonoBehaviour
         AudioPlayer.volume = 1;
 
     }
+
+    private void updatePlayerState()
+    {
+        _IsGrounded = IsGrounded();
+        anim.SetBool("IsGround", _IsGrounded);
+        float verticalVelocity = rigid.velocity.y;
+        anim.SetBool("IsDown", verticalVelocity < 0);
+        if (IsGrounded())
+        {
+            verticalVelocity = 0f;
+        }
+        if(IsGrounded() && verticalVelocity == 0f )
+        {
+            jumpLeft = 2;
+            anim.SetBool("IsJump", false);
+            anim.ResetTrigger("IsJumpFirst");
+            anim.ResetTrigger("IsJumpSecond");
+            anim.SetBool("IsDown", false);
+
+            isWallSliding = false;
+            isDashing = true;
+
+        }
+    }
+
+
+
 }
