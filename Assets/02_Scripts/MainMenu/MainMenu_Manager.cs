@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu_Manager : MonoBehaviour
 {
     public GameObject optionPanel;
+    public GameObject slotPanel;
     public Button SelBtn; 
 
 
@@ -22,6 +23,7 @@ public class MainMenu_Manager : MonoBehaviour
         SelBtn.Select();
     }
 
+    #region option
     void Resolution() //해상도 설정
     {
         if (screenMode == FullScreenMode.FullScreenWindow)  //전체화면일 경우  토글 체크용
@@ -64,10 +66,11 @@ public class MainMenu_Manager : MonoBehaviour
     {
         resolutionNum = x;
     }
-
+    #endregion
     public void GameBtnClick() //Game버튼 클릭시
     {
-        LoadingScene.LoadScene("Game01_Scene");
+        slotPanel.SetActive(true);
+        //LoadingScene.LoadScene("Game01_Scene");
     }
 
     public void OptionBtnClick() //Option버튼 클릭시와 Back버튼 클릭시 
@@ -89,6 +92,7 @@ public class MainMenu_Manager : MonoBehaviour
         optionPanel.SetActive(false);
     }
 
+    
 
     public void exitBtnClick() // exit버튼 클릭시 게임 종료 처리
     {

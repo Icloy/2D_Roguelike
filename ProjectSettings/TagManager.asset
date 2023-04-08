@@ -11,6 +11,8 @@ TagManager:
   - AttackZone
   - OneWayPlatform
   - DamagedTile
+  - LeftTarget
+  - RightTarget
   layers:
   - Default
   - TransparentFX
