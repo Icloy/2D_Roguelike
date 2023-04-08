@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MainMenu_Manager : MonoBehaviour
 {
     public GameObject optionPanel;
     public GameObject slotPanel;
-    public Button SelBtn; 
+    public Button SelBtn;
 
+    public TMP_Text slot0;
+    public TMP_Text slot1;
+    public TMP_Text slot2;
 
     List<Resolution> resolutions = new List<Resolution>(); //모니터가 지원하는 해상도를 저장할 배열
     FullScreenMode screenMode;
@@ -17,11 +21,41 @@ public class MainMenu_Manager : MonoBehaviour
     public Dropdown resolutionDropdown;
     public int resolutionNum;
 
+    GetData getdata;
+
     private void Start()
     {
         Resolution();
         SelBtn.Select();
     }
+    public void GameBtnClick() //Game버튼 클릭시
+    {
+        slotPanel.SetActive(true);
+        RefreshSlot();
+    }
+
+    public void Gamestart()
+    {
+        LoadingScene.LoadScene("Game01_Scene");
+    }
+
+    private void RefreshSlot()
+    {
+        slot0.text = "";
+        slot1.text = "";
+        slot2.text = "";
+    }
+
+    public void Slot(string a)
+    {
+        getdata.GetDbData(a);
+    }
+    
+    public void SlotExit()
+    {
+        slotPanel.SetActive(false);
+    }
+
 
     #region option
     void Resolution() //해상도 설정
@@ -67,11 +101,7 @@ public class MainMenu_Manager : MonoBehaviour
         resolutionNum = x;
     }
     #endregion
-    public void GameBtnClick() //Game버튼 클릭시
-    {
-        slotPanel.SetActive(true);
-        //LoadingScene.LoadScene("Game01_Scene");
-    }
+
 
     public void OptionBtnClick() //Option버튼 클릭시와 Back버튼 클릭시 
     {

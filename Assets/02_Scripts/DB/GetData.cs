@@ -12,9 +12,9 @@ public class GetData : MonoBehaviour
     string getSaveDataURL = "http://localhost/SaveData/getdata.php?";
     int coin, curhp, maxhp, dmg;
 
-    public void GetDbData()
+    public void GetDbData(string name)
     {
-        StartCoroutine(GetDB("lys"));
+        StartCoroutine(GetDB(name));
     }
 
     IEnumerator GetDB(string name)
@@ -31,7 +31,6 @@ public class GetData : MonoBehaviour
         }
         else
         {
-
             string jsonString = www.downloadHandler.text;
             JSONNode jsonNode = JSON.Parse(jsonString);
             Debug.Log(jsonNode);
@@ -54,6 +53,25 @@ public class GetData : MonoBehaviour
             {
                 Debug.Log("No data retrieved.");
             }
+        }
+    }
+
+    IEnumerator GetName(string name)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("name", name);
+
+        UnityWebRequest www = UnityWebRequest.Post(getSaveDataURL, form);
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log("Error retrieving data: " + www.error);
+        }
+        else
+        {
+            string jsonString = www.downloadHandler.text;
+            JSONNode jsonNode = JSON.Parse(jsonString);
         }
     }
 }
