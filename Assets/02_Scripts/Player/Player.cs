@@ -501,6 +501,7 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
         {
             IsWallJumping = true;
+            anim.SetTrigger("IsClimbJump");
             rigid.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
             wallJumpingCounter = 0f;
 
