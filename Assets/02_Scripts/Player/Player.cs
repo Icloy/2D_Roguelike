@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
+
 
 public class Player : MonoBehaviour
 {
@@ -47,12 +49,12 @@ public class Player : MonoBehaviour
     private bool isClimbing;
 
 
-      [SerializeField] private Rigidbody2D rigid;
-      [SerializeField] private Transform groundCheck;
-      [SerializeField] private LayerMask groundLayer;
-      [SerializeField] private Transform wallCheck;
-      [SerializeField] private LayerMask wallLayer;
-      [SerializeField] private TrailRenderer tr;
+    [HideInInspector] [SerializeField] private Rigidbody2D rigid;
+    [HideInInspector] [SerializeField] private Transform groundCheck;
+    [HideInInspector] [SerializeField] private LayerMask groundLayer;
+    [HideInInspector] [SerializeField] private Transform wallCheck;
+    [HideInInspector] [SerializeField] private LayerMask wallLayer;
+    [HideInInspector] [SerializeField] private TrailRenderer tr;
 
     private float curTime;
     public float coolTime = 0.5f;
@@ -95,6 +97,10 @@ public class Player : MonoBehaviour
     [HideInInspector]  public AudioClip DashSound;
     [HideInInspector] public AudioClip DamagedSound;
 
+
+    private float _fallSpeedYDampingChangeThreshold;
+
+
     //오디오
     private AudioSource AudioPlayer; //오디오 소스 컴포넌트
     private AudioLowPassFilter audioLowPassFilter;
@@ -134,6 +140,7 @@ public class Player : MonoBehaviour
         AudioPlayer = GetComponent<AudioSource>();
         cam = Camera.main;
         audioLowPassFilter = GetComponent<AudioLowPassFilter>();
+        _fallSpeedYDampingChangeThreshold = CameraManager.instance._fallSpeedYDampingChangeThreshold;
     }
     // Update is called once per frame
     #endregion
@@ -147,6 +154,20 @@ public class Player : MonoBehaviour
     void Update()
     {
         updatePlayerState();
+
+        if (rigid.velocity.y < _fallSpeedYDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping && !CameraManager.instance.LerpedFromPlayerFalling)
+        {
+            CameraManager.instance.LerpYDamping(true);
+        }
+
+        if(rigid.velocity.y >= 0f && !CameraManager.instance.IsLerpingYDamping && CameraManager.instance.LerpedFromPlayerFalling)
+        {
+            CameraManager.instance.LerpedFromPlayerFalling = false;
+
+            CameraManager.instance.LerpYDamping(false);
+        }
+
+
 
         #region Move
 
@@ -284,7 +305,7 @@ public class Player : MonoBehaviour
                     i = 0;
                 }
             }
-            else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
+            else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding && !IsGrounded())
             {
                 anim.SetTrigger("IsAttackDown");
                 AudioPlayer.PlayOneShot(AttackSound);
