@@ -10,13 +10,19 @@ using SimpleJSON;
 public class GetData : MonoBehaviour
 {
     string getSaveDataURL = "http://localhost/SaveData/getdata.php?";
+    string date;
     int coin, curhp, maxhp, dmg;
 
     public void GetDbData(string name)
     {
-        StartCoroutine(GetDB(name));
+        StartCoroutine(GetDate(name));
     }
 
+    public String GetDbdate(string name)
+    {
+       StartCoroutine(GetDB(name));
+        return date;
+    }
     IEnumerator GetDB(string name)
     {
         WWWForm form = new WWWForm();
@@ -39,6 +45,7 @@ public class GetData : MonoBehaviour
             {
                 JSONObject jsonObject = jsonNode[0].AsObject;
 
+                date = jsonObject["date"];
                 coin = jsonObject["coin"].AsInt;
                 curhp = jsonObject["curhp"].AsInt;
                 maxhp = jsonObject["maxhp"].AsInt;
@@ -55,8 +62,7 @@ public class GetData : MonoBehaviour
             }
         }
     }
-
-    IEnumerator GetName(string name)
+    IEnumerator GetDate(string name)
     {
         WWWForm form = new WWWForm();
         form.AddField("name", name);
@@ -72,6 +78,17 @@ public class GetData : MonoBehaviour
         {
             string jsonString = www.downloadHandler.text;
             JSONNode jsonNode = JSON.Parse(jsonString);
+
+            if (jsonNode != null && jsonNode[0].Tag == JSONNodeType.Object)
+            {
+                JSONObject jsonObject = jsonNode[0].AsObject;
+
+                 date = jsonObject["date"];
+            }
+            else
+            {
+                Debug.Log("No data retrieved.");
+            }
         }
     }
-}
+ }
