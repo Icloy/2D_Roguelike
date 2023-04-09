@@ -7,18 +7,41 @@ public class Enemy_Hand_Control : MonoBehaviour
     public Transform startPoint;
     public Transform endPoint;
     public Transform controlPoint;
+    public Transform PlayerPos;
 
     private float duration = 2f;
     private float elapsedTime = 0f;
 
     void Start()
     {
-        StartCoroutine(MoveCurve());
+        StartCoroutine(SetPlayerPos());
+        StartCoroutine(ResetMove());
     }
 
     void Update()
     {
 
+    }
+
+    public IEnumerator SetPlayerPos()
+    {
+        while(true)
+        {
+            endPoint.position = PlayerPos.position;
+            yield return new WaitForSeconds(5f);
+        }
+    }
+
+    public IEnumerator ResetMove()
+    {
+        controlPoint.position = new Vector3(startPoint.position.x - 5f, startPoint.position.y + 2f, startPoint.position.z);
+        while (elapsedTime < duration)
+        {
+            float t = elapsedTime / duration;
+            transform.position = CalculateBezierPoint(t, endPoint.position, controlPoint.position, startPoint.position);
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
     }
 
     public IEnumerator MoveCurve()
