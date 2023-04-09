@@ -140,7 +140,7 @@ public class Player : MonoBehaviour
         AudioPlayer = GetComponent<AudioSource>();
         cam = Camera.main;
         audioLowPassFilter = GetComponent<AudioLowPassFilter>();
-        _fallSpeedYDampingChangeThreshold = CameraManager.instance._fallSpeedYDampingChangeThreshold;
+
     }
     // Update is called once per frame
     #endregion
@@ -149,6 +149,8 @@ public class Player : MonoBehaviour
     private void Start()
     {
         Hp.instance.udtHp(curHp, maxHp);
+        _fallSpeedYDampingChangeThreshold = CameraManager.instance._fallSpeedYDampingChangeThreshold;
+
     }
 
     void Update()
