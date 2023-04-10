@@ -22,7 +22,7 @@ public class Enemy_Flyingeye_Boom : MonoBehaviour
             if (flyingeye != null)
             {
                 Debug.Log(flyingeye.attack_damage);
-                ShakeCamera.instance.StartShake(0.05f, 0.05f);
+                CSake.instance.Vibrate(1f);
                 Player.instance.Damaged(-flyingeye.attack_damage);
             }
             if (delayCoroutine != null)

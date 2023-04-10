@@ -22,7 +22,7 @@ public class Enemy_Goblin_AttackCheck : MonoBehaviour
             if (goblin != null)
             {
                 Debug.Log(goblin.attack_damage);
-                ShakeCamera.instance.StartShake(0.05f, 0.05f);
+                CSake.instance.Vibrate(1f);
                 Player.instance.Damaged(-goblin.attack_damage);
             }
             if (delayCoroutine != null)

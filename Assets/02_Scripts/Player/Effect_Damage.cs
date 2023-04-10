@@ -25,7 +25,7 @@ public class Effect_Damage : MonoBehaviour
             if (enemy != null)
             {
                 Debug.Log(AtDmg);
-                ShakeCamera.instance.StartShake(0.05f, 0.05f);
+                CSake.instance.Vibrate(1f);
                 Stat.GetComponent<Stat>().MP += 30;
                 // 데미지 계산 및 적용
                 enemy.TakeDamage(AtDmg);

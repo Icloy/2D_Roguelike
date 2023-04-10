@@ -562,7 +562,7 @@ public class Player : MonoBehaviour
                     HealEffect.gameObject.SetActive(false);
                     ZoomOut();
                     StartCoroutine(StageMgr.Instance.MoveNext3(fadeInOut, SmoothMoving));
-                    ShakeCamera.instance.StartShake(0.2f, 0.2f);
+                    CSake.instance.Vibrate(1f);
                     anim.SetBool("Sit", false);
                     Stat.GetComponent<Stat>().MP -= 100;
                     canDash = true;

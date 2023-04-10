@@ -22,7 +22,7 @@ public class Enemy_Boss_AttackCheck : MonoBehaviour
             if (boss != null)
             {
                 Debug.Log(boss.attack_damage);
-                ShakeCamera.instance.StartShake(0.05f, 0.05f);
+                CSake.instance.Vibrate(1f);
                 Player.instance.Damaged(-boss.attack_damage);
             }
             if (delayCoroutine != null)
