@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7769175749896833949}
   - component: {fileID: 7769175749896833948}
   - component: {fileID: 7769175749896833951}
+  - component: {fileID: 7445377331951537066}
   m_Layer: 0
   m_Name: Right_Finger
   m_TagString: Untagged
@@ -119,10 +120,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b00d1555023254bb431da375c33998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 3
   position_change_second: 0
   delete_time: 0
-  targetTransform: {fileID: 0}
+--- !u!50 &7445377331951537066
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7769175749896833950}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7769175750842767846
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +153,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7769175750842767847}
-  - component: {fileID: 7769175750842767844}
+  - component: {fileID: 8413577675738130640}
   m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
@@ -155,8 +176,8 @@ Transform:
   m_Father: {fileID: 7769175749896833938}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &7769175750842767844
-PolygonCollider2D:
+--- !u!58 &8413577675738130640
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -165,24 +186,9 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.0647836, y: 0.100651085}
-      - {x: -0.09743732, y: 0.091801345}
-      - {x: -0.15716481, y: -0.043046176}
-      - {x: -0.1248342, y: -0.100208126}
-      - {x: 0.063224636, y: -0.098720424}
-      - {x: 0.12792367, y: 0.011774719}
+  serializedVersion: 2
+  m_Radius: 5

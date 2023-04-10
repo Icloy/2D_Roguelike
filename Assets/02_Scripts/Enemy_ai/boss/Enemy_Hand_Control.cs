@@ -8,6 +8,7 @@ public class Enemy_Hand_Control : MonoBehaviour
     public Transform endPoint;
     public Transform controlPoint;
     public Transform PlayerPos;
+    public GameObject bullet;
 
     private float duration = 2f;
     private float elapsedTime = 0f;
@@ -16,11 +17,12 @@ public class Enemy_Hand_Control : MonoBehaviour
     {
         StartCoroutine(SetPlayerPos());
         StartCoroutine(ResetMove());
+
     }
 
     void Update()
     {
-
+        
     }
 
     public IEnumerator SetPlayerPos()
@@ -29,6 +31,7 @@ public class Enemy_Hand_Control : MonoBehaviour
         {
             endPoint.position = PlayerPos.position;
             yield return new WaitForSeconds(5f);
+            Instantiate(bullet, new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z), Quaternion.identity);
         }
     }
 

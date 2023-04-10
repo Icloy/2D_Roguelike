@@ -8,6 +8,8 @@ public class Finger : MonoBehaviour
     public float position_change_second;
     public float delete_time;
 
+    float distance;
+
     CircleCollider2D circle;
     PolygonCollider2D polygonCollider;
     Rigidbody2D rigid;
@@ -45,13 +47,17 @@ public class Finger : MonoBehaviour
                 rigidBodyToMove.MovePosition(newposition);
                 remaindistance = (transform.position - position).sqrMagnitude;
             }
+            if(Vector2.Distance(rigidBodyToMove.position, targetTransform.position) < 0.01f)
+            {
+                Destroy(this.gameObject);
+            }
             yield return new WaitForFixedUpdate();
         }
     }
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("LeftTarget"))
+        if (collision.gameObject.CompareTag("RightTarget"))
         {
             targetTransform = collision.gameObject.transform;
             StartCoroutine(Move(rigid, speed));
