@@ -549,7 +549,6 @@ public class Player : MonoBehaviour
                 //누루는 동안 제한해야하는것들
                 hcurT += Time.deltaTime;
                 canDash = false;
-                anim.SetBool("Idle", false);
                 rigid.constraints = RigidbodyConstraints2D.FreezeAll;
                 ZoomIn();
                 HealEffect.gameObject.SetActive(true);
