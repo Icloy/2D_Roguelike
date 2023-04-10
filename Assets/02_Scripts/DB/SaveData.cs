@@ -16,7 +16,7 @@ public class SaveData : MonoBehaviour
     {
         System.DateTime now = System.DateTime.Now;
         string dateString = now.ToString("yyyy-MM-dd HH:mm");
-        StartCoroutine(PostScores("lys", dateString, GameManager.instance.coin, Player.instance.curHp,Player.instance.maxHp,Player.instance.AtDmg));
+        StartCoroutine(PostScores("slot0", dateString, GameManager.instance.coin, Player.instance.curHp,Player.instance.maxHp,Player.instance.AtDmg));
     }
 
     IEnumerator PostScores(string name, string date,int coin, int curhp, int maxhp, int dmg)

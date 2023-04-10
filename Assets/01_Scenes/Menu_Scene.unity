@@ -3271,7 +3271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &816474234
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3605,6 +3605,7 @@ GameObject:
   m_Component:
   - component: {fileID: 877475451}
   - component: {fileID: 877475450}
+  - component: {fileID: 877475452}
   m_Layer: 0
   m_Name: MainMenu_Manager
   m_TagString: Untagged
@@ -3634,6 +3635,7 @@ MonoBehaviour:
   fullscreenBtn: {fileID: 1596203312}
   resolutionDropdown: {fileID: 1010844758}
   resolutionNum: 0
+  getdata: {fileID: 0}
 --- !u!4 &877475451
 Transform:
   m_ObjectHideFlags: 0
@@ -3649,6 +3651,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &877475452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877475449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a60468a350318c74c9a32337c7a9b64d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &883160774
 GameObject:
   m_ObjectHideFlags: 0
