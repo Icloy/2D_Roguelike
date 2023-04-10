@@ -1522,6 +1522,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1527628837 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7510095541183245410, guid: 9bf8c2064ae2bf4488d09a62b5882331, type: 3}
+  m_PrefabInstance: {fileID: 7510095541210849541}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &1527628840
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527628837}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.000000029802322, y: -0.00000017881393}
+  serializedVersion: 2
+  m_Radius: 0.08000002
 --- !u!1 &1593543979
 GameObject:
   m_ObjectHideFlags: 0
@@ -2863,6 +2884,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4425007313243126122, guid: 9bf8c2064ae2bf4488d09a62b5882331, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 7769175749896833950, guid: 53f5119693db4c349accff06211b9471, type: 3}
     - target: {fileID: 4425007313243126122, guid: 9bf8c2064ae2bf4488d09a62b5882331, type: 3}
       propertyPath: PlayerPos
       value: 
