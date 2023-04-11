@@ -631,7 +631,6 @@ public class Player : MonoBehaviour
 
         if(dmg < 0)
         {
-            SlowMotionClass.instance.DoSlowMotion();
             AudioPlayer.PlayOneShot(DamagedSound);
             SetAudioEffect(true);
             Invoke("ResetAudioEffect", 0.35f);
