@@ -11,8 +11,6 @@ public class MainMenu_Manager : MonoBehaviour
     public GameObject slotPanel;
     public Button SelBtn;
 
-    public TMP_Text[] slot;
-
     List<Resolution> resolutions = new List<Resolution>(); //모니터가 지원하는 해상도를 저장할 배열
     FullScreenMode screenMode;
     public Toggle fullscreenBtn;
@@ -42,27 +40,12 @@ public class MainMenu_Manager : MonoBehaviour
         LoadingScene.LoadScene("Game01_Scene");
     }
 
-    private IEnumerator GetData()
-    {
-        for (int i = 0; i < slot.Length; i++)
-        {
-            yield return StartCoroutine(getname.Getname(slot[i].ToString(), (date) =>
-            {
-                slot[i].text = date;
-            }));
-        }
-    }
 
     private void RefreshSlot()
     {
-        StartCoroutine(GetData());
+        getname.Refresh();
     }
 
-    public void Slot(string a)
-    {
-        //getname.Getname(a);
-    }
-    
     public void SlotExit()
     {
         slotPanel.SetActive(false);
