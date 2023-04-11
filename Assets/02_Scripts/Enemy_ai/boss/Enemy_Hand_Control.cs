@@ -16,8 +16,6 @@ public class Enemy_Hand_Control : MonoBehaviour
     void Start()
     {
         StartCoroutine(SetPlayerPos());
-        StartCoroutine(ResetMove());
-
     }
 
     void Update()
@@ -29,15 +27,29 @@ public class Enemy_Hand_Control : MonoBehaviour
     {
         while(true)
         {
-            endPoint.position = PlayerPos.position;
-            yield return new WaitForSeconds(5f);
+            yield return StartCoroutine(ResetMove());
             Instantiate(bullet, new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z), Quaternion.identity);
+            yield return StartCoroutine(CatchPlayer());
         }
+    }
+
+    public IEnumerator CatchPlayer()
+    {
+        controlPoint.transform.position = new Vector3(PlayerPos.position.x, PlayerPos.position.y, PlayerPos.position.z);
+        endPoint.transform.position = new Vector3(PlayerPos.position.x+3f, PlayerPos.position.y, PlayerPos.position.z);
+        while (elapsedTime < duration)
+        {
+            float t = elapsedTime / duration;
+            transform.position = CalculateBezierPoint(t, startPoint.position, controlPoint.position, endPoint.position);
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+        elapsedTime = 0f;
     }
 
     public IEnumerator ResetMove()
     {
-        controlPoint.position = new Vector3(startPoint.position.x - 5f, startPoint.position.y + 2f, startPoint.position.z);
+        controlPoint.position = new Vector3(startPoint.position.x - 2f, startPoint.position.y + 1f, startPoint.position.z);
         while (elapsedTime < duration)
         {
             float t = elapsedTime / duration;
@@ -45,6 +57,7 @@ public class Enemy_Hand_Control : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return new WaitForFixedUpdate();
         }
+        elapsedTime = 0f;
     }
 
     public IEnumerator MoveCurve()
