@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
     private float dashingTime = 0.1f;
     private float dashingCooldown = 1f;
 
+
     SpriteRenderer spriteRenderer;
     Animator anim;
 
@@ -96,10 +97,14 @@ public class Player : MonoBehaviour
     [HideInInspector]  public AudioClip HealSound;
     [HideInInspector]  public AudioClip DashSound;
     [HideInInspector] public AudioClip DamagedSound;
-
+    private Vector2 direction;
 
     private float _fallSpeedYDampingChangeThreshold;
 
+    private bool LeftAttack = false;
+    private bool RightAttack = false;
+    private bool DownAttack = false;
+    private bool UpAttack = false;
 
     //오디오
     private AudioSource AudioPlayer; //오디오 소스 컴포넌트
@@ -282,9 +287,10 @@ public class Player : MonoBehaviour
 
         if (curTime <= 0)
         {
-           
-            if(Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
+
+            if (Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
             {
+                UpAttack = true;
                 anim.SetTrigger("IsAttackUp");
                 AudioPlayer.PlayOneShot(AttackSound);
                 if (i % 2 == 0 && i == 0)
@@ -307,6 +313,7 @@ public class Player : MonoBehaviour
                     i = 0;
                 }
             }
+            
             else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding && !IsGrounded())
             {
                 anim.SetTrigger("IsAttackDown");
@@ -331,6 +338,7 @@ public class Player : MonoBehaviour
                     i = 0;
                 }
             }
+            
             else if (Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
             {
                 anim.SetTrigger("IsAttack");
@@ -441,7 +449,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            rigid.gravityScale = 4f;
+            rigid.gravityScale = 3f;
         }
     }
 
@@ -637,6 +645,7 @@ public class Player : MonoBehaviour
 
 
         }
+
     }
 
     public void ZoomIn()
@@ -676,5 +685,13 @@ public class Player : MonoBehaviour
 
         }
     }
+
+    public void upforce()
+    {
+        rigid.AddForce(Vector2.up * 1200f);
+        Debug.Log("U");
+    }
+
+
 
 }
