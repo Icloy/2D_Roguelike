@@ -2870,7 +2870,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5364965793328936326, guid: 95a9bb3f5deee11478d4973976db808c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5364965793328936344, guid: 95a9bb3f5deee11478d4973976db808c, type: 3}
       propertyPath: m_RootOrder
@@ -2920,6 +2920,14 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 1593543979}
+    - target: {fileID: 5364965793328936351, guid: 95a9bb3f5deee11478d4973976db808c, type: 3}
+      propertyPath: turnrange
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5364965793328936351, guid: 95a9bb3f5deee11478d4973976db808c, type: 3}
+      propertyPath: tracespeed
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5364965793412343643, guid: 95a9bb3f5deee11478d4973976db808c, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -3016,6 +3024,10 @@ PrefabInstance:
     - target: {fileID: 7510095541666711037, guid: 9bf8c2064ae2bf4488d09a62b5882331, type: 3}
       propertyPath: m_Name
       value: Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 7510095541666711037, guid: 9bf8c2064ae2bf4488d09a62b5882331, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bf8c2064ae2bf4488d09a62b5882331, type: 3}
