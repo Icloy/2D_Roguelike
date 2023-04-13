@@ -29,10 +29,19 @@ public class MainMenu_Manager : MonoBehaviour
         Resolution();
         SelBtn.Select();
     }
-    public void GameBtnClick() //Game버튼 클릭시
+
+    public void GameBtnClick() //Game버튼 클릭시 slot패널 오픈
     {
         slotPanel.SetActive(true);
-        RefreshSlot();
+        getname.Refresh();  //패널 새로고침 DB불러옴
+    }
+
+    public void SlotBtnClick(int a) //a가 슬롯 번호
+    {
+        //LoadingScene.LoadScene("Game01_Scene");
+        //씬불러오기
+        Singleton.Instance.slotNum = a;
+
     }
 
     public void Gamestart()
@@ -40,11 +49,6 @@ public class MainMenu_Manager : MonoBehaviour
         LoadingScene.LoadScene("Game01_Scene");
     }
 
-
-    private void RefreshSlot()
-    {
-        getname.Refresh();
-    }
 
     public void SlotExit()
     {
