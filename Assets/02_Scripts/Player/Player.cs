@@ -43,10 +43,6 @@ public class Player : MonoBehaviour
 
     private bool _IsGrounded;
     private Transform _transform;
-
-    private float Laddervertical;
-    private float Ladderspeed = 8f;
-    private bool isLadder;
     private bool isClimbing;
 
 
@@ -100,11 +96,8 @@ public class Player : MonoBehaviour
     private Vector2 direction;
 
     private float _fallSpeedYDampingChangeThreshold;
-
-    private bool LeftAttack = false;
-    private bool RightAttack = false;
-    private bool DownAttack = false;
-    private bool UpAttack = false;
+    private bool IsLeft;
+    private bool IsRight;
 
     //오디오
     private AudioSource AudioPlayer; //오디오 소스 컴포넌트
@@ -187,15 +180,19 @@ public class Player : MonoBehaviour
         {
             transform.localScale = new Vector3(-1f, 1f);
             anim.SetBool("IsRun", true);
-
+            IsLeft = true;
+            IsRight = false;
         }
         else if (Input.GetKey(KeyCode.RightArrow)&& !GameManager.instance.isPanelOpen)
         {
             transform.localScale = new Vector3(1f, 1f);
             anim.SetBool("IsRun", true);
+            IsRight = true;
+            IsLeft = false;
 
         }
-            if (rigid.velocity.normalized.x == 0)
+        
+        if (rigid.velocity.normalized.x == 0)
         {
             anim.SetTrigger("StopRun");
             anim.SetBool("IsRun", false);
@@ -252,7 +249,7 @@ public class Player : MonoBehaviour
             coyoteTimeCounter = 0f;
         }
 
-        if (!IsGrounded() && !IsWalled() && isLadder == false)
+        if (!IsGrounded() && !IsWalled())
         {
         anim.SetBool("IsJump", true);
             coyoteTimeCounter -= Time.deltaTime;
@@ -290,7 +287,6 @@ public class Player : MonoBehaviour
 
             if (Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
             {
-                UpAttack = true;
                 anim.SetTrigger("IsAttackUp");
                 AudioPlayer.PlayOneShot(AttackSound);
                 if (i % 2 == 0 && i == 0)
@@ -312,6 +308,7 @@ public class Player : MonoBehaviour
                 {
                     i = 0;
                 }
+
             }
             
             else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding && !IsGrounded())
@@ -337,6 +334,7 @@ public class Player : MonoBehaviour
                 {
                     i = 0;
                 }
+
             }
             
             else if (Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
@@ -411,24 +409,6 @@ public class Player : MonoBehaviour
         #endregion
 
 
-        /*#region Ladder
-
-        Laddervertical = Input.GetAxis("Vertical");
-
-        if (isLadder && Mathf.Abs(Laddervertical) > 0f)
-        {
-            isClimbing = true;
-        }
-
-        if (isLadder && isClimbing)
-        {
-            anim.SetBool("Ladder", true);
-            anim.SetBool("Idle", false);
-            anim.SetBool("Run", false);
-        }
-
-        #endregion*/
-
     }
 
     void FixedUpdate()
@@ -441,16 +421,6 @@ public class Player : MonoBehaviour
         else if (rigid.velocity.x < maxSpeed * (-1))
             rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y); // Left Max Speed
 
-        if (isClimbing)
-        {
-            rigid.gravityScale = 0f;
-            rigid.velocity = new Vector2(rigid.velocity.x, Laddervertical * Ladderspeed);
-
-        }
-        else
-        {
-            rigid.gravityScale = 3f;
-        }
     }
 
 
@@ -605,16 +575,6 @@ public class Player : MonoBehaviour
     }
 
 
-  /*  private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Ladder"))
-        {
-            anim.SetBool("Ladder", false);
-            isLadder = false;
-            isClimbing = false;
-        }
-    }
-  */
     public void Damaged(int dmg)
     {
         if(dmg > 0)
@@ -690,6 +650,21 @@ public class Player : MonoBehaviour
     {
         rigid.AddForce(Vector2.up * 1200f);
         Debug.Log("U");
+    }
+
+    public void sideForce()
+    {
+        if (IsLeft)
+        {
+            rigid.AddForce(Vector2.right * 1200f);
+            Debug.Log("R");
+        }
+        if(IsRight)
+        {
+            rigid.AddForce(Vector2.left * 1200f);
+            Debug.Log("R");
+        }
+
     }
 
 
