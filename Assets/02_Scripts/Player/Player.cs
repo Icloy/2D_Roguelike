@@ -98,6 +98,7 @@ public class Player : MonoBehaviour
     private float _fallSpeedYDampingChangeThreshold;
     private bool IsLeft;
     private bool IsRight;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
     //오디오
     private AudioSource AudioPlayer; //오디오 소스 컴포넌트
@@ -610,12 +611,12 @@ public class Player : MonoBehaviour
 
     public void ZoomIn()
     {
-        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, zoomSize, zoomSpeed);
+        virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(virtualCamera.m_Lens.OrthographicSize, zoomSize, zoomSpeed);
     }
 
     public void ZoomOut()
     {
-        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, 9, 1);
+        virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(virtualCamera.m_Lens.OrthographicSize, 9, 1);
     }
 
     public void SetAudioEffect(bool is1stView)
@@ -649,7 +650,6 @@ public class Player : MonoBehaviour
     public void upforce()
     {
         rigid.AddForce(Vector2.up * 1200f);
-        Debug.Log("U");
     }
 
     public void sideForce()
@@ -657,12 +657,10 @@ public class Player : MonoBehaviour
         if (IsLeft)
         {
             rigid.AddForce(Vector2.right * 1200f);
-            Debug.Log("R");
         }
         if(IsRight)
         {
             rigid.AddForce(Vector2.left * 1200f);
-            Debug.Log("R");
         }
 
     }
