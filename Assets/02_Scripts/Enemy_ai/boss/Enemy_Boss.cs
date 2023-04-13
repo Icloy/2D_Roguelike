@@ -49,7 +49,8 @@ public class Enemy_Boss : Enemy
         circle = GetComponentInChildren<CircleCollider2D>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         animator = GetComponentInChildren<Animator>();
-        StartCoroutine(AttackThink());
+        StartCoroutine(move());
+        ThinkCall();
     }
 
     void Update()
@@ -76,7 +77,6 @@ public class Enemy_Boss : Enemy
         {
             if (PlayerPos != null)
             {
-                dis = Vector2.Distance(PlayerPos.transform.position, rigid.transform.position);
                 rigid.velocity = Vector2.zero;
                 yield return StartCoroutine(AttackThink());
             }
@@ -130,8 +130,7 @@ public class Enemy_Boss : Enemy
     {
             animator.SetInteger(animationState, (int)States.idle);
             dis = Vector2.Distance(PlayerPos.transform.position, rigid.transform.position);
-            Vector2 player = PlayerPos.transform.position;
-            if (player.x < rigid.transform.position.x)
+            if (PlayerPos.transform.position.x < rigid.transform.position.x)
             {
                 direction = 1;
                 FlipBack();
