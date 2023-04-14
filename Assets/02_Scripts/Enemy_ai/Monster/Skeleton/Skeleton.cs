@@ -39,12 +39,11 @@ public class Skeleton : Enemy
     }
     void Awake()
     {
-        animator = GetComponentInChildren<Animator>();
-        box = GetComponentInChildren<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
+        box = GetComponentInChildren<BoxCollider2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        animator = GetComponentInChildren<Animator>();
         AudioPlayer = GetComponent<AudioSource>();
-
     }
 
     void Start()
