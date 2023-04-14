@@ -61,7 +61,10 @@ public class GameManager : MonoBehaviour
         //초기 카메라 값
         subCamera.enabled = false;
         mainCamera.enabled = true;
+        if(Singleton.Instance.slotNum < 0) //저장된 된 슬롯이 아니라면
+        {
 
+        }
         UpdateCoinCnt(0); // 게임 로드시 필요
     }
 

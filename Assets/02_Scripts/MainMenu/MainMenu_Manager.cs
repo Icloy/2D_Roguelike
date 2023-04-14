@@ -28,6 +28,7 @@ public class MainMenu_Manager : MonoBehaviour
     {
         Resolution();
         SelBtn.Select();
+        Singleton.Instance.slotNum = -1;
     }
 
     public void GameBtnClick() //Game버튼 클릭시 slot패널 오픈
@@ -38,10 +39,16 @@ public class MainMenu_Manager : MonoBehaviour
 
     public void SlotBtnClick(int a) //a가 슬롯 번호
     {
-        //LoadingScene.LoadScene("Game01_Scene");
         //씬불러오기
         Singleton.Instance.slotNum = a;
+        Text buttonText = transform.Find("slot" + a).GetComponent<Text>();
+        Debug.Log(buttonText);
 
+
+        //LoadingScene.LoadScene("Game01_Scene");
+
+
+        // 찾은 Text 컴포넌트에 접근하여 내용 변경하기
     }
 
     public void Gamestart()
