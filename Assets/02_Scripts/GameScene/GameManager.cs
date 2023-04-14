@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public Transform alivePos;  //살아날 위치
     public GameObject soul;     //플레이어가 죽었을때 드랍할 오브젝트
 
-    public int coin;    //인게임 재화
+    public int coin = 0;    //인게임 재화
 
     public bool isGameOver = false; //게임오버 여부
     public bool isPanelOpen = false; //패널 오픈 여부
@@ -68,10 +68,9 @@ public class GameManager : MonoBehaviour
         if (!Singleton.Instance.newGame) //저장된 데이터가 있다면
         {
             gd.GetDbData("slot"+Singleton.Instance.slotNum);
-            
         }
+        Hp.instance.udtHp(Player.instance.curHp, Player.instance.maxHp);
         UpdateCoinCnt(0); // 게임 로드시 필요
-
     }
 
     void Update()
