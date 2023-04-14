@@ -10,6 +10,7 @@ public class MainMenu_Manager : MonoBehaviour
     public GameObject optionPanel;
     public GameObject slotPanel;
     public Button SelBtn;
+    public TMP_Text[] Slot;
 
     List<Resolution> resolutions = new List<Resolution>(); //모니터가 지원하는 해상도를 저장할 배열
     FullScreenMode screenMode;
@@ -39,16 +40,16 @@ public class MainMenu_Manager : MonoBehaviour
 
     public void SlotBtnClick(int a) //a가 슬롯 번호
     {
-        //씬불러오기
         Singleton.Instance.slotNum = a;
-        Text buttonText = transform.Find("slot" + a).GetComponent<Text>();
-        Debug.Log(buttonText);
-
-
-        //LoadingScene.LoadScene("Game01_Scene");
-
-
-        // 찾은 Text 컴포넌트에 접근하여 내용 변경하기
+        if (Slot[a].text == "플레이 기록 없음!")
+        {
+            Singleton.Instance.newGame = true;
+        }
+        else
+        {
+            Singleton.Instance.newGame = false;
+        }
+        LoadingScene.LoadScene("Game01_Scene");
     }
 
     public void Gamestart()

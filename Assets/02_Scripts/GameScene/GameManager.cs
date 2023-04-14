@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     GameUI gameUI;
     Shop shop;
+    GetData gd;
 
     public static GameManager instance = null;
 
@@ -44,6 +45,8 @@ public class GameManager : MonoBehaviour
     {
         gameUI = GameObject.Find("Canvas").GetComponent<GameUI>();
         shop = GameObject.Find("Shop").GetComponent<Shop>();
+        gd = GetComponent<GetData>();
+
         if (instance == null)
         {
             instance = this;
@@ -61,11 +64,14 @@ public class GameManager : MonoBehaviour
         //초기 카메라 값
         subCamera.enabled = false;
         mainCamera.enabled = true;
-        if(Singleton.Instance.slotNum < 0) //저장된 된 슬롯이 아니라면
-        {
 
+        if (!Singleton.Instance.newGame) //저장된 데이터가 있다면
+        {
+            gd.GetDbData("slot"+Singleton.Instance.slotNum);
+            
         }
         UpdateCoinCnt(0); // 게임 로드시 필요
+
     }
 
     void Update()

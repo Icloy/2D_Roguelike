@@ -22,7 +22,6 @@ public class GetName : MonoBehaviour
 
                 if (date == null)
                 {
-
                     item.text = "플레이 기록 없음!";
                 }
                 else

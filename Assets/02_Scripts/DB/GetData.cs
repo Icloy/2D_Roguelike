@@ -44,10 +44,10 @@ public class GetData : MonoBehaviour
                 maxhp = jsonObject["maxhp"].AsInt;
                 dmg = jsonObject["dmg"].AsInt;
 
-                Debug.Log("Coin: " + coin);
-                Debug.Log("CurHP: " + curhp);
-                Debug.Log("MaxHP: " + maxhp);
-                Debug.Log("Dmg: " + dmg);
+                GameManager.instance.coin = coin;
+                Player.instance.curHp = curhp;
+                Player.instance.maxHp = maxhp;
+                Player.instance.AtDmg = dmg;
             }
             else
             {
