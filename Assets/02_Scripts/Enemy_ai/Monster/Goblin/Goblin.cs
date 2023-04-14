@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Goblin : Enemy
 {
@@ -16,6 +17,9 @@ public class Goblin : Enemy
     private bool turnflag;
     private int nextMove;
     bool bloodflag;
+
+    public Image HpFill;
+    public int MaxHp;
 
     public float tracespeed;
     public float turnrange;
@@ -44,6 +48,7 @@ public class Goblin : Enemy
     {
         animator.SetInteger(animationState, (int)States.idle);
         trace = turnflag = false;
+        HpFill.fillAmount = Hp;
         StartCoroutine(move());
         ThinkCall();
     }
