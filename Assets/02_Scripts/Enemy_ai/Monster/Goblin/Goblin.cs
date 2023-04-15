@@ -18,6 +18,7 @@ public class Goblin : Enemy
     private int nextMove;
     bool bloodflag;
 
+    public Canvas HpBar;
     public Image HpFill;
     public int MaxHp;
 
@@ -38,6 +39,7 @@ public class Goblin : Enemy
     }
     void Awake()
     {
+        HpBar = GetComponentInChildren<Canvas>();
         animator = GetComponentInChildren<Animator>();
         box = GetComponentInChildren<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
@@ -265,12 +267,14 @@ public class Goblin : Enemy
     void FlipX()
     {
         transform.localScale = new Vector3(-3f, transform.localScale.y, transform.localScale.z);
+        HpBar.GetComponent<RectTransform>().localScale = new Vector3(-0.4f, 0.3f, 0);
         bloodflag = false;
     }
 
     void FlipBack()
     {
         transform.localScale = new Vector3(3f, transform.localScale.y, transform.localScale.z);
+        HpBar.GetComponent<RectTransform>().localScale = new Vector3(0.4f, 0.3f, 0);
         bloodflag = true;
     }
 
