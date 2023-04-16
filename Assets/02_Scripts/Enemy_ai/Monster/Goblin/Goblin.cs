@@ -20,7 +20,7 @@ public class Goblin : Enemy
 
     public Canvas HpBar;
     public Image HpFill;
-    public int MaxHp;
+    public float MaxHp;
 
     public float tracespeed;
     public float turnrange;
@@ -50,7 +50,7 @@ public class Goblin : Enemy
     {
         animator.SetInteger(animationState, (int)States.idle);
         trace = turnflag = false;
-        HpFill.fillAmount = Hp;
+        MaxHp = Hp;
         StartCoroutine(move());
         ThinkCall();
     }
@@ -59,6 +59,10 @@ public class Goblin : Enemy
     {
         Vector2 frontVec = new Vector2(rigid.position.x + nextMove * turnrange, rigid.position.y);
         Debug.DrawRay(frontVec, Vector3.down, new Color(0, 255, 0)); // 디버그용 두문장 나중에 지워도 상관없음
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            TakeDamage(1);
+        }
     }
 
     public IEnumerator Think()
@@ -251,6 +255,7 @@ public class Goblin : Enemy
     public override void TakeDamage(int AtDmg)
     {
         Hp = Hp - AtDmg;
+        HpFill.fillAmount = Hp/MaxHp;
         Debug.Log(Hp);
         if (Hp <= 0)
         {
