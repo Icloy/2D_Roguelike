@@ -147,9 +147,11 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        Hp.instance.udtHp(curHp, maxHp);
+        if (Singleton.Instance.newGame)
+        {
+            Hp.instance.udtHp(curHp, maxHp);
+        }
         _fallSpeedYDampingChangeThreshold = CameraManager.instance._fallSpeedYDampingChangeThreshold;
-
     }
 
     void Update()

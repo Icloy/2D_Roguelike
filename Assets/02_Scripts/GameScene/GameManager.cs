@@ -69,7 +69,6 @@ public class GameManager : MonoBehaviour
         {
             gd.GetDbData("slot"+Singleton.Instance.slotNum);
         }
-        Hp.instance.udtHp(Player.instance.curHp, Player.instance.maxHp);
         UpdateCoinCnt(0); // 게임 로드시 필요
     }
 

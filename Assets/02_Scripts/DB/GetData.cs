@@ -48,6 +48,9 @@ public class GetData : MonoBehaviour
                 Player.instance.curHp = curhp;
                 Player.instance.maxHp = maxhp;
                 Player.instance.AtDmg = dmg;
+
+                Hp.instance.udtHp(Player.instance.curHp, Player.instance.maxHp);
+                GameManager.instance.UpdateCoinCnt(0);
             }
             else
             {
