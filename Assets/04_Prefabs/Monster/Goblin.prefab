@@ -5595,6 +5595,7 @@ MonoBehaviour:
   Corpse: {fileID: 8011558884831095450, guid: 978c47063e95e7c43ac65924baaa0041, type: 3}
   lblood: {fileID: 231951355638516183}
   rblood: {fileID: 2994841554594713907}
+  HpBar: {fileID: 7247735157850363815}
   HpFill: {fileID: 5981371615795503796}
   MaxHp: 0
   tracespeed: 8

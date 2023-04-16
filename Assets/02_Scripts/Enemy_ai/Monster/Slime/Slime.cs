@@ -18,11 +18,10 @@ public class Slime : Enemy
     private bool attackflag;
     private bool turnflag;
     bool bloodflag;
+    float MaxHp;
 
     public float jumpPower;
     public float turnrange;
-
-    public GameObject alert;
 
     enum States
     {
@@ -37,9 +36,11 @@ public class Slime : Enemy
         box = GetComponentInChildren<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        HpBar = GetComponentInChildren<Canvas>();
     }
     void Start()
     {
+        MaxHp = Hp;
         coroutine = StartCoroutine(move());
         ThinkCall();
         attackflag = turnflag = false;
@@ -71,11 +72,13 @@ public class Slime : Enemy
         {
             if (rigid.velocity.x > 0)
             {
+                HpBar.GetComponent<RectTransform>().localScale = new Vector3(-0.3f, 0.35f, 0);
                 GetComponentInChildren<SpriteRenderer>().flipX = false;
                 bloodflag = true;
             }
             else
             {
+                HpBar.GetComponent<RectTransform>().localScale = new Vector3(0.3f, 0.35f, 0);
                 GetComponentInChildren<SpriteRenderer>().flipX = true;
                 bloodflag = false;
             }
@@ -197,6 +200,7 @@ public class Slime : Enemy
     public override void TakeDamage(int AtDmg)
     {
         Hp = Hp - AtDmg;
+        HpFill.fillAmount = Hp / MaxHp;
         Debug.Log(Hp);
         if (Hp <= 0)
         {

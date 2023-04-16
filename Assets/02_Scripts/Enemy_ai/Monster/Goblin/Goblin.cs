@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Goblin : Enemy
 {
@@ -13,21 +12,17 @@ public class Goblin : Enemy
     Coroutine thinkcoroutine;
 
     string animationState = "animationState";
-    private bool trace;
-    private bool turnflag;
-    private int nextMove;
+    bool trace;
+    bool turnflag;
+    int nextMove;
     bool bloodflag;
-
-    public Canvas HpBar;
-    public Image HpFill;
-    public float MaxHp;
+    float MaxHp;
 
     public float tracespeed;
     public float turnrange;
 
     public GameObject Attack1_check;
     public GameObject Attack2_check;
-    public GameObject alert;
     enum States
     {
         idle = 0,

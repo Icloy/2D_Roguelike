@@ -13,9 +13,9 @@ public class Flyingeye : Enemy
     Animator animator;
     SpriteRenderer sprite;
     bool bloodflag;
+    float MaxHp;
 
     public GameObject explosion;
-    public GameObject alert;
     string animationState = "animationState";
 
     enum States
@@ -32,12 +32,14 @@ public class Flyingeye : Enemy
         circle = GetComponentInChildren<CircleCollider2D>();
         animator = GetComponentInChildren<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
+        HpBar = GetComponentInChildren<Canvas>();
     }
 
     void Start()
     {
         animator.SetInteger(animationState, (int)States.flight);
         flag = bloodflag =true;
+        MaxHp = Hp;
     }
 
     void Update()
@@ -79,22 +81,6 @@ public class Flyingeye : Enemy
         explosion.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.05f);
         Destroy(this.gameObject);
-    }
-
-    public override void TakeDamage(int AtDmg)
-    {
-        Hp = Hp - AtDmg;
-        Debug.Log(Hp);
-        if (Hp <= 0)
-        {
-            StopAllCoroutines();
-            StartCoroutine(Die());
-        }
-        else
-        {
-            StopAllCoroutines();
-            StartCoroutine(KnockBack());
-        }
     }
 
     public IEnumerator KnockBack()
@@ -168,15 +154,34 @@ public class Flyingeye : Enemy
         Destroy(this.gameObject);
     }
 
+    public override void TakeDamage(int AtDmg)
+    {
+        Hp = Hp - AtDmg;
+        HpFill.fillAmount = Hp / MaxHp;
+        Debug.Log(Hp);
+        if (Hp <= 0)
+        {
+            StopAllCoroutines();
+            StartCoroutine(Die());
+        }
+        else
+        {
+            StopAllCoroutines();
+            StartCoroutine(KnockBack());
+        }
+    }
+
     void FlipX()
     {
         transform.localScale = new Vector3(-2.5f, transform.localScale.y, transform.localScale.z);
+        HpBar.GetComponent<RectTransform>().localScale = new Vector3(-0.4f, 0.4f, 0);
         bloodflag = false;
     }
 
     void FlipBack()
     {
         transform.localScale = new Vector3(2.5f, transform.localScale.y, transform.localScale.z);
+        HpBar.GetComponent<RectTransform>().localScale = new Vector3(0.4f, 0.4f, 0);
         bloodflag = true;
     }
 

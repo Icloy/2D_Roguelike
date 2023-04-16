@@ -7,6 +7,7 @@ public class bat : Enemy
     public float position_change_second;
     public float delete_time;
 
+    float MaxHp;
     bool bloodflag;
     private bool traceflag;
     private bool Collision_Damage_Delay;
@@ -18,7 +19,6 @@ public class bat : Enemy
     Coroutine coroutine;
 
     string animationState = "animationState";
-    public GameObject alert;
     enum States
     {
         idle = 0,
@@ -32,10 +32,12 @@ public class bat : Enemy
         circle = GetComponentInChildren<CircleCollider2D>();
         animator = GetComponentInChildren<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
+        HpBar = GetComponentInChildren<Canvas>();
     }
 
     void start()
     {
+        MaxHp = Hp;
         traceflag = Collision_Damage_Delay = false;
         animator.SetInteger(animationState, (int)States.idle);
     }
@@ -60,11 +62,13 @@ public class bat : Enemy
             {
                 if (PlayerPos.position.x < rigid.transform.position.x)
                 {
+                    HpBar.GetComponent<RectTransform>().localScale = new Vector3(5f, 5f, 0);
                     sprite.flipX = false;
                     bloodflag = false;
                 }
                 else
                 {
+                    HpBar.GetComponent<RectTransform>().localScale = new Vector3(-5f, 5f, 0);
                     sprite.flipX = true;
                     bloodflag = true;
                 }
@@ -138,6 +142,7 @@ public class bat : Enemy
     public override void TakeDamage(int AtDmg)
     {
         Hp = Hp - AtDmg;
+        HpFill.fillAmount = Hp / MaxHp;
         Debug.Log(Hp);
         StopAllCoroutines();
         StartCoroutine(KnockBack());

@@ -17,6 +17,7 @@ public class Enemy_Boss : Enemy
     public float tracespeed;
     public float turnrange;
 
+    float MaxHp;
     private bool trace;
     private bool turnflag;
     bool bloodflag;
@@ -29,7 +30,6 @@ public class Enemy_Boss : Enemy
 
     public GameObject Attack1_check;
     public GameObject Attack2_check;
-    public GameObject alert;
     enum States
     {
         idle = 1,
@@ -43,12 +43,18 @@ public class Enemy_Boss : Enemy
         throwback = 9
     }
 
-    void Start()
+    void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         circle = GetComponentInChildren<CircleCollider2D>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         animator = GetComponentInChildren<Animator>();
+        HpBar = GetComponentInChildren<Canvas>();
+    }
+
+    void Start()
+    {
+        MaxHp = Hp;
         StartCoroutine(move());
         ThinkCall();
     }
@@ -82,12 +88,12 @@ public class Enemy_Boss : Enemy
             }
             if (nextMove == 1)//애니메이션 및 스프라이트 방향 변경 자식 개체까지 바꿔야하므로 가장 상위 transform 변경
             {
-                FlipBack();
+                FlipX();
                 animator.SetInteger(animationState, (int)States.walk);
             }
             else if (nextMove == -1)
             {
-                FlipX();
+                FlipBack();
                 animator.SetInteger(animationState, (int)States.walk);
             }
             else if (nextMove == 0)
@@ -352,6 +358,7 @@ public class Enemy_Boss : Enemy
     public override void TakeDamage(int AtDmg)
     {
         Hp = Hp - AtDmg;
+        HpFill.fillAmount = Hp / MaxHp;
         Debug.Log(Hp);
         if (Hp <= 0)
         {
@@ -400,11 +407,13 @@ public class Enemy_Boss : Enemy
     void FlipX()
     {
         transform.localScale = new Vector3(-4, 5, 1);
+        HpBar.GetComponent<RectTransform>().localScale = new Vector3(-0.4f, 0.4f, 0);
     }
 
     void FlipBack()
     {
         transform.localScale = new Vector3(4, 5, 1);
+        HpBar.GetComponent<RectTransform>().localScale = new Vector3(0.4f, 0.4f, 0);
     }
 
     void OnTriggerEnter2D(Collider2D collision) //Enter에서 Stay로 변경 공격을 당하면 자식트리거쪽 exit도 반응해서 추적 풀려버림

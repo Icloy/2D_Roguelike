@@ -16,13 +16,13 @@ public class Mushroom : Enemy
     private bool turnflag;
     private int nextMove;
     bool bloodflag;
+    float MaxHp;
 
     public float tracespeed;
     public float turnrange;
 
     public GameObject Attack1_check;
     public GameObject Attack2_check;
-    public GameObject alert;
 
     public AudioClip EnemyAttackSound;
 
@@ -44,13 +44,14 @@ public class Mushroom : Enemy
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         AudioPlayer = GetComponent<AudioSource>();
-
+        HpBar = GetComponentInChildren<Canvas>();
     }
 
     void Start()
     {
         animator.SetInteger(animationState, (int)States.idle);
         trace = turnflag = false;
+        MaxHp = Hp;
         StartCoroutine(move());
         ThinkCall();
     }
@@ -200,6 +201,7 @@ public class Mushroom : Enemy
     public override void TakeDamage(int AtDmg)
     {
         Hp = Hp - AtDmg;
+        HpFill.fillAmount = Hp / MaxHp;
         Debug.Log(Hp);
         if (Hp <= 0)
         {
@@ -250,12 +252,14 @@ public class Mushroom : Enemy
     void FlipX() // transform 변경 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z); 이 아닌 고정값으로 하는 이유는 트리거 안에 들어갔다 나오는식으로 플레이어가 행동하게되면 *-1이라서 반전 버그남
     {
         transform.localScale = new Vector3(-5, transform.localScale.y, transform.localScale.z);
+        HpBar.GetComponent<RectTransform>().localScale = new Vector3(-0.2f, 0.2f, 0);
         bloodflag = false;
     }
 
     void FlipBack()
     {
         transform.localScale = new Vector3(5f, transform.localScale.y, transform.localScale.z);
+        HpBar.GetComponent<RectTransform>().localScale = new Vector3(0.2f, 0.2f, 0);
         bloodflag = true;
     }
 

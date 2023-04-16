@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using System;
 
 public class Enemy : MonoBehaviour
@@ -18,6 +19,10 @@ public class Enemy : MonoBehaviour
     public GameObject Corpse;
     public ParticleSystem lblood;
     public ParticleSystem rblood;
+    
+    public Image HpFill;
+    public Canvas HpBar;
+    public GameObject alert;
 
     public virtual void TakeDamage(int damege)
     {
