@@ -68,7 +68,7 @@ public enum PanDirection
     Right
 }
 
-
+/*
 [CustomEditor(typeof(CameraDown))]
 public class MyScriptEditor : Editor
 {
@@ -103,5 +103,5 @@ public class MyScriptEditor : Editor
             EditorUtility.SetDirty(cameraDown);
         }
     }
-}
+}*/
 
