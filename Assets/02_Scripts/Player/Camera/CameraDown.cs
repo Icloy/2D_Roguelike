@@ -52,8 +52,8 @@ public class CustomInspectorObjects
     public bool swapCameras = false;
     public bool panCameraOnContact = false;
 
-    [HideInInspector] public CinemachineVirtualCamera cameraOnLeft;
-    [HideInInspector] public CinemachineVirtualCamera cameraOnRight;
+     public CinemachineVirtualCamera cameraOnLeft;
+     public CinemachineVirtualCamera cameraOnRight;
 
     [HideInInspector] public float panDistance = 3f;
     [HideInInspector] public float panTime = 0.35f;
