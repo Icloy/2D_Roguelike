@@ -9,6 +9,8 @@ public class MainMenu_Manager : MonoBehaviour
 {
     public GameObject optionPanel;
     public GameObject slotPanel;
+    public GameObject quitPanel;
+
     public Button SelBtn;
     public TMP_Text[] Slot;
 
@@ -20,6 +22,12 @@ public class MainMenu_Manager : MonoBehaviour
 
     public GetName getname;
 
+    private bool slotopen;
+    private bool quitopen;
+    private bool optionopen;
+    private bool baseopen;
+
+
     private void Awake()
     {
         getname = GetComponent<GetName>();
@@ -30,6 +38,14 @@ public class MainMenu_Manager : MonoBehaviour
         Resolution();
         SelBtn.Select();
         Singleton.Instance.slotNum = -1;
+    }
+    
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+
+        }
     }
 
     public void GameBtnClick() //Game버튼 클릭시 slot패널 오픈
@@ -107,7 +123,7 @@ public class MainMenu_Manager : MonoBehaviour
     {
         resolutionNum = x;
     }
-    #endregion
+    
 
 
     public void OptionBtnClick() //Option버튼 클릭시와 Back버튼 클릭시 
@@ -128,11 +144,22 @@ public class MainMenu_Manager : MonoBehaviour
         Screen.SetResolution(resolutions[resolutionNum].width, resolutions[resolutionNum].height, screenMode); //변경된 옵션을 설정한다.
         optionPanel.SetActive(false);
     }
+    #endregion
 
-    
 
-    public void exitBtnClick() // exit버튼 클릭시 게임 종료 처리
+
+    public void exitBtnClick() // base패널의 exit버튼 클릭시  quit패널 열기
+    {
+        quitPanel.SetActive(true);
+    }
+
+    public void quitapply() //겜종료
     {
         Application.Quit();
+    }
+
+    public void quitback()
+    {
+        quitPanel.SetActive(false);
     }
 }
