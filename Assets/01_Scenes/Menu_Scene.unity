@@ -3518,6 +3518,7 @@ MonoBehaviour:
   optionPanel: {fileID: 719060322}
   slotPanel: {fileID: 816474233}
   quitPanel: {fileID: 266259243}
+  basePanel: {fileID: 164510474}
   SelBtn: {fileID: 1704638982}
   Slot:
   - {fileID: 1310648448}
@@ -5183,7 +5184,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1309551340}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 877475450}
+        m_TargetAssemblyTypeName: MainMenu_Manager, Assembly-CSharp
+        m_MethodName: exitBtnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1309551340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8228,7 +8241,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2032253199}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 877475450}
+        m_TargetAssemblyTypeName: MainMenu_Manager, Assembly-CSharp
+        m_MethodName: quitapply
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2032253199
 MonoBehaviour:
   m_ObjectHideFlags: 0

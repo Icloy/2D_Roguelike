@@ -10,6 +10,7 @@ public class MainMenu_Manager : MonoBehaviour
     public GameObject optionPanel;
     public GameObject slotPanel;
     public GameObject quitPanel;
+    public GameObject basePanel;
 
     public Button SelBtn;
     public TMP_Text[] Slot;
@@ -50,6 +51,7 @@ public class MainMenu_Manager : MonoBehaviour
 
     public void GameBtnClick() //Game버튼 클릭시 slot패널 오픈
     {
+        basePanel.SetActive(false);
         slotPanel.SetActive(true);
         getname.Refresh();  //패널 새로고침 DB불러옴
     }
@@ -77,6 +79,7 @@ public class MainMenu_Manager : MonoBehaviour
     public void SlotExit()
     {
         slotPanel.SetActive(false);
+        basePanel.SetActive(true);
     }
 
 
@@ -131,9 +134,11 @@ public class MainMenu_Manager : MonoBehaviour
         if (optionPanel.activeSelf == true) //옵션패널이 켜져있다면 끄고 꺼져있다면 킨다.
         {
             optionPanel.SetActive(false); //옵션창 종료
+            basePanel.SetActive(true);
         }
         else
         {
+            basePanel.SetActive(false);
             Resolution(); //해상도 새로고침
             optionPanel.SetActive(true);
         }
@@ -150,16 +155,21 @@ public class MainMenu_Manager : MonoBehaviour
 
     public void exitBtnClick() // base패널의 exit버튼 클릭시  quit패널 열기
     {
-        quitPanel.SetActive(true);
+        if (quitPanel.activeSelf == true)
+        {
+            quitPanel.SetActive(false);
+            basePanel.SetActive(true);
+        }
+        else
+        {
+            basePanel.SetActive(false);
+            quitPanel.SetActive(true);
+        }
+
     }
 
     public void quitapply() //겜종료
     {
         Application.Quit();
-    }
-
-    public void quitback()
-    {
-        quitPanel.SetActive(false);
     }
 }
