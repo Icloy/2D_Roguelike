@@ -23,12 +23,12 @@ public class CinCamZoom : MonoBehaviour
             zoom -= zoomSpeed * Time.deltaTime;
         }
 
-        float newOrthoSize = virtualCamera.m_Lens.OrthographicSize - zoom;
+        float newOrthoSize = virtualCamera.m_Lens.FieldOfView - zoom;
 
         // 최소값과 최대값을 벗어나지 않도록 조정합니다.
         newOrthoSize = Mathf.Clamp(newOrthoSize, minZoom, maxZoom);
 
-        virtualCamera.m_Lens.OrthographicSize = newOrthoSize;
+        virtualCamera.m_Lens.FieldOfView = newOrthoSize;
     }
     
 }

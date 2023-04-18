@@ -36,7 +36,8 @@ public class Player : MonoBehaviour
     private float dashingPower = 100f;
     private float dashingTime = 0.1f;
     private float dashingCooldown = 1f;
-
+    private bool canHeal = true;
+   
 
     SpriteRenderer spriteRenderer;
     Animator anim;
@@ -65,7 +66,7 @@ public class Player : MonoBehaviour
 
     [HideInInspector]
     [Range(0.01f, 0.1f)]
-    public float zoomSpeed;
+    private float zoomSpeed = 0.1f;
 
     //힐 쿨타임
     float hcurT;
@@ -275,7 +276,7 @@ public class Player : MonoBehaviour
         }
 
         //Dash
-        if (Input.GetKeyDown(KeyCode.W) && canDash &&(!isWallSliding))
+        if (Input.GetKeyDown(KeyCode.W) && canDash &&(!isWallSliding) && canHeal)
         {
             StartCoroutine(Dash());
         }
@@ -384,9 +385,10 @@ public class Player : MonoBehaviour
 
 
         //Down부분에 이럴 경우 코루틴이 시작되면 안된다 하는 경우의 수 추가 
-        if (Input.GetKeyDown(KeyCode.A) && curHp < maxHp && IsGrounded() && Stat.GetComponent<Stat>().MP >= 100)
+        if (Input.GetKeyDown(KeyCode.A) && curHp < maxHp && IsGrounded() && Stat.GetComponent<Stat>().MP >= 100 && canHeal)
         {
             StartCoroutine("Heal");
+
         }
         else if (Input.GetKeyDown(KeyCode.A) && maxHp == curHp)
         {
@@ -399,12 +401,12 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
+            canHeal = true;
             StopCoroutine("Heal");
             hcurT = 0f;
             rigid.constraints = RigidbodyConstraints2D.None;
             rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
             ZoomOut();
-            canDash = true;
             anim.SetBool("Sit", false);
             HealEffect.gameObject.SetActive(false);
 
@@ -529,8 +531,8 @@ public class Player : MonoBehaviour
             {
                 //누루는 동안 제한해야하는것들
                 hcurT += Time.deltaTime;
-                canDash = false;
                 rigid.constraints = RigidbodyConstraints2D.FreezeAll;
+                canHeal = false;
                 ZoomIn();
                 HealEffect.gameObject.SetActive(true);
                 anim.SetBool("Sit", true);
@@ -545,7 +547,7 @@ public class Player : MonoBehaviour
                     CSake.instance.Vibrate(1f);
                     anim.SetBool("Sit", false);
                     Stat.GetComponent<Stat>().MP -= 100;
-                    canDash = true;
+                    canHeal = true;
                     rigid.constraints = RigidbodyConstraints2D.None;
                     rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
                     Damaged(1);
@@ -613,12 +615,12 @@ public class Player : MonoBehaviour
 
     public void ZoomIn()
     {
-        virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(virtualCamera.m_Lens.OrthographicSize, zoomSize, zoomSpeed);
+        virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, zoomSize, zoomSpeed * Time.deltaTime);
     }
 
     public void ZoomOut()
     {
-        virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(virtualCamera.m_Lens.OrthographicSize, 9, 1);
+        virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, 60, 45);
     }
 
     public void SetAudioEffect(bool is1stView)
