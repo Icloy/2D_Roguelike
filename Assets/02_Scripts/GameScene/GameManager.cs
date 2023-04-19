@@ -94,11 +94,12 @@ public class GameManager : MonoBehaviour
             }
             gameUI.PasueGame();
         }
-
-        if (Input.GetKeyDown(KeyCode.M) && !isGameOver &&!isShopOpen)
+        
+        //일단 지도 끔
+       /* if (Input.GetKeyDown(KeyCode.M) && !isGameOver &&!isShopOpen)
         {
             gameUI.Map();
-        }
+        }*/
     }
 
     public void UpdateCoinCnt(int inc) //코인 수 업데이트

@@ -28,6 +28,13 @@ public class MainMenu_Manager : MonoBehaviour
     private bool optionopen;
     private bool baseopen;
 
+    enum panelcontrol
+    {
+        slot,
+        quit,
+        option,
+        first
+    }
 
     private void Awake()
     {
