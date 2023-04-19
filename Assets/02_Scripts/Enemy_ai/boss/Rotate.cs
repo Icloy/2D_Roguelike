@@ -30,7 +30,7 @@ public class Rotate : MonoBehaviour
             angle += rotatespeed * Time.deltaTime;
 
             // 새로운 위치 계산
-            Vector3 newPosition = new Vector3(Mathf.Sin(angle)-0.4f, Mathf.Cos(angle), 0.0f) * radius;
+            Vector3 newPosition = new Vector3(Mathf.Sin(angle), Mathf.Cos(angle)-0.2f, 0.0f) * radius;
 
             // 중심점과 함께 위치 조정
             transform.position = center.position + newPosition;

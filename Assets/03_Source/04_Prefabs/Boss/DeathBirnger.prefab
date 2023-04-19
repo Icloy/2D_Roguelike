@@ -5140,7 +5140,7 @@ GameObject:
   - component: {fileID: 5364965793328936347}
   - component: {fileID: 5364965793328936351}
   m_Layer: 0
-  m_Name: Boss
+  m_Name: DeathBirnger
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
