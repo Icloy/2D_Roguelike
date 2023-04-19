@@ -7,6 +7,7 @@ public class Finger : MonoBehaviour
     public float speed;
     public float position_change_second;
     public float delete_time;
+    public int damage;
 
     float distance;
 
@@ -47,7 +48,7 @@ public class Finger : MonoBehaviour
                 rigidBodyToMove.MovePosition(newposition);
                 remaindistance = (transform.position - position).sqrMagnitude;
             }
-            if(Vector2.Distance(rigidBodyToMove.position, targetTransform.position) < 0.01f)
+            if(Vector2.Distance(rigidBodyToMove.position, targetTransform.position) < 0.05f)
             {
                 Destroy(this.gameObject);
             }
@@ -55,7 +56,20 @@ public class Finger : MonoBehaviour
         }
     }
 
-    void OnTriggerStay2D(Collider2D collision)
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            Player.instance.Damaged(-damage);
+            Destroy(this.gameObject);
+        }
+        else if (col.gameObject.CompareTag("Platform"))
+        {
+            Physics2D.IgnoreCollision(col.collider, GetComponent<Collider2D>());
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("RightTarget"))
         {

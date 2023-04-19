@@ -35,8 +35,8 @@ public class Enemy_Hand_Control : MonoBehaviour
 
     public IEnumerator CatchPlayer()
     {
-        controlPoint.transform.position = new Vector3(PlayerPos.position.x, PlayerPos.position.y, PlayerPos.position.z);
-        endPoint.transform.position = new Vector3(PlayerPos.position.x+3f, PlayerPos.position.y, PlayerPos.position.z);
+        controlPoint.transform.position = new Vector3(PlayerPos.position.x - 3f, PlayerPos.position.y+1f, PlayerPos.position.z);
+        endPoint.transform.position = new Vector3(PlayerPos.position.x, PlayerPos.position.y, PlayerPos.position.z);
         while (elapsedTime < duration)
         {
             float t = elapsedTime / duration;
@@ -49,7 +49,7 @@ public class Enemy_Hand_Control : MonoBehaviour
 
     public IEnumerator ResetMove()
     {
-        controlPoint.position = new Vector3(startPoint.position.x - 2f, startPoint.position.y + 1f, startPoint.position.z);
+        controlPoint.position = new Vector3(startPoint.position.x + 2f, startPoint.position.y + 1f, startPoint.position.z);
         while (elapsedTime < duration)
         {
             float t = elapsedTime / duration;
