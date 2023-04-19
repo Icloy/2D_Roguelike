@@ -410,6 +410,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: HUD main - atlas0 #00000400_14
+      rect:
+        serializedVersion: 2
+        x: 790
+        y: 1004
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bc017548ff2e5f45a4500de4eced1c7
+      internalID: 1940269038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -425,6 +446,7 @@ TextureImporter:
       HUD main - atlas0 #00000400_4: 1445752076
       HUD main - atlas0 #00000400_0: 1535671579
       HUD main - atlas0 #00000400_11: -309220083
+      HUD main - atlas0 #00000400_14: 1940269038
       HUD main - atlas0 #00000400_12: 589376626
       HUD main - atlas0 #00000400_2: 1784323782
       HUD main - atlas0 #00000400_3: 492025289
