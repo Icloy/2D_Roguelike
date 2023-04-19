@@ -33,7 +33,13 @@ public class Coin : MonoBehaviour
             rigid.gravityScale = 0;
             StartCoroutine(CoinMove());
         }
+        /*
         else if(!(col.gameObject.GetComponent<TilemapCollider2D>() != null))
+        {
+            Physics2D.IgnoreCollision(col.collider, GetComponent<Collider2D>());
+        }
+        */
+        else if (col.gameObject.CompareTag("Item"))
         {
             Physics2D.IgnoreCollision(col.collider, GetComponent<Collider2D>());
         }

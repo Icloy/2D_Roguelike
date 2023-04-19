@@ -6995,6 +6995,7 @@ GameObject:
   - component: {fileID: 52972646}
   - component: {fileID: 52972648}
   - component: {fileID: 52972647}
+  - component: {fileID: 52972649}
   m_Layer: 0
   m_Name: UpAttack
   m_TagString: Untagged
@@ -7107,6 +7108,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.042715, y: 1.5940592}
   m_EdgeRadius: 0
+--- !u!114 &52972649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52972644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 954a287fea7a85b4888f2283b3119ea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AtDmg: 0
+  Stat: {fileID: 0}
+  repeat: 0
 --- !u!1 &53620081
 GameObject:
   m_ObjectHideFlags: 0
@@ -37651,6 +37667,7 @@ GameObject:
   - component: {fileID: 463948553}
   - component: {fileID: 463948555}
   - component: {fileID: 463948554}
+  - component: {fileID: 463948556}
   m_Layer: 0
   m_Name: DownAttack
   m_TagString: Untagged
@@ -37763,6 +37780,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.6848254, y: 1.5264947}
   m_EdgeRadius: 0
+--- !u!114 &463948556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463948551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 954a287fea7a85b4888f2283b3119ea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AtDmg: 0
+  Stat: {fileID: 0}
+  repeat: 0
 --- !u!1 &469108228
 GameObject:
   m_ObjectHideFlags: 0
@@ -51905,7 +51937,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616984560}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.5725164, y: 0.098739624, z: -10}
+  m_LocalPosition: {x: 3.5319412, y: 0.09874964, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -122438,6 +122470,7 @@ GameObject:
   - component: {fileID: 1693897009}
   - component: {fileID: 1693897011}
   - component: {fileID: 1693897012}
+  - component: {fileID: 1693897013}
   m_Layer: 0
   m_Name: MidAttack
   m_TagString: Untagged
@@ -122550,6 +122583,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c8bbbf2160112441b7ea702479f213f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1693897013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693897007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 954a287fea7a85b4888f2283b3119ea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AtDmg: 0
+  Stat: {fileID: 0}
+  repeat: 0
 --- !u!1 &1696434529
 GameObject:
   m_ObjectHideFlags: 0

@@ -83,7 +83,7 @@ public class Skeleton : Enemy
             if (PlayerPos != null)
             {
                 dis = Vector2.Distance(PlayerPos.transform.position, rigid.transform.position);
-                if (dis < 2.4f)
+                if (dis < 2.1f)
                 {
                     rigid.velocity = Vector2.zero;
                     yield return StartCoroutine(Attack());
@@ -299,7 +299,7 @@ public class Skeleton : Enemy
         for(int i = 0;i < dropcoincnt; i++)
         {
             float x = Random.Range(-1f, 1f); // x축 위치 랜덤 설정
-            float y = Random.Range(-1f, 1f); // y축 위치 랜덤 설정
+            float y = Random.Range(0.5f, 2f); // y축 위치 랜덤 설정
             Vector2 position = new Vector2(transform.position.x + x, transform.position.y + y);
             Instantiate(Item, position, Quaternion.identity);
         }

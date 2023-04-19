@@ -13,6 +13,7 @@ TagManager:
   - DamagedTile
   - LeftTarget
   - RightTarget
+  - Item
   layers:
   - Default
   - TransparentFX

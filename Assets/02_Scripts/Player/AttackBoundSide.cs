@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class AttackBoundSide : MonoBehaviour
 {
-    // Start is called before the first frame update
+    Rigidbody2D rigid;
+
+    void Start()
+    {
+        rigid = GetComponentInParent<Rigidbody2D>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Platform"))
+        if (collision.CompareTag("Platform") || collision.gameObject.CompareTag("Enemy"))
         {
+            rigid.velocity = Vector2.zero;
             Player.Instance.sideForce();
         }
     }
