@@ -22,7 +22,7 @@ public class AttackBoundSide : MonoBehaviour
             {
                 platformrepeat = true;
                 rigid.velocity = Vector2.zero;
-                Player.Instance.upforce();
+                Player.Instance.sideForce();
             }
         }
         else if (collision.CompareTag("Enemy"))
@@ -31,7 +31,7 @@ public class AttackBoundSide : MonoBehaviour
             {
                 enemyrepeat = true;
                 rigid.velocity = Vector2.zero;
-                Player.Instance.upforce();
+                Player.Instance.sideForce();
             }
         }
     }
