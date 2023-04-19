@@ -5003,6 +5003,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5364965792240050010}
   - component: {fileID: 5364965792240050009}
+  - component: {fileID: 3981000529915736809}
   m_Layer: 0
   m_Name: attackbox1
   m_TagString: Untagged
@@ -5035,7 +5036,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -5069,6 +5070,19 @@ PolygonCollider2D:
       - {x: -0.4643023, y: 0.036154747}
       - {x: -0.22171372, y: 0.173358}
       - {x: -0.20145059, y: 0.303529}
+--- !u!114 &3981000529915736809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5364965792240050011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e61ae1114b235b6459bc192fa9c5e348, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  repeat: 0
 --- !u!1 &5364965792502543696
 GameObject:
   m_ObjectHideFlags: 0
@@ -5220,7 +5234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collision_damage: 0
   attack_damage: 0
-  Hp: 1
+  Hp: 5
   dropcoincnt: 0
   knockbackdis: 5
   movespeed: 5
@@ -5282,7 +5296,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

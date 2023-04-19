@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Boss_AttackCheck : MonoBehaviour
+public class Death_Bringer_AttackCheck : MonoBehaviour
 {
     public bool repeat;
     private Coroutine delayCoroutine = null;
-    GameObject boss;
+    GameObject deathbringer;
     private void OnEnable()
     {
         repeat = false;
@@ -18,12 +18,12 @@ public class Enemy_Boss_AttackCheck : MonoBehaviour
         if (other.gameObject.CompareTag("Player") && !repeat)
         {
             repeat = true;
-            Enemy_Boss boss = transform.parent.GetComponent<Enemy_Boss>();
-            if (boss != null)
+            Death_Bringer deathbringer = transform.parent.GetComponent<Death_Bringer>();
+            if (deathbringer != null)
             {
-                Debug.Log(boss.attack_damage);
+                Debug.Log(deathbringer.attack_damage);
                 CSake.instance.Vibrate(1f);
-                Player.instance.Damaged(-boss.attack_damage);
+                Player.instance.Damaged(-deathbringer.attack_damage);
             }
             if (delayCoroutine != null)
             {

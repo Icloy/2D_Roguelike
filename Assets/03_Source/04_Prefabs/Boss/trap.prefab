@@ -155,4 +155,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   position_change_second: 0
-  delete_time: 5
+  delete_time: 3
+  damage: 1

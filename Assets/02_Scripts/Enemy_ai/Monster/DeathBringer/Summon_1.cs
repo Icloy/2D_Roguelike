@@ -7,7 +7,7 @@ public class Summon_1 : MonoBehaviour
     public float speed;
     public float position_change_second;
     public float delete_time;
-
+    public int damage;
     private float angle = 0;
 
     CircleCollider2D circle;
@@ -64,6 +64,7 @@ public class Summon_1 : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            Player.instance.Damaged(-damage);
             Destroy(this.gameObject);
         }
     }

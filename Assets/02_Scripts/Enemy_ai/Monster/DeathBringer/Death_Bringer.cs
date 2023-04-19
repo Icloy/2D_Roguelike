@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Boss : Enemy
+public class Death_Bringer : Enemy
 {
     CircleCollider2D circle;
     Rigidbody2D rigid;
@@ -134,6 +134,7 @@ public class Enemy_Boss : Enemy
 
     public IEnumerator AttackThink()
     {
+            StartCoroutine(Alert());
             animator.SetInteger(animationState, (int)States.idle);
             dis = Vector2.Distance(PlayerPos.transform.position, rigid.transform.position);
             if (PlayerPos.transform.position.x < rigid.transform.position.x)
@@ -172,7 +173,10 @@ public class Enemy_Boss : Enemy
             case 1:
                 Debug.Log("act1_1");
                 animator.SetInteger(animationState, (int)States.attack);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.84f);
+                Attack1_check.gameObject.SetActive(true);
+                yield return new WaitForSeconds(0.16f);
+                Attack1_check.gameObject.SetActive(false);
                 animator.SetInteger(animationState, (int)States.idle);
                 break;
             case 2:
@@ -240,7 +244,10 @@ public class Enemy_Boss : Enemy
                         animator.SetInteger(animationState, (int)States.appears);
                         yield return new WaitForSeconds(1f);
                         animator.SetInteger(animationState, (int)States.attack);
-                        yield return new WaitForSeconds(1f);
+                        yield return new WaitForSeconds(0.84f);
+                        Attack1_check.gameObject.SetActive(true);
+                        yield return new WaitForSeconds(0.16f);
+                        Attack1_check.gameObject.SetActive(false);
                         animator.SetInteger(animationState, (int)States.idle);
                         break;
                     case 2:
@@ -249,7 +256,10 @@ public class Enemy_Boss : Enemy
                         animator.SetInteger(animationState, (int)States.appears);
                         yield return new WaitForSeconds(1f);
                         animator.SetInteger(animationState, (int)States.attack);
-                        yield return new WaitForSeconds(1f);
+                        yield return new WaitForSeconds(0.84f);
+                        Attack1_check.gameObject.SetActive(true);
+                        yield return new WaitForSeconds(0.16f);
+                        Attack1_check.gameObject.SetActive(false);
                         animator.SetInteger(animationState, (int)States.idle);
                         break;
                 }
@@ -350,7 +360,7 @@ public class Enemy_Boss : Enemy
     {
         rigid.velocity = Vector2.zero;
         animator.SetInteger(animationState, (int)States.die);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(1f);
         DropItem();
         Destroy(this.gameObject);
     }
@@ -416,11 +426,10 @@ public class Enemy_Boss : Enemy
         HpBar.GetComponent<RectTransform>().localScale = new Vector3(0.4f, 0.4f, 0);
     }
 
-    void OnTriggerEnter2D(Collider2D collision) //Enter에서 Stay로 변경 공격을 당하면 자식트리거쪽 exit도 반응해서 추적 풀려버림
+    void OnTriggerStay2D(Collider2D collision) //Enter에서 Stay로 변경 공격을 당하면 자식트리거쪽 exit도 반응해서 추적 풀려버림
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            StartCoroutine(Alert());
             if (PlayerPos == null)
             {
                 PlayerPos = collision.gameObject.transform;
