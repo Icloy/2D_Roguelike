@@ -87,11 +87,12 @@ public class Player : MonoBehaviour
     public bool fadeInOut;
     public bool SmoothMoving;
 
-      public GameObject HealEffect;
+    [HideInInspector] public GameObject HealEffect;
     [HideInInspector]  public AudioClip AttackSound;
     [HideInInspector]  public AudioClip HealSound;
     [HideInInspector]  public AudioClip DashSound;
     [HideInInspector] public AudioClip DamagedSound;
+    public GameObject Gameover_Effect;
     private Vector2 direction;
 
     private float _fallSpeedYDampingChangeThreshold;
@@ -609,6 +610,7 @@ public class Player : MonoBehaviour
             GameManager.instance.isGameOver = true;
             GameManager.instance.PlayerDead();
             gameObject.SetActive(false); //나중에 프리팹화해서 파괴로 바꿀예정
+
         }
 
         if(dmg < 0)
@@ -665,6 +667,11 @@ public class Player : MonoBehaviour
             rigid.AddForce(Vector2.left * 1200f);
         }
 
+    }
+
+    public void show_GameoverEffect()
+    {
+        Gameover_Effect.gameObject.SetActive(true);
     }
 
 
