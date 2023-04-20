@@ -576,6 +576,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("DamagedTile"))
         {
             Damaged(-1);
+            collision.gameObject.GetComponent<TimeStop>().StopTime(0.05f, 10, 0.1f);
         }
     }
 
