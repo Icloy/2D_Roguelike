@@ -52,7 +52,6 @@ public class Player : MonoBehaviour
     [HideInInspector] [SerializeField] private LayerMask groundLayer;
     [HideInInspector] [SerializeField] private Transform wallCheck;
     [HideInInspector] [SerializeField] private LayerMask wallLayer;
-    [HideInInspector] [SerializeField] private TrailRenderer tr;
 
     private float curTime;
     public float coolTime = 0.5f;
@@ -82,14 +81,13 @@ public class Player : MonoBehaviour
     [HideInInspector] public GameObject AEffect;
     [HideInInspector] public GameObject AEffect_Up;
     [HideInInspector] public GameObject AEffect_Down;
+    [HideInInspector] public GameObject Damaged_Effect;
+    [HideInInspector] public GameObject Dash_Effect;
     Camera cam;
     public bool fadeInOut;
     public bool SmoothMoving;
 
-    [SerializeField]
-    [HideInInspector] float lowpassValue = 100;
-
-    [HideInInspector]  public GameObject HealEffect;
+      public GameObject HealEffect;
     [HideInInspector]  public AudioClip AttackSound;
     [HideInInspector]  public AudioClip HealSound;
     [HideInInspector]  public AudioClip DashSound;
@@ -279,6 +277,8 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) && canDash &&(!isWallSliding) && canHeal)
         {
             StartCoroutine(Dash());
+            Dash_Effect.gameObject.SetActive(true);
+            Invoke("HideDashEffect", 0.3f);
         }
 
         #endregion
@@ -437,6 +437,10 @@ public class Player : MonoBehaviour
         AEffect_Down.gameObject.SetActive(false);
     }
 
+    private void HideDamagedEffect()
+    {
+        Damaged_Effect.gameObject.SetActive(false);
+    }
     private IEnumerator Dash()
     {
         canDash = false;
@@ -447,9 +451,7 @@ public class Player : MonoBehaviour
         rigid.gravityScale = 0f;
         rigid.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
         AudioPlayer.PlayOneShot(DashSound);
-        tr.emitting = true;
         yield return new WaitForSeconds(dashingTime);
-        tr.emitting = false;
         rigid.gravityScale = originalGravity;
         IsDashing = false;
         maxSpeed = 8;
@@ -565,6 +567,12 @@ public class Player : MonoBehaviour
 
     }
 
+    void HideDashEffect()
+    {
+        Dash_Effect.gameObject.SetActive(false);
+
+    }
+
 
     public void DashAnim()
     {
@@ -606,10 +614,9 @@ public class Player : MonoBehaviour
         if(dmg < 0)
         {
             AudioPlayer.PlayOneShot(DamagedSound);
-            SetAudioEffect(true);
-            Invoke("ResetAudioEffect", 0.35f);
-
-
+            Damaged_Effect.gameObject.SetActive(true);
+            Invoke("HideDamagedEffect", 0.2f);
+            anim.SetTrigger("IsHurt");
         }
 
     }
@@ -624,16 +631,6 @@ public class Player : MonoBehaviour
         virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, 60, 45);
     }
 
-    public void SetAudioEffect(bool is1stView)
-    {
-        audioLowPassFilter.cutoffFrequency = (is1stView == true) ? lowpassValue : 22000;
-    }
-    void ResetAudioEffect()
-    {
-        audioLowPassFilter.cutoffFrequency = 22000;
-        AudioPlayer.volume = 1;
-
-    }
 
 
     private void updatePlayerState()
