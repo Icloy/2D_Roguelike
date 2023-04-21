@@ -88,11 +88,11 @@ public class Player : MonoBehaviour
     public bool SmoothMoving;
 
     [HideInInspector] public GameObject HealEffect;
+    [HideInInspector] public GameObject HealEffect1;
     [HideInInspector]  public AudioClip AttackSound;
     [HideInInspector]  public AudioClip HealSound;
     [HideInInspector]  public AudioClip DashSound;
     [HideInInspector] public AudioClip DamagedSound;
-    public GameObject Gameover_Effect;
     private Vector2 direction;
 
     private float _fallSpeedYDampingChangeThreshold;
@@ -410,6 +410,7 @@ public class Player : MonoBehaviour
             ZoomOut();
             anim.SetBool("Sit", false);
             HealEffect.gameObject.SetActive(false);
+            HealEffect1.gameObject.SetActive(false);
 
         }
         #endregion
@@ -538,6 +539,7 @@ public class Player : MonoBehaviour
                 canHeal = false;
                 ZoomIn();
                 HealEffect.gameObject.SetActive(true);
+                HealEffect1.gameObject.SetActive(true);
                 anim.SetBool("Sit", true);
 
                 if (hgoalT <= hcurT)
@@ -545,6 +547,7 @@ public class Player : MonoBehaviour
                     //Èú ±¸ÇöºÎ
                     AudioPlayer.PlayOneShot(HealSound);
                     HealEffect.gameObject.SetActive(false);
+                    HealEffect1.gameObject.SetActive(false);
                     ZoomOut();
                     StartCoroutine(StageMgr.Instance.MoveNext3(fadeInOut, SmoothMoving));
                     CSake.instance.Vibrate(1f);
@@ -565,6 +568,7 @@ public class Player : MonoBehaviour
   void HideHealEffect()
     {
         HealEffect.gameObject.SetActive(false);
+        HealEffect1.gameObject.SetActive(false);
 
     }
 
@@ -669,10 +673,6 @@ public class Player : MonoBehaviour
 
     }
 
-    public void show_GameoverEffect()
-    {
-        Gameover_Effect.gameObject.SetActive(true);
-    }
 
 
 
