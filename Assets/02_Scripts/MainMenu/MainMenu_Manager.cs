@@ -23,12 +23,8 @@ public class MainMenu_Manager : MonoBehaviour
 
     public GetName getname;
 
-    private bool slotopen;
-    private bool quitopen;
-    private bool optionopen;
-    private bool baseopen;
-
-    enum panelcontrol
+    state curState;
+    enum state
     {
         slot,
         quit,
@@ -43,6 +39,7 @@ public class MainMenu_Manager : MonoBehaviour
 
     private void Start()
     {
+        curState = state.first;
         Resolution();
         SelBtn.Select();
         Singleton.Instance.slotNum = -1;
@@ -52,7 +49,29 @@ public class MainMenu_Manager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-
+            switch (curState)
+            {
+                case state.slot:
+                    slotPanel.SetActive(false);
+                    basePanel.SetActive(true);
+                    curState = state.first;
+                    break;
+                case state.quit:
+                    quitPanel.SetActive(false);
+                    basePanel.SetActive(true);
+                    curState = state.first;
+                    break;
+                case state.option:
+                    optionPanel.SetActive(false);
+                    basePanel.SetActive(true);
+                    curState = state.first;
+                    break;
+                case state.first:
+                    basePanel.SetActive(false);
+                    quitPanel.SetActive(true);
+                    curState = state.quit;
+                    break;
+            }
         }
     }
 
@@ -60,6 +79,7 @@ public class MainMenu_Manager : MonoBehaviour
     {
         basePanel.SetActive(false);
         slotPanel.SetActive(true);
+        curState = state.slot;
         getname.Refresh();  //패널 새로고침 DB불러옴
     }
 
@@ -87,6 +107,7 @@ public class MainMenu_Manager : MonoBehaviour
     {
         slotPanel.SetActive(false);
         basePanel.SetActive(true);
+        curState = state.first;
     }
 
 
@@ -142,19 +163,21 @@ public class MainMenu_Manager : MonoBehaviour
         {
             optionPanel.SetActive(false); //옵션창 종료
             basePanel.SetActive(true);
+            curState = state.first;
         }
         else
         {
             basePanel.SetActive(false);
             Resolution(); //해상도 새로고침
             optionPanel.SetActive(true);
+            curState = state.option;
         }
     }
 
     public void OptionApplyBtnClick() //옵션창의 Apply버튼 클릭시
     {
         Screen.SetResolution(resolutions[resolutionNum].width, resolutions[resolutionNum].height, screenMode); //변경된 옵션을 설정한다.
-        optionPanel.SetActive(false);
+        OptionBtnClick();
     }
     #endregion
 
@@ -166,13 +189,14 @@ public class MainMenu_Manager : MonoBehaviour
         {
             quitPanel.SetActive(false);
             basePanel.SetActive(true);
+            curState = state.first;
         }
         else
         {
             basePanel.SetActive(false);
             quitPanel.SetActive(true);
+            curState = state.quit;
         }
-
     }
 
     public void quitapply() //겜종료
