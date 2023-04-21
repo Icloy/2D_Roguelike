@@ -217,10 +217,7 @@ public class Death_Bringer : Enemy
                         rigid.isKinematic = false;
                         animator.SetInteger(animationState, (int)States.idle);
                         rigid.AddForce(Vector2.down * 30f, ForceMode2D.Impulse);
-                        yield return new WaitForSeconds(0.5f);
-                        Attack2_check.gameObject.SetActive(true);
-                        yield return new WaitForSeconds(0.4f);
-                        Attack2_check.gameObject.SetActive(false);
+                        yield return new WaitForSeconds(1f);
                         break;
                     case 2:
                         gameObject.transform.position = new Vector3(PlayerPos.transform.position.x - 1.5f, PlayerPos.transform.position.y + 5f, PlayerPos.transform.position.z);
@@ -230,10 +227,7 @@ public class Death_Bringer : Enemy
                         rigid.isKinematic = false;
                         animator.SetInteger(animationState, (int)States.idle);
                         rigid.AddForce(Vector2.down * 30f, ForceMode2D.Impulse);
-                        yield return new WaitForSeconds(0.5f);
-                        Attack2_check.gameObject.SetActive(true);
-                        yield return new WaitForSeconds(0.4f);
-                        Attack2_check.gameObject.SetActive(false);
+                        yield return new WaitForSeconds(1f);
                         break;
                 }
                 break;
