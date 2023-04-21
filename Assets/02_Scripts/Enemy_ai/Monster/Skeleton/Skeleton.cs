@@ -224,14 +224,20 @@ public class Skeleton : Enemy
     IEnumerator LBlood()
     {
         lblood.Play();
-        yield return new WaitForSeconds(0.6f);
+        hiteffect.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        hiteffect.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.4f);
         lblood.Stop();
     }
 
     IEnumerator RBlood()
     {
         rblood.Play();
-        yield return new WaitForSeconds(0.6f);
+        hiteffect.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        hiteffect.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.4f);
         rblood.Stop();
     }
 

@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
     public Image HpFill;
     public Canvas HpBar;
     public GameObject alert;
+    public GameObject hiteffect;
 
     public virtual void TakeDamage(int damege)
     {
