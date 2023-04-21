@@ -128,6 +128,8 @@ public class bat : Enemy
     IEnumerator LBlood()
     {
         lblood.Play();
+        int angle = Random.Range(-45, 45);
+        hiteffect.transform.rotation = Quaternion.Euler(0f, 0f, angle);
         hiteffect.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.2f);
         hiteffect.gameObject.SetActive(false);
@@ -138,6 +140,8 @@ public class bat : Enemy
     IEnumerator RBlood()
     {
         rblood.Play();
+        int angle = Random.Range(-45, 45);
+        hiteffect.transform.rotation = Quaternion.Euler(0f, 0f, angle);
         hiteffect.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.2f);
         hiteffect.gameObject.SetActive(false);
