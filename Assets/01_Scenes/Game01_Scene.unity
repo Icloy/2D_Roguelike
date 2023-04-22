@@ -46878,7 +46878,6 @@ GameObject:
   - component: {fileID: 598188436}
   - component: {fileID: 598188433}
   - component: {fileID: 598188430}
-  - component: {fileID: 598188445}
   - component: {fileID: 598188443}
   - component: {fileID: 598188432}
   - component: {fileID: 598188446}
@@ -46941,10 +46940,12 @@ MonoBehaviour:
   SmoothMoving: 0
   HealEffect: {fileID: 336993906}
   HealEffect1: {fileID: 62098013}
-  AttackSound: {fileID: 8300000, guid: 13182107f288fdc47a11f9216c8f062b, type: 3}
+  AttackSound: {fileID: 8300000, guid: d2dcba6e2bc563845ac4ab8776ffa7c0, type: 3}
+  JumpSound: {fileID: 8300000, guid: 5ce2915ac4e6a804a9e1a2072459b010, type: 3}
   HealSound: {fileID: 8300000, guid: f4eb287819129c648b611a569b4400cf, type: 3}
   DashSound: {fileID: 8300000, guid: 737188d4252d4c243a4c34bf23b5ca64, type: 3}
   DamagedSound: {fileID: 8300000, guid: ff20967b167697a4bbbbb8a233facb56, type: 3}
+  WalkSound: {fileID: 8300000, guid: bce2010f284704b4f8e22e9d5e9a35eb, type: 3}
   virtualCamera: {fileID: 846395777}
 --- !u!82 &598188433
 AudioSource:
@@ -47110,23 +47111,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playercollier: {fileID: 598188436}
---- !u!114 &598188445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598188429}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6c65439c333a384995f7d1421457b0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  offsetY: 1
-  offsetZ: -10
-  smooth: 5
-  cameraSmoothMoving: 0
 --- !u!114 &598188446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52378,7 +52362,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616984560}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.202546, y: 0.0970397, z: -10}
+  m_LocalPosition: {x: 3.2023978, y: 0.0970397, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -99726,7 +99710,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1407422408
 Transform:
   m_ObjectHideFlags: 0
@@ -138256,7 +138240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b34b457e0691e4bb05ef17a1a70f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursor: {fileID: 2800000, guid: f75349a286817b6479976a10636d3b2c, type: 3}
+  cursor: {fileID: 2800000, guid: b1b30ceaf1f98c349b65078db11bedc2, type: 3}
 --- !u!1 &1855085580
 GameObject:
   m_ObjectHideFlags: 0
