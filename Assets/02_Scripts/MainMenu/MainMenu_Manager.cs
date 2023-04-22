@@ -81,6 +81,8 @@ public class MainMenu_Manager : MonoBehaviour
         slotPanel.SetActive(true);
         curState = state.slot;
         getname.Refresh();  //패널 새로고침 DB불러옴
+        Button topButton = slotPanel.GetComponentInChildren<Button>();
+        topButton.Select();
     }
 
     public void SlotBtnClick(int a) //a가 슬롯 번호
@@ -108,6 +110,7 @@ public class MainMenu_Manager : MonoBehaviour
         slotPanel.SetActive(false);
         basePanel.SetActive(true);
         curState = state.first;
+        SelBtn.Select();
     }
 
 
