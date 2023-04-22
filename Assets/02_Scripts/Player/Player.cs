@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
     [HideInInspector] [SerializeField] private Transform wallCheck;
     [HideInInspector] [SerializeField] private LayerMask wallLayer;
 
+
     private float curTime;
     public float coolTime = 0.5f;
     [HideInInspector]  public Transform pos;
@@ -89,20 +90,25 @@ public class Player : MonoBehaviour
 
     [HideInInspector] public GameObject HealEffect;
     [HideInInspector] public GameObject HealEffect1;
-    [HideInInspector]  public AudioClip AttackSound;
+    [HideInInspector] public AudioClip AttackSound;
+    [HideInInspector] public AudioClip JumpSound;
     [HideInInspector]  public AudioClip HealSound;
     [HideInInspector]  public AudioClip DashSound;
     [HideInInspector] public AudioClip DamagedSound;
+    public AudioClip WalkSound;
     private Vector2 direction;
 
     private float _fallSpeedYDampingChangeThreshold;
     private bool IsLeft;
     private bool IsRight;
-    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [HideInInspector] [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
     //오디오
     private AudioSource AudioPlayer; //오디오 소스 컴포넌트
-    private AudioLowPassFilter audioLowPassFilter;
+
+
+
+
 
     public bool IsDashing { get => isDashing; set => isDashing = value; }
     public bool IsWallJumping { get => isWallJumping; set => isWallJumping = value; }
@@ -138,7 +144,6 @@ public class Player : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         AudioPlayer = GetComponent<AudioSource>();
         cam = Camera.main;
-        audioLowPassFilter = GetComponent<AudioLowPassFilter>();
 
     }
     // Update is called once per frame
@@ -194,7 +199,6 @@ public class Player : MonoBehaviour
             IsLeft = false;
 
         }
-        
         if (rigid.velocity.normalized.x == 0)
         {
             anim.SetTrigger("StopRun");
@@ -230,6 +234,11 @@ public class Player : MonoBehaviour
                     jumpBufferCounter = 0f;
                 }
             }
+        }
+
+        if(jumpLeft <= 1 && Input.GetButtonDown("Jump") && jumpLeft >=0 )
+        {
+            AudioPlayer.PlayOneShot(JumpSound);
         }
 
 
