@@ -167,6 +167,7 @@ public class MainMenu_Manager : MonoBehaviour
             optionPanel.SetActive(false); //옵션창 종료
             basePanel.SetActive(true);
             curState = state.first;
+            SelBtn.Select();
         }
         else
         {
@@ -174,6 +175,8 @@ public class MainMenu_Manager : MonoBehaviour
             Resolution(); //해상도 새로고침
             optionPanel.SetActive(true);
             curState = state.option;
+            Dropdown topButton = optionPanel.GetComponentInChildren<Dropdown>();
+            topButton.Select();
         }
     }
 
@@ -193,12 +196,15 @@ public class MainMenu_Manager : MonoBehaviour
             quitPanel.SetActive(false);
             basePanel.SetActive(true);
             curState = state.first;
+            SelBtn.Select();
         }
         else
         {
             basePanel.SetActive(false);
             quitPanel.SetActive(true);
             curState = state.quit;
+            Button topButton = quitPanel.GetComponentInChildren<Button>();
+            topButton.Select();
         }
     }
 
