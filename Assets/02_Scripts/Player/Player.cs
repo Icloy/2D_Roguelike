@@ -90,12 +90,7 @@ public class Player : MonoBehaviour
 
     [HideInInspector] public GameObject HealEffect;
     [HideInInspector] public GameObject HealEffect1;
-    [HideInInspector] public AudioClip AttackSound;
-    [HideInInspector] public AudioClip JumpSound;
-    [HideInInspector]  public AudioClip HealSound;
-    [HideInInspector]  public AudioClip DashSound;
-    [HideInInspector] public AudioClip DamagedSound;
-    public AudioClip WalkSound;
+    [SerializeField] PlayerAudio playerAudio = null;
     private Vector2 direction;
 
     private float _fallSpeedYDampingChangeThreshold;
@@ -104,7 +99,8 @@ public class Player : MonoBehaviour
     [HideInInspector] [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
     //오디오
-    private AudioSource AudioPlayer; //오디오 소스 컴포넌트
+    [SerializeField] AudioSource audioSource = null;
+
 
 
 
@@ -142,7 +138,6 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
-        AudioPlayer = GetComponent<AudioSource>();
         cam = Camera.main;
 
     }
@@ -238,7 +233,7 @@ public class Player : MonoBehaviour
 
         if(jumpLeft <= 1 && Input.GetButtonDown("Jump") && jumpLeft >=0 )
         {
-            AudioPlayer.PlayOneShot(JumpSound);
+            playerAudio.Play(PlayerAudio.AudioType.Jump, true);
         }
 
 
@@ -302,7 +297,7 @@ public class Player : MonoBehaviour
             if (Input.GetKey(KeyCode.UpArrow) && Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
             {
                 anim.SetTrigger("IsAttackUp");
-                AudioPlayer.PlayOneShot(AttackSound);
+                playerAudio.Play(PlayerAudio.AudioType.Attack, true);
                 if (i % 2 == 0 && i == 0)
                 {
                     AEffect_Up.gameObject.SetActive(true);
@@ -328,7 +323,7 @@ public class Player : MonoBehaviour
             else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding && !IsGrounded())
             {
                 anim.SetTrigger("IsAttackDown");
-                AudioPlayer.PlayOneShot(AttackSound);
+                playerAudio.Play(PlayerAudio.AudioType.Attack, true);
                 if (i % 2 == 0 && i == 0)
                 {
                     AEffect_Down.gameObject.SetActive(true);
@@ -354,7 +349,7 @@ public class Player : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.Q) && !GameManager.instance.isPanelOpen && !isWallSliding)
             {
                 anim.SetTrigger("IsAttack");
-                AudioPlayer.PlayOneShot(AttackSound);
+                playerAudio.Play(PlayerAudio.AudioType.Attack, true);
                 if (i % 2 == 0 && i == 0)
                 {
                     AEffect.gameObject.SetActive(true);
@@ -461,7 +456,7 @@ public class Player : MonoBehaviour
         float originalGravity = rigid.gravityScale;
         rigid.gravityScale = 0f;
         rigid.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
-        AudioPlayer.PlayOneShot(DashSound);
+        playerAudio.Play(PlayerAudio.AudioType.Dash, true);
         yield return new WaitForSeconds(dashingTime);
         rigid.gravityScale = originalGravity;
         IsDashing = false;
@@ -554,7 +549,7 @@ public class Player : MonoBehaviour
                 if (hgoalT <= hcurT)
                 {
                     //힐 구현부
-                    AudioPlayer.PlayOneShot(HealSound);
+                    playerAudio.Play(PlayerAudio.AudioType.Heal, true);
                     HealEffect.gameObject.SetActive(false);
                     HealEffect1.gameObject.SetActive(false);
                     ZoomOut();
@@ -628,7 +623,6 @@ public class Player : MonoBehaviour
 
         if(dmg < 0)
         {
-            AudioPlayer.PlayOneShot(DamagedSound);
             Damaged_Effect.gameObject.SetActive(true);
             Invoke("HideDamagedEffect", 0.2f);
             anim.SetTrigger("IsHurt");
@@ -682,7 +676,10 @@ public class Player : MonoBehaviour
 
     }
 
-
+    public void PlayMusicAudioClip(AudioClip audioClip)
+    {
+        audioSource.PlayOneShot(audioClip);
+    }
 
 
 }
