@@ -26,7 +26,6 @@ public class PlayerAudio : MonoBehaviour
         {
             case AudioType.Attack:
                 audioSource = AttackSound;
-                Debug.Log("!");
                 break;
             case AudioType.Jump:
                 audioSource = JumpSound;

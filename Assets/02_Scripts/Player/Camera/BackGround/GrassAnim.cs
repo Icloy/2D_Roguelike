@@ -2,29 +2,61 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrassAnim : MonoBehaviour
+public class GrassAnim : Breakable
 {
-    private Animator anim;
 
-    private void Start()
+    [SerializeField] private AudioClip grassMove;
+    [SerializeField] private AudioClip grassCut;
+    [SerializeField] private GameObject grassAlive;
+    [SerializeField] private GameObject grassDeadParticle;
+
+    [SerializeField] private SpriteRenderer grassDead;
+
+    private Animator anim;
+    private AudioSource audioSource;
+
+    private void Awake()
     {
-        anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+        anim = GetComponentInChildren<Animator>();
+
+    }
+    private void Update()
+    {
+        CheckIsDead();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (isDead)
+            return;
+        if (collision.gameObject.CompareTag("Player"))
         {
-            anim.SetBool("Move",true);
+            Vector3 diff = (collision.transform.position - transform.position).normalized;
+            if (diff.x > 0)
+            {
+                anim.SetTrigger("GrassRight");
+            }
+            else if (diff.x < 0)
+            {
+                anim.SetTrigger("GrassLeft");
+            }
+            audioSource.PlayOneShot(grassMove);
+        }
+
+        if (collision.gameObject.CompareTag("AttackZone"))
+        {
+            Hurt(1);
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    protected override void Dead()
     {
-        if (collision.CompareTag("Player"))
-        {
-            anim.SetBool("Move", false);
-        }
+        base.Dead();
+        audioSource.PlayOneShot(grassCut);
+        grassDeadParticle.SetActive(true);
+        grassAlive.SetActive(false);
+        grassDead.enabled = true;
     }
 
 }

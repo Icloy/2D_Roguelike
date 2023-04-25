@@ -91,6 +91,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public GameObject HealEffect;
     [HideInInspector] public GameObject HealEffect1;
     [SerializeField] PlayerAudio playerAudio = null;
+    [SerializeField] PlayerEffect playerEffect = null;
     private Vector2 direction;
 
     private float _fallSpeedYDampingChangeThreshold;
