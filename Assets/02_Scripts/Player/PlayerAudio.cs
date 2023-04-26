@@ -12,11 +12,12 @@ public class PlayerAudio : MonoBehaviour
     [SerializeField] AudioSource HealSound = null;
     [SerializeField] AudioSource DashSound = null;
     [SerializeField] AudioSource DamagedSound = null;
+    [SerializeField] AudioSource LandSound = null;
 
 
     public enum AudioType
     {
-        Attack, Jump, Heal, Dash, Damaged
+        Attack, Jump, Heal, Dash, Damaged, Land
     }
 
     public void Play(AudioType audioType, bool playState)
@@ -38,6 +39,9 @@ public class PlayerAudio : MonoBehaviour
                 break;
             case AudioType.Damaged:
                 audioSource = DamagedSound;
+                break;
+            case AudioType.Land:
+                audioSource = LandSound;
                 break;
         }
         if (audioSource != null)

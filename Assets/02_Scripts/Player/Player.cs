@@ -164,7 +164,7 @@ public class Player : MonoBehaviour
             CameraManager.instance.LerpYDamping(true);
         }
 
-        if(rigid.velocity.y >= 0f && !CameraManager.instance.IsLerpingYDamping && CameraManager.instance.LerpedFromPlayerFalling)
+        if (rigid.velocity.y >= 0f && !CameraManager.instance.IsLerpingYDamping && CameraManager.instance.LerpedFromPlayerFalling)
         {
             CameraManager.instance.LerpedFromPlayerFalling = false;
 
@@ -180,14 +180,14 @@ public class Player : MonoBehaviour
 
 
 
-        if (Input.GetKey(KeyCode.LeftArrow)&&!GameManager.instance.isPanelOpen)
+        if (Input.GetKey(KeyCode.LeftArrow) && !GameManager.instance.isPanelOpen)
         {
             transform.localScale = new Vector3(-1f, 1f);
             anim.SetBool("IsRun", true);
             IsLeft = true;
             IsRight = false;
         }
-        else if (Input.GetKey(KeyCode.RightArrow)&& !GameManager.instance.isPanelOpen)
+        else if (Input.GetKey(KeyCode.RightArrow) && !GameManager.instance.isPanelOpen)
         {
             transform.localScale = new Vector3(1f, 1f);
             anim.SetBool("IsRun", true);
@@ -212,7 +212,14 @@ public class Player : MonoBehaviour
         if (IsGrounded() && !Input.GetButton("Jump"))
         {
             doubleJump = false;
+
         }
+
+        //if (isgrounded())
+        //{
+        //    playeraudio.play(playeraudio.audiotype.land, true);
+
+        //}
         if (Input.GetButtonDown("Jump") && !GameManager.instance.isShopOpen)
         {
             jumpLeft -= 1;
