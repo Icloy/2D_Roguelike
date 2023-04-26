@@ -5338,15 +5338,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8d0e15130d3c54d9bcba9e47b25a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collision_damage: 0
-  attack_damage: 0
+  collision_damage: 1
+  attack_damage: 1
   Hp: 5
   dropcoincnt: 0
   knockbackdis: 5
   movespeed: 5
   PlayerPos: {fileID: 0}
   dis: 0
-  Item: {fileID: 0}
+  Item: {fileID: 2719589337402968649, guid: d070a92108fa381488c354ac14bca927, type: 3}
   Corpse: {fileID: 0}
   lblood: {fileID: 4344631887861113572}
   rblood: {fileID: 7817165158438578063}

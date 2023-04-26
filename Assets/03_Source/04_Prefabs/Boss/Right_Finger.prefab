@@ -124,7 +124,7 @@ MonoBehaviour:
   speed: 3
   position_change_second: 0
   delete_time: 0
-  damage: 0
+  damage: 1
 --- !u!50 &7445377331951537066
 Rigidbody2D:
   serializedVersion: 4

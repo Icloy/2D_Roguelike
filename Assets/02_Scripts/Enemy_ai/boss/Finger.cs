@@ -9,6 +9,7 @@ public class Finger : MonoBehaviour
     public float delete_time;
     public int damage;
 
+    bool flag;
     float distance;
 
     CircleCollider2D circle;
@@ -21,6 +22,13 @@ public class Finger : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         circle = GetComponentInChildren<CircleCollider2D>();
+        GameObject player = GameObject.FindGameObjectWithTag("RightTarget");
+        if(targetTransform == null)
+        {
+            targetTransform = player.transform;
+            position = targetTransform.position;
+        }
+        StartCoroutine(Move(rigid, speed));
     }
 
     void Update()
@@ -35,12 +43,11 @@ public class Finger : MonoBehaviour
         {
             if (targetTransform != null)
             {
-                position = targetTransform.position;
                 Vector2 direction = position - transform.position;
                 Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, direction);
                 Quaternion additionalRotation = Quaternion.Euler(0, 0, -90);
                 targetRotation *= additionalRotation;
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, speed * Time.deltaTime);
+                transform.rotation = targetRotation;
             }
             if (rigidBodyToMove != null)
             {
@@ -48,7 +55,7 @@ public class Finger : MonoBehaviour
                 rigidBodyToMove.MovePosition(newposition);
                 remaindistance = (transform.position - position).sqrMagnitude;
             }
-            if(Vector2.Distance(rigidBodyToMove.position, targetTransform.position) < 0.05f)
+            if(targetTransform != null && Vector2.Distance(rigidBodyToMove.position, position) < 0.05f)
             {
                 Destroy(this.gameObject);
             }
@@ -66,15 +73,6 @@ public class Finger : MonoBehaviour
         else if (col.gameObject.CompareTag("Platform"))
         {
             Physics2D.IgnoreCollision(col.collider, GetComponent<Collider2D>());
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("RightTarget"))
-        {
-            targetTransform = collision.gameObject.transform;
-            StartCoroutine(Move(rigid, speed));
         }
     }
 }
