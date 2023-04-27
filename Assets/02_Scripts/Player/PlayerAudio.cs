@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAudio : MonoBehaviour
 {
-    [SerializeField] AudioSource mainEffectAudioSouce = null;
+    [SerializeField] AudioSource mainEffectAudioSouce;
     [Header("Audio Sources")]
 
     [SerializeField] AudioSource AttackSound = null;

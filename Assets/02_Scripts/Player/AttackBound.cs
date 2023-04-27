@@ -25,14 +25,14 @@ public class AttackBound : MonoBehaviour
                 Player.Instance.upforce();
             }
         }
-        else if (collision.CompareTag("Enemy"))
-        {
-            if (!platformrepeat && !enemyrepeat)
-            {
-                enemyrepeat = true;
-                rigid.velocity = Vector2.zero;
-                Player.Instance.upforce();
-            }
-        }
+        //else if (collision.CompareTag("Enemy"))
+        //{
+        //    if (!platformrepeat && !enemyrepeat)
+        //    {
+        //        enemyrepeat = true;
+        //        rigid.velocity = Vector2.zero;
+        //        Player.Instance.upforce();
+        //    }
+        //}
     }
 }

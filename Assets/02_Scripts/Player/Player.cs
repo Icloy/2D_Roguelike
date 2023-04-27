@@ -85,13 +85,13 @@ public class Player : MonoBehaviour
     [HideInInspector] public GameObject Damaged_Effect;
     [HideInInspector] public GameObject Dash_Effect;
     Camera cam;
-    public bool fadeInOut;
-    public bool SmoothMoving;
+    private bool fadeInOut;
+    private bool SmoothMoving;
 
     [HideInInspector] public GameObject HealEffect;
     [HideInInspector] public GameObject HealEffect1;
     [SerializeField] PlayerAudio playerAudio = null;
-    [SerializeField] PlayerEffect playerEffect = null;
+    //[SerializeField] PlayerEffect playerEffect = null;
     private Vector2 direction;
 
     private float _fallSpeedYDampingChangeThreshold;
