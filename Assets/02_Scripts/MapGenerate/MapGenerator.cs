@@ -89,15 +89,18 @@ public class MapGenerator : MonoBehaviour
             return;
         Vector2Int leftNodeCenter = tree.leftNode.center;
         Vector2Int rightNodeCenter = tree.rightNode.center;
+        Vector2Int LeftRoomSide = tree.leftNode.LeftRoomSide;
+        Vector2Int RightRoomSide = tree.rightNode.RightRoomSide;
+        
 
-        for (int i = Mathf.Min(leftNodeCenter.x, rightNodeCenter.x); i <= Mathf.Max(leftNodeCenter.x, rightNodeCenter.x); i++)
+        for (int i = Mathf.Min(LeftRoomSide.x, RightRoomSide.x); i <= Mathf.Max(LeftRoomSide.x, RightRoomSide.x); i++)
         {
-            tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, leftNodeCenter.y - mapSize.y / 2, 0), roomTile);
+            tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, LeftRoomSide.y - mapSize.y / 2, 0), roomTile);
         }
 
-        for (int j = Mathf.Min(leftNodeCenter.y, rightNodeCenter.y); j <= Mathf.Max(leftNodeCenter.y, rightNodeCenter.y); j++)
+        for (int j = Mathf.Min(LeftRoomSide.y, RightRoomSide.y); j <= Mathf.Max(LeftRoomSide.y, RightRoomSide.y); j++)
         {
-            tileMap.SetTile(new Vector3Int(rightNodeCenter.x - mapSize.x / 2, j - mapSize.y / 2, 0), roomTile);
+            tileMap.SetTile(new Vector3Int(RightRoomSide.x - mapSize.x / 2, j - mapSize.y / 2, 0), roomTile);
         }
         //이전 포스팅에서 선으로 만들었던 부분을 room tile로 채우는 과정
         GenerateLoad(tree.leftNode, n + 1); //자식 노드들도 탐색

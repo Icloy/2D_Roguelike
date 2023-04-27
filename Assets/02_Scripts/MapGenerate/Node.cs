@@ -15,6 +15,25 @@ public class Node
         }
         //방의 가운데 점. 방과 방을 이을 때 사용
     }
+
+    public Vector2Int RightRoomSide
+    {
+        get
+        {
+            return new Vector2Int(roomRect.x, roomRect.y + roomRect.height / 2);
+        }
+        //방의 가운데 점. 방과 방을 이을 때 사용
+    }
+
+    public Vector2Int LeftRoomSide
+    {
+        get
+        {
+            return new Vector2Int(roomRect.x + roomRect.width / 2, roomRect.y);
+        }
+        //방의 가운데 점. 방과 방을 이을 때 사용
+    }
+
     public Node(RectInt rect)
     {
         this.nodeRect = rect;
