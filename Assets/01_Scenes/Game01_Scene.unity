@@ -50054,7 +50054,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616984560}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.2022996, y: 0.0970397, z: -10}
+  m_LocalPosition: {x: 3.202224, y: 0.0970397, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -68485,7 +68485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5806d27b274a03542aa1c463165f7155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stat: {fileID: 0}
+  stat: {fileID: 598188447}
   sliderMP: {fileID: 2069636443}
   sliderHP: {fileID: 0}
 --- !u!1 &1112549527
@@ -79498,11 +79498,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 757895804784554806, guid: 64937cc4f2c983c4fbb55f63c714f7a4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -207.68999
+      value: -209.65
       objectReference: {fileID: 0}
     - target: {fileID: 757895804784554806, guid: 64937cc4f2c983c4fbb55f63c714f7a4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.95
+      value: -1.75
       objectReference: {fileID: 0}
     - target: {fileID: 757895804784554806, guid: 64937cc4f2c983c4fbb55f63c714f7a4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -95729,7 +95729,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1407422408
 Transform:
   m_ObjectHideFlags: 0
