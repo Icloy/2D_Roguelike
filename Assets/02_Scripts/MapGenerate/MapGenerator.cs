@@ -95,12 +95,16 @@ public class MapGenerator : MonoBehaviour
 
         for (int i = Mathf.Min(LeftRoomSide.x, RightRoomSide.x); i <= Mathf.Max(LeftRoomSide.x, RightRoomSide.x); i++)
         {
+            tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, LeftRoomSide.y - mapSize.y / 2 - 1, 0), roomTile);
             tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, LeftRoomSide.y - mapSize.y / 2, 0), roomTile);
+            tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, LeftRoomSide.y - mapSize.y / 2 + 1, 0), roomTile);
         }
 
         for (int j = Mathf.Min(LeftRoomSide.y, RightRoomSide.y); j <= Mathf.Max(LeftRoomSide.y, RightRoomSide.y); j++)
         {
+            tileMap.SetTile(new Vector3Int(RightRoomSide.x - mapSize.x / 2 - 1, j - mapSize.y / 2, 0), roomTile);
             tileMap.SetTile(new Vector3Int(RightRoomSide.x - mapSize.x / 2, j - mapSize.y / 2, 0), roomTile);
+            tileMap.SetTile(new Vector3Int(RightRoomSide.x - mapSize.x / 2 + 1, j - mapSize.y / 2, 0), roomTile);
         }
         //이전 포스팅에서 선으로 만들었던 부분을 room tile로 채우는 과정
         GenerateLoad(tree.leftNode, n + 1); //자식 노드들도 탐색
@@ -120,9 +124,9 @@ public class MapGenerator : MonoBehaviour
     }
     void FillWall() //룸 타일과 바깥 타일이 만나는 부분
     {
-        for (int i = 0; i < mapSize.x; i++) //타일 전체를 순회
+        for (int i = -1; i < mapSize.x; i++) //타일 전체를 순회
         {
-            for (int j = 0; j < mapSize.y; j++)
+            for (int j = -1; j < mapSize.y; j++)
             {
                 if (tileMap.GetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0)) == outTile)
                 {

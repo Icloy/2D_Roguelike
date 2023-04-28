@@ -873,7 +873,7 @@ MonoBehaviour:
   line: {fileID: 116789896}
   map: {fileID: 647195392}
   roomLine: {fileID: 507865442}
-  maximumDepth: 3
+  maximumDepth: 2
   tileMap: {fileID: 812061510}
   roomTile: {fileID: 11400000, guid: 3b2425d2e8deb214d832044004977db3, type: 2}
   wallTile: {fileID: 11400000, guid: e3a0976de3e02974490fcda0622f8864, type: 2}
