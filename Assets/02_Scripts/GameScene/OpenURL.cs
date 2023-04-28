@@ -6,6 +6,6 @@ public class OpenURL : MonoBehaviour
 {
     public void NaverURL()
     {
-        Application.OpenURL("https://www.naver.com/");
+        Application.OpenURL("https://dbwogkr1214.neocities.org/TestWeb");
     }
 }
