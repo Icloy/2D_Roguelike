@@ -7,6 +7,7 @@ public class Node
     public Node parNode;
     public RectInt nodeRect; //분리된 공간의 rect정보
     public RectInt roomRect; //분리된 공간 속 방의 rect정보
+
     public Vector2Int center
     {
         get

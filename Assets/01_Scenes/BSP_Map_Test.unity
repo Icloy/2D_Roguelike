@@ -878,6 +878,9 @@ MonoBehaviour:
   roomTile: {fileID: 11400000, guid: 3b2425d2e8deb214d832044004977db3, type: 2}
   wallTile: {fileID: 11400000, guid: e3a0976de3e02974490fcda0622f8864, type: 2}
   outTile: {fileID: 11400000, guid: 3cf5b2a2b9c53fe47be5a9d60f764e28, type: 2}
+  enter: {fileID: 9077230194110556066, guid: ce34e830ee7dc304eb649f3df93d65c0, type: 3}
+  exit: {fileID: 2112945743050014151, guid: 72fe9e2e98c52574e9d93f5433638a3b, type: 3}
+  orderedRooms: []
 --- !u!4 &1903313622
 Transform:
   m_ObjectHideFlags: 0

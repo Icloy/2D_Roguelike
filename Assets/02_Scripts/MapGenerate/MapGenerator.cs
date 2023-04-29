@@ -16,6 +16,9 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] Tile roomTile; //방을 구성하는 타일
     [SerializeField] Tile wallTile; //방과 외부를 구분지어줄 벽 타일
     [SerializeField] Tile outTile; //방 외부의 타일
+    [SerializeField] GameObject enter;
+    [SerializeField] GameObject exit;
+    [SerializeField] private List<RectInt> orderedRooms = new List<RectInt>();
 
     void Start()
     {
@@ -25,6 +28,13 @@ public class MapGenerator : MonoBehaviour
         GenerateRoom(root, 0);
         GenerateLoad(root, 0);
         FillWall(); //바깥과 방이 만나는 지점을 벽으로 칠해주는 함수
+        GetRoomsInOrder(root, orderedRooms);
+        CreateObjectInRoom(orderedRooms);
+    }
+
+    void update()
+    {
+
     }
 
     void Divide(Node tree, int n)
@@ -58,6 +68,68 @@ public class MapGenerator : MonoBehaviour
         Divide(tree.leftNode, n + 1); //왼쪽, 오른쪽 자식 노드들도 나눠준다.
         Divide(tree.rightNode, n + 1);//왼쪽, 오른쪽 자식 노드들도 나눠준다.
     }
+
+    private RectInt GenerateRoom(Node tree, int n)
+    {
+        RectInt rect;
+        if (n == maximumDepth)
+        {
+            // 노드가 리프노드인 경우 방 생성
+            rect = tree.nodeRect;
+            int width = Random.Range(rect.width / 2, rect.width - 1);
+            int height = Random.Range(rect.height / 2, rect.height - 1);
+            int x = rect.x + Random.Range(1, rect.width - width);
+            int y = rect.y + Random.Range(1, rect.height - height);
+            rect = new RectInt(x, y, width, height);
+            FillRoom(rect);
+        }
+        else
+        {
+            // 노드가 리프노드가 아닌 경우 하위 노드 생성
+            tree.leftNode.roomRect = GenerateRoom(tree.leftNode, n + 1);
+            tree.rightNode.roomRect = GenerateRoom(tree.rightNode, n + 1);
+            rect = tree.leftNode.roomRect;
+        }
+        // 중위순회 방식으로 정렬된 방의 리스트 반환
+        return rect;
+    }
+
+    public void GetRoomsInOrder(Node root, List<RectInt> rooms)
+    {
+        if (root != null)
+        {
+            // 왼쪽 서브트리의 방을 리스트에 추가
+            GetRoomsInOrder(root.leftNode, rooms);
+            // 현재 노드의 방을 리스트에 추가
+            if (root.leftNode == null && root.rightNode == null)
+            {
+                rooms.Add(root.nodeRect);
+            }
+            // 오른쪽 서브트리의 방을 리스트에 추가
+            GetRoomsInOrder(root.rightNode, rooms);
+        }
+    }
+
+    void CreateObjectInRoom(List<RectInt> rooms)
+    {
+        // 리스트에서 해당 방의 정보 가져오기
+        Debug.Log(rooms.Count);
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            RectInt room = rooms[i];
+            Vector2 center = room.center;
+            if (i == 0)
+            {
+                Instantiate(enter, new Vector3(center.x - mapSize.x / 2, center.y - mapSize.y / 2, 1), Quaternion.identity, transform);
+            }
+            if (i == rooms.Count - 1)
+            {
+                Instantiate(exit, new Vector3(center.x - mapSize.x / 2, center.y - mapSize.y / 2, 1), Quaternion.identity, transform);
+            }
+        }
+    }
+
+    /*
     private RectInt GenerateRoom(Node tree, int n)
     {
         RectInt rect;
@@ -83,6 +155,7 @@ public class MapGenerator : MonoBehaviour
         }
         return rect;
     }
+    */
     private void GenerateLoad(Node tree, int n)
     {
         if (n == maximumDepth) //리프 노드라면 이을 자식이 없다.
