@@ -28,7 +28,6 @@ public class MapGenerator : MonoBehaviour
         GenerateRoom(root, 0);
         GenerateLoad(root, 0);
         FillWall(); //바깥과 방이 만나는 지점을 벽으로 칠해주는 함수
-        GetRoomsInOrder(root, orderedRooms);
         CreateObjectInRoom(orderedRooms);
     }
 
@@ -81,6 +80,7 @@ public class MapGenerator : MonoBehaviour
             int x = rect.x + Random.Range(1, rect.width - width);
             int y = rect.y + Random.Range(1, rect.height - height);
             rect = new RectInt(x, y, width, height);
+            GetRoomsInOrder(tree, orderedRooms, rect);
             FillRoom(rect);
         }
         else
@@ -94,37 +94,37 @@ public class MapGenerator : MonoBehaviour
         return rect;
     }
 
-    public void GetRoomsInOrder(Node root, List<RectInt> rooms)
+    public void GetRoomsInOrder(Node root, List<RectInt> rooms, RectInt rect)
     {
         if (root != null)
         {
             // 왼쪽 서브트리의 방을 리스트에 추가
-            GetRoomsInOrder(root.leftNode, rooms);
+            GetRoomsInOrder(root.leftNode, rooms, rect);
             // 현재 노드의 방을 리스트에 추가
             if (root.leftNode == null && root.rightNode == null)
             {
-                rooms.Add(root.nodeRect);
+                rooms.Add(rect);
             }
             // 오른쪽 서브트리의 방을 리스트에 추가
-            GetRoomsInOrder(root.rightNode, rooms);
+            GetRoomsInOrder(root.rightNode, rooms, rect);
         }
     }
 
     void CreateObjectInRoom(List<RectInt> rooms)
     {
         // 리스트에서 해당 방의 정보 가져오기
-        Debug.Log(rooms.Count);
         for (int i = 0; i < rooms.Count; i++)
         {
             RectInt room = rooms[i];
             Vector2 center = room.center;
+            Debug.Log(rooms.Count);
             if (i == 0)
             {
-                Instantiate(enter, new Vector3(center.x - mapSize.x / 2, center.y - mapSize.y / 2, 1), Quaternion.identity, transform);
+                Instantiate(enter, new Vector3(center.x - mapSize.x / 2 - room.width / 2 + 5f, center.y - mapSize.y / 2 - room.height / 2, 1), Quaternion.identity, transform);
             }
             if (i == rooms.Count - 1)
             {
-                Instantiate(exit, new Vector3(center.x - mapSize.x / 2, center.y - mapSize.y / 2, 1), Quaternion.identity, transform);
+                Instantiate(exit, new Vector3(center.x - mapSize.x / 2 + room.width / 2 - 5f, center.y - mapSize.y / 2 - room.height / 2, 1), Quaternion.identity, transform);
             }
         }
     }
