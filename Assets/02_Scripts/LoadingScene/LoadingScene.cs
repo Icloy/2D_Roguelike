@@ -10,9 +10,10 @@ public class LoadingScene : MonoBehaviour
     [SerializeField]
     Image loadbar;
 
+/*
     public Text loadtext;  //로딩중 텍스트
     public Text helptext;  //도움말
-
+*/
     static string nextScene;
 
     public static void LoadScene(string sceneName)
