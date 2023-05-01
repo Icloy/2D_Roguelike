@@ -8,9 +8,6 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] Vector2Int mapSize;
     [SerializeField] float minimumDevideRate; //공간이 나눠지는 최소 비율
     [SerializeField] float maximumDivideRate; //공간이 나눠지는 최대 비율
-    [SerializeField] private GameObject line; //lineRenderer를 사용해서 공간이 나눠진걸 시작적으로 보여주기 위함
-    [SerializeField] private GameObject map; //lineRenderer를 사용해서 첫 맵의 사이즈를 보여주기 위함
-    [SerializeField] private GameObject roomLine; //lineRenderer를 사용해서 방의 사이즈를 보여주기 위함
     [SerializeField] private int maximumDepth; //트리의 높이, 높을 수록 방을 더 자세히 나누게 됨
     [SerializeField] Tilemap tileMap;
     [SerializeField] Tile roomTile; //방을 구성하는 타일
@@ -60,7 +57,6 @@ public class MapGenerator : MonoBehaviour
 
             tree.leftNode = new Node(new RectInt(tree.nodeRect.x, tree.nodeRect.y, tree.nodeRect.width, split));
             tree.rightNode = new Node(new RectInt(tree.nodeRect.x, tree.nodeRect.y + split, tree.nodeRect.width, tree.nodeRect.height - split));
-            //DrawLine(new Vector2(tree.nodeRect.x , tree.nodeRect.y+ split), new Vector2(tree.nodeRect.x + tree.nodeRect.width, tree.nodeRect.y  + split));
         }
         tree.leftNode.parNode = tree; //자식노드들의 부모노드를 나누기전 노드로 설정
         tree.rightNode.parNode = tree;
@@ -120,11 +116,11 @@ public class MapGenerator : MonoBehaviour
             Debug.Log(rooms.Count);
             if (i == 0)
             {
-                Instantiate(enter, new Vector3(center.x - mapSize.x / 2 - room.width / 2 + 5f, center.y - mapSize.y / 2 - room.height / 2, 1), Quaternion.identity, transform);
+                Instantiate(enter, new Vector3(center.x - mapSize.x / 2 - room.width / 2 + 5f + transform.position.x, center.y - mapSize.y / 2 - room.height / 2, -1), Quaternion.identity, transform);
             }
             if (i == rooms.Count - 1)
             {
-                Instantiate(exit, new Vector3(center.x - mapSize.x / 2 + room.width / 2 - 5f, center.y - mapSize.y / 2 - room.height / 2, 1), Quaternion.identity, transform);
+                Instantiate(exit, new Vector3(center.x - mapSize.x / 2 + room.width / 2 - 5f + transform.position.x, center.y - mapSize.y / 2 - room.height / 2, -1), Quaternion.identity, transform);
             }
         }
     }
