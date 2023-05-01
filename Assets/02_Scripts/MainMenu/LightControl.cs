@@ -6,7 +6,7 @@ using UnityEngine.Rendering.Universal;
 public class LightControl : MonoBehaviour
 {
     float minIntensity = 0f;
-    float maxIntensity = 1.0f;
+    float maxIntensity = 1.5f;
     float speed = 0.1f;
 
     private UnityEngine.Rendering.Universal.Light2D light2D;
