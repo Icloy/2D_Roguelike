@@ -15,6 +15,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] Tile outTile; //방 외부의 타일
     [SerializeField] GameObject enter;
     [SerializeField] GameObject exit;
+    [SerializeField] GameObject goblin;
     [SerializeField] private List<RectInt> orderedRooms = new List<RectInt>();
 
     void Start()
@@ -118,9 +119,13 @@ public class MapGenerator : MonoBehaviour
             {
                 Instantiate(enter, new Vector3(center.x - mapSize.x / 2 - room.width / 2 + 5f + transform.position.x, center.y - mapSize.y / 2 - room.height / 2, -1), Quaternion.identity, transform);
             }
-            if (i == rooms.Count - 1)
+            else if (i == rooms.Count - 1)
             {
                 Instantiate(exit, new Vector3(center.x - mapSize.x / 2 + room.width / 2 - 5f + transform.position.x, center.y - mapSize.y / 2 - room.height / 2, -1), Quaternion.identity, transform);
+            }
+            else
+            {
+                Instantiate(goblin, new Vector3(center.x - mapSize.x / 2 + 5f + transform.position.x, center.y - mapSize.y / 2 - room.height / 2 + 2f / 2, -1), Quaternion.identity, transform);
             }
         }
     }

@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 1828774500571739347}
   - component: {fileID: 1828774500571739345}
   - component: {fileID: 1828774500571739346}
-  m_Layer: 0
+  - component: {fileID: 3452815517581805174}
+  m_Layer: 6
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,6 +121,22 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!19719996 &3452815517581805174
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828774500571739348}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
 --- !u!1 &1828774500893793792
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1828774500893793806}
   - component: {fileID: 1828774500893793807}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1828774501660992833}
   - component: {fileID: 1828774501660992834}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BSP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,4 +237,5 @@ MonoBehaviour:
   outTile: {fileID: 11400000, guid: 3cf5b2a2b9c53fe47be5a9d60f764e28, type: 2}
   enter: {fileID: 2779068265857732530, guid: 53d3e64e17cb5f54f83c3edbb713bfff, type: 3}
   exit: {fileID: 2779068265857732530, guid: 53d3e64e17cb5f54f83c3edbb713bfff, type: 3}
+  goblin: {fileID: 4777808566452119309, guid: 1d312a3581d02aa4da37969ce91c28df, type: 3}
   orderedRooms: []

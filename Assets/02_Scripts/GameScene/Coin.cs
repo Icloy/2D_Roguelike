@@ -39,7 +39,7 @@ public class Coin : MonoBehaviour
             Physics2D.IgnoreCollision(col.collider, GetComponent<Collider2D>());
         }
         */
-        else if (col.gameObject.CompareTag("Item"))
+        else if (col.gameObject.CompareTag("Item") || col.gameObject.CompareTag("Enemy"))
         {
             Physics2D.IgnoreCollision(col.collider, GetComponent<Collider2D>());
         }

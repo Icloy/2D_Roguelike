@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Skeleton : Enemy
 {
@@ -128,7 +129,7 @@ public class Skeleton : Enemy
                 Vector2 frontVec = new Vector2(rigid.position.x + nextMove * turnrange, rigid.position.y);
                 Debug.DrawRay(frontVec, Vector3.down, new Color(0, 255, 0));
                 RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 2, LayerMask.GetMask("Platform"));
-                if (rayHit.collider == null)
+                if (rayHit.collider == null && GetComponent<TilemapCollider2D>() == null)
                 {
                     Turn();
                 }

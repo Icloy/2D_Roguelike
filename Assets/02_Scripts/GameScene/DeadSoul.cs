@@ -33,7 +33,7 @@ public class DeadSoul : MonoBehaviour
             ToastMsg.Instance.showMessage("흡수 하시려면 G를 눌러주세요!", 1f);
             StartCoroutine("Consume");
         }
-        else if(!(col.gameObject.GetComponent<Collider2D>() != null))
+        else if(!(col.gameObject.GetComponent<Collider2D>() != null) && !(col.gameObject.GetComponent<TilemapCollider2D>() != null))
         {
             Physics2D.IgnoreCollision(col.collider, GetComponent<Collider2D>());
         }
