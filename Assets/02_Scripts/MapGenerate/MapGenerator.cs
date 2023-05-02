@@ -15,8 +15,8 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] Tile outTile; //방 외부의 타일
     [SerializeField] GameObject enter;
     [SerializeField] GameObject exit;
-    [SerializeField] GameObject goblin;
     [SerializeField] private List<RectInt> orderedRooms = new List<RectInt>();
+    private MonsterList monsterlist;
 
     void Start()
     {
@@ -26,6 +26,7 @@ public class MapGenerator : MonoBehaviour
         GenerateRoom(root, 0);
         GenerateLoad(root, 0);
         FillWall(); //바깥과 방이 만나는 지점을 벽으로 칠해주는 함수
+        monsterlist = GetComponent<MonsterList>();
         CreateObjectInRoom(orderedRooms);
     }
 
@@ -125,7 +126,26 @@ public class MapGenerator : MonoBehaviour
             }
             else
             {
-                Instantiate(goblin, new Vector3(center.x - mapSize.x / 2 + 5f + transform.position.x, center.y - mapSize.y / 2 - room.height / 2 + 2f / 2, -1), Quaternion.identity, transform);
+                GameObject monster = null;
+                int monsterset = Random.Range(1, 3);
+                switch (monsterset)
+                {
+                    case 1:
+                        monster = monsterlist.GetRandomFlyMonster();
+                        Instantiate(monster, new Vector3(center.x - (mapSize.x / 2) + transform.position.x - room.width / 3, center.y - mapSize.y / 2 - room.height / 2 + 6f / 2, -1), Quaternion.identity, transform);
+                        monster = monsterlist.GetRandomFlyMonster();
+                        Instantiate(monster, new Vector3(center.x - (mapSize.x / 2) + transform.position.x + room.width / 3, center.y - mapSize.y / 2 - room.height / 2 + 6f / 2, -1), Quaternion.identity, transform);
+                        for (int j = -5; j < 6; j += 5)
+                        {
+                            monster = monsterlist.GetRandomWalkMonster();
+                            Instantiate(monster, new Vector3(center.x - (mapSize.x / 2) + 5f + transform.position.x + j, center.y - mapSize.y / 2 - room.height / 2 + 2f / 2, -1), Quaternion.identity, transform);
+                        }
+                        break;
+                    case 2:
+                        monster = monsterlist.GetRandomMiddleMonster();
+                        Instantiate(monster, new Vector3(center.x - (mapSize.x / 2) + 5f + transform.position.x, center.y - mapSize.y / 2 - room.height / 2 + 2f / 2, -1), Quaternion.identity, transform);
+                        break;
+                }
             }
         }
     }
