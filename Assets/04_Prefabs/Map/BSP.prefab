@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 7184363728644067334}
   m_Layer: 6
   m_Name: BSP
-  m_TagString: Untagged
+  m_TagString: BSPMap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,7 +237,7 @@ MonoBehaviour:
   wallTile: {fileID: 11400000, guid: e3a0976de3e02974490fcda0622f8864, type: 2}
   outTile: {fileID: 11400000, guid: 3cf5b2a2b9c53fe47be5a9d60f764e28, type: 2}
   enter: {fileID: 2779068265857732530, guid: 53d3e64e17cb5f54f83c3edbb713bfff, type: 3}
-  exit: {fileID: 2779068265857732530, guid: 53d3e64e17cb5f54f83c3edbb713bfff, type: 3}
+  exit: {fileID: 2779068265857732530, guid: 00b1b31ccedee7a4ca500f19c061f9d6, type: 3}
   orderedRooms: []
 --- !u!114 &7184363728644067334
 MonoBehaviour:

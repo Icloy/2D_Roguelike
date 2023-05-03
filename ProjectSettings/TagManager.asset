@@ -12,6 +12,11 @@ TagManager:
   - OneWayPlatform
   - DamagedTile
   - Item
+  - LeftTarget
+  - RightTarget
+  - EnterMap
+  - ExitMap
+  - BSPMap
   layers:
   - Default
   - TransparentFX

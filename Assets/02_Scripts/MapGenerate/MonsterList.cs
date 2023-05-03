@@ -18,9 +18,7 @@ public class MonsterList : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        walkmonsterinsert();
-        flymonsterinsert();
-        middlemonsterinsert();
+
     }
 
     void walkmonsterinsert()
@@ -55,19 +53,22 @@ public class MonsterList : MonoBehaviour
 
     public GameObject GetRandomFlyMonster()
     {
+        flymonsterinsert();
         int randomIndex = Random.Range(0, flymonsterList.Count);
         return flymonsterList[randomIndex];
     }
 
     public GameObject GetRandomWalkMonster()
     {
+        walkmonsterinsert();
         int randomIndex = Random.Range(0, walkmonsterList.Count);
         return walkmonsterList[randomIndex];
     }
 
     public GameObject GetRandomMiddleMonster()
     {
-
-        return middlemonsterList[0];
+        middlemonsterinsert();
+        int randomIndex = Random.Range(0, middlemonsterList.Count);
+        return middlemonsterList[randomIndex];
     }
 }
