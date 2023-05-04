@@ -7,67 +7,52 @@ public class MonsterList : MonoBehaviour
     [SerializeField] List<GameObject> walkmonsterList;
     [SerializeField] List<GameObject> flymonsterList;
     [SerializeField] List<GameObject> middlemonsterList;
-    [SerializeField] GameObject walk1;
-    [SerializeField] GameObject walk2;
-    [SerializeField] GameObject walk3;
-    [SerializeField] GameObject walk4;
-    [SerializeField] GameObject fly1;
-    [SerializeField] GameObject fly2;
-    [SerializeField] GameObject middle1;
-
     // Start is called before the first frame update
     void Start()
     {
 
     }
 
+    public void insertmonster()
+    {
+        middlemonsterinsert();
+        walkmonsterinsert();
+        flymonsterinsert();
+    }
+
     void walkmonsterinsert()
     {
-        /*
-        walkmonsterList.Add(Resources.Load<GameObject>("04_Prefabs/Monster/Goblin.prefab"));
-        walkmonsterList.Add(Resources.Load<GameObject>("04_Prefabs/Monster/Mushroom.prefab"));
-        walkmonsterList.Add(Resources.Load<GameObject>("04_Prefabs/Monster/Skeleton.prefab"));
-        walkmonsterList.Add(Resources.Load<GameObject>("04_Prefabs/Monster/Slime.prefab"));
-        */
-        walkmonsterList.Add(walk1);
-        walkmonsterList.Add(walk2);
-        walkmonsterList.Add(walk3);
-        walkmonsterList.Add(walk4);
+        walkmonsterList.Add(Resources.Load<GameObject>("Monster/Goblin"));
+        walkmonsterList.Add(Resources.Load<GameObject>("Monster/Mushroom"));
+        walkmonsterList.Add(Resources.Load<GameObject>("Monster/Skeleton"));
+        walkmonsterList.Add(Resources.Load<GameObject>("Monster/Slime"));
     }
 
     void flymonsterinsert()
     {
-        /*
-        flymonsterList.Add(Resources.Load<GameObject>("04_Prefabs/Monster/Bat.prefab"));
-        flymonsterList.Add(Resources.Load<GameObject>("04_Prefabs/Monster/Flyingeye.prefab"));
-        */
-        flymonsterList.Add(fly1);
-        flymonsterList.Add(fly2);
+        flymonsterList.Add(Resources.Load<GameObject>("Monster/Bat"));
+        flymonsterList.Add(Resources.Load<GameObject>("Monster/Flyingeye"));
     }
 
     void middlemonsterinsert()
     {
-        //middlemonsterList.Add(Resources.Load<GameObject>("04_Prefabs/Monster/DeathBringer.prefab"));
-        middlemonsterList.Add(middle1);
+        middlemonsterList.Add(Resources.Load<GameObject>("Monster/DeathBirnger"));
     }
 
     public GameObject GetRandomFlyMonster()
     {
-        flymonsterinsert();
         int randomIndex = Random.Range(0, flymonsterList.Count);
         return flymonsterList[randomIndex];
     }
 
     public GameObject GetRandomWalkMonster()
     {
-        walkmonsterinsert();
         int randomIndex = Random.Range(0, walkmonsterList.Count);
         return walkmonsterList[randomIndex];
     }
 
     public GameObject GetRandomMiddleMonster()
     {
-        middlemonsterinsert();
         int randomIndex = Random.Range(0, middlemonsterList.Count);
         return middlemonsterList[randomIndex];
     }

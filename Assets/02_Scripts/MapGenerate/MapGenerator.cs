@@ -27,6 +27,7 @@ public class MapGenerator : MonoBehaviour
         GenerateLoad(root, 0);
         FillWall(); //바깥과 방이 만나는 지점을 벽으로 칠해주는 함수
         monsterlist = GetComponent<MonsterList>();
+        monsterlist.insertmonster();
         CreateObjectInRoom(orderedRooms);
     }
 
@@ -115,7 +116,6 @@ public class MapGenerator : MonoBehaviour
         {
             RectInt room = rooms[i];
             Vector2 center = room.center;
-            Debug.Log(rooms.Count);
             if (i == 0)
             {
                 Instantiate(enter, new Vector3(center.x - mapSize.x / 2 - room.width / 2 + 5f + transform.position.x, center.y - mapSize.y / 2 - room.height / 2, -1), Quaternion.identity, transform);
@@ -126,24 +126,19 @@ public class MapGenerator : MonoBehaviour
             }
             else
             {
-                GameObject monster = null;
                 int monsterset = Random.Range(1, 3);
                 switch (monsterset)
                 {
                     case 1:
-                        monster = monsterlist.GetRandomFlyMonster();
-                        Instantiate(monster, new Vector3(center.x - (mapSize.x / 2) + transform.position.x - room.width / 3, center.y - mapSize.y / 2 - room.height / 2 + 6f / 2, -1), Quaternion.identity, transform);
-                        monster = monsterlist.GetRandomFlyMonster();
-                        Instantiate(monster, new Vector3(center.x - (mapSize.x / 2) + transform.position.x + room.width / 3, center.y - mapSize.y / 2 - room.height / 2 + 6f / 2, -1), Quaternion.identity, transform);
+                        Instantiate(monsterlist.GetRandomFlyMonster(), new Vector3(center.x - (mapSize.x / 2) + transform.position.x - room.width / 3, center.y - mapSize.y / 2 - room.height / 2 + 6f / 2, -1), Quaternion.identity, transform);
+                        Instantiate(monsterlist.GetRandomFlyMonster(), new Vector3(center.x - (mapSize.x / 2) + transform.position.x + room.width / 3, center.y - mapSize.y / 2 - room.height / 2 + 6f / 2, -1), Quaternion.identity, transform);
                         for (int j = -5; j < 6; j += 5)
                         {
-                            monster = monsterlist.GetRandomWalkMonster();
-                            Instantiate(monster, new Vector3(center.x - (mapSize.x / 2) + 5f + transform.position.x + j, center.y - mapSize.y / 2 - room.height / 2 + 2f / 2, -1), Quaternion.identity, transform);
+                            Instantiate(monsterlist.GetRandomWalkMonster(), new Vector3(center.x - (mapSize.x / 2) + 5f + transform.position.x + j, center.y - mapSize.y / 2 - room.height / 2 + 2f / 2, -1), Quaternion.identity, transform);
                         }
                         break;
                     case 2:
-                        monster = monsterlist.GetRandomMiddleMonster();
-                        Instantiate(monster, new Vector3(center.x - (mapSize.x / 2) + 5f + transform.position.x, center.y - mapSize.y / 2 - room.height / 2 + 2f / 2, -1), Quaternion.identity, transform);
+                        Instantiate(monsterlist.GetRandomMiddleMonster(), new Vector3(center.x - (mapSize.x / 2) + 5f + transform.position.x, center.y - mapSize.y / 2 - room.height / 2 + 2f / 2, -1), Quaternion.identity, transform);
                         break;
                 }
             }
