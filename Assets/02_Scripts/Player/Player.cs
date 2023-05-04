@@ -173,6 +173,7 @@ public class Player : MonoBehaviour
 
 
 
+
         #region Move
 
         horizontal = Input.GetAxisRaw("Horizontal");
@@ -689,5 +690,5 @@ public class Player : MonoBehaviour
         audioSource.PlayOneShot(audioClip);
     }
 
-
+   
 }

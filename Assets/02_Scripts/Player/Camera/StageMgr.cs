@@ -40,7 +40,7 @@ public class StageMgr : MonoBehaviour
     {
         a = 1;
         FadeInOutImg.color = new Vector4(0, 0, 0, a);
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(1f);
     }
 
     public IEnumerator FadeIn1()
