@@ -56,6 +56,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if(Time.timeScale == 0)
+        {
+            Time.timeScale = 1.0f;
+        }
     }
 
 

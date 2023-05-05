@@ -10,7 +10,7 @@ using System.Text;
 public class SaveData : MonoBehaviour
 {
     string secretKey = "mySecretKey";
-    public string saveDataURL = "http://localhost/SaveData/senddata.php?";
+    string saveDataURL = "http://localhost/SaveData/senddata.php?";
 
     public void SendScoreBtn()
     {
