@@ -10381,7 +10381,7 @@ MonoBehaviour:
   collision_damage: 1
   attack_damage: 1
   Hp: 5
-  dropcoincnt: 5
+  dropcoincnt: 2
   knockbackdis: 5
   movespeed: 2
   PlayerPos: {fileID: 0}

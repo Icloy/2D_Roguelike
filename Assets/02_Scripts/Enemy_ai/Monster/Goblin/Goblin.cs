@@ -55,10 +55,6 @@ public class Goblin : Enemy
     {
         Vector2 frontVec = new Vector2(rigid.position.x + nextMove * turnrange, rigid.position.y);
         Debug.DrawRay(frontVec, Vector3.down, new Color(0, 255, 0)); // 디버그용 두문장 나중에 지워도 상관없음
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            TakeDamage(1);
-        }
     }
 
     public IEnumerator Think()

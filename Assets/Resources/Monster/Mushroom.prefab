@@ -10429,7 +10429,7 @@ MonoBehaviour:
   collision_damage: 1
   attack_damage: 1
   Hp: 2
-  dropcoincnt: 0
+  dropcoincnt: 1
   knockbackdis: 5
   movespeed: 2
   PlayerPos: {fileID: 0}
