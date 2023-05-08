@@ -13,6 +13,7 @@ public class GameUI : MonoBehaviour
     public GameObject pausePanel; //퍼즈 패널(esc)
     public GameObject optionPanel; //옵션 패널()
     public GameObject gameoverPanel; //게임 오버 패널()
+    public GameObject bspPanel; //bsp 생성 패널()
 
     public GameObject optionGraphic; //옵션 그래픽 패널
     public GameObject optionSound; //옵션 사운드 패널
@@ -26,7 +27,7 @@ public class GameUI : MonoBehaviour
     List<Resolution> resolutions = new List<Resolution>(); //모니터가 지원하는 해상도를 저장할 배열
     FullScreenMode screenMode;
     int resolutionNum;
-    
+
     Animator anim;
     GameObject minimap;
     RectTransform rectminimap;
@@ -47,7 +48,7 @@ public class GameUI : MonoBehaviour
             pausePanel.SetActive(true);
             pausePanelSelBtn.Select();
         }
-        else 
+        else
         {
             Time.timeScale = 1.0f;
             GameManager.instance.isPanelOpen = false;
@@ -154,11 +155,11 @@ public class GameUI : MonoBehaviour
     }
     IEnumerator Map2()
     {
-            yield return new WaitForSeconds(0.1f);
-            mapPanel.SetActive(true);
-            //rectminimap.localScale = new Vector3(1f, 1f, 1f);
-            //minimap.SetActive(false);
-            GameManager.instance.isMapOpen = true;
+        yield return new WaitForSeconds(0.1f);
+        mapPanel.SetActive(true);
+        //rectminimap.localScale = new Vector3(1f, 1f, 1f);
+        //minimap.SetActive(false);
+        GameManager.instance.isMapOpen = true;
     }
     #endregion
     public void ContinueBtn()   //GameOver
@@ -181,4 +182,24 @@ public class GameUI : MonoBehaviour
             optionSound.SetActive(false);
         }
     }
+
+    #region Bsp
+    public void BspPanel() //bspPanel 열때 닫을 때
+    {
+        if (!bspPanel.activeSelf)
+        {
+            bspPanel.SetActive(true);
+        }
+        else
+        {
+            bspPanel.SetActive(false);
+        }
+    }
+
+    public void BspApplyBtn(int x , int y, int mon)
+    {
+
+        //bsp 맵구현
+    }
+    #endregion
 }
