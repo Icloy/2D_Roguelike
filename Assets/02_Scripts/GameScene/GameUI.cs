@@ -27,6 +27,7 @@ public class GameUI : MonoBehaviour
     List<Resolution> resolutions = new List<Resolution>(); //모니터가 지원하는 해상도를 저장할 배열
     FullScreenMode screenMode;
     int resolutionNum;
+    public TMP_InputField[] bspInputfield;
 
     Animator anim;
     GameObject minimap;
@@ -37,6 +38,10 @@ public class GameUI : MonoBehaviour
         minimap = transform.GetChild(1).gameObject;
         anim = minimap.GetComponent<Animator>();
         rectminimap = minimap.GetComponent<RectTransform>();
+    }
+
+    private void Start()
+    {
     }
 
     public void PasueGame() //pausePanel (esc)
@@ -196,10 +201,32 @@ public class GameUI : MonoBehaviour
         }
     }
 
-    public void BspApplyBtn(int x , int y, int mon)
+    public void BspApplyBtn() //bspPanel Apply버튼 클릭시 맵 제작과 관련된 데이터를 보낸다
     {
-
-        //bsp 맵구현
+        //inputfield의 값이 숫자인지 검사
+        int n1, n2, n3;
+        if(!int.TryParse(bspInputfield[0].text, out n1) || !int.TryParse(bspInputfield[1].text, out n2) || !int.TryParse(bspInputfield[2].text, out n3))
+        {
+            //숫자가 아니면 처리할 코드
+            ToastMsg.Instance.showMessage("입력하신 값이 잘못되었습니다. 숫자로 입력하여주세요", 1f);
+            return;
+        }
+        string send = bspInputfield[0].text + "," + bspInputfield[1].text + "," + bspInputfield[2].text;
+        
+        //다른곳에서 값 받을 함수 실행
+        BspMapValue(send);
+        //패널 종료
+        BspPanel();
     }
+    
+    public void BspMapValue(string val) //다른 스크립트로 옮겨서 이 값을 토대로 맵 제작 
+    {
+        string[] values = val.Split(',');
+
+        int x = int.Parse(values[0]);
+        int y = int.Parse(values[1]);
+        int z = int.Parse(values[2]);
+    }
+
     #endregion
 }
