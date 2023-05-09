@@ -8,6 +8,7 @@ public class EnterMap : MonoBehaviour
     GameObject enterpos;
     GameObject player;
     [SerializeField] GameObject map;
+    [SerializeField] GameObject text;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +37,7 @@ public class EnterMap : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            text.gameObject.SetActive(true);
             player = collision.gameObject;
             enterpos = GameObject.FindWithTag("EnterMap");
             enterTrigger = true;
@@ -47,6 +49,7 @@ public class EnterMap : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            text.gameObject.SetActive(false);
             enterTrigger = false;
             StopCoroutine("MoveMap");
         }

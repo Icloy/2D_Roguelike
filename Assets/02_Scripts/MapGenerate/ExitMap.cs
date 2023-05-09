@@ -8,6 +8,7 @@ public class ExitMap : MonoBehaviour
     GameObject exitpos;
     GameObject player;
     GameObject map;
+    [SerializeField] GameObject text;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +37,7 @@ public class ExitMap : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            text.gameObject.SetActive(true);
             player = collision.gameObject;
             exitpos = GameObject.FindWithTag("ExitMap");
             map = GameObject.FindWithTag("BSPMap");
@@ -48,6 +50,7 @@ public class ExitMap : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            text.gameObject.SetActive(false);
             exitTrigger = false;
             StopCoroutine("MoveMap");
         }
