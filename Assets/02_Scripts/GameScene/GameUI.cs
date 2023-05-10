@@ -187,7 +187,12 @@ public class GameUI : MonoBehaviour
             optionSound.SetActive(false);
         }
     }
-
+    #region Store
+    public void StoreBtn()
+    {
+        SceneManager.LoadSceneAsync(3, LoadSceneMode.Additive);
+    }
+    #endregion
     #region Bsp
     public void BspPanel() //bspPanel ¿­¶§ ´ÝÀ» ¶§
     {
