@@ -230,7 +230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapSize: {x: 200, y: 25}
   minimumDevideRate: 0.4
-  maximumDivideRate: 0.6
+  maximumDevideRate: 0.6
   maximumDepth: 2
   tileMap: {fileID: 1828774500571739345}
   roomTile: {fileID: 11400000, guid: 3b2425d2e8deb214d832044004977db3, type: 2}
@@ -254,10 +254,3 @@ MonoBehaviour:
   walkmonsterList: []
   flymonsterList: []
   middlemonsterList: []
-  walk1: {fileID: 4777808566452119309, guid: 1d312a3581d02aa4da37969ce91c28df, type: 3}
-  walk2: {fileID: 8548519069648857429, guid: dbed4ade4879de249a79a7506931283c, type: 3}
-  walk3: {fileID: 8010698457945844711, guid: f739fd07d683b4845966e003b78cc923, type: 3}
-  walk4: {fileID: 2621568847100566471, guid: d9ec2fb37cb5dcc4fb83871dbf75d428, type: 3}
-  fly1: {fileID: 757895804784554808, guid: 64937cc4f2c983c4fbb55f63c714f7a4, type: 3}
-  fly2: {fileID: 3856577325868883804, guid: 320880f970d8f7442bfabb5de61ee356, type: 3}
-  middle1: {fileID: 5364965793328936326, guid: 95a9bb3f5deee11478d4973976db808c, type: 3}

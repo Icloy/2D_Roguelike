@@ -7,7 +7,7 @@ public class MapGenerator : MonoBehaviour
 {
     [SerializeField] Vector2Int mapSize;
     [SerializeField] float minimumDevideRate; //공간이 나눠지는 최소 비율
-    [SerializeField] float maximumDivideRate; //공간이 나눠지는 최대 비율
+    [SerializeField] float maximumDevideRate; //공간이 나눠지는 최대 비율
     [SerializeField] private int maximumDepth; //트리의 높이, 높을 수록 방을 더 자세히 나누게 됨
     [SerializeField] Tilemap tileMap;
     [SerializeField] Tile roomTile; //방을 구성하는 타일
@@ -43,7 +43,7 @@ public class MapGenerator : MonoBehaviour
 
         int maxLength = tree.nodeRect.width;
         //가로와 세로중 더 긴것을 구한후, 가로가 길다면 위 좌, 우로 세로가 더 길다면 위, 아래로 나눠주게 될 것이다.
-        int split = Mathf.RoundToInt(Random.Range(maxLength * minimumDevideRate, maxLength * maximumDivideRate));
+        int split = Mathf.RoundToInt(Random.Range(maxLength * minimumDevideRate, maxLength * maximumDevideRate));
         //나올 수 있는 최대 길이와 최소 길이중에서 랜덤으로 한 값을 선택
         if (tree.nodeRect.width >= tree.nodeRect.height) //가로가 더 길었던 경우에는 좌 우로 나누게 될 것이며, 이 경우에는 세로 길이는 변하지 않는다.
         {

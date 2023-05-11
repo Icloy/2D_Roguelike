@@ -73,6 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84d2225f2565da1499cb963105b3ef69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  remap: {fileID: 1828774501660992835, guid: 35f58ac0837237c4286858a792b3673d, type: 3}
   text: {fileID: 8034600669228071166}
 --- !u!1 &2779068265919498572
 GameObject:
