@@ -44,7 +44,7 @@ public class GameUI : MonoBehaviour
     {
     }
 
-    public void PasueGame() //pausePanel (esc)
+    public void PauseGame() //pausePanel (esc)
     {
         if (!pausePanel.activeSelf)
         {
@@ -63,7 +63,7 @@ public class GameUI : MonoBehaviour
 
     public void ResumeBtn() //optionpanel 
     {
-        PasueGame();
+        PauseGame();
     }
 
     public void ExitBtn() //optionpanel
@@ -199,10 +199,18 @@ public class GameUI : MonoBehaviour
         if (!bspPanel.activeSelf)
         {
             bspPanel.SetActive(true);
+            if (pausePanel.activeSelf)
+            {
+                pausePanel.SetActive(false);
+            }
         }
         else
         {
             bspPanel.SetActive(false);
+            if(Time.timeScale == 0)
+            {
+                PauseGame();
+            }
         }
     }
 
@@ -231,6 +239,7 @@ public class GameUI : MonoBehaviour
         int x = int.Parse(values[0]);
         int y = int.Parse(values[1]);
         int z = int.Parse(values[2]);
+        Debug.Log("x : " + x + " y : " + y + " z : " + z);
     }
 
     #endregion

@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
                 gameUI.OptionBtn();
                 return;
             }
-            gameUI.PasueGame();
+            gameUI.PauseGame();
         }
         
         //일단 지도 끔
