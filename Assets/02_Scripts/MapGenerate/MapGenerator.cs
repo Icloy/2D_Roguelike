@@ -17,6 +17,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] GameObject exit;
     [SerializeField] private List<RectInt> orderedRooms = new List<RectInt>();
     private MonsterList monsterlist;
+   
 
     void Start()
     {
