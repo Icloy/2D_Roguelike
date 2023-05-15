@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
     public Canvas HpBar;
     public GameObject alert;
     public GameObject hiteffect;
+    public GameObject parentObject;
 
     public virtual void TakeDamage(int damege)
     {

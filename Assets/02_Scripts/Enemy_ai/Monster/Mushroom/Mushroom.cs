@@ -218,6 +218,7 @@ public class Mushroom : Enemy
 
     IEnumerator Die()
     {
+        parentObject = GameObject.FindWithTag("BSPMap");
         rigid.velocity = Vector2.zero;
         animator.SetInteger(animationState, (int)States.die);
         rigid.AddForce(Vector2.up * knockbackdis, ForceMode2D.Impulse);
@@ -232,7 +233,7 @@ public class Mushroom : Enemy
         yield return new WaitForSeconds(0.2f);
         DropItem();
         Vector2 position = new Vector2(rigid.position.x, rigid.position.y + 0.2f);
-        Instantiate(Corpse, position, Quaternion.identity, transform);
+        Instantiate(Corpse, position, Quaternion.identity, parentObject.transform);
         Destroy(this.gameObject);
     }
 
@@ -309,7 +310,7 @@ public class Mushroom : Enemy
             float x = Random.Range(-1f, 1f); // x축 위치 랜덤 설정
             float y = Random.Range(0.5f, 2f); // y축 위치 랜덤 설정
             Vector2 position = new Vector2(transform.position.x + x, transform.position.y + y);
-            Instantiate(Item, position, Quaternion.identity);
+            Instantiate(Item, position, Quaternion.identity, parentObject.transform);
         }
     }
 
