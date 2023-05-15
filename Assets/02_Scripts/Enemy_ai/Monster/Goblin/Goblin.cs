@@ -226,7 +226,7 @@ public class Goblin : Enemy
         yield return new WaitForSeconds(0.2f);
         DropItem();
         Vector2 position = new Vector2(rigid.position.x, rigid.position.y + 0.2f);
-        Instantiate(Corpse, position, Quaternion.identity);
+        Instantiate(Corpse, position, Quaternion.identity, transform);
         Destroy(this.gameObject);
     }
 

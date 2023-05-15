@@ -17,12 +17,28 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] GameObject exit;
     [SerializeField] private List<RectInt> orderedRooms = new List<RectInt>();
     private MonsterList monsterlist;
-   
+    [SerializeField] private GameUI gameUI;
+    [SerializeField] GameObject bspMap;
+    [SerializeField] GameObject grid;
+
 
     void Start()
     {
+
+    }
+
+    void update()
+    {
+
+    }
+
+    public void CreateBspMap()
+    {
+        Node root = null;
+        orderedRooms.Clear();
+        Debug.Log("call CreateBspMap");
         FillBackground();//신 로드 시 전부다 바깥타일로 덮음
-        Node root = new Node(new RectInt(0, 0, mapSize.x, mapSize.y));
+        root = new Node(new RectInt(0, 0, mapSize.x, mapSize.y));
         Divide(root, 0);
         GenerateRoom(root, 0);
         GenerateLoad(root, 0);
@@ -32,9 +48,18 @@ public class MapGenerator : MonoBehaviour
         CreateObjectInRoom(orderedRooms);
     }
 
-    void update()
+    public void ClearBspMap()
     {
+        foreach (Transform child in bspMap.transform)
+        {
+            GameObject childObject = child.gameObject;
 
+            // 삭제할 컴포넌트가 있는지 여부를 확인하여 삭제
+            if (child.gameObject != grid)
+            {
+                Destroy(child.gameObject);
+            }
+        }
     }
 
     void Divide(Node tree, int n)
@@ -246,6 +271,12 @@ public class MapGenerator : MonoBehaviour
                 tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0), roomTile);
             }
         }
+    }
+
+    public void SetValue(int value1, int value2, int value3)
+    {
+        mapSize.x = value1;
+        mapSize.y = value2;
     }
 
 }

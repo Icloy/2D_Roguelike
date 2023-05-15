@@ -8,8 +8,8 @@ public class ExitMap : MonoBehaviour
     GameObject exitpos;
     GameObject player;
     GameObject map;
-    [SerializeField] GameObject remap;
     [SerializeField] GameObject text;
+    MapGenerator mapGenerator;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,8 +28,8 @@ public class ExitMap : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.G))
             {
                 player.transform.position = new Vector3(exitpos.transform.position.x, exitpos.transform.position.y + 2f, exitpos.transform.position.z);
-                Destroy(map);
-                Instantiate(remap, new Vector3(-400, 0, 0), Quaternion.identity);
+                map.GetComponent<MapGenerator>().ClearBspMap();
+                exitpos.GetComponent<EnterMap>().SetCreateTrigger();
             }
             yield return null;
         }

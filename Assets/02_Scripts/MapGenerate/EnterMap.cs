@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnterMap : MonoBehaviour
 {
-    bool enterTrigger = false;
+    bool enterTrigger;
+    bool createTrigger;
     GameObject enterpos;
     GameObject player;
     [SerializeField] GameObject map;
@@ -12,7 +13,8 @@ public class EnterMap : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Instantiate(map, new Vector3(-400, 0, 0), Quaternion.identity);
+        enterTrigger = false;
+        createTrigger = true;
     }
 
     // Update is called once per frame
@@ -32,11 +34,27 @@ public class EnterMap : MonoBehaviour
             yield return null;
         }
     }
+    void CreateMap()
+    {
+        createTrigger = false;
+        if (map != null)
+        {
+            map.GetComponent<MapGenerator>().CreateBspMap();
+        }
+    }
+    public void SetCreateTrigger()
+    {
+        createTrigger = true;
+    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
+            if(createTrigger)
+            {
+                CreateMap();
+            }
             text.gameObject.SetActive(true);
             player = collision.gameObject;
             enterpos = GameObject.FindWithTag("EnterMap");

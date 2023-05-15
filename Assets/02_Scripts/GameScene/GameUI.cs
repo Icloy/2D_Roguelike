@@ -14,6 +14,7 @@ public class GameUI : MonoBehaviour
     public GameObject optionPanel; //옵션 패널()
     public GameObject gameoverPanel; //게임 오버 패널()
     public GameObject bspPanel; //bsp 생성 패널()
+    public GameObject map;
 
     public GameObject optionGraphic; //옵션 그래픽 패널
     public GameObject optionSound; //옵션 사운드 패널
@@ -240,6 +241,7 @@ public class GameUI : MonoBehaviour
         int y = int.Parse(values[1]);
         int z = int.Parse(values[2]);
         Debug.Log("x : " + x + " y : " + y + " z : " + z);
+        map.GetComponent<MapGenerator>().SetValue(x, y, z);
     }
 
     #endregion
