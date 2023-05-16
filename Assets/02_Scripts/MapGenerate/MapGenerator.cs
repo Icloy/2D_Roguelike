@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 public class MapGenerator : MonoBehaviour
 {
     [SerializeField] Vector2Int mapSize;
+    [SerializeField] int mobCount;
     [SerializeField] float minimumDevideRate; //공간이 나눠지는 최소 비율
     [SerializeField] float maximumDevideRate; //공간이 나눠지는 최대 비율
     [SerializeField] private int maximumDepth; //트리의 높이, 높을 수록 방을 더 자세히 나누게 됨
@@ -156,11 +157,20 @@ public class MapGenerator : MonoBehaviour
                 switch (monsterset)
                 {
                     case 1:
-                        Instantiate(monsterlist.GetRandomFlyMonster(), new Vector3(center.x - (mapSize.x / 2) + transform.position.x - room.width / 3, center.y - mapSize.y / 2 - room.height / 2 + 6f / 2, -1), Quaternion.identity, transform);
-                        Instantiate(monsterlist.GetRandomFlyMonster(), new Vector3(center.x - (mapSize.x / 2) + transform.position.x + room.width / 3, center.y - mapSize.y / 2 - room.height / 2 + 6f / 2, -1), Quaternion.identity, transform);
-                        for (int j = -5; j < 6; j += 5)
+                        int walkMobInterval = Mathf.CeilToInt(room.width / mobCount);
+                        int walkMobPos = -Mathf.CeilToInt(room.width / 2);
+                        for (int j = 0; j < mobCount; j++)
                         {
-                            Instantiate(monsterlist.GetRandomWalkMonster(), new Vector3(center.x - (mapSize.x / 2) + 5f + transform.position.x + j, center.y - mapSize.y / 2 - room.height / 2 + 2f / 2, -1), Quaternion.identity, transform);
+                            Instantiate(monsterlist.GetRandomWalkMonster(), new Vector3(center.x - (mapSize.x / 2) + 5f + transform.position.x + walkMobPos, center.y - mapSize.y / 2 - room.height / 2 + 2f / 2, -1), Quaternion.identity, transform);
+                            walkMobPos += walkMobInterval;
+                        }
+                        int flyMobCount = Mathf.CeilToInt(mobCount / 2);
+                        int flyMobInterval = Mathf.CeilToInt(room.width / flyMobCount);
+                        int flyMobPos = -Mathf.CeilToInt(room.width / 2);
+                        for (int k = 0; k < flyMobCount; k++)
+                        {
+                            Instantiate(monsterlist.GetRandomFlyMonster(), new Vector3(center.x - (mapSize.x / 2) + 5f + transform.position.x + flyMobPos, center.y - mapSize.y / 2 - room.height / 2 + 6f / 2, -1), Quaternion.identity, transform);
+                            flyMobPos += flyMobInterval;
                         }
                         break;
                     case 2:
@@ -277,6 +287,7 @@ public class MapGenerator : MonoBehaviour
     {
         mapSize.x = value1;
         mapSize.y = value2;
+        mobCount = value3;
     }
 
 }
