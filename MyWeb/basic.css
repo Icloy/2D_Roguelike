@@ -1,0 +1,73 @@
+html{
+	scroll-behavior: smooth;
+}
+
+body{
+    background-color: rgb(255, 255, 255);
+}
+
+ol {
+    counter-reset: item;
+    padding-left: 10px;
+}
+li {
+    display: block
+}
+
+
+#GameImage {  
+    text-align: center;
+}
+
+#GameName{
+	position: absolute;
+	top: 6%;
+	left: 45%;
+}
+
+#GameMenu{
+    border:1px solid; padding:10px;
+    margin-right: 1200px;
+    margin-left: 50px;
+    overflow: visible;
+}
+
+.updatesheeticons{
+  padding: 5%;
+  display: grid;
+  grid-template-columns: repeat(5, 270px);
+  grid-template-rows: repeat(3, 200px);
+  
+}
+
+.iconheader{         /*몬스터 이름*/
+    border: 1px solid;
+    border-top-right-radius: 30px;
+    background-color: rgb(179, 66, 90);
+}
+
+.iconheadertext{           /*텍스트*/
+    color:rgb(255, 255, 255);
+}
+
+.iconcontainer{        /*몬스터 표*/
+    border: 1px solid;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 30px;
+    margin-left: 25px;
+}
+
+
+.iconbody{
+    background-image:url(Back.png);
+    background-position:center;
+    object-fit: cover;
+}
+
+
+details > summary{
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
