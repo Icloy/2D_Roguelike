@@ -11,11 +11,19 @@ public class Coin : MonoBehaviour
 
     float speed;
 
+    public AudioSource audioSource;
+
+    public AudioClip PickupCoin;
+    public AudioClip DropCoin;
+
+
     private void Awake()
     {
         target = GameObject.Find("coincollect");
         circle = GetComponent<CircleCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     private void Start()
@@ -31,7 +39,16 @@ public class Coin : MonoBehaviour
             circle.enabled = false;
             rigid.velocity = Vector3.zero;
             rigid.gravityScale = 0;
+            audioSource.clip = PickupCoin;
+            audioSource.Play();
             StartCoroutine(CoinMove());
+        }
+
+        if (col.gameObject.CompareTag("Platform"))
+        {
+            audioSource.clip = DropCoin;
+            audioSource.Play();
+
         }
         /*
         else if(!(col.gameObject.GetComponent<TilemapCollider2D>() != null))

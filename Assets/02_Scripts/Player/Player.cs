@@ -66,11 +66,11 @@ public class Player : MonoBehaviour
 
     [HideInInspector]
     [Range(0.01f, 0.1f)]
-    private float zoomSpeed = 0.1f;
+    private float zoomSpeed = 0.05f;
 
     //힐 쿨타임
     float hcurT;
-    float hgoalT = 1.5f;
+    float hgoalT = 2f;
 
     // 플레이어 스테이터스
     public int AtDmg; //공격 데미지
@@ -161,6 +161,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+
         updatePlayerState();
 
         if (rigid.velocity.y < _fallSpeedYDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping && !CameraManager.instance.LerpedFromPlayerFalling)
@@ -410,6 +411,8 @@ public class Player : MonoBehaviour
             //Down부분에 이럴 경우 코루틴이 시작되면 안된다 하는 경우의 수 추가 
             if (Input.GetKeyDown(KeyCode.A) && curHp < maxHp && IsGrounded() && Stat.GetComponent<Stat>().MP >= 100 && canHeal)
         {
+            playerAudio.Play(PlayerAudio.AudioType.HealFocus, true);
+
             StartCoroutine("Heal");
 
         }
@@ -433,6 +436,7 @@ public class Player : MonoBehaviour
             anim.SetBool("Sit", false);
             HealEffect.gameObject.SetActive(false);
             HealEffect1.gameObject.SetActive(false);
+            playerAudio.Play(PlayerAudio.AudioType.HealFocus, false);
 
         }
         #endregion
@@ -574,14 +578,15 @@ public class Player : MonoBehaviour
                     HealEffect1.gameObject.SetActive(false);
                     ZoomOut();
                     StartCoroutine(StageMgr.Instance.MoveNext3(fadeInOut, SmoothMoving));
-                    CSake.instance.Vibrate(1f);
                     anim.SetBool("Sit", false);
                     Stat.GetComponent<Stat>().MP -= 100;
                     canHeal = true;
                     rigid.constraints = RigidbodyConstraints2D.None;
                     rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
                     Damaged(1);
+                    Vibrate(1f, 0.1f);
                     hcurT = 0f;
+                    playerAudio.Play(PlayerAudio.AudioType.HealFocus, false);
                     yield break;
                 }
             }
@@ -658,6 +663,7 @@ public class Player : MonoBehaviour
     public void ZoomOut()
     {
         virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, 60, 45);
+
     }
 
 
@@ -701,5 +707,19 @@ public class Player : MonoBehaviour
         audioSource.PlayOneShot(audioClip);
     }
 
-   
+
+
+    public void Vibrate(float vibrationIntensity, float vibrationDuration)
+    {
+        virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 1f;
+        virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 1f;
+
+        Invoke("StopCameraShake", vibrationDuration);
+    }
+
+    void StopCameraShake()
+    {
+        virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
+        virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0f;
+    }
 }

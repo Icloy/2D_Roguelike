@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerAudio : MonoBehaviour
 {
+    // playerAudio.Play(PlayerAudio.AudioType.Attack, true); 예시
+    // playerAudio.OtherPlay(PlayerAudio.OtherAudioType.BossBGM, true); 예시
+
+
     [SerializeField] AudioSource mainEffectAudioSouce;
     [Header("Audio Sources")]
 
@@ -15,12 +19,22 @@ public class PlayerAudio : MonoBehaviour
     [SerializeField] AudioSource LandSound = null;
     [SerializeField] AudioSource Damaged_EnemySound = null;
     [SerializeField] AudioSource takeDamagedSound = null;
+    [SerializeField] AudioSource HealFocusSound = null;
 
+
+    [Header("other Audio Sources")]
+
+    [SerializeField] AudioSource BossBGMSound = null;
 
 
     public enum AudioType
     {
-        Attack, Jump, Heal, Dash, Damaged, Land, Dameged_Enemy, TakeDamaged
+        Attack, Jump, Heal, Dash, Damaged, Land, Dameged_Enemy, TakeDamaged , HealFocus
+    }
+
+    public enum OtherAudioType
+    {
+        BossBGM
     }
 
     public void Play(AudioType audioType, bool playState)
@@ -51,6 +65,31 @@ public class PlayerAudio : MonoBehaviour
                 break;
             case AudioType.TakeDamaged:
                 audioSource = takeDamagedSound;
+                break;
+            case AudioType.HealFocus:
+                audioSource = HealFocusSound;
+                break;
+        }
+        if (audioSource != null)
+        {
+            if (playState)
+            {
+                audioSource.Play();
+            }
+            else
+            {
+                audioSource.Stop();
+            }
+        }
+    }
+
+    public void OtherPlay(OtherAudioType otheraudioType, bool playState)
+    {
+        AudioSource audioSource = null;
+        switch (otheraudioType)
+        {
+            case OtherAudioType.BossBGM:
+                audioSource = BossBGMSound;
                 break;
         }
         if (audioSource != null)

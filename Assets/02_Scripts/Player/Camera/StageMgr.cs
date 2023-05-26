@@ -38,14 +38,14 @@ public class StageMgr : MonoBehaviour
     float a;
     public IEnumerator FadeIn()
     {
-        a = 1;
+        a = 1f;
         FadeInOutImg.color = new Vector4(0, 0, 0, a);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
     }
 
     public IEnumerator FadeIn1()
     {
-        a = 0.4f;
+        a = 0.1f;
         WhitePanelImg.color = new Vector4(255, 255, 255, a);
         yield return new WaitForSeconds(0.1f);
     }

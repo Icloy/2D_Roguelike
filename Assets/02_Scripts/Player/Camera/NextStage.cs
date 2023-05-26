@@ -66,11 +66,4 @@ public class NextStage : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            SceneManager.LoadScene("DDD");
-        }
-    }
 }
