@@ -97,7 +97,10 @@ public class Player : MonoBehaviour
     private float _fallSpeedYDampingChangeThreshold;
     private bool IsLeft;
     private bool IsRight;
-    [HideInInspector] [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    public CinemachineVirtualCamera virtualCamera;
+
+
+
 
     //오디오
     [SerializeField] AudioSource audioSource = null;
@@ -140,7 +143,7 @@ public class Player : MonoBehaviour
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
         cam = Camera.main;
-
+       
     }
     // Update is called once per frame
     #endregion
@@ -153,6 +156,7 @@ public class Player : MonoBehaviour
             Hp.instance.udtHp(curHp, maxHp);
         }
         _fallSpeedYDampingChangeThreshold = CameraManager.instance._fallSpeedYDampingChangeThreshold;
+
     }
 
     void Update()
@@ -393,13 +397,18 @@ public class Player : MonoBehaviour
         {
             Stat.GetComponent<Stat>().MP += 50;
         }
-        #endregion
 
-        #region Heal
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            Damaged(-1);
+        }
+            #endregion
+
+            #region Heal
 
 
-        //Down부분에 이럴 경우 코루틴이 시작되면 안된다 하는 경우의 수 추가 
-        if (Input.GetKeyDown(KeyCode.A) && curHp < maxHp && IsGrounded() && Stat.GetComponent<Stat>().MP >= 100 && canHeal)
+            //Down부분에 이럴 경우 코루틴이 시작되면 안된다 하는 경우의 수 추가 
+            if (Input.GetKeyDown(KeyCode.A) && curHp < maxHp && IsGrounded() && Stat.GetComponent<Stat>().MP >= 100 && canHeal)
         {
             StartCoroutine("Heal");
 
@@ -540,6 +549,8 @@ public class Player : MonoBehaviour
 
     #endregion
 
+
+
     IEnumerator Heal()
     {
         while (true)
@@ -611,7 +622,6 @@ public class Player : MonoBehaviour
     {
         if(dmg > 0)
         {
-            Debug.Log("1");
 
             for (int i = 0; i < dmg; i++)
             {
@@ -633,6 +643,7 @@ public class Player : MonoBehaviour
         if(dmg < 0)
         {
             Damaged_Effect.gameObject.SetActive(true);
+            playerAudio.Play(PlayerAudio.AudioType.TakeDamaged, true);
             Invoke("HideDamagedEffect", 0.2f);
             anim.SetTrigger("IsHurt");
         }

@@ -7,6 +7,8 @@ public class AttackBound : MonoBehaviour
     Rigidbody2D rigid;
     bool platformrepeat;
     bool enemyrepeat;
+    [SerializeField] PlayerAudio playerAudio = null;
+
 
     void OnEnable()
     {
@@ -25,14 +27,13 @@ public class AttackBound : MonoBehaviour
                 Player.Instance.upforce();
             }
         }
-        //else if (collision.CompareTag("Enemy"))
-        //{
-        //    if (!platformrepeat && !enemyrepeat)
-        //    {
-        //        enemyrepeat = true;
-        //        rigid.velocity = Vector2.zero;
-        //        Player.Instance.upforce();
-        //    }
-        //}
+        else if (collision.CompareTag("Enemy"))
+        {
+            if (!platformrepeat && !enemyrepeat)
+            {
+                playerAudio.Play(PlayerAudio.AudioType.Dameged_Enemy, true);
+
+            }
+        }
     }
 }

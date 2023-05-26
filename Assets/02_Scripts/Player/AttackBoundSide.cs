@@ -7,6 +7,7 @@ public class AttackBoundSide : MonoBehaviour
     Rigidbody2D rigid;
     bool platformrepeat;
     bool enemyrepeat;
+    [SerializeField] PlayerAudio playerAudio = null;
 
     void OnEnable()
     {
@@ -29,9 +30,8 @@ public class AttackBoundSide : MonoBehaviour
         {
             if (!platformrepeat && !enemyrepeat)
             {
-                enemyrepeat = true;
-                rigid.velocity = Vector2.zero;
-                Player.Instance.sideForce();
+                playerAudio.Play(PlayerAudio.AudioType.Dameged_Enemy, true);
+
             }
         }
     }

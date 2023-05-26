@@ -254,6 +254,7 @@ public class Skeleton : Enemy
         Debug.Log(Hp);
         if (Hp <= 0)
         {
+            //Sound
             StopAllCoroutines();
             StartCoroutine(Die());
         }

@@ -13,6 +13,8 @@ public class CSake : MonoBehaviour
     private CinemachineVirtualCamera virtualCamera;
     private CinemachineBasicMultiChannelPerlin noise;
 
+
+
     void Start()
     {
         instance = this;
@@ -37,4 +39,5 @@ public class CSake : MonoBehaviour
         noise.m_AmplitudeGain = 0f;
         noise.m_FrequencyGain = 0f;
     }
+
 }
