@@ -145,11 +145,11 @@ public class MapGenerator : MonoBehaviour
             Vector2 center = room.center;
             if (i == 0)
             {
-                Instantiate(enter, new Vector3(center.x - mapSize.x / 2 - room.width / 2 + 5f + transform.position.x, center.y - mapSize.y / 2 - room.height / 2, -1), Quaternion.identity, transform);
+                Instantiate(enter, new Vector3(center.x - mapSize.x / 2 - room.width / 2 + 5f + transform.position.x, center.y - mapSize.y / 2 - room.height / 2 + transform.position.y, -1), Quaternion.identity, transform);
             }
             else if (i == rooms.Count - 1)
             {
-                Instantiate(exit, new Vector3(center.x - mapSize.x / 2 + room.width / 2 - 5f + transform.position.x, center.y - mapSize.y / 2 - room.height / 2, -1), Quaternion.identity, transform);
+                Instantiate(exit, new Vector3(center.x - mapSize.x / 2 + room.width / 2 - 5f + transform.position.x, center.y - mapSize.y / 2 - room.height / 2 + transform.position.y, -1), Quaternion.identity, transform);
             }
             else
             {
@@ -161,7 +161,7 @@ public class MapGenerator : MonoBehaviour
                         int walkMobPos = -Mathf.CeilToInt(room.width / 2);
                         for (int j = 0; j < mobCount; j++)
                         {
-                            Instantiate(monsterlist.GetRandomWalkMonster(), new Vector3(center.x - (mapSize.x / 2) + 5f + transform.position.x + walkMobPos, center.y - mapSize.y / 2 - room.height / 2 + 2f / 2, -1), Quaternion.identity, transform);
+                            Instantiate(monsterlist.GetRandomWalkMonster(), new Vector3(center.x - (mapSize.x / 2) + 5f + transform.position.x + walkMobPos, center.y - mapSize.y / 2 - room.height / 2 + 2f / 2 + transform.position.y, -1), Quaternion.identity, transform);
                             walkMobPos += walkMobInterval;
                         }
                         int flyMobCount = Mathf.CeilToInt(mobCount / 2);
@@ -169,12 +169,12 @@ public class MapGenerator : MonoBehaviour
                         int flyMobPos = -Mathf.CeilToInt(room.width / 2);
                         for (int k = 0; k < flyMobCount; k++)
                         {
-                            Instantiate(monsterlist.GetRandomFlyMonster(), new Vector3(center.x - (mapSize.x / 2) + 5f + transform.position.x + flyMobPos, center.y - mapSize.y / 2 - room.height / 2 + 6f / 2, -1), Quaternion.identity, transform);
+                            Instantiate(monsterlist.GetRandomFlyMonster(), new Vector3(center.x - (mapSize.x / 2) + 5f + transform.position.x + flyMobPos, center.y - mapSize.y / 2 - room.height / 2 + 6f / 2 + transform.position.y, -1), Quaternion.identity, transform);
                             flyMobPos += flyMobInterval;
                         }
                         break;
                     case 2:
-                        Instantiate(monsterlist.GetRandomMiddleMonster(), new Vector3(center.x - (mapSize.x / 2) + 5f + transform.position.x, center.y - mapSize.y / 2 - room.height / 2 + 2f / 2, -1), Quaternion.identity, transform);
+                        Instantiate(monsterlist.GetRandomMiddleMonster(), new Vector3(center.x - (mapSize.x / 2) + 5f + transform.position.x, center.y - mapSize.y / 2 - room.height / 2 + 2f / 2 + transform.position.y, -1), Quaternion.identity, transform);
                         break;
                 }
             }
