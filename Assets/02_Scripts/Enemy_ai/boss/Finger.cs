@@ -29,6 +29,7 @@ public class Finger : MonoBehaviour
             position = targetTransform.position;
         }
         StartCoroutine(Move(rigid, speed));
+        Destroy(this.gameObject, delete_time);
     }
 
     void Update()
