@@ -394,11 +394,6 @@ public class Player : MonoBehaviour
 
 
 
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            Stat.GetComponent<Stat>().MP += 50;
-        }
-
         if (Input.GetKeyDown(KeyCode.J))
         {
             Damaged(-1);
