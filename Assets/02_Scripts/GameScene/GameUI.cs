@@ -13,6 +13,7 @@ public class GameUI : MonoBehaviour
     public GameObject pausePanel; //퍼즈 패널(esc)
     public GameObject optionPanel; //옵션 패널()
     public GameObject gameoverPanel; //게임 오버 패널()
+    public GameObject clearPanel; //게임 오버 패널()
     public GameObject bspPanel; //bsp 생성 패널()
     public GameObject map;
 
@@ -24,6 +25,11 @@ public class GameUI : MonoBehaviour
 
     public Dropdown resolutionDropdown; //해상도 저장할 드랍다운
     public Text coinCnt;    //코인 카운트 텍스트
+
+    public Image fadeImage;
+    public float fadeSpeed = 0.5f;
+    public GameObject EndingText;
+    private float currentAlpha = 0.0f;
 
     List<Resolution> resolutions = new List<Resolution>(); //모니터가 지원하는 해상도를 저장할 배열
     FullScreenMode screenMode;
@@ -41,10 +47,20 @@ public class GameUI : MonoBehaviour
         rectminimap = minimap.GetComponent<RectTransform>();
     }
 
-    private void Start()
+    private void Update()
     {
-    }
+        if (!clearPanel.activeSelf)
+        {
+            return;
+        }
+        currentAlpha += fadeSpeed * Time.deltaTime;
+        fadeImage.color = new Color(1.0f, 1.0f, 1.0f, currentAlpha);
 
+        if (currentAlpha >= 1.0f)
+        {
+            EndingText.gameObject.SetActive(true);
+        }
+    }
     public void PauseGame() //pausePanel (esc)
     {
         if (!pausePanel.activeSelf)
@@ -178,6 +194,10 @@ public class GameUI : MonoBehaviour
         Hp.instance.udtHp(Player.instance.curHp, Player.instance.maxHp);
         GameManager.instance.isPanelOpen = false;
         gameoverPanel.SetActive(false);
+    }
+    public void Clear()
+    {
+        clearPanel.SetActive(true);
     }
 
     private void Searchpanel() //켜져 있는 패널 검색용

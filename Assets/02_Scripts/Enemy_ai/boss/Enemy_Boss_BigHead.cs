@@ -66,7 +66,8 @@ public class Enemy_Boss_BigHead : Enemy
         if (Hp <= 0)
         {
             Destroy(this.gameObject);
+            GameManager.instance.isGameClear = true;
+            GameManager.instance.ClearProcess();
         }
     }
-    
 }

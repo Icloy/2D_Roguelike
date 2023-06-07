@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public int coin = 0;    //인게임 재화
 
     public bool isGameOver = false; //게임오버 여부
+    public bool isGameClear = false; //게임오버 여부
     public bool isPanelOpen = false; //패널 오픈 여부
     public bool isShopOpen = false; //상점 오픈 여부
     public bool isMapOpen = false; //맵 오픈 여부
@@ -142,5 +143,12 @@ public class GameManager : MonoBehaviour
 
         isPanelOpen = true;
         gameUI.gameoverPanel.SetActive(true);
+    }
+    public void ClearProcess()
+    {
+        if(isGameClear == false) {
+            return;
+        }
+        gameUI.Clear();
     }
 }
