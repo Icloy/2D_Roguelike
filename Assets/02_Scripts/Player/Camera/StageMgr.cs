@@ -30,6 +30,7 @@ public class StageMgr : MonoBehaviour
     private static StageMgr instance;
 
     public Image FadeInOutImg;
+    public Image FadeInOutImg_Cha;
     public Image WhitePanelImg;
 
     public List<GameObject> Stages = new List<GameObject>();
@@ -40,7 +41,8 @@ public class StageMgr : MonoBehaviour
     {
         a = 1f;
         FadeInOutImg.color = new Vector4(0, 0, 0, a);
-        yield return new WaitForSeconds(0.1f);
+        FadeInOutImg_Cha.color = new Vector4(255, 255, 255, a);
+        yield return new WaitForSeconds(1f);
     }
 
     public IEnumerator FadeIn1()
@@ -55,7 +57,8 @@ public class StageMgr : MonoBehaviour
         while (a >= 0)
         {
             FadeInOutImg.color = new Vector4(0, 0, 0, a);
-            a -= 0.01f;
+            FadeInOutImg_Cha.color = new Vector4(255, 255, 255, a);
+            a -= 0.005f;
             yield return null;
         }
     }

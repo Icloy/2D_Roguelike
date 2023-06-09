@@ -53,7 +53,8 @@ public class NextStage : MonoBehaviour
                 {
                     StartCoroutine(StageMgr.Instance.MoveNext2(collision, DestinationPoint.position, fadeInOut, SmoothMoving));
                 }
-                else { }
+                else {
+                }
             }
         }
 

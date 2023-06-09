@@ -193,6 +193,8 @@ public class GameUI : MonoBehaviour
         Player.instance.maxHp = 3;
         Hp.instance.udtHp(Player.instance.curHp, Player.instance.maxHp);
         GameManager.instance.isPanelOpen = false;
+        CameraManager.instance._allvirtualcameras[1].enabled = false;
+        CameraManager.instance._allvirtualcameras[0].enabled = true;
         gameoverPanel.SetActive(false);
     }
     public void Clear()

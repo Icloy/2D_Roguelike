@@ -7,7 +7,7 @@ public class CameraManager : MonoBehaviour
 {
     public static CameraManager instance;
 
-    [SerializeField] private CinemachineVirtualCamera[] _allvirtualcameras;
+    [SerializeField] public CinemachineVirtualCamera[] _allvirtualcameras;
 
     [SerializeField] private float _fallPanAmount = 0.25f;
     [SerializeField] private float _fallYPanTime = 0.35f;
