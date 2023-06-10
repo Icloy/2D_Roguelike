@@ -579,7 +579,7 @@ public class Player : MonoBehaviour
                     rigid.constraints = RigidbodyConstraints2D.None;
                     rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
                     Damaged(1);
-                    Vibrate(1f, 0.1f);
+                    Vibrate(3f, 0.1f);
                     hcurT = 0f;
                     playerAudio.Play(PlayerAudio.AudioType.HealFocus, false);
                     yield break;
