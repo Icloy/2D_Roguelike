@@ -10,7 +10,7 @@ public class Enemy_Hand_Control : MonoBehaviour
     public Transform PlayerPos;
     public GameObject bullet;
 
-    private float duration = 2f;
+    private float duration = 5f;
     private float elapsedTime = 0f;
 
     void Start()
