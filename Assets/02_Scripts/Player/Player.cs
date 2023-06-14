@@ -608,6 +608,14 @@ public class Player : MonoBehaviour
         anim.SetTrigger("IsDash");
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("DamagedTile"))
+        {
+            Damaged(-1);
+            collision.gameObject.GetComponent<TimeStop>().StopTime(0.05f, 10, 0.1f);
+        }
+    }
 
 
     public void Damaged(int dmg)
