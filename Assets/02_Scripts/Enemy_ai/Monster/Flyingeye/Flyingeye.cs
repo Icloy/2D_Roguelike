@@ -217,7 +217,16 @@ public class Flyingeye : Enemy
         }
 
     }
-    void OnCollisionEnter2D(Collision2D col)
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerPos = null;
+        }
+    }
+
+        void OnCollisionEnter2D(Collision2D col)
     {
             if (col.gameObject.CompareTag("Enemy"))
             {

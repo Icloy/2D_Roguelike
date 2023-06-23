@@ -211,6 +211,7 @@ public class bat : Enemy
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            PlayerPos = null;
             traceflag = false;
             if (Collision_Damage_Delay == true)
             {

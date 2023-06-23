@@ -492,7 +492,7 @@ public class Player : MonoBehaviour
 
     private bool IsWalled()
     {
-        return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
+        return Physics2D.OverlapCircle(wallCheck.position, 0.2f, groundLayer);
     }
 
     private void WallSlide()
