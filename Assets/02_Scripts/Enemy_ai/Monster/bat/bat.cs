@@ -58,6 +58,10 @@ public class bat : Enemy
             {
                 position = PlayerPos.position;
             }
+            else
+            {
+                break;
+            }
             if (rigidBodyToMove != null)
             {
                 if (PlayerPos.position.x < rigid.transform.position.x)
@@ -211,6 +215,7 @@ public class bat : Enemy
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            rigid.velocity = Vector2.zero;
             PlayerPos = null;
             traceflag = false;
             if (Collision_Damage_Delay == true)
