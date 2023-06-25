@@ -229,16 +229,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapSize: {x: 200, y: 25}
+  mobCount: 0
   minimumDevideRate: 0.4
   maximumDevideRate: 0.6
   maximumDepth: 2
   tileMap: {fileID: 1828774500571739345}
   roomTile: {fileID: 11400000, guid: 3b2425d2e8deb214d832044004977db3, type: 2}
   wallTile: {fileID: 11400000, guid: e3a0976de3e02974490fcda0622f8864, type: 2}
+  wallTile1: {fileID: 11400000, guid: 4e3cace591faba940850651b3b0baa68, type: 2}
   outTile: {fileID: 11400000, guid: 3cf5b2a2b9c53fe47be5a9d60f764e28, type: 2}
   enter: {fileID: 2779068265857732530, guid: 53d3e64e17cb5f54f83c3edbb713bfff, type: 3}
   exit: {fileID: 2779068265857732530, guid: 00b1b31ccedee7a4ca500f19c061f9d6, type: 3}
   orderedRooms: []
+  gameUI: {fileID: 0}
+  bspMap: {fileID: 0}
+  grid: {fileID: 0}
 --- !u!114 &7184363728644067334
 MonoBehaviour:
   m_ObjectHideFlags: 0

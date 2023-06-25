@@ -13,6 +13,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] Tilemap tileMap;
     [SerializeField] Tile roomTile; //방을 구성하는 타일
     [SerializeField] Tile wallTile; //방과 외부를 구분지어줄 벽 타일
+    [SerializeField] Tile wallTile1;
     [SerializeField] Tile outTile; //방 외부의 타일
     [SerializeField] GameObject enter;
     [SerializeField] GameObject exit;
@@ -263,7 +264,16 @@ public class MapGenerator : MonoBehaviour
                             if (x == 0 && y == 0) continue;//바깥 타일 기준 8방향을 탐색해서 room tile이 있다면 wall tile로 바꿔준다.
                             if (tileMap.GetTile(new Vector3Int(i - mapSize.x / 2 + x, j - mapSize.y / 2 + y, 0)) == roomTile)
                             {
-                                tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0), wallTile);
+                                int wallcase = Random.Range(1,3);
+                                switch (wallcase)
+                                {
+                                    case 1:
+                                        tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0), wallTile);
+                                        break;
+                                    case 2:
+                                        tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0), wallTile1);
+                                        break;
+                                }
                                 break;
                             }
                         }
