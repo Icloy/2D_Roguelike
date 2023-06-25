@@ -12,11 +12,20 @@ public class SaveData : MonoBehaviour
     string secretKey = "mySecretKey";
     string saveDataURL = "http://localhost/SaveData/senddata.php?";
 
+    GameUI ui;
+
+    private void Awake()
+    {
+        ui = GameObject.Find("Canvas").GetComponent<GameUI>();
+    }
+
     public void SendScoreBtn()
     {
         System.DateTime now = System.DateTime.Now;
         string dateString = now.ToString("yyyy-MM-dd HH:mm");
         StartCoroutine(PostScores("slot"+Singleton.Instance.slotNum, dateString, GameManager.instance.coin, Player.instance.curHp,Player.instance.maxHp,Player.instance.AtDmg));
+        ui.OptionBtn();
+        ui.PauseGame();
         ToastMsg.Instance.showMessage("저장되었습니다.", 1f);
     }
 

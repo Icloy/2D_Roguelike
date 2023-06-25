@@ -85,7 +85,8 @@ public class GameUI : MonoBehaviour
 
     public void ExitBtn() //optionpanel
     {
-        SceneManager.LoadScene("Menu_Scene");
+        Time.timeScale = 1.0f;
+        LoadingScene.LoadScene("Menu_Scene");
     }
 
     public void OptionBtn() //Option Panel
