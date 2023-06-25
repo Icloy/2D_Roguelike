@@ -12,6 +12,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private int maximumDepth; //트리의 높이, 높을 수록 방을 더 자세히 나누게 됨
     [SerializeField] Tilemap tileMap;
     [SerializeField] Tile roomTile; //방을 구성하는 타일
+    [SerializeField] Tile roomTile1; //방을 구성하는 타일
     [SerializeField] Tile wallTile; //방과 외부를 구분지어줄 벽 타일
     [SerializeField] Tile wallTile1;
     [SerializeField] Tile outTile; //방 외부의 타일
@@ -262,7 +263,7 @@ public class MapGenerator : MonoBehaviour
                         for (int y = -1; y <= 1; y++)
                         {
                             if (x == 0 && y == 0) continue;//바깥 타일 기준 8방향을 탐색해서 room tile이 있다면 wall tile로 바꿔준다.
-                            if (tileMap.GetTile(new Vector3Int(i - mapSize.x / 2 + x, j - mapSize.y / 2 + y, 0)) == roomTile)
+                            if (tileMap.GetTile(new Vector3Int(i - mapSize.x / 2 + x, j - mapSize.y / 2 + y, 0)) == roomTile || tileMap.GetTile(new Vector3Int(i - mapSize.x / 2 + x, j - mapSize.y / 2 + y, 0)) == roomTile1)
                             {
                                 int wallcase = Random.Range(1,3);
                                 switch (wallcase)
@@ -288,7 +289,16 @@ public class MapGenerator : MonoBehaviour
         {
             for (int j = rect.y; j < rect.y + rect.height; j++)
             {
-                tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0), roomTile);
+                int roomcase = Random.Range(1, 3);
+                switch (roomcase)
+                {
+                    case 1:
+                        tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0), roomTile);
+                        break;
+                    case 2:
+                        tileMap.SetTile(new Vector3Int(i - mapSize.x / 2, j - mapSize.y / 2, 0), roomTile1);
+                        break;
+                }
             }
         }
     }
