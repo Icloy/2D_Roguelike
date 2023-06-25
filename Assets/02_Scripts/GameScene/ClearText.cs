@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ClearText : MonoBehaviour
 {
@@ -10,11 +11,23 @@ public class ClearText : MonoBehaviour
     private string currentText = "";
     private float typingSpeed = 0.1f;
 
+    private float sceneTimer = 0f;
+    private float goal = 10f;
+
+
     private void Start()
     {
         fullText = textMeshPro.text;
         textMeshPro.text = "";
         StartCoroutine(ShowText());
+    }
+    private void Update()
+    {
+        sceneTimer += Time.deltaTime;
+        if(sceneTimer > goal) 
+        {
+            LoadingScene.LoadScene("Menu_Scene");
+        }
     }
 
     private IEnumerator ShowText()
